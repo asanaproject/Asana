@@ -61,17 +61,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Objects\Classes\Column.cs" />
-    <Compile Include="Objects\Classes\Country.cs" />
-    <Compile Include="Objects\Classes\Dashboard.cs" />
-    <Compile Include="Objects\DbConnection.cs" />
-    <Compile Include="Objects\Classes\ExtraInfo.cs" />
-    <Compile Include="Objects\Classes\Language.cs" />
-    <Compile Include="Objects\Classes\Project.cs" />
-    <Compile Include="Objects\Classes\Task.cs" />
-    <Compile Include="Objects\Classes\TaskState.cs" />
-    <Compile Include="Objects\Classes\User.cs" />
-    <Compile Include="Objects\Classes\UserRole.cs" />
     <Compile Include="Objects\EmailHelper.cs" />
     <Compile Include="Objects\FileHelper.cs" />
     <Compile Include="Objects\HtmlParser.cs" />
