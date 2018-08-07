@@ -11,6 +11,7 @@ namespace Asana.Objects
     [Table("Languages")]
     public class Language 
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [StringLength(30)]
         public string Name { get; set; }

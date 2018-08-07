@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,14 @@ using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
+    
     [Table("UserRoles")]
     public class UserRole
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public enum Rules { Manager,User,Customer};
+        [Required,StringLength(10)]
+        public string Type { get; set; }
         public ICollection<User> Users { get; set; }
     }
 }

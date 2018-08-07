@@ -11,10 +11,10 @@ namespace Asana.Objects
     [Table("Columns")]
     public class Column
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [StringLength(50)]
+        [StringLength(25)]
         public string Title { get; set; }
-        [StringLength(50)]
         public int ProjectId { get; set; }
         public ICollection<Task> Tasks { get; set; }
 

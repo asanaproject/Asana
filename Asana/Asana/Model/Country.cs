@@ -11,6 +11,7 @@ namespace Asana.Objects
     [Table("Contries")]
     public class Country
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [StringLength(25)]
         public string Name { get; set; }

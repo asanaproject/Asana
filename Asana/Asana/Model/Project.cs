@@ -11,6 +11,7 @@ namespace Asana.Objects
     [Table("Projects")]
     public class Project
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [StringLength(50)]
         public string Name { get; set; }

@@ -11,6 +11,7 @@ namespace Asana.Objects
     public class Dashboard
     {
         public ICollection<Project> Projects { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
     }
 }

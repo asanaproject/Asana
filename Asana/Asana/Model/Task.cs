@@ -12,10 +12,10 @@ namespace Asana.Objects
     public class Task
     {
         public int Id { get; set; }
-        [StringLength(50)]
+        [StringLength(25)]
         public string Title { get; set; }
         public int ProjectId { get; set; }
-        public DateTime DeadTime { get; set; }
+        public DateTime Deadline { get; set; }
         public int ColumnId { get; set; }
         public int ExtraInfoId { get; set; }
     }
