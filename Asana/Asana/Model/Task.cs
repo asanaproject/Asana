@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
+    [Table("Tasks")]
     public class Task
     {
         public int Id { get; set; }
+        [StringLength(50)]
         public string Title { get; set; }
         public int ProjectId { get; set; }
-        public int Deadline_day { get; set; }
-        public int Deadline_month { get; set; }
-        public int Deadline_year { get; set; }
+        public DateTime DeadTime { get; set; }
         public int ColumnId { get; set; }
         public int ExtraInfoId { get; set; }
     }
