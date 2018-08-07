@@ -22,8 +22,7 @@ namespace Asana
         {
             InitializeComponent();
             EmailHelper emailHelper = new EmailHelper();
-            emailHelper.SendRegisterActivationCode("step.ali.babayev@gmail.com");
-            
+            emailHelper.SendRegisterActivationCode("asanatest123@outlook.com");
         }
     }
 }

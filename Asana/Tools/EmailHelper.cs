@@ -11,8 +11,8 @@ namespace Asana.Objects
     {
         SmtpClient client;
 
-        string email = "asanateam.az@gmail.com";
-        string pass = "asana12345";
+        private string email = "asanateam.az@gmail.com";
+        private string password = "asana12345";
 
 
         public EmailHelper()
@@ -20,20 +20,20 @@ namespace Asana.Objects
             client = new SmtpClient("smtp.gmail.com");
             client.Port = 587;
             client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(email, pass);
+            client.Credentials = new NetworkCredential(email, password);
         }
 
-        public void Send(string receiver_email, string subject, string message,string sender_email = "asanateam.az@gmail.com")
+        public void Send(string receiver, string subject, string message, string sender = "asanateam.az@gmail.com")
         {
-            MailMessage mailMessage = new MailMessage(sender_email, receiver_email, subject, message);
+            MailMessage mailMessage = new MailMessage(sender, receiver, subject, message);
             client.Send(mailMessage);
         }
 
 
-        public void SendRegisterActivationCode(string receiver_email, string sender_email = "asanateam.az@gmail.com")
+        public void SendRegisterActivationCode(string receiver, string sender = "asanateam.az@gmail.com")
         {
             string newhtml = HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//verify.html"));
-            MailMessage mailMessage = new MailMessage(sender_email, receiver_email, "Register Activation Code!", newhtml);
+            MailMessage mailMessage = new MailMessage(sender, receiver, "Register Activation Code!", newhtml);
             mailMessage.IsBodyHtml = true;
             client.Send(mailMessage);
         }

@@ -61,10 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Objects\EmailHelper.cs" />
-    <Compile Include="Objects\FileHelper.cs" />
-    <Compile Include="Objects\HtmlParser.cs" />
-    <Compile Include="Objects\Randomizer.cs" />
+    <Compile Include="Tools\EmailHelper.cs" />
+    <Compile Include="Tools\FileHelper.cs" />
+    <Compile Include="Tools\HtmlParser.cs" />
+    <Compile Include="Tools\Randomizer.cs" />
     <Compile Include="Tools\NotifyClass.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Page Include="MainWindow.xaml">
