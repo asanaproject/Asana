@@ -72,7 +72,11 @@
     <Compile Include="Model\TaskState.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserRole.cs" />
+    <Compile Include="Tools\EmailHelper.cs" />
+    <Compile Include="Tools\FileHelper.cs" />
+    <Compile Include="Tools\HtmlParser.cs" />
     <Compile Include="Tools\NotifyClass.cs" />
+    <Compile Include="Tools\Randomizer.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
@@ -122,9 +126,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Objects\" />
-    <Folder Include="Resources\" />
+    <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
