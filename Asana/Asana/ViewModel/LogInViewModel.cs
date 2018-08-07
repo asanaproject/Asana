@@ -8,6 +8,9 @@ namespace Asana.ViewModel
 {
     public class LogInViewModel
     {
-        public static SignIn()
+        public static void SignIn()
+        {
+
+        }
     }
 }
