@@ -17,7 +17,7 @@ namespace Asana.Tools
                 Log.Logger = new LoggerConfiguration()
                     .WriteTo.Slack(@"https://hooks.slack.com/services/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")
                         .CreateLogger();
-                Log.Information("Program Seted Default Settings!");
+                Log.Information("Program Seted Default Settings!!");
                 //Others
             }
             catch (Exception err)
