@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Asana.Tools;
+using Asana.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +17,19 @@ using System.Windows.Shapes;
 
 namespace Asana
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
+            Settings.SetDefaultSettings();
+        }
+
+        private void main_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoginView loginView = new LoginView();
+            main.Content = loginView;
         }
     }
 }
