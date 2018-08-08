@@ -1,5 +1,4 @@
-﻿using Asana.Objects;
-using Asana.Tools;
+﻿using Asana.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +21,6 @@ namespace Asana
         public MainWindow()
         {
             InitializeComponent();
-            EmailHelper emailHelper = new EmailHelper();
-            emailHelper.SendForgotPasswordCode("step.ali.babayev@gmail.com");
         }
     }
 }

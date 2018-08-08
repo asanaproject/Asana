@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Tools
 {
-   public class EmailHelper
+    public class EmailHelper
     {
         SmtpClient client;
 
@@ -24,27 +24,48 @@ namespace Asana.Tools
             client.Credentials = new NetworkCredential(email, password);
         }
 
-        public void Send(string receiver, string subject, string message, string sender = "asanateam.az@gmail.com")
+        public void Send(string subject, string message, string receiver = "asanateam.az@gmail.com", string sender = "asanateam.az@gmail.com")
         {
-            MailMessage mailMessage = new MailMessage(sender, receiver, subject, message);
-            client.Send(mailMessage);
+            try
+            {
+                MailMessage mailMessage = new MailMessage(sender, receiver, subject, message);
+                client.Send(mailMessage);
+            }
+            catch (Exception err)
+            {
+
+            }
         }
 
 
         public void SendRegisterActivationCode(string receiver, string sender = "asanateam.az@gmail.com")
         {
-            string newhtml = HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//verify.html"));
-            MailMessage mailMessage = new MailMessage(sender, receiver, "Register Activation Code!", newhtml);
-            mailMessage.IsBodyHtml = true;
-            client.Send(mailMessage);
+            try
+            {
+                string newhtml = HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//verify.html"));
+                MailMessage mailMessage = new MailMessage(sender, receiver, "Register Activation Code!", newhtml);
+                mailMessage.IsBodyHtml = true;
+                client.Send(mailMessage);
+            }
+            catch (Exception err)
+            {
+
+            }
         }
 
         public void SendForgotPasswordCode(string receiver, string sender = "asanateam.az@gmail.com")
         {
-            string newhtml = HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//forgotpassword.html"));
-            MailMessage mailMessage = new MailMessage(sender, receiver, "Forgot Password", newhtml);
-            mailMessage.IsBodyHtml = true;
-            client.Send(mailMessage);
+            try
+            {
+                string newhtml = HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//forgotpassword.html"));
+                MailMessage mailMessage = new MailMessage(sender, receiver, "Forgot Password", newhtml);
+                mailMessage.IsBodyHtml = true;
+                client.Send(mailMessage);
+            }
+            catch (Exception err)
+            {
+
+            }
         }
 
     }
