@@ -1,4 +1,4 @@
-﻿using Asana.Objects;
+﻿using Asana.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +18,11 @@ namespace Asana
 {
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
-            using (var context = new AsanaDbContext())
-            {
-                context.ExtraInfos.Add(new ExtraInfo() { Id = 1, Email = "a@g", Password = "1234", Username = "localhost" });
-                context.SaveChanges();  
-            }
+            Settings.SetDefaultSettings();
         }
     }
 }

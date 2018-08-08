@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,15 @@ namespace Asana.Tools
 
         public static void NextRandom()
         {
-            List<string> keys = Guid.NewGuid().ToString().Split('-').ToList();
-            RandomKey = keys[0].ToUpper();
+            try
+            {
+                List<string> keys = Guid.NewGuid().ToString().Split('-').ToList();
+                RandomKey = keys[0].ToUpper();
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+            }
         }
     }
 }
