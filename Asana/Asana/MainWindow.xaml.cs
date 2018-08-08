@@ -23,7 +23,6 @@ namespace Asana
         {
             InitializeComponent();
             Settings.SetDefaultSettings();
-            EmailHelper emailHelper = new EmailHelper();
         }
     }
 }

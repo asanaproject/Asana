@@ -109,11 +109,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\AsanaDbContext.cs" />
+    <Compile Include="Model\Column.cs" />
+    <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\Dashboard.cs" />
+    <Compile Include="Model\ExtraInfo.cs" />
+    <Compile Include="Model\Language.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Task.cs" />
+    <Compile Include="Model\TaskState.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserRole.cs" />
     <Compile Include="Tools\EmailHelper.cs" />
     <Compile Include="Tools\FileHelper.cs" />
     <Compile Include="Tools\HtmlParser.cs" />
     <Compile Include="Tools\NotifyClass.cs" />
     <Compile Include="Tools\Randomizer.cs" />
+    <Compile Include="Tools\RegexChecker.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\Settings.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
@@ -164,9 +176,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\forgotpassword.html" />
     <Content Include="Resources\verify.html" />
