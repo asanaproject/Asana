@@ -38,5 +38,14 @@ namespace Asana.Tools
             mailMessage.IsBodyHtml = true;
             client.Send(mailMessage);
         }
+
+        public void SendForgotPasswordCode(string receiver, string sender = "asanateam.az@gmail.com")
+        {
+            string newhtml = HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//forgotpassword.html"));
+            MailMessage mailMessage = new MailMessage(sender, receiver, "Forgot Password", newhtml);
+            mailMessage.IsBodyHtml = true;
+            client.Send(mailMessage);
+        }
+
     }
 }

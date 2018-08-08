@@ -61,17 +61,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Column.cs" />
-    <Compile Include="Model\Country.cs" />
-    <Compile Include="Model\Dashboard.cs" />
-    <Compile Include="Model\AsanaDbContext.cs" />
-    <Compile Include="Model\ExtraInfo.cs" />
-    <Compile Include="Model\Language.cs" />
-    <Compile Include="Model\Project.cs" />
-    <Compile Include="Model\Task.cs" />
-    <Compile Include="Model\TaskState.cs" />
-    <Compile Include="Model\User.cs" />
-    <Compile Include="Model\UserRole.cs" />
     <Compile Include="Tools\EmailHelper.cs" />
     <Compile Include="Tools\FileHelper.cs" />
     <Compile Include="Tools\HtmlParser.cs" />
@@ -126,8 +115,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\forgotpassword.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
