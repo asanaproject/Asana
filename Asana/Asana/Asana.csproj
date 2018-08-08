@@ -122,6 +122,7 @@
     <Compile Include="Model\UserRole.cs" />
     <Compile Include="Tools\EmailHelper.cs" />
     <Compile Include="Tools\FileHelper.cs" />
+    <Compile Include="Tools\Hasher.cs" />
     <Compile Include="Tools\HtmlParser.cs" />
     <Compile Include="Tools\NotifyClass.cs" />
     <Compile Include="Tools\Randomizer.cs" />
