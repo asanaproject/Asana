@@ -27,7 +27,7 @@ namespace Asana.View
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
-            ForgotPasTxt.Foreground =new SolidColorBrush(Colors.Red) ;
+            ForgotPasTxt.Foreground = new SolidColorBrush(Colors.Red);
         }
 
         private void ForgotPasTxt_MouseLeave(object sender, MouseEventArgs e)
@@ -37,23 +37,23 @@ namespace Asana.View
 
         private void LoginTxtBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LoginTxtBox.Clear();
+            LoginTxtBox.Text = String.Empty;
         }
 
         private void LoginTxtBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(LoginTxtBox.Text))
-            LoginTxtBox.Text = "   Email";
+            if (string.IsNullOrWhiteSpace(LoginTxtBox.Text))
+                LoginTxtBox.Text = "Email";
         }
 
-        private void CreateTxtBlock_MouseEnter(object sender, MouseEventArgs e)
-        {
-            CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Green);
-        }
+        //private void CreateTxtBlock_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Green);
+        //}
 
-        private void CreateTxtBlock_MouseLeave(object sender, MouseEventArgs e)
-        {
-            CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Black);
-        }
+        //private void CreateTxtBlock_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Black);
+        //}
     }
 }

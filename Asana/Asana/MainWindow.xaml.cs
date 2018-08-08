@@ -1,4 +1,5 @@
 ﻿using Asana.Tools;
+using Asana.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,12 @@ namespace Asana
         {
             InitializeComponent();
             Settings.SetDefaultSettings();
+        }
+
+        private void main_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoginView loginView = new LoginView();
+            main.Content = loginView;
         }
     }
 }

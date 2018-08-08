@@ -30,6 +30,6 @@ namespace Asana.Objects
         public int CountryId { get; set; }
         public int LanguageId{ get; set; }
         public int CompanySize { get; set; }
-        public ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

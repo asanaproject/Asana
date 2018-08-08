@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Asana"
         mc:Ignorable="d"
-        Title="MainWindow" Name="main" Height="500" Width="850" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="" Name="main" Height="500" Width="850" Loaded="main_Loaded" WindowStartupLocation="CenterScreen">
 
 
 

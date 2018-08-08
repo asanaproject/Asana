@@ -12,6 +12,20 @@
             <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
             <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
         </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Foreground"  Value="WhiteSmoke"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="Green"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontStyle" Value="Italic"/>
+                        <Setter Property="FontSize" Value="12"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="15"/>
+            </Style>
         </ResourceDictionary>
         
     </Application.Resources>

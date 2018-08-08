@@ -13,12 +13,19 @@ namespace Asana.Objects
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [StringLength(50)]
         public string Name { get; set; }
+
         [StringLength(50)]
         public string ProjectEmail { get; set; }
+
+        [ForeignKey("Dashboard")]
         public int DashboardId { get; set; }
+        public virtual Dashboard Dashboard { get; set; }
+
         public ICollection<Column> Columns { get; set; }
+
         public int UserId { get; set; }
     }
 }
