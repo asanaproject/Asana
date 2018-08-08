@@ -10,18 +10,50 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Asana.View
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class LoginView : UserControl
     {
-        public Window1()
+        public LoginView()
         {
             InitializeComponent();
+        }
+
+        private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ForgotPasTxt.Foreground =new SolidColorBrush(Colors.Red) ;
+        }
+
+        private void ForgotPasTxt_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ForgotPasTxt.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        private void LoginTxtBox_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LoginTxtBox.Clear();
+        }
+
+        private void LoginTxtBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(LoginTxtBox.Text))
+            LoginTxtBox.Text = "   Email";
+        }
+
+        private void CreateTxtBlock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Green);
+        }
+
+        private void CreateTxtBlock_MouseLeave(object sender, MouseEventArgs e)
+        {
+            CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Black);
         }
     }
 }
