@@ -18,9 +18,12 @@ namespace Asana
 {
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
+            Settings.SetDefaultSettings();
+            EmailHelper emailHelper = new EmailHelper();
         }
     }
 }

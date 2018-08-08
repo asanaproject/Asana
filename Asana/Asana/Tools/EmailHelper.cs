@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,6 +16,7 @@ namespace Asana.Tools
         private string email = "asanateam.az@gmail.com";
         private string password = "asana12345";
 
+      
 
         public EmailHelper()
         {
@@ -33,7 +35,7 @@ namespace Asana.Tools
             }
             catch (Exception err)
             {
-
+                Log.Error(err.Message);
             }
         }
 
@@ -49,7 +51,7 @@ namespace Asana.Tools
             }
             catch (Exception err)
             {
-
+                Log.Error(err.Message);
             }
         }
 
@@ -64,7 +66,7 @@ namespace Asana.Tools
             }
             catch (Exception err)
             {
-
+                Log.Error(err.Message);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,9 +13,17 @@ namespace Asana.Tools
     {
         public static string FindFile(string path)
         {
-            string pathfile = Assembly.GetExecutingAssembly().Location + "\\..\\..\\.." + path;
-            StreamReader reader = new StreamReader(pathfile);
-            return reader.ReadToEnd();
+            try
+            {
+                string pathfile = Assembly.GetExecutingAssembly().Location + "\\..\\..\\.." + path;
+                StreamReader reader = new StreamReader(pathfile);
+                return reader.ReadToEnd();
+            }
+            catch(Exception err)
+            {
+                Log.Error(err.Message);
+                return "";
+            }
         }
     }
 }
