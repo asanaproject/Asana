@@ -29,9 +29,7 @@
         </ControlTemplate>
     </UserControl.Resources>-->
 
-    <UserControl.Resources>
-        <ResourceDictionary Source="../Resources/DataTemplates.xaml"/>
-    </UserControl.Resources>
+
     
     <Grid  Background="#FFFBFBFB">
         <Grid.ColumnDefinitions>
