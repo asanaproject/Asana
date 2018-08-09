@@ -29,7 +29,10 @@
         </ControlTemplate>
     </UserControl.Resources>-->
 
-
+    <UserControl.Resources>
+        <ResourceDictionary Source="../Resources/DataTemplates.xaml"/>
+    </UserControl.Resources>
+    
     <Grid  Background="#FFFBFBFB">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -37,7 +40,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Image column -->
-        <Image Grid.Column="0" gif:ImageBehavior.AnimatedSource="C:\Users\mura_hq22\Source\Repos\Asana\Asana\Asana\bin\Debug\Newgif.gif" Height="300" Width="300"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  />
+        <!--<Image Grid.Column="0" gif:ImageBehavior.AnimatedSource="C:\Users\mura_hq22\Source\Repos\Asana\Asana\Asana\bin\Debug\Newgif.gif" Height="300" Width="300"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  />-->
 
         <!-- Log in column  -->
         <Grid Grid.Column="1">

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Asana.Navigation;
+using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Asana.ViewModel
 {
-    public class LogInViewModel
+    public class LogInViewModel:ViewModelBase
     {
-        public static void SignIn()
+         private readonly NavigationService navigation;
+        public LogInViewModel(NavigationService navigation)
         {
-
+            this.navigation = navigation;
         }
     }
 }
