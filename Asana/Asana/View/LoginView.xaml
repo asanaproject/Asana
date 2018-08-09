@@ -7,27 +7,7 @@
              xmlns:local="clr-namespace:Asana.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White" >
-    <!--<UserControl.Resources>
-        <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBoxBase}">
-            <Border Background="{TemplateBinding Background}" 
-                x:Name="Bd" BorderBrush="Black"
-                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                <ScrollViewer x:Name="PART_ContentHost"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
-                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                </Trigger>
-                <Trigger Property="Width" Value="Auto">
-                    <Setter Property="MinWidth" Value="100"/>
-                </Trigger>
-                <Trigger Property="Height" Value="Auto">
-                    <Setter Property="MinHeight" Value="20"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-    </UserControl.Resources>-->
+   
 
     <UserControl.Resources>
         <ResourceDictionary Source="../Resources/DataTemplates.xaml"/>
@@ -38,11 +18,11 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
+        <Image Grid.Column="0" Grid.Row="1" gif:ImageBehavior.AnimatedSource="../Resources\Images\newgif.gif" 
+               HorizontalAlignment="Center" Height="209"  VerticalAlignment="Center" Width="202"/>
 
-        <!-- Image column -->
-        <!--<Image Grid.Column="0" gif:ImageBehavior.AnimatedSource="C:\Users\mura_hq22\Source\Repos\Asana\Asana\Asana\bin\Debug\Newgif.gif" Height="300" Width="300"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  />-->
 
-        <!-- Log in column  -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
 
@@ -54,19 +34,24 @@
 
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="Member Login" FontSize="40" FontWeight="Bold"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="63"  Width="284"/>
-            <TextBox  TextAlignment="Center"  Background="#FFEAEAEA" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                 Name="LoginTxtBox"  Height="35"
+
+            <Label Grid.Row="0" Content="Member Login" FontSize="40" FontWeight="Bold" 
+                   VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="63"  Width="284"/>
+           
+            <TextBox  TextAlignment="Center"  Background="#FFEAEAEA" HorizontalAlignment="Center"
+                      VerticalAlignment="Bottom" Name="LoginTxtBox"  Height="35"
                  TextWrapping="Wrap" PreviewMouseDown="LoginTxtBox_MouseDown" 
                  LostFocus="LoginTxtBox_LostFocus" Text="Email" Foreground="LightSlateGray" Width="250"  Grid.Row="1" >
-                <TextBox.Effect>
-                    <BlurEffect RenderingBias="Quality" Radius="{DynamicResource {x:Static SystemParameters.CaretWidthKey}}"/>
-                </TextBox.Effect>
+              
+           
             </TextBox>
+           
             <TextBox Grid.Row="2"  Background="#FFE6E6E6"
-                 Text="Password" TextAlignment="Center" Name="PasBox" HorizontalAlignment="Center" Height="34" 
-                 Foreground="LightSlateGray"
-                     VerticalAlignment="Center" Width="250" IsHitTestVisible="True" Opacity="{DynamicResource {x:Static SystemParameters.IconWidthKey}}" />
+                        Text="Password" TextAlignment="Center" Name="PasBox" HorizontalAlignment="Center" 
+                          Height="34"  Foreground="LightSlateGray" VerticalAlignment="Center" 
+                             Width="250" IsHitTestVisible="True" />
+           
+            
             <Button Grid.Row="3" Name="LoginBtn" VerticalAlignment="Top" Content="Log In" Background="LimeGreen" Height="35" BorderThickness="0" Width="250" />
 
 
@@ -76,11 +61,23 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+            
                 <Label Grid.Column="0" Content="Forgot"  FontStyle="Italic" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+              
+                
                 <TextBlock Grid.Column="1"  TextWrapping="Wrap" Text="Username/Passsword" 
-                   Foreground="Black" MouseLeave="ForgotPasTxt_MouseLeave" MouseEnter="TextBlock_MouseEnter" Name="ForgotPasTxt"   HorizontalAlignment="Left" VerticalAlignment="Top" FontStyle="Italic" TextDecorations="Underline" Height="30" Padding="5"  Width="200"/>
-
+                   Foreground="Black" MouseLeave="ForgotPasTxt_MouseLeave" MouseEnter="TextBlock_MouseEnter"
+                       Name="ForgotPasTxt"   HorizontalAlignment="Left" VerticalAlignment="Top"
+                          FontStyle="Italic" TextDecorations="Underline" Height="30" Padding="5"  Width="200"/>
+             
+                
+                <TextBlock Grid.Column="4" Name="CreateTxtBlock" HorizontalAlignment="Left"  TextWrapping="Wrap"
+                             MouseEnter="CreateTxtBlock_MouseEnter" MouseLeave="CreateTxtBlock_MouseLeave"
+                              Text="Create New Account ➡" VerticalAlignment="Bottom" Width="129"
+                                FontStyle="Italic" TextDecorations="Underline" Foreground="#FF182318"/>
+           
             </Grid>
+       
         </Grid>
 
 

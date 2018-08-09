@@ -212,6 +212,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\forgotpassword.html" />
+    <Resource Include="Resources\Images\newgif.gif" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

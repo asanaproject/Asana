@@ -46,14 +46,14 @@ namespace Asana.View
                 LoginTxtBox.Text = "Email";
         }
 
-        //private void CreateTxtBlock_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Green);
-        //}
+        private void CreateTxtBlock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Green);
+        }
 
-        //private void CreateTxtBlock_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Black);
-        //}
+        private void CreateTxtBlock_MouseLeave(object sender, MouseEventArgs e)
+        {
+            CreateTxtBlock.Foreground = new SolidColorBrush(Colors.Black);
+        }
     }
 }
