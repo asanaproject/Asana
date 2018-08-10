@@ -15,8 +15,7 @@ namespace Asana.Tools
         {
             try
             {
-                List<string> keys = Guid.NewGuid().ToString().Split('-').ToList();
-                RandomKey = keys[0].ToUpper();
+                RandomKey = Guid.NewGuid().ToString().Split('-').ToList()[0].ToUpper();
             }
             catch (Exception err)
             {

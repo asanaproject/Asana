@@ -30,8 +30,7 @@ namespace Asana.Tools
         {
             try
             {
-                MailMessage mailMessage = new MailMessage(sender, receiver, subject, message);
-                client.Send(mailMessage);
+                client.Send(new MailMessage(sender, receiver, subject, message));
             }
             catch (Exception err)
             {
@@ -44,8 +43,7 @@ namespace Asana.Tools
         {
             try
             {
-                string newhtml = HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//verify.html"));
-                MailMessage mailMessage = new MailMessage(sender, receiver, "Register Activation Code!", newhtml);
+                MailMessage mailMessage = new MailMessage(sender, receiver, "Register Activation Code!", HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//verify.html")));
                 mailMessage.IsBodyHtml = true;
                 client.Send(mailMessage);
             }
@@ -59,8 +57,7 @@ namespace Asana.Tools
         {
             try
             {
-                string newhtml = HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//forgotpassword.html"));
-                MailMessage mailMessage = new MailMessage(sender, receiver, "Forgot Password", newhtml);
+                MailMessage mailMessage = new MailMessage(sender, receiver, "Forgot Password", HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//forgotpassword.html")));
                 mailMessage.IsBodyHtml = true;
                 client.Send(mailMessage);
             }
