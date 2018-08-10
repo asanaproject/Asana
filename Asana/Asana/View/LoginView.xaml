@@ -6,186 +6,79 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:local="clr-namespace:Asana.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White" >
-   
+             d:DesignHeight="450" d:DesignWidth="800"  >
+    <UserControl.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#c850c0" Offset="0"></GradientStop>
+            <GradientStop Color="#4158d0" Offset="0.9"></GradientStop>
+            <LinearGradientBrush.Transform>
+                <RotateTransform CenterX="60" CenterY="30" Angle="-135" />
 
-    <UserControl.Resources>
-        <ResourceDictionary Source="../Resources/DataTemplates.xaml"/>
-    </UserControl.Resources>
-    
-    <Grid  Background="#FFFBFBFB">
+            </LinearGradientBrush.Transform>
+        </LinearGradientBrush>
+    </UserControl.Background>
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition  Width="0.1*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.1*"/>
         </Grid.ColumnDefinitions>
-        
-        <Image Grid.Column="0" Grid.Row="1" gif:ImageBehavior.AnimatedSource="../Resources\Images\newgif.gif" 
-               HorizontalAlignment="Center" Height="209"  VerticalAlignment="Center" Width="202"/>
-
-
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-
-                <RowDefinition Height="73*"/>
-                <RowDefinition Height="46*"/>
-                <RowDefinition Height="63*"/>
-                <RowDefinition Height="45*"/>
-                <RowDefinition Height="223*"/>
-
-            </Grid.RowDefinitions>
-
-
-            <Label Grid.Row="0" Content="Member Login" FontSize="40" FontWeight="Bold" 
-                   VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="63"  Width="284"/>
-           
-            <TextBox  TextAlignment="Center"  Background="#FFEAEAEA" HorizontalAlignment="Center"
-                      VerticalAlignment="Bottom" Name="LoginTxtBox"  Height="35"
-                 TextWrapping="Wrap" PreviewMouseDown="LoginTxtBox_MouseDown" 
-                 LostFocus="LoginTxtBox_LostFocus" Text="Email" Foreground="LightSlateGray" Width="250"  Grid.Row="1" >
-              
-           
-            </TextBox>
-           
-            <TextBox Grid.Row="2"  Background="#FFE6E6E6"
-                        Text="Password" TextAlignment="Center" Name="PasBox" HorizontalAlignment="Center" 
-                          Height="34"  Foreground="LightSlateGray" VerticalAlignment="Center" 
-                             Width="250" IsHitTestVisible="True" />
-           
-            
-            <Button Grid.Row="3" Name="LoginBtn" VerticalAlignment="Top" Content="Log In" Background="LimeGreen" Height="35" BorderThickness="0" Width="250" />
-
-
-            <Grid Grid.Row="4" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition/>
+            <RowDefinition  Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch"  Background="White" BorderBrush="White"  CornerRadius="8">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
-            
-                <Label Grid.Column="0" Content="Forgot"  FontStyle="Italic" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-              
-                
-                <TextBlock Grid.Column="1"  TextWrapping="Wrap" Text="Username/Passsword" 
-                   Foreground="Black" MouseLeave="ForgotPasTxt_MouseLeave" MouseEnter="TextBlock_MouseEnter"
-                       Name="ForgotPasTxt"   HorizontalAlignment="Left" VerticalAlignment="Top"
-                          FontStyle="Italic" TextDecorations="Underline" Height="30" Padding="5"  Width="200"/>
-             
-                
-                <TextBlock Grid.Column="4" Name="CreateTxtBlock" HorizontalAlignment="Left"  TextWrapping="Wrap"
-                             MouseEnter="CreateTxtBlock_MouseEnter" MouseLeave="CreateTxtBlock_MouseLeave"
-                              Text="Create New Account ➡" VerticalAlignment="Bottom" Width="129"
-                                FontStyle="Italic" TextDecorations="Underline" Foreground="#FF182318"/>
-           
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.1*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">Member Login</TextBlock>
+                    <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="2" BorderThickness="6" Background="#E6E6E6" CornerRadius="15">
+                        <Grid HorizontalAlignment="Stretch"  >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.25*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image   Grid.Column="0"  Source="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Envelope_font_awesome.svg/1024px-Envelope_font_awesome.svg.png" Width="15" Height="15"></Image>
+                            <TextBox Grid.Column="1"  BorderBrush="Transparent" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center">Login</TextBox>
+                        </Grid>
+                    </Border>
+                    <Border  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="3" BorderThickness="4" Background="#E6E6E6" CornerRadius="15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.25*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
+                            <TextBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >Password</TextBox>
+                        </Grid>
+                    </Border>
+                    <Border VerticalAlignment="Stretch" BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="4">
+                        <Button BorderBrush="Transparent" Background="Transparent" Foreground="White" FontSize="15" Height="25">
+                            LOGIN
+                        </Button>
+                    </Border>
+                    <TextBlock Grid.Column="1" Grid.Row="5" Height="25" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Stretch">Forgot Username/Password?</TextBlock>
+                </Grid>
             </Grid>
-       
-        </Grid>
-
-
-        <!--<Button Name="LoginBtn" Content="Log In" Background="LimeGreen" Margin="528,290,77,128" BorderThickness="0">
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Foreground" Value="Blue"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="Red"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="FontStyle" Value="Italic"/>
-                                <Setter Property="FontSize" Value="12"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Label Content="Forgot" Margin="541,349,212,70" RenderTransformOrigin="0.489,0.516" FontStyle="Italic" />
-        
-            -->
-        <!--<Image RenderTransformOrigin="0.5,0.5" Source="D:\img.png" HorizontalAlignment="Left" Height="209" Margin="76,113,0,0" VerticalAlignment="Top" Width="202">
-            <Image.RenderTransform>
-                <RotateTransform x:Name="AnimatedRotateTransform" Angle="0" />
-            </Image.RenderTransform>
-            <Image.Triggers>
-                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetName="AnimatedRotateTransform"
-                                 Storyboard.TargetProperty="Angle" 
-                                To="90" Duration="0:0:1" RepeatBehavior="Forever" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Image.Triggers>
-
-        </Image>-->
-        <!--
-         
-            <TextBlock HorizontalAlignment="Left" Margin="593,354,0,0" TextWrapping="Wrap" Text="Username/Passsword" 
-                   Foreground="Black" MouseLeave="ForgotPasTxt_MouseLeave" MouseEnter="TextBlock_MouseEnter" Name="ForgotPasTxt" VerticalAlignment="Top" FontStyle="Italic" TextDecorations="Underline"/>
-            -->
-        <!--
-          
-            <TextBlock Name="CreateTxtBlock" HorizontalAlignment="Left" Margin="557,395,0,0" TextWrapping="Wrap"
-                   MouseEnter="CreateTxtBlock_MouseEnter" MouseLeave="CreateTxtBlock_MouseLeave"
-                   Text="Create New Account ➡" VerticalAlignment="Top" Width="129" FontStyle="Italic" TextDecorations="Underline" Foreground="#FF182318"/>-->
-        <!--<Border BorderBrush="Black"
-            BorderThickness="2"
-            VerticalAlignment="Center"
-            CornerRadius="5" Margin="511,214,77,208">
-
-            <StackPanel Margin="0,0,0,0"
-                    Orientation="Horizontal" Height="29">
-                <Image Source="C:\Users\tmuradov\Source\Repos\Asana\Asana\Asana\bin\Debug\email.png" 
-                   Height="18" Width="52" RenderTransformOrigin="0.5,0.5" />
-                <TextBox HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="139" Margin="3 0 0 0"/>
-
-            </StackPanel>
-        </Border>-->
-        <!--<TextBox x:Name="txtSearch"
-         Text="Search Item..." Margin="513,241,30,173">
-            <TextBox.Background>
-                <ImageBrush ImageSource="C:\Users\tmuradov\Source\Repos\Asana\Asana\Asana\bin\Debug\email.png" Stretch="Uniform" AlignmentX="Right">
-                    <ImageBrush.Transform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform X="-3"/>
-                        </TransformGroup>
-                    </ImageBrush.Transform>
-                </ImageBrush>
-            </TextBox.Background>
-        </TextBox>-->
-
-        <!--<Border Padding="5" BorderThickness="2,2,2,2" BorderBrush="Gray" CornerRadius="2,2,2,2" Margin="501,215,36,191">
-            <DockPanel Grid.Row="1" Grid.Column="1" Margin="3,3,5,5" >
-                <Image DockPanel.Dock="Left" Source="C:\Users\tmuradov\Source\Repos\Asana\Asana\Asana\bin\Debug\email.png" Width="20" Height="20"></Image>
-                <TextBox  Text="test" FontSize="16" HorizontalAlignment="Stretch" Background="Transparent" BorderBrush="Transparent" ></TextBox>
-            </DockPanel>
-        </Border>-->
-
-        <!--<TextBox Text="Test" Margin="474,199,38,212">
-            <TextBox.Template>
-                <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Grid>
-                        <TextBox Text="{TemplateBinding Text}"/>
-                        <Image Margin="0,0,5,0" 
-                           Source="C:\Users\tmuradov\Source\Repos\Asana\Asana\Asana\bin\Debug\email.png" 
-                           Width="12" 
-                           Height="12"
-                           HorizontalAlignment="Right"/>
-                    </Grid>
-                </ControlTemplate>
-            </TextBox.Template>
-        </TextBox>-->
-
-
-
+        </Border>
     </Grid>
 
 </UserControl>

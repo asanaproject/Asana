@@ -24,6 +24,7 @@ namespace Asana.Objects
         [StringLength(50)]
         public string CompanyName { get; set; }
 
+
         [StringLength(20)]
         public string PhoneNumber { get; set; }
 
