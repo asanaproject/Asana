@@ -17,10 +17,7 @@ namespace Asana.ViewModel
             set { Set(ref currentViewModel, value); }
         }
 
-        public AppViewModel()
-        {
-            Messenger.Default.Register<ViewModelBase>(this,
+        public AppViewModel() => Messenger.Default.Register<ViewModelBase>(this,
                 param => CurrentViewModel = param);
-        }
     }
 }

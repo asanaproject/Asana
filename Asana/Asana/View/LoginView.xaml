@@ -75,7 +75,7 @@
                             LOGIN
                         </Button>
                     </Border>
-                    <TextBlock Grid.Column="1" Grid.Row="5" Height="25" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Stretch">Forgot Username/Password?</TextBlock>
+                    <TextBlock  Name="ForgottxtBlock" Grid.Column="1" Grid.Row="5" Height="25" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Stretch">Forgot Username/Password?</TextBlock>
                 </Grid>
             </Grid>
         </Border>

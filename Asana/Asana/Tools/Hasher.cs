@@ -15,7 +15,7 @@ namespace Asana.Tools
         public static string EncryptString(string Message)
         {
             byte[] Results;
-            System.Text.UTF8Encoding UTF8 = new System.Text.UTF8Encoding();
+            UTF8Encoding UTF8 = new UTF8Encoding();
             MD5CryptoServiceProvider HashProvider = new MD5CryptoServiceProvider();
             byte[] TDESKey = HashProvider.ComputeHash(UTF8.GetBytes(Passphrase));
             TripleDESCryptoServiceProvider TDESAlgorithm = new TripleDESCryptoServiceProvider();
@@ -25,8 +25,7 @@ namespace Asana.Tools
             byte[] DataToEncrypt = UTF8.GetBytes(Message);
             try
             {
-                ICryptoTransform Encryptor = TDESAlgorithm.CreateEncryptor();
-                Results = Encryptor.TransformFinalBlock(DataToEncrypt, 0, DataToEncrypt.Length);
+                Results = TDESAlgorithm.CreateEncryptor().TransformFinalBlock(DataToEncrypt, 0, DataToEncrypt.Length);
             }
             finally
             {
@@ -40,7 +39,7 @@ namespace Asana.Tools
         public static string DecryptString(string Message)
         {
             byte[] Results;
-            System.Text.UTF8Encoding UTF8 = new System.Text.UTF8Encoding();
+            UTF8Encoding UTF8 = new UTF8Encoding();
             MD5CryptoServiceProvider HashProvider = new MD5CryptoServiceProvider();
             byte[] TDESKey = HashProvider.ComputeHash(UTF8.GetBytes(Passphrase));
             TripleDESCryptoServiceProvider TDESAlgorithm = new TripleDESCryptoServiceProvider();
@@ -50,8 +49,7 @@ namespace Asana.Tools
             byte[] DataToDecrypt = Convert.FromBase64String(Message);
             try
             {
-                ICryptoTransform Decryptor = TDESAlgorithm.CreateDecryptor();
-                Results = Decryptor.TransformFinalBlock(DataToDecrypt, 0, DataToDecrypt.Length);
+                Results = TDESAlgorithm.CreateDecryptor().TransformFinalBlock(DataToDecrypt, 0, DataToDecrypt.Length);
             }
             finally
             {

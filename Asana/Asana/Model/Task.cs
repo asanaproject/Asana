@@ -12,6 +12,7 @@ namespace Asana.Objects
     public class Task
     {
         public int Id { get; set; }
+
         [StringLength(25)]
         public string Title { get; set; }
         public int ProjectId { get; set; }

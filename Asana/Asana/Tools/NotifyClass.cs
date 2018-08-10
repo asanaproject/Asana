@@ -21,9 +21,7 @@ namespace Asana.Tools
                 remove { _PropertyChanged -= value; }
             }
 
-            protected void OnPropertyChanged([CallerMemberName]string prop = "")
-            {
-                _PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+        protected void OnPropertyChanged([CallerMemberName]string prop = "") => _PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(prop));
+    }
 }

@@ -14,6 +14,7 @@ namespace Asana.Objects
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [Required,StringLength(10)]
         public string Type { get; set; }
         public ICollection<User> Users { get; set; }

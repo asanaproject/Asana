@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Asana.ViewModel
@@ -37,13 +38,9 @@ namespace Asana.ViewModel
 
 
 
-        private ICommand _command;
+        private RelayCommand _command;
 
-        public ICommand Command
-        {
-            get
-            {
-                return _command ?? (_command = new RelayCommand(
+        public RelayCommand Command => _command ?? (_command = new RelayCommand(
                    x =>
                    {
                        using (var db = new AsanaDbContext())
@@ -51,8 +48,8 @@ namespace Asana.ViewModel
                            db.ExtraInfos.Any(user => user.Email == Email && user.Password == Password);
                        }
                    }));
-            }
 
-        }
+
+       
     }
 }
