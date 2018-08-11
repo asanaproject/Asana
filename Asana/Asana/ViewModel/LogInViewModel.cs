@@ -2,6 +2,7 @@
 using Asana.Objects;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace Asana.ViewModel
             set { pass = value; Set(ref pass, value); }
         }
 
-
+      
 
         private RelayCommand _logInBtnCommand;
 
@@ -52,14 +53,10 @@ namespace Asana.ViewModel
         private RelayCommand _forgotPassCommand;
 
         public RelayCommand ForgotPassCommand => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
-            x =>
-            {
+               () => navigation.NavigateTo(ViewType.ForgetPass)   
+            
+            ));
 
-
-
-            }));
-
-
-
+        public ViewModelBase CurrentViewModel { get; }
     }
 }

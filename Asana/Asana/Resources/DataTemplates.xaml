@@ -20,7 +20,7 @@
     <DataTemplate DataType="{x:Type vm:LogInViewModel}">
         <v:LoginView/>
     </DataTemplate>
-    <Style TargetType="{x:Type Button}">
+    <!--<Style TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="WhiteSmoke" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -30,7 +30,7 @@
                 <Setter Property="FontSize" Value="12" />
             </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style>-->
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>
