@@ -50,13 +50,25 @@ namespace Asana.ViewModel
                        }
                    }));
 
+
+        private RelayCommand _txtBoxClearCommand;
+
+        public RelayCommand TxtBoxClearCommand => _txtBoxClearCommand ?? (_txtBoxClearCommand = new RelayCommand(
+            x =>
+            {
+
+
+            }));
+       
+
+
         private RelayCommand _forgotPassCommand;
 
         public RelayCommand ForgotPassCommand => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
-               () => navigation.NavigateTo(ViewType.ForgetPass)   
-            
+               x => navigation.NavigateTo(ViewType.ForgetPass)
+
             ));
 
-        public ViewModelBase CurrentViewModel { get; }
+
     }
 }

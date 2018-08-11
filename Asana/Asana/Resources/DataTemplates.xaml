@@ -20,6 +20,9 @@
     <DataTemplate DataType="{x:Type vm:LogInViewModel}">
         <v:LoginView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ForgetPassViewModel}">
+        <v:ForgetPassView/>
+    </DataTemplate>
     <!--<Style TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="WhiteSmoke" />
         <Style.Triggers>
