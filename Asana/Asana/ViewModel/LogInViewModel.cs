@@ -49,7 +49,17 @@ namespace Asana.ViewModel
                        }
                    }));
 
+        private RelayCommand _forgotPassCommand;
 
-       
+        public RelayCommand ForgotPassCommand => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
+            x =>
+            {
+
+
+
+            }));
+
+
+
     }
 }
