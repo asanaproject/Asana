@@ -14,17 +14,17 @@ namespace Asana.Objects
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50),Required]
         public string Name { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50),Required]
         public string ProjectEmail { get; set; }
 
-        [ForeignKey("Dashboard")]
+        [ForeignKey("Dashboard"),Required]
         public int DashboardId { get; set; }
         public virtual Dashboard Dashboard { get; set; }
 
-        public ICollection<Column> Columns { get; set; }
+        public virtual ICollection<Column> Columns { get; set; }
 
         public int UserId { get; set; }
     }

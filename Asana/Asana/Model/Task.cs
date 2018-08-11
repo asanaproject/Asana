@@ -13,8 +13,9 @@ namespace Asana.Objects
     {
         public int Id { get; set; }
 
-        [StringLength(25)]
+        [StringLength(25),Required]
         public string Title { get; set; }
+        [Required]
         public int ProjectId { get; set; }
         public DateTime Deadline { get; set; }
         public int ColumnId { get; set; }

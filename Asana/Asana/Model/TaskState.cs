@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
-    [Table("TaskStates")]
+    [Table("KanbanStates")]
     public class TaskState
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [StringLength(25)]
+        [StringLength(25),Required]
         public string Name { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50),Required]
         public string Email { get; set; }
+        
+        [Required]
         public int DashboardId { get; set; }
-        public ICollection<Column> Columns { get; set; }
+        public virtual ICollection<Column> Columns { get; set; }
         public int UserId { get; set; }
     }
 }

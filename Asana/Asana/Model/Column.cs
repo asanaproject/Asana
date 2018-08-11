@@ -14,11 +14,11 @@ namespace Asana.Objects
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [StringLength(25)]
+        [StringLength(25),Required]
         public string Title { get; set; }
 
         public int ProjectId { get; set; }
-        public ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
 
     }
 }
