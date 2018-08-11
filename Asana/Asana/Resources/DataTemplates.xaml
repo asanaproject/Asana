@@ -17,16 +17,13 @@
             <!--<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:Asana.ViewModel" />-->
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-    
-    <!-- Data Templates -->
     <DataTemplate DataType="{x:Type vm:LogInViewModel}">
         <v:LoginView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:RegisterEmailViewModel}">
-        <v:RegisterEmailView/>
+    <DataTemplate DataType="{x:Type vm:ForgetPassViewModel}">
+        <v:ForgetPassView/>
     </DataTemplate>
-    
-    <Style TargetType="{x:Type Button}">
+    <!--<Style TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="WhiteSmoke" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -36,7 +33,7 @@
                 <Setter Property="FontSize" Value="12" />
             </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style>-->
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>

@@ -72,20 +72,25 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
-                            <TextBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >Password</TextBox>
+                            <TextBox  Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >Password</TextBox>
                         </Grid>
                     </Border>
 
                     <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="4">
-                        <Button BorderBrush="Transparent" Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="25">
+                        <Button BorderBrush="Transparent"  Background="Transparent" Foreground="White" FontSize="15" Height="25">
                             LOGIN
                         </Button>
                     </Border>
 
 
                     <Label  Name="ForgottxtBlock" Grid.Column="1" Grid.Row="5" Height="28" HorizontalAlignment="Center"
-                            HorizontalContentAlignment="Center" VerticalAlignment="Center" Content="Forgot Username/Password?">
-                        <Label.Style>
+                            HorizontalContentAlignment="Center" VerticalAlignment="Center" Content="Forget password">
+
+                        <Label.InputBindings>
+                            <MouseBinding Command="{Binding ForgotPassCommand}" MouseAction="LeftClick" />
+                        </Label.InputBindings>
+                   
+                    <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Foreground" Value="Black"/>
                                 <Style.Triggers>
@@ -95,6 +100,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Label.Style>
+                        
                     </Label>
 
                     <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
