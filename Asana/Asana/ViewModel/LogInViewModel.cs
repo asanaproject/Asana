@@ -15,7 +15,7 @@ namespace Asana.ViewModel
 {
     public class LogInViewModel:ViewModelBase
     {
-         private readonly NavigationService navigation;
+        private readonly NavigationService navigation;
         public LogInViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
