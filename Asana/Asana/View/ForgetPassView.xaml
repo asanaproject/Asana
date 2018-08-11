@@ -91,7 +91,11 @@
                            Reset Password
                         </Button>
                     </Border>
-
+                    <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="6">
+                        <Button BorderBrush="Transparent" Command="{Binding CancelCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="25">
+                            Cancel
+                        </Button>
+                    </Border>
                 </Grid>
             </Grid>
         </Border>
