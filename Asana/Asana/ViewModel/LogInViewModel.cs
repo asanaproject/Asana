@@ -38,9 +38,9 @@ namespace Asana.ViewModel
 
 
 
-        private RelayCommand _logInBtn;
+        private RelayCommand _logInBtnCommand;
 
-        public RelayCommand LogInBtn => _logInBtn ?? (_logInBtn = new RelayCommand(
+        public RelayCommand LogInBtnCommand => _logInBtnCommand ?? (_logInBtnCommand = new RelayCommand(
                    x =>
                    {
                        using (var db = new AsanaDbContext())
