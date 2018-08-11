@@ -17,6 +17,7 @@
             </LinearGradientBrush.Transform>
         </LinearGradientBrush>
     </UserControl.Background>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="0.1*"/>
@@ -28,7 +29,9 @@
             <RowDefinition/>
             <RowDefinition  Height="0.1*"/>
         </Grid.RowDefinitions>
+        
         <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch"  Background="White" BorderBrush="White"  CornerRadius="8">
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -49,7 +52,7 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <TextBlock FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">Member Login</TextBlock>
                     <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="2" BorderThickness="6" Background="#E6E6E6" CornerRadius="15">
                         <Grid HorizontalAlignment="Stretch"  >
@@ -61,7 +64,7 @@
                             <TextBox Grid.Column="1"  BorderBrush="Transparent" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center">Login</TextBox>
                         </Grid>
                     </Border>
-                    
+
                     <Border  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="3" BorderThickness="4" Background="#E6E6E6" CornerRadius="15">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -72,20 +75,43 @@
                             <TextBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >Password</TextBox>
                         </Grid>
                     </Border>
-                    
-                    <Border VerticalAlignment="Stretch" BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="4">
-                        <Button BorderBrush="Transparent" Background="Transparent" Foreground="White" FontSize="15" Height="25">
+
+                    <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="4">
+                        <Button BorderBrush="Transparent" Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="25">
                             LOGIN
                         </Button>
                     </Border>
 
+
+                    <Label  Name="ForgottxtBlock" Grid.Column="1" Grid.Row="5" Height="25" HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center" VerticalAlignment="Stretch" Content="Forgot Username/Password?">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+
+                    </Label>
                     
-                   
-                    <TextBlock Grid.Column="1" Grid.Row="5" Height="25" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Stretch">Forgot Username/Password?</TextBlock>
-                
-
-                    <TextBlock  Name="ForgottxtBlock" Grid.Column="1" Grid.Row="5" Height="25" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Stretch">Forgot Username/Password?</TextBlock>
-
+                    <Label 
+                        Name="CreatetxtBlock" Grid.Column="1" Grid.Row="6" Height="25" 
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  VerticalAlignment="Stretch" Content="Create New Account">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
                 </Grid>
             </Grid>
         </Border>
