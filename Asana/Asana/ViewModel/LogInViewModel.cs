@@ -69,6 +69,11 @@ namespace Asana.ViewModel
 
             ));
 
+        private RelayCommand _signUpCommand;
+
+        public RelayCommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new RelayCommand(
+            x =>navigation.NavigateTo(ViewType.SignUp) 
+            ));
 
     }
 }

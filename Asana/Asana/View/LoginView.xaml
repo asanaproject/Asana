@@ -109,7 +109,10 @@
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" Foreground="Gray" VerticalAlignment="Top" Content="Don't Have an Account?"/>
 
                     <Label Grid.Row="6" Name="SignUpLabel" Content="Sign Up" HorizontalContentAlignment="Right" VerticalAlignment="Top"  Grid.ColumnSpan="2"  >
-                        <Label.Style>
+                            <Label.InputBindings>
+                                <MouseBinding Command="{Binding SignUpCommand}" MouseAction="LeftClick" />
+                            </Label.InputBindings>
+                            <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Foreground" Value="Black"/>
                                 <Style.Triggers>

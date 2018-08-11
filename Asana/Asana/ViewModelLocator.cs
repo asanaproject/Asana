@@ -14,6 +14,8 @@ namespace Asana.ViewModel
         public AppViewModel appViewModel;
         public LogInViewModel logInViewModel;
         public ForgetPassViewModel forGetPassViewModel;
+        public SignUpViewModel signUpViewModel;
+
         private NavigationService navigationService;
 
         public ViewModelLocator()
@@ -23,8 +25,10 @@ namespace Asana.ViewModel
             appViewModel = new AppViewModel();
             logInViewModel = new LogInViewModel(navigationService);
             forGetPassViewModel = new ForgetPassViewModel(navigationService);
+            signUpViewModel = new SignUpViewModel(navigationService);
 
             navigationService.AddPage(forGetPassViewModel, ViewType.ForgetPass);
+            navigationService.AddPage(signUpViewModel, ViewType.SignUp);
             navigationService.AddPage(logInViewModel,ViewType.LogIn);
             navigationService.NavigateTo(ViewType.LogIn);
         }
