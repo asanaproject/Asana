@@ -245,6 +245,7 @@
     <Resource Include="favicon.ico" />
     <Content Include="Resources\forgotpassword.html" />
     <Resource Include="Resources\Images\newgif.gif" />
+    <Resource Include="Resources\Images\CancelIcon.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

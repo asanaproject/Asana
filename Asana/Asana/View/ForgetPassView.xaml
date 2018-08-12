@@ -17,6 +17,10 @@
         </LinearGradientBrush>
     </UserControl.Background>
 
+    <UserControl.Resources>
+        <Image x:Key="MyImage" Source="../Resources/Images/CancelIcon.png"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="0.1*"/>
@@ -87,15 +91,15 @@
                             <TextBox Grid.Column="1" Name="OldPassTxtbox" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBox>
                             <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="Old Password" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
                                 <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
                                             <DataTrigger Binding="{Binding Text, ElementName=OldPassTxtbox}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
                             </TextBlock>
                         </Grid>
                     </Border>
@@ -107,8 +111,8 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
-                            <TextBox Grid.Column="1" Name="NewPasTxtbox" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBox>
-                            <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="Old Password" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+                            <TextBox Grid.Column="1" IsEnabled="False" Name="NewPasTxtbox" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBox>
+                            <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="New Password" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -126,16 +130,19 @@
 
                     <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="5" Margin="0,10">
                         <Button BorderBrush="Transparent" Command="{}" Background="Transparent" Foreground="White" FontSize="15" Height="25">
-                           Reset Password
+                            Reset Password
                         </Button>
                     </Border>
-                    <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="6" Margin="0,0,0,20">
-                        <Button BorderBrush="Transparent" Command="{Binding CancelCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="25">
-                            Cancel
+                    <!--<Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="6" Height="50" Margin="0,0,0,20">
+                        <Button BorderBrush="Transparent" Command="{Binding CancelCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="40">
+                            <Image Source="../Resources/Images/CancelIcon.png"  Width="50" Height="40"/>
                         </Button>
-                    </Border>
+                    </Border>-->
                 </Grid>
+                <Button BorderBrush="Transparent" Content="{StaticResource MyImage}" Command="{Binding CancelCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
+                </Button>
             </Grid>
+
         </Border>
     </Grid>
 </UserControl>
