@@ -1,41 +1,156 @@
 ﻿<UserControl x:Class="Asana.View.RegisterEmailView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:Asana.View"
-             mc:Ignorable="d" 
-             Background="White"
+             xmlns:asana="clr-namespace:Asana.Tools"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <Style TargetType="TextBox">
-            <Style.Triggers>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="Violet"></Setter>
-                    <Setter Property="BorderThickness" Value="1"></Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="X" HorizontalAlignment="Right" FontSize="50" Margin="0 0 20 0" Foreground="Gray"/> 
-        <Label Grid.Row="1" Content="Sign Up" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Georgia"/>
-        <Label Grid.Row="2" Content="Please use your work email address, so we can connect you with your team in Asana." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray" />
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Width="350" Height="50">
 
-            </TextBox>
-            <Button Grid.Column="1" Width="200" Height="50"/>
+    <!--  Usercontrol Background (Gradient)-->
+    <UserControl.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#c850c0" Offset="0"></GradientStop>
+            <GradientStop Color="#4158d0" Offset="0.9"></GradientStop>
+            <LinearGradientBrush.Transform>
+                <RotateTransform CenterX="60" CenterY="30" Angle="-135" />
+            </LinearGradientBrush.Transform>
+        </LinearGradientBrush>
+    </UserControl.Background>
+
+    <!-- UserControl Resources -->
+    <UserControl.Resources>
+        <ControlTemplate x:Key="validationFailed">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="Red" BorderThickness="2">
+                    <AdornedElementPlaceholder />
+                </Border>
+                <TextBlock Foreground="Red" FontSize="26" FontWeight="Bold">!</TextBlock>
+            </StackPanel>
+        </ControlTemplate>
+
+
+        <!-- Style For Textboxes-->
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="true">
+                            <Border Background="Red" DockPanel.Dock="right" Margin="5,0,0,0" Width="20" Height="20" CornerRadius="10"
+                      ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" FontWeight="Bold" Foreground="white">
+                                </TextBlock>
+                            </Border>
+                            <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                                <Border BorderBrush="red" BorderThickness="1" />
+                            </AdornedElementPlaceholder>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="7,7,7,7" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+
+
+            </Setter>
+        </Style>
+
+        <!-- Style for Buttons -->
+        <Style TargetType="Button" >
+            <Setter Property="Background" Value="DarkViolet" />
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="7,7,7,7" Background="DarkViolet"    BorderBrush="DarkViolet" BorderThickness="1,1,1,1" >
+                            <ContentPresenter x:Name="contentPresenter"   ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding  Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding  VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+
+    <Border HorizontalAlignment="Center" VerticalAlignment="Center"  Background="White" BorderBrush="White"  CornerRadius="8" Height="300" >
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+
+            <!-- The first row for Sign Up Header -->
+            <Label Grid.Row="0" Content="Sign Up" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Georgia" Height="78" Margin="267,4,267,7" Width="221"/>
+
+            <!--  The second row for decription -->
+            <Label Grid.Row="1" Content="Please use your work email address, so we can connect you with your team in Asana." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray" />
+
+            <!--  The third row for textbox and button (Email and Sign Up Button)-->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- The first column for textbox of email-->
+                <TextBox  Name="EmailTxtBox"  Grid.Column="0" Width="350"
+                 BorderThickness="1" Height="50" TextWrapping="Wrap"
+                 Padding="5" TextAlignment="Center" FontSize="25"
+                 Text="{ Binding User.Email, UpdateSourceTrigger=LostFocus,
+                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}">
+                </TextBox>
+                <!--  Watermark effect for email textbox-->
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" IsHitTestVisible="False" Text="example@gmail.com"  Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=EmailTxtBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <!--  The second column for sign up button -->
+                <Button Grid.Column="1" Visibility="{Binding SignUpButton}"  Content="Sign Up" Command="{Binding SendConfirmationCode}"  FontSize="25" Foreground="White" FontWeight="Bold" Background="DarkViolet" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50">
+                    <ToolTipService.ToolTip >
+                        <ToolTip Content="Sign Up"  Placement="Mouse" />
+                    </ToolTipService.ToolTip >
+                </Button>
+            </Grid>
+
+            <!-- The third row confirmation code, it's hidden by default but will be visible when email format is true and sign up button is clicked-->
+            <Grid Grid.Row="3"  Visibility="{Binding ShowGrid, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--  The first column for Textblock of Confirmtion Code-->
+                <TextBlock Grid.Column="0" Text="Confirmation Code: " FontWeight="Bold" FontSize="18" Foreground="DarkGray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <!--  The second column for Textbox for code which is sent to your email -->
+                <TextBox Grid.Column="1"  VerticalAlignment="Center" Text="{Binding ConfirmationCode}" HorizontalAlignment="Left" TextAlignment="Center" FontSize="25" Padding="5" Width="160" Height="50"/>
+                <Button Grid.Column="2" Width="120" Height="50" Content="Confirm" Visibility="{Binding ConfirmButton}" Command="{Binding CodeConfirmation}" FontSize="22" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
         </Grid>
-    </Grid>
+
+    </Border>
+
 </UserControl>

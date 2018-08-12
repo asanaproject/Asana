@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Asana.Tools
 {
@@ -18,9 +19,10 @@ namespace Asana.Tools
                 Match match = regex.Match(email);
                 if (match.Success)
                     return true;
+                throw new ArgumentException("Invalid email format");
             }
             catch (Exception err)
-            {
+            {               
                 Log.Error(err.Message);
             }
             return false;

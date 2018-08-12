@@ -13,6 +13,7 @@ namespace Asana.Navigation
     {
         private Dictionary<ViewType, ViewModelBase> pages = new Dictionary<ViewType, ViewModelBase>();
         public ViewModelBase Current { get; set; }
+
         public void NavigateTo(ViewType name)
         {
             try

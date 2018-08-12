@@ -4,7 +4,7 @@
                     xmlns:v="clr-namespace:Asana.View"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    xmlns:local="clr-namespace:Asana.Resources">
+                    xmlns:local="clr-namespace:Asana">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml">
@@ -25,7 +25,7 @@
     <DataTemplate DataType="{x:Type vm:RegisterEmailViewModel}">
         <v:RegisterEmailView/>
     </DataTemplate>
-    
+
     <Style TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="WhiteSmoke" />
         <Style.Triggers>

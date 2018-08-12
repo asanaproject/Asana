@@ -87,7 +87,7 @@
                     </Border>
 
                     <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="5">
-                        <Button BorderBrush="Transparent" Command="{}" Background="Transparent" Foreground="White" FontSize="15" Height="25">
+                        <Button BorderBrush="Transparent" Background="Transparent" Foreground="White" FontSize="15" Height="25">
                            Reset Password
                         </Button>
                     </Border>
