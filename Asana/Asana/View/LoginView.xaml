@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:local="clr-namespace:Asana.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"  >
     <UserControl.Background>
@@ -98,26 +99,30 @@
                     </Label>
 
                     <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                    <Label 
+                        <Label 
                         Name="CreateLabel"  Height="25" Width="150" 
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" Foreground="Gray" VerticalAlignment="Top" Content="Don't Have an Account?"/>
 
-                    <Label Grid.Row="6" Name="SignUpLabel" Content="Sign Up" HorizontalContentAlignment="Right" VerticalAlignment="Top"  Grid.ColumnSpan="2"  >
-                        <Label.Style>
-                            <Style TargetType="Label">
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Foreground" Value="LawnGreen"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-
-                    </Label>
+                        <Label Grid.Row="6"  Name="SignUpLabel" Content="Sign Up" HorizontalContentAlignment="Right" VerticalAlignment="Top"  Grid.ColumnSpan="2"  >
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="LawnGreen"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDown" >
+                                    <i:InvokeCommandAction Command="{Binding GoToLogInView}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Label>
                     </StackPanel>
                 </Grid>
-              
+
             </Grid>
         </Border>
     </Grid>

@@ -27,7 +27,7 @@ namespace Asana.ViewModel
 
             navigationService.AddPage(registerEmailViewModel, ViewType.RegisterEmail);
             navigationService.AddPage(logInViewModel,ViewType.LogIn);
-            navigationService.NavigateTo(ViewType.RegisterEmail);
+            navigationService.NavigateTo(ViewType.LogIn);
         }
     }
 }

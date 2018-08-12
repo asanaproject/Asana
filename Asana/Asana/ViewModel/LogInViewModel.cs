@@ -51,14 +51,21 @@ namespace Asana.ViewModel
                    }));
 
         private RelayCommand _forgotPassCommand;
-
         public RelayCommand ForgotPassCommand
         {
             get => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
                 (x => navigation.NavigateTo(ViewType.ForgetPass)
                 )));
         }
-           
+
+
+        private RelayCommand goToLogInView;
+        public RelayCommand GoToLogInView
+        {
+            get => goToLogInView ?? (goToLogInView = new RelayCommand(
+                (x => navigation.NavigateTo(ViewType.RegisterEmail)
+                )));
+        }
 
         public ViewModelBase CurrentViewModel { get; }
     }
