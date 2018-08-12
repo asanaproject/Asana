@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Asana.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace Asana.View
         public ForgetPassView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            EmailHelper emailHelper = new EmailHelper();
+            emailHelper.SendForgotPasswordCode(EmailTxtbox.Text);
         }
     }
 }

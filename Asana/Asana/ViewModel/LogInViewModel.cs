@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace Asana.ViewModel
 
         private string email;
 
+       
         public string Email
         {
             get { return email; }
@@ -32,12 +34,23 @@ namespace Asana.ViewModel
 
         private string pass;
 
+        
         public string Password
         {
             get { return pass; }
             set { pass = value; Set(ref pass, value); }
         }
 
+
+
+        //private RelayCommand _checkPassCommand;
+
+        //public RelayCommand CheckPassCommand => _checkPassCommand ?? (_checkPassCommand = new RelayCommand(
+        //    x =>
+        //    {
+               
+        //    }
+        //    ));
       
 
         private RelayCommand _logInBtnCommand;
@@ -56,16 +69,6 @@ namespace Asana.ViewModel
                        }
                    }));
 
-
-        private RelayCommand _txtBoxClearCommand;
-
-        public RelayCommand TxtBoxClearCommand => _txtBoxClearCommand ?? (_txtBoxClearCommand = new RelayCommand(
-            x =>
-            {
-
-
-            }));
-       
 
 
         private RelayCommand _forgotPassCommand;
