@@ -15,6 +15,7 @@ namespace Asana.ViewModel
     public class RegisterEmailViewModel : ViewModelBase
     {
         private readonly NavigationService navigation;
+        EmailHelper GetEmail = new EmailHelper();
         public RegisterEmailViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
@@ -23,7 +24,11 @@ namespace Asana.ViewModel
             signUpButton = Visibility.Visible;
             confirmButton = Visibility.Hidden;
         }
-        EmailHelper GetEmail = new EmailHelper();
+      
+        /// <summary>
+        /// property will be visible when email format is correct 
+        /// and sign up is clicked, and will be hidden when confirm button is clicked
+        /// </summary>
         private Visibility showGrid;
         public Visibility ShowGrid
         {
@@ -31,18 +36,29 @@ namespace Asana.ViewModel
             set { Set(ref showGrid, value); }
         }
 
+
+        /// <summary>
+        /// when sign up button is clicked it will be hidden and confirm button will be visible
+        /// </summary>
         private Visibility signUpButton;
         public Visibility SignUpButton
         {
             get { return signUpButton; }
             set { Set(ref signUpButton, value); }
         }
+
+        /// <summary>
+        /// when confirm button is clicked it checks the confirmation 
+        /// code which is sent to email is the same with code which is inputted to textbox of confirmation code
+        /// </summary>
         private Visibility confirmButton;
         public Visibility ConfirmButton
         {
             get { return confirmButton; }
             set { Set(ref confirmButton, value); }
         }
+
+
 
         private User user;
         public User User
@@ -53,6 +69,10 @@ namespace Asana.ViewModel
                 Set(ref user, value);
             }
         }
+
+        /// <summary>
+        /// this property is for textbox which user enters confrimation code which is sent to user's email
+        /// </summary>
         private string confirmationCode;
         public string ConfirmationCode
         {
@@ -63,6 +83,10 @@ namespace Asana.ViewModel
             }
         }
 
+
+        /// <summary>
+        /// command sends email to user's email address
+        /// </summary>
         private RelayCommand sendConfirmationCode;
         public RelayCommand SendConfirmationCode
         {
@@ -78,6 +102,11 @@ namespace Asana.ViewModel
                 }
             ));
         }
+
+
+        /// <summary>
+        /// command checks sameness of inputted code and code which is sent to user's email
+        /// </summary>
         private RelayCommand codeConfirmation;
         public RelayCommand CodeConfirmation
         {
@@ -87,6 +116,11 @@ namespace Asana.ViewModel
                     if (Randomizer.RandomKey.Equals(ConfirmationCode))
                     {
                         navigation.NavigateTo(ViewType.LogIn);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Confirmation Code is not correct, enter it correctly!",
+                                        "Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
                     }
                 }
             ));
