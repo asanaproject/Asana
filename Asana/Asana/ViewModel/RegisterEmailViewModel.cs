@@ -1,10 +1,12 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Asana.Tools;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Navigation;
+using Asana.Navigation;
+using Asana.Objects;
 
 namespace Asana.ViewModel
 {
@@ -15,5 +17,18 @@ namespace Asana.ViewModel
         {
             this.navigation = navigation;
         }
+
+
+        private RelayCommand _signUpBtnCommand;
+
+        public RelayCommand SignUpCommand => _signUpBtnCommand ?? (_signUpBtnCommand = new RelayCommand(
+            x =>
+            {
+                using (var db = new AsanaDbContext())
+                {
+
+                }
+            }
+            ));
     }
 }

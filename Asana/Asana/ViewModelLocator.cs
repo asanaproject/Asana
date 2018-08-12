@@ -1,4 +1,5 @@
 using Asana.Navigation;
+using Asana.Tools;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -15,9 +16,9 @@ namespace Asana.ViewModel
         public LogInViewModel logInViewModel;
         public ForgetPassViewModel forGetPassViewModel;
         public SignUpViewModel signUpViewModel;
-
+        public HomeViewModel homeViewModel;
+        public ForgotSendEmailViewModel forgotSendEmailViewModel;
         private NavigationService navigationService;
-
         public ViewModelLocator()
         {
             navigationService = new NavigationService();
@@ -26,11 +27,15 @@ namespace Asana.ViewModel
             logInViewModel = new LogInViewModel(navigationService);
             forGetPassViewModel = new ForgetPassViewModel(navigationService);
             signUpViewModel = new SignUpViewModel(navigationService);
+            homeViewModel = new HomeViewModel(navigationService);
+            forgotSendEmailViewModel = new ForgotSendEmailViewModel(navigationService);
 
+            navigationService.AddPage(forgotSendEmailViewModel, ViewType.ForgetPassEmail);
             navigationService.AddPage(forGetPassViewModel, ViewType.ForgetPass);
             navigationService.AddPage(signUpViewModel, ViewType.SignUp);
             navigationService.AddPage(logInViewModel,ViewType.LogIn);
-            navigationService.NavigateTo(ViewType.LogIn);
+            navigationService.AddPage(homeViewModel, ViewType.Home);
+            navigationService.NavigateTo(ViewType.ForgetPassEmail);
         }
     }
 }

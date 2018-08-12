@@ -142,6 +142,7 @@
     <Compile Include="Model\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\CurrentUser.cs" />
     <Compile Include="Model\Dashboard.cs" />
     <Compile Include="Model\ExtraInfo.cs" />
     <Compile Include="Model\Language.cs" />
@@ -163,6 +164,8 @@
     <Compile Include="Tools\Settings.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\ForgetPassViewModel.cs" />
+    <Compile Include="ViewModel\ForgotSendEmailViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\RegisterEmailViewModel.cs" />
@@ -172,6 +175,12 @@
     </Compile>
     <Compile Include="View\ForgetPassView.xaml.cs">
       <DependentUpon>ForgetPassView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ForgotSendEmailView.xaml.cs">
+      <DependentUpon>ForgotSendEmailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -195,6 +204,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ForgetPassView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ForgotSendEmailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

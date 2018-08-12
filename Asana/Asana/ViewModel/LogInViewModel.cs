@@ -1,4 +1,5 @@
-﻿using Asana.Navigation;
+﻿using Asana.Model;
+using Asana.Navigation;
 using Asana.Objects;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
@@ -46,7 +47,12 @@ namespace Asana.ViewModel
                    {
                        using (var db = new AsanaDbContext())
                        {
-                           db.ExtraInfos.Any(user => user.Email == Email && user.Password == Password);
+                           ExtraInfo info = db.ExtraInfos.Single(user => user.Email == Email && user.Password == Password);
+                           if (info != null)
+                           {    
+                               CurrentUser.GetInstance().SetProps(info);
+                               navigation.NavigateTo(ViewType.Home);
+                           }
                        }
                    }));
 
@@ -65,7 +71,7 @@ namespace Asana.ViewModel
         private RelayCommand _forgotPassCommand;
 
         public RelayCommand ForgotPassCommand => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
-               x => navigation.NavigateTo(ViewType.ForgetPass)
+               x => navigation.NavigateTo(ViewType.EmailSend)
 
             ));
 
