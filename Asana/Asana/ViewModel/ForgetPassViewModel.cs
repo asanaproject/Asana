@@ -11,11 +11,30 @@ namespace Asana.ViewModel
 {
     public class ForgetPassViewModel : ViewModelBase
     {
+        EmailHelper emailHelper = new EmailHelper();
         private readonly NavigationService navigation;
         public ForgetPassViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
         }
+
+        private string _email;
+
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; Set(ref _email, value); }
+        }
+
+        private RelayCommand _emailCheckCommand;
+
+        public RelayCommand EmailCheckCommand => _emailCheckCommand ?? (_emailCheckCommand = new RelayCommand(
+            x =>
+            {
+                emailHelper.SendForgotPasswordCode(Email);
+
+            } ));
+
 
         private RelayCommand _cancelCommand;
 
