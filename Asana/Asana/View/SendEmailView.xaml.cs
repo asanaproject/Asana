@@ -1,5 +1,4 @@
-﻿using Asana.Tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,18 +16,13 @@ using System.Windows.Shapes;
 namespace Asana.View
 {
     /// <summary>
-    /// Interaction logic for ForgetPassView.xaml
+    /// Interaction logic for SendEmailView.xaml
     /// </summary>
-    public partial class ForgetPassView : UserControl
+    public partial class SendEmailView : UserControl
     {
-        public ForgetPassView()
+        public SendEmailView()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            EmailHelper emailHelper = new EmailHelper();
         }
     }
 }

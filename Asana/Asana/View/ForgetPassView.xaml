@@ -17,6 +17,10 @@
         </LinearGradientBrush>
     </UserControl.Background>
 
+    <UserControl.Resources>
+        <Image x:Key="MyImage"  Source="../Resources/Images/CancelIcon.png"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="0.1*"/>
@@ -44,11 +48,11 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="0.8*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1.2*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
@@ -60,7 +64,20 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0"  Source="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Envelope_font_awesome.svg/1024px-Envelope_font_awesome.svg.png" Width="15" Height="15"></Image>
-                            <TextBox Grid.Column="1"  BorderBrush="Transparent" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center">Email</TextBox>
+
+                            <TextBox Name="EmailTxtbox" Grid.Column="1"  BorderBrush="Transparent" Text="{Binding Code}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
+                            <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=EmailTxtbox}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </Grid>
                     </Border>
 
@@ -71,7 +88,21 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
-                            <TextBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >Old Password</TextBox>
+
+                            <TextBox Text="{Binding NewPassword}" Grid.Column="1" Name="CodeFromEmail" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBox>
+                            <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="New Password" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=CodeFromEmail}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </Grid>
                     </Border>
 
@@ -82,18 +113,38 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
-                            <TextBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >New Password</TextBox>
+
+                            <TextBox Text="{Binding NewPasswordConfirm}" Grid.Column="1" Name="NewPasTxtbox" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBox>
+                            <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="New Password Confirm" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=NewPasTxtbox}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </Grid>
                     </Border>
 
-                    <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="5">
-                        <Button BorderBrush="Transparent" Background="Transparent" Foreground="White" FontSize="15" Height="25">
-                           Reset Password
+                    <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="5" Margin="0,10">
+                        <Button BorderBrush="Transparent" Command="{Binding ResetComamnd}" Background="Transparent" Foreground="White" FontSize="15" Height="30" Click="Button_Click">
+                            Reset Password
                         </Button>
                     </Border>
-
+                    <!--<Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="6" Height="50" Margin="0,0,0,20">
+                        <Button BorderBrush="Transparent" Command="{Binding CancelCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="40">
+                            <Image Source="../Resources/Images/CancelIcon.png"  Width="50" Height="40"/>
+                        </Button>
+                    </Border>-->
                 </Grid>
+                <Button BorderBrush="Transparent" Content="{StaticResource MyImage}" Command="{Binding CancelCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
+
         </Border>
     </Grid>
 </UserControl>
