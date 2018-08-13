@@ -5,7 +5,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +23,6 @@ namespace Asana.ViewModel
 
         private string email;
 
-       
         public string Email
         {
             get { return email; }
@@ -33,23 +31,12 @@ namespace Asana.ViewModel
 
         private string pass;
 
-        
         public string Password
         {
             get { return pass; }
             set { pass = value; Set(ref pass, value); }
         }
 
-
-
-        //private RelayCommand _checkPassCommand;
-
-        //public RelayCommand CheckPassCommand => _checkPassCommand ?? (_checkPassCommand = new RelayCommand(
-        //    x =>
-        //    {
-               
-        //    }
-        //    ));
       
 
         private RelayCommand _logInBtnCommand;
@@ -63,20 +50,23 @@ namespace Asana.ViewModel
                        }
                    }));
 
-
-
         private RelayCommand _forgotPassCommand;
+        public RelayCommand ForgotPassCommand
+        {
+            get => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
+                (x => navigation.NavigateTo(ViewType.ForgetPass)
+                )));
+        }
 
-        public RelayCommand ForgotPassCommand => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
-               x => navigation.NavigateTo(ViewType.ForgetPass)
 
-            ));
+        private RelayCommand goToLogInView;
+        public RelayCommand GoToLogInView
+        {
+            get => goToLogInView ?? (goToLogInView = new RelayCommand(
+                (x => navigation.NavigateTo(ViewType.RegisterEmail)
+                )));
+        }
 
-        private RelayCommand _signUpCommand;
-
-        public RelayCommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new RelayCommand(
-            x =>navigation.NavigateTo(ViewType.SignUp) 
-            ));
-
+        public ViewModelBase CurrentViewModel { get; }
     }
 }

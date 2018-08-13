@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:local="clr-namespace:Asana.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"  >
     <UserControl.Background>
@@ -61,19 +62,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0"  Source="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Envelope_font_awesome.svg/1024px-Envelope_font_awesome.svg.png" Width="15" Height="15"></Image>
-                            <TextBox x:Name="LogintxtBox" Grid.Column="1"  BorderBrush="Transparent" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
-                            <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="Login" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=LogintxtBox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <TextBox Grid.Column="1"  BorderBrush="Transparent" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center">Login</TextBox>
                         </Grid>
                     </Border>
 
@@ -83,44 +72,21 @@
                                 <ColumnDefinition Width="0.25*"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                          
                             <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
-
-                            <TextBox  Grid.Column="1"  Name="PasswordTxtBox" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >
-                                
-                            </TextBox>
-                          
-                            <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=PasswordTxtBox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-
+                            <TextBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >Password</TextBox>
                         </Grid>
                     </Border>
 
                     <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="Green" CornerRadius="20" Grid.Column="1" Grid.Row="4">
-                        <Button BorderBrush="Transparent"  Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="25">
+                        <Button BorderBrush="Transparent" Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="25">
                             LOGIN
                         </Button>
                     </Border>
 
 
                     <Label  Name="ForgottxtBlock" Grid.Column="1" Grid.Row="5" Height="28" HorizontalAlignment="Center"
-                            HorizontalContentAlignment="Center" VerticalAlignment="Center" Content="Forget password">
-
-                        <Label.InputBindings>
-                            <MouseBinding Command="{Binding ForgotPassCommand}" MouseAction="LeftClick" />
-                        </Label.InputBindings>
-                   
-                    <Label.Style>
+                            HorizontalContentAlignment="Center" VerticalAlignment="Center" Content="Forgot Username/Password?">
+                        <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Foreground" Value="Black"/>
                                 <Style.Triggers>
@@ -130,33 +96,33 @@
                                 </Style.Triggers>
                             </Style>
                         </Label.Style>
-                        
                     </Label>
 
                     <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                    <Label 
+                        <Label 
                         Name="CreateLabel"  Height="25" Width="150" 
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" Foreground="Gray" VerticalAlignment="Top" Content="Don't Have an Account?"/>
 
-                    <Label Grid.Row="6" Name="SignUpLabel" Content="Sign Up" HorizontalContentAlignment="Right" VerticalAlignment="Top"  Grid.ColumnSpan="2"  >
-                            <Label.InputBindings>
-                                <MouseBinding Command="{Binding SignUpCommand}" MouseAction="LeftClick" />
-                            </Label.InputBindings>
+                        <Label Grid.Row="6"  Name="SignUpLabel" Content="Sign Up" HorizontalContentAlignment="Right" VerticalAlignment="Top"  Grid.ColumnSpan="2"  >
                             <Label.Style>
-                            <Style TargetType="Label">
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Foreground" Value="LawnGreen"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-
-                    </Label>
+                                <Style TargetType="Label">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="LawnGreen"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDown" >
+                                    <i:InvokeCommandAction Command="{Binding GoToLogInView}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Label>
                     </StackPanel>
                 </Grid>
-              
+
             </Grid>
         </Border>
     </Grid>
