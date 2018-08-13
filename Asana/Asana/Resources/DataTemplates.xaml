@@ -32,7 +32,6 @@
         <v:RegisterEmailView/>
     </DataTemplate>
 
-
     <Style TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="WhiteSmoke" />
         <Style.Triggers>
@@ -47,12 +46,4 @@
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>
-
-
-
-
-
-
-
-
 </ResourceDictionary>

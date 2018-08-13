@@ -6,10 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Asana.Navigation;
 using Asana.Tools;
-using Asana.Objects;
-using Asana.Model;
-using Serilog;
-using System.Windows;
 
 namespace Asana.ViewModel
 {
@@ -20,6 +16,9 @@ namespace Asana.ViewModel
         public ForgetPassViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+            ApplyButton = Visibility.Hidden;
+            NewPassIsEnable = false;
+            ResetButton = Visibility.Visible;
         }
 
         private string _code;
@@ -38,23 +37,20 @@ namespace Asana.ViewModel
             set { _newPassword = value; Set(ref _newPassword, value); }
         }
 
-        private string _newPasswordConfirm;
+        private RelayCommand _emailCheckCommand;
 
-        public string NewPasswordConfirm
-        {
-            get { return _newPasswordConfirm; }
-            set { _newPasswordConfirm = value; Set(ref _newPasswordConfirm, value); }
-        }
+        public RelayCommand EmailCheckCommand => _emailCheckCommand ?? (_emailCheckCommand = new RelayCommand(
+            x =>
+            {
+                emailHelper.SendForgotPasswordCode(Email);
 
-
-
+            } ));
 
 
         private RelayCommand _cancelCommand;
 
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.SendEmail)
-
+            x =>navigation.NavigateTo(ViewType.LogIn)
             ));
 
 
