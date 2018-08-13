@@ -28,6 +28,7 @@ namespace Asana.ViewModel
             registerEmailViewModel = new RegisterEmailViewModel(navigationService);
             forGetPassViewModel = new ForgetPassViewModel(navigationService);
             sendCodeEmailView = new SendCodeEmailViewModel(navigationService);
+            homeViewModel = new HomeViewModel(navigationService);
 
             navigationService.AddPage(registerEmailViewModel, ViewType.RegisterEmail);
             navigationService.AddPage(forGetPassViewModel, ViewType.ForgetPass);
