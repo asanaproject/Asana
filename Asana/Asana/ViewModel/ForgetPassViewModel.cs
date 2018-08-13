@@ -55,24 +55,15 @@ namespace Asana.ViewModel
         }
 
 
-        private RelayCommand _newPassCheckCmd;
-
-        public RelayCommand NewPassCheckCmd => _newPassCheckCmd ?? (_newPassCheckCmd = new RelayCommand(
-            x =>
-            {
-                if (!RegexChecker.CheckPassword(NewPassword))
-                {
-                    MessageBox.Show("Your Password very easy,please change password!", "Password", MessageBoxButton.OK);
-                }
-            }));
-
-
         private RelayCommand _newPassAplyCommand;
 
         public RelayCommand NewPassAplyCommand => _newPassAplyCommand ?? (_newPassAplyCommand = new RelayCommand(
             x =>
             {
-                if (Randomizer.RandomKey.Equals(ConfirmationCode))
+                if (Randomizer.RandomKey.Equals(ConfirmationCode) && RegexChecker.CheckPassword(NewPassword))
+                {
+
+
                     try
                     {
                         using (var db = new AsanaDbContext())
@@ -87,25 +78,14 @@ namespace Asana.ViewModel
                     {
                         Log.Error(error.Message);
                     }
+                }
                 else
-                    MessageBox.Show("Confirmation Code is not correct, enter it correctly!",
+                    MessageBox.Show("Confirmation Code or Password is not correct , enter it correctly!",
                                         "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                
 
             }));
 
-
-        //private RelayCommand _emailCheckCommand;
-
-        //public RelayCommand EmailCheckCommand => _emailCheckCommand ?? (_emailCheckCommand = new RelayCommand(
-        //    x =>
-        //    {
-        //        emailHelper.SendForgotPasswordCode(Email);
-
-
-
-
-        //    }));
 
 
         private RelayCommand _cancelCommand;
