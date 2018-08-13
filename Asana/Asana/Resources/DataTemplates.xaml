@@ -22,6 +22,12 @@
     <DataTemplate DataType="{x:Type vm:LogInViewModel}">
         <v:LoginView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ForgetPassViewModel}">
+        <v:ForgetPassView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:SendEmailViewModel}">
+        <v:SendEmailView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:RegisterEmailViewModel}">
         <v:RegisterEmailView/>
     </DataTemplate>

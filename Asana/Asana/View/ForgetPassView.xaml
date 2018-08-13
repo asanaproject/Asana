@@ -48,11 +48,11 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="0.8*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1.2*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
@@ -147,6 +147,7 @@
  FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
             </Grid>
+
         </Border>
     </Grid>
 </UserControl>

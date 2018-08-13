@@ -142,6 +142,7 @@
     <Compile Include="Model\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\CurrentUser.cs" />
     <Compile Include="Model\Dashboard.cs" />
     <Compile Include="Model\ExtraInfo.cs" />
     <Compile Include="Model\Language.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\RegisterEmailViewModel.cs" />
+    <Compile Include="ViewModel\SendEmailViewModel.cs" />
     <Compile Include="ViewModel\SignUpViewModel.cs" />
     <Compile Include="View\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
@@ -182,6 +184,9 @@
     </Compile>
     <Compile Include="View\RegisterEmailView.xaml.cs">
       <DependentUpon>RegisterEmailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SendEmailView.xaml.cs">
+      <DependentUpon>SendEmailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SignUpView.xaml.cs">
       <DependentUpon>SignUpView.xaml</DependentUpon>
@@ -203,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RegisterEmailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SendEmailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

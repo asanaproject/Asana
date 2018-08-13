@@ -22,12 +22,20 @@ namespace Asana.ViewModel
             ResetButton = Visibility.Visible;
         }
 
-        private string _email;
+        private string _code;
 
-        public string Email
+        public string Code
         {
-            get { return _email; }
-            set { _email = value; Set(ref _email, value); }
+            get { return _code; }
+            set { _code = value; Set(ref _code, value); }
+        }
+
+        private string _newPassword;
+
+        public string NewPassword
+        {
+            get { return _newPassword; }
+            set { _newPassword = value; Set(ref _newPassword, value); }
         }
 
         private bool _newPassIsEnable;
@@ -99,5 +107,31 @@ namespace Asana.ViewModel
             ));
 
 
+        private RelayCommand _resetCommand;
+
+        public RelayCommand ResetComamnd => _resetCommand ?? (_resetCommand = new RelayCommand(
+            x =>
+            {
+                if (Randomizer.RandomKey.Equals(Code))
+                    try
+                    {
+                        using (var db = new AsanaDbContext())
+                        {
+                            string email = CurrentUser.GetInstance().Email;
+                            var user = db.ExtraInfos.Single(users => users.Email == email);
+                            user.Password = Hasher.EncryptString(_newPassword);
+                        }
+                    }
+                    catch (Exception error)
+                    {
+                        Log.Error(error.Message);
+                    }
+                else
+                    MessageBox.Show("Confirmation Code is not correct, enter it correctly!",
+                                        "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                navigation.NavigateTo(ViewType.LogIn);
+            }
+            ));
     }
+
 }
