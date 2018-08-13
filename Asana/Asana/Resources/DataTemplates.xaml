@@ -28,9 +28,8 @@
     <DataTemplate DataType="{x:Type vm:ForgetPassViewModel}">
         <v:ForgetPassView/>
     </DataTemplate>
-
-    <DataTemplate DataType="{x:Type vm:SendCodeEmailViewModel}">
-        <v:SendCodeEmailView/>
+    <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+        <v:HomeView/>
     </DataTemplate>
 
     <Style TargetType="{x:Type Border}">
