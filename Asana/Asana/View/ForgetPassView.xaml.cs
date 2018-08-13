@@ -26,10 +26,6 @@ namespace Asana.View
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            EmailHelper emailHelper = new EmailHelper();
-            emailHelper.SendForgotPasswordCode(EmailTxtbox.Text);
-        }
+      
     }
 }

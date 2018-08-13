@@ -24,8 +24,10 @@ namespace Asana.ViewModel
             appViewModel = new AppViewModel();
             logInViewModel = new LogInViewModel(navigationService);
             registerEmailViewModel = new RegisterEmailViewModel(navigationService);
+            forGetPassViewModel = new ForgetPassViewModel(navigationService);
 
             navigationService.AddPage(registerEmailViewModel, ViewType.RegisterEmail);
+            navigationService.AddPage(forGetPassViewModel, ViewType.ForgetPass);
             navigationService.AddPage(logInViewModel,ViewType.LogIn);
             navigationService.NavigateTo(ViewType.LogIn);
         }

@@ -67,6 +67,5 @@ namespace Asana.ViewModel
                 )));
         }
 
-        public ViewModelBase CurrentViewModel { get; }
     }
 }

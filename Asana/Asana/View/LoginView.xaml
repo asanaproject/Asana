@@ -86,6 +86,9 @@
 
                     <Label  Name="ForgottxtBlock" Grid.Column="1" Grid.Row="5" Height="28" HorizontalAlignment="Center"
                             HorizontalContentAlignment="Center" VerticalAlignment="Center" Content="Forgot Username/Password?">
+                        <Label.InputBindings>
+                            <MouseBinding Command="{Binding ForgotPassCommand}" MouseAction="LeftClick" />
+                        </Label.InputBindings>
                         <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Foreground" Value="Black"/>
