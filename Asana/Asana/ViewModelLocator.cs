@@ -16,6 +16,7 @@ namespace Asana.ViewModel
         public ForgetPassViewModel forGetPassViewModel;
         public RegisterEmailViewModel registerEmailViewModel;
         private NavigationService navigationService;
+        public SendCodeEmailViewModel sendCodeEmailView;
 
         public ViewModelLocator()
         {
@@ -25,9 +26,11 @@ namespace Asana.ViewModel
             logInViewModel = new LogInViewModel(navigationService);
             registerEmailViewModel = new RegisterEmailViewModel(navigationService);
             forGetPassViewModel = new ForgetPassViewModel(navigationService);
+            sendCodeEmailView = new SendCodeEmailViewModel(navigationService);
 
             navigationService.AddPage(registerEmailViewModel, ViewType.RegisterEmail);
             navigationService.AddPage(forGetPassViewModel, ViewType.ForgetPass);
+            navigationService.AddPage(sendCodeEmailView, ViewType.ForgotEmailCode);
             navigationService.AddPage(logInViewModel,ViewType.LogIn);
             navigationService.NavigateTo(ViewType.LogIn);
         }

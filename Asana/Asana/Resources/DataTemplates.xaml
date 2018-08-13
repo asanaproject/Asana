@@ -28,7 +28,11 @@
     <DataTemplate DataType="{x:Type vm:ForgetPassViewModel}">
         <v:ForgetPassView/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type vm:SendCodeEmailViewModel}">
+        <v:SendCodeEmailView/>
+    </DataTemplate>
+
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>

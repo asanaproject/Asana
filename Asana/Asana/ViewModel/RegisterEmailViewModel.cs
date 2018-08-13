@@ -125,5 +125,11 @@ namespace Asana.ViewModel
                 }
             ));
         }
+
+        private RelayCommand _cancelCommand;
+
+        public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
+            x => navigation.NavigateTo(ViewType.LogIn)
+            ));
     }
 }
