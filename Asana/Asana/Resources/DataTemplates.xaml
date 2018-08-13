@@ -17,7 +17,7 @@
             <!--<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:Asana.ViewModel" />-->
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-    
+     
     <!-- Data Templates -->
     <DataTemplate DataType="{x:Type vm:LogInViewModel}">
         <v:LoginView/>
