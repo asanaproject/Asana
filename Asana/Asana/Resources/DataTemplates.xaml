@@ -17,16 +17,22 @@
             <!--<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:Asana.ViewModel" />-->
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-     
+
     <!-- Data Templates -->
     <DataTemplate DataType="{x:Type vm:LogInViewModel}">
         <v:LoginView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ConfirmCodeViewModel}">
+        <v:ConfirmCodeView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:RegisterEmailViewModel}">
         <v:RegisterEmailView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:ForgetPassViewModel}">
         <v:ForgetPassView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:SignUpViewModel}">
+        <v:SignUpView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:HomeViewModel}">
         <v:HomeView/>
@@ -39,4 +45,25 @@
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>
+    <Style TargetType="{x:Type UserControl}">
+        <Setter Property="Background" >
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#c850c0" Offset="0"></GradientStop>
+                    <GradientStop Color="#4158d0" Offset="0.9"></GradientStop>
+                    <LinearGradientBrush.Transform>
+                        <RotateTransform CenterX="60" CenterY="30" Angle="-135" />
+                    </LinearGradientBrush.Transform>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+
+
+
+    </Style>
+
+    <!--<UserControl.Background>
+           
+        </UserControl.Background>-->
+
 </ResourceDictionary>

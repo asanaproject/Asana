@@ -11,14 +11,15 @@ namespace Asana.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        private NavigationService navigationService;
         public AppViewModel appViewModel;
         public LogInViewModel logInViewModel;
         public ForgetPassViewModel forGetPassViewModel;
         public RegisterEmailViewModel registerEmailViewModel;
         public HomeViewModel homeViewModel;
-        private NavigationService navigationService;
-        public SendCodeEmailViewModel sendCodeEmailView;
-
+        public SendCodeEmailViewModel sendCodeEmailViewModel;
+        public ConfirmCodeViewModel confirmationCodeViewModel;
+        public SignUpViewModel signUpViewModel;
         public ViewModelLocator()
         {
             navigationService = new NavigationService();
@@ -27,12 +28,16 @@ namespace Asana.ViewModel
             logInViewModel = new LogInViewModel(navigationService);
             registerEmailViewModel = new RegisterEmailViewModel(navigationService);
             forGetPassViewModel = new ForgetPassViewModel(navigationService);
-            sendCodeEmailView = new SendCodeEmailViewModel(navigationService);
+            sendCodeEmailViewModel = new SendCodeEmailViewModel(navigationService);
             homeViewModel = new HomeViewModel(navigationService);
+            confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
+            signUpViewModel = new SignUpViewModel(navigationService);
 
+            navigationService.AddPage(signUpViewModel,ViewType.SignUp);
+            navigationService.AddPage(confirmationCodeViewModel,ViewType.ConfirmCode);
             navigationService.AddPage(registerEmailViewModel, ViewType.RegisterEmail);
             navigationService.AddPage(forGetPassViewModel, ViewType.ForgetPass);
-            navigationService.AddPage(sendCodeEmailView, ViewType.ForgotEmailCode);
+            navigationService.AddPage(sendCodeEmailViewModel, ViewType.ForgotEmailCode);
             navigationService.AddPage(logInViewModel,ViewType.LogIn);
             navigationService.AddPage(homeViewModel, ViewType.Home);
             navigationService.NavigateTo(ViewType.LogIn);

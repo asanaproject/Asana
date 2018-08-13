@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <!--  Usercontrol Background (Gradient)-->
-    <UserControl.Background>
+    <UserControl.Background >
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#c850c0" Offset="0"></GradientStop>
             <GradientStop Color="#4158d0" Offset="0.9"></GradientStop>
@@ -90,7 +90,6 @@
                 <RowDefinition Height="48*"/>
                 <RowDefinition Height="60*"/>
                 <RowDefinition Height="40*"/>
-                <RowDefinition Height="40*"/>
             </Grid.RowDefinitions>
 
             <!-- The first row for Sign Up Header -->
@@ -112,7 +111,7 @@
                 <TextBox  Name="EmailTxtBox"  Grid.Column="0" Width="350"
                  BorderThickness="1" Height="50" TextWrapping="Wrap"
                  Padding="5" TextAlignment="Center" FontSize="25"
-                 Text="{ Binding User.Email, UpdateSourceTrigger=LostFocus,
+                 Text="{ Binding User.Email, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}">
                 </TextBox>
                 <!--  Watermark effect for email textbox-->
@@ -130,27 +129,11 @@
                 </TextBlock>
 
                 <!--  The second column for sign up button -->
-                <Button Grid.Column="1" Visibility="{Binding SignUpButton}"  Content="Sign Up" Command="{Binding SendConfirmationCode}"  FontSize="25" Foreground="White" FontWeight="Bold" Background="DarkViolet" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50">
+                <Button Grid.Column="1"   Content="Sign Up" Command="{Binding SendConfirmationCodeCommand}"  FontSize="25" Foreground="White" FontWeight="Bold" Background="DarkViolet" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50">
                     <ToolTipService.ToolTip >
                         <ToolTip Content="Sign Up"  Placement="Mouse" />
                     </ToolTipService.ToolTip >
                 </Button>
-            </Grid>
-
-            <!-- The third row confirmation code, it's hidden by default but will be visible when email format is true and sign up button is clicked-->
-            <Grid Grid.Row="3"  Visibility="{Binding ShowGrid, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <!--  The first column for Textblock of Confirmtion Code-->
-                <TextBlock Grid.Column="0" Text="Confirmation Code: " FontWeight="Bold" FontSize="18" Foreground="DarkGray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                <!--  The second column for Textbox for code which is sent to your email -->
-                <TextBox Grid.Column="1"  VerticalAlignment="Center" Text="{Binding ConfirmationCode}" HorizontalAlignment="Left" TextAlignment="Center" FontSize="25" Padding="5" Width="160" Height="50"/>
-                <Button Grid.Column="2" Width="120" Height="50" Content="Confirm" Visibility="{Binding ConfirmButton}" Command="{Binding CodeConfirmation}" FontSize="22" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
 
         </Grid>
