@@ -9,10 +9,7 @@ namespace Asana.Model
 {
     public class CurrentUser
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public DateTime EndSession { get; set; }
+        public User currenUser { get; set; }
 
         private static CurrentUser instance;
 
@@ -27,12 +24,9 @@ namespace Asana.Model
 
         }
 
-        public void SetProps(ExtraInfo info)
+        public void SetProps(User info)
         {
-            instance.Id = info.Id;
-            instance.Username = info.Username;
-            instance.Email = info.Email;
-            instance.EndSession = DateTime.Now.AddDays(1);
+            currenUser = info;
         }
     }
 }

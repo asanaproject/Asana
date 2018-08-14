@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -46,7 +47,15 @@ namespace Asana.ViewModel
                    {
                        using (var db = new AsanaDbContext())
                        {
-                           db.ExtraInfos.Any(user => user.Email == Email && user.Password == Password);
+                          if( db.Users.Any(user => user.Email == Email && user.Password == Password))
+                           {
+                               navigation.NavigateTo(ViewType.Home);
+                           }
+                           else
+                           {
+                               MessageBox.Show("Your email or password is not correct!", "Warning!", MessageBoxButton.OK);
+                               return;
+                           }
                        }
                    }));
 

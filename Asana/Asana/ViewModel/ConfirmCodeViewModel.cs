@@ -17,9 +17,10 @@ namespace Asana.ViewModel
         {
             this.navigation = navigation;
         }
+
         private RelayCommand _backCommand;
         public RelayCommand BackCommand => _backCommand ?? (_backCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.Home)
+            x => navigation.NavigateTo(ViewType.LogIn)
             ));
 
 

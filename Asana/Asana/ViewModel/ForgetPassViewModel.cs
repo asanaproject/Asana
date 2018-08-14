@@ -31,15 +31,17 @@ namespace Asana.ViewModel
             set { _email = value; Set(ref _email, value); }
         }
 
-       
 
-        private string _confirmationCode;
-        public string ConfirmationCode
+
+        private string _reEnterpassword;
+
+        public string ReEnterPassword
         {
-            get { return _confirmationCode; }
+            get { return _reEnterpassword; }
             set
             {
-                Set(ref _confirmationCode, value);
+                _reEnterpassword = value;
+                Set(ref _reEnterpassword, value);
             }
         }
 
@@ -60,7 +62,7 @@ namespace Asana.ViewModel
         public RelayCommand NewPassAplyCommand => _newPassAplyCommand ?? (_newPassAplyCommand = new RelayCommand(
             x =>
             {
-                if (Randomizer.RandomKey.Equals(ConfirmationCode) && RegexChecker.CheckPassword(NewPassword))
+                if (NewPassword.Equals(ReEnterPassword) && RegexChecker.CheckPassword(NewPassword))
                 {
 
 
@@ -68,7 +70,7 @@ namespace Asana.ViewModel
                     {
                         using (var db = new AsanaDbContext())
                         {
-                            string email = CurrentUser.GetInstance().Email;
+                            string email = CurrentUser.GetInstance().currenUser.Email;
                             var user = db.ExtraInfos.Single(users => users.Email == email);
                             user.Password = Hasher.EncryptString(NewPassword);
                             navigation.NavigateTo(ViewType.LogIn);
@@ -80,7 +82,7 @@ namespace Asana.ViewModel
                     }
                 }
                 else
-                    MessageBox.Show("Confirmation Code or Password is not correct , enter it correctly!",
+                    MessageBox.Show("Passwords are not same , enter it correctly!",
                                         "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                
 

@@ -49,8 +49,8 @@ namespace Asana.ViewModel
                         emailHelper.SendForgotPasswordCode(Email);
                     });
                     CurrentUser current = CurrentUser.GetInstance();
-                    current.Email = Email;
-                    navigation.NavigateTo(ViewType.ForgetPass);
+                    current.currenUser.Email = Email;
+                    navigation.NavigateTo(ViewType.ConfirmCode);
                 }
                 else
                 {
