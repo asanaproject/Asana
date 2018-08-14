@@ -158,6 +158,7 @@
     <Compile Include="Tools\Hasher.cs" />
     <Compile Include="Tools\HtmlParser.cs" />
     <Compile Include="Tools\NotifyClass.cs" />
+    <Compile Include="Tools\ProfilePhoto.cs" />
     <Compile Include="Tools\Randomizer.cs" />
     <Compile Include="Tools\RegexChecker.cs" />
     <Compile Include="Tools\RelayCommand.cs" />

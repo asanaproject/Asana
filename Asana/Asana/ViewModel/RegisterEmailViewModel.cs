@@ -12,6 +12,9 @@ using System.Windows;
 
 namespace Asana.ViewModel
 {
+    /// <summary>
+    /// This class is for registering user's email and sending confirmation code to this email
+    /// </summary>
     public class RegisterEmailViewModel : ViewModelBase
     {
         private readonly NavigationService navigation;
@@ -38,7 +41,8 @@ namespace Asana.ViewModel
 
 
         /// <summary>
-        /// when sign up button is clicked view replaced with ConfirmationCode view and code will be sent to your email 
+        /// when sign up button is clicked current view is replaced with ConfirmationCode view 
+        /// and code will be sent to your email 
         /// </summary>
         private RelayCommand sendConfirmationCodeCommand;
         public RelayCommand SendConfirmationCodeCommand
@@ -64,7 +68,7 @@ namespace Asana.ViewModel
       
 
         /// <summary>
-        /// 
+        /// When arrow key is pressed current view is replaced with LogIn view
         /// </summary>
         private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
