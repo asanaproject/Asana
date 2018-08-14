@@ -112,7 +112,7 @@
                  BorderThickness="1" Height="50" TextWrapping="Wrap"
                  Padding="5" TextAlignment="Center" FontSize="25"
                  Text="{ Binding User.Email, UpdateSourceTrigger=PropertyChanged,
-                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}">
+                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
                 </TextBox>
                 <!--  Watermark effect for email textbox-->
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" IsHitTestVisible="False" Text="example@gmail.com"  Foreground="DarkGray">
