@@ -9,9 +9,11 @@ using System.Windows;
 
 namespace Asana.Navigation
 {
-  public  class NavigationService
+   public class NavigationService : INavigationService
     {
         private Dictionary<ViewType, ViewModelBase> pages = new Dictionary<ViewType, ViewModelBase>();
+        private Stack<ViewType> history = new Stack<ViewType>();
+
         public ViewModelBase Current { get; set; }
 
         public void NavigateTo(ViewType name)
@@ -19,6 +21,7 @@ namespace Asana.Navigation
             try
             {
                 Current = pages[name];
+                history.Push(name);
                 Messenger.Default.Send(Current);
             }
             catch (Exception)
@@ -27,19 +30,15 @@ namespace Asana.Navigation
             }
         }
 
-        public void NavigateTo<T>(ViewType name, T data)
+        public void GoBack()
         {
-            try
-            {
-                Current = pages[name];
-                if (data != null)
-                    Messenger.Default.Send(data);
-                Messenger.Default.Send(Current);
-            }
-            catch (Exception)
-            {
-                throw new Exception("Page not found!");
-            }
+            if (history.Count > 0)
+                Current = pages[history.Pop()];
+        }
+
+        public void ClearHistory()
+        {
+            history.Clear();
         }
 
         public void AddPage(ViewModelBase page, ViewType name)

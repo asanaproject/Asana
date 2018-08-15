@@ -9,24 +9,25 @@ namespace Asana.Model
 {
     public class CurrentUser
     {
-        public User currenUser { get; set; }
-
+        public User User { get; set; } = new User ();
+        private CurrentUser() { }
         private static CurrentUser instance;
-
-        public static CurrentUser GetInstance()
+        public static CurrentUser Instance
         {
-            if (instance == null) instance = new CurrentUser();
-            return instance;
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new CurrentUser();
+                }
+                return instance;
+
+            }
         }
 
-        public CurrentUser()
-        {
-
-        }
-
-        public void SetProps(User info)
-        {
-            currenUser = info;
-        }
+        //public void SetProps(User info)
+        //{
+        //    currenUser = info;
+        //}
     }
 }

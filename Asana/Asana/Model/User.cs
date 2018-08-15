@@ -1,4 +1,5 @@
-﻿using Asana.Tools;
+﻿using Asana.Model;
+using Asana.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,28 +11,8 @@ using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
-    public class User : IDataErrorInfo
+    public class User :BaseEntity
     {
-        public string this[string columnName]
-        {
-            get
-            {
-                string result = null;
-                if (columnName.Equals(nameof(Email)))
-                {
-                    if (!RegexChecker.CheckEmail(Email))
-                        result = "Enter your email correctly!";
-                }
-                // if (columnName == "LastName")
-                // {
-                //     if (string.IsNullOrEmpty(LastName))
-                //         result = "Please enter a Last Name";
-                // }
-               
-                return result;
-            }
-        }
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -63,6 +44,6 @@ namespace Asana.Objects
         public int CompanySize { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
 
-        public string Error => throw new NotImplementedException();
+     
     }
 }

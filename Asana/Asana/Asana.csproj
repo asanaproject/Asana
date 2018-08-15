@@ -139,7 +139,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Model\AsanaDbContext.cs" />
+    <Compile Include="Navigation\INavigationService.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Utilities\DbContext\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\Country.cs" />
     <Compile Include="Model\CurrentUser.cs" />
@@ -153,22 +156,22 @@
     <Compile Include="Model\UserRole.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Navigation\ViewType.cs" />
-    <Compile Include="Tools\EmailHelper.cs" />
-    <Compile Include="Tools\FileHelper.cs" />
-    <Compile Include="Tools\Hasher.cs" />
-    <Compile Include="Tools\HtmlParser.cs" />
-    <Compile Include="Tools\NotifyClass.cs" />
-    <Compile Include="Tools\ProfilePhoto.cs" />
-    <Compile Include="Tools\Randomizer.cs" />
-    <Compile Include="Tools\RegexChecker.cs" />
-    <Compile Include="Tools\RelayCommand.cs" />
-    <Compile Include="Tools\Settings.cs" />
+    <Compile Include="Utilities\EmailHelper.cs" />
+    <Compile Include="Utilities\FileHelper.cs" />
+    <Compile Include="Utilities\Hasher.cs" />
+    <Compile Include="Utilities\HtmlParser.cs" />
+    <Compile Include="Utilities\NotifyClass.cs" />
+    <Compile Include="Utilities\ProfilePhoto.cs" />
+    <Compile Include="Utilities\Randomizer.cs" />
+    <Compile Include="Utilities\RegexChecker.cs" />
+    <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Utilities\Settings.cs" />
+    <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\ConfirmCodeViewModel.cs" />
     <Compile Include="ViewModel\ForgetPassViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
-    <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\RegisterEmailViewModel.cs" />
     <Compile Include="ViewModel\SendCodeEmailViewModel.cs" />
     <Compile Include="ViewModel\SignUpViewModel.cs" />

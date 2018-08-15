@@ -1,4 +1,5 @@
-﻿using Asana.Navigation;
+﻿using Asana.Model;
+using Asana.Navigation;
 using Asana.Objects;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
@@ -15,25 +16,44 @@ namespace Asana.ViewModel
     /// <summary>
     /// This class is for registering user's email and sending confirmation code to this email
     /// </summary>
-    public class RegisterEmailViewModel : ViewModelBase
+    public class RegisterEmailViewModel : ViewModelBase,IDataErrorInfo
     {
         private readonly NavigationService navigation;
         EmailHelper GetEmail = new EmailHelper();
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName.Equals(nameof(Email)))
+                {
+                    if (!RegexChecker.CheckEmail(Email))
+                        result = "Enter your email correctly!";
+                }
+                // if (columnName == "LastName")
+                // {
+                //     if (string.IsNullOrEmpty(LastName))
+                //         result = "Please enter a Last Name";
+                // }
+
+                return result;
+            }
+        }
+        public string Error => throw new NotImplementedException();
         public RegisterEmailViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            User = new User();
+            Email=String.Empty;
 
         }
 
-
-        private User user;
-        public User User
+        private string email;
+        public string Email
         {
-            get { return user; }
+            get { return email; }
             set
             {
-                Set(ref user, value);
+                Set(ref email, value);
             }
         }
 
@@ -50,13 +70,17 @@ namespace Asana.ViewModel
             get => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
                 x =>
                 {
-                    if (RegexChecker.CheckEmail(User.Email))
+                    ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
+                    if (RegexChecker.CheckEmail(Email))
                     {
-                        GetEmail.SendRegisterActivationCode(User.Email);
-                        var result = MessageBox.Show($"Confirmation code is sent to {User.Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
+                        GetEmail.SendRegisterActivationCode(Email);
+                        var result = MessageBox.Show($"Confirmation code is sent to {Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
                         if (result == MessageBoxResult.OK)
                         {
+                           
                             navigation.NavigateTo(ViewType.ConfirmCode);
+                            CurrentUser.Instance.User = new User();
+                            CurrentUser.Instance.User.Email = Email;
                         }
                     }
                    
