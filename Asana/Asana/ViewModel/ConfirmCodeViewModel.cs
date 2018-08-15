@@ -13,6 +13,7 @@ namespace Asana.ViewModel
    public class ConfirmCodeViewModel:ViewModelBase
     {
         private readonly NavigationService navigation;
+
         public ConfirmCodeViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
@@ -22,7 +23,7 @@ namespace Asana.ViewModel
         public RelayCommand BackCommand => _backCommand ?? (_backCommand = new RelayCommand(
             x => navigation.NavigateTo(ViewType.LogIn)
             ));
-
+         
 
         /// <summary>
         /// this property is for textbox which user enters confrimation code which is sent to user's email
