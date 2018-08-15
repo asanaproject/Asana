@@ -20,10 +20,14 @@ namespace Asana.ViewModel
 
         private RelayCommand _backCommand;
         public RelayCommand BackCommand => _backCommand ?? (_backCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.LogIn)
+            x =>
+            {
+                navigation.NavigateTo(ViewType);
+                ConfirmationCode = String.Empty;
+            }
             ));
 
-
+        public static ViewType ViewType { get; set; }
         /// <summary>
         /// this property is for textbox which user enters confrimation code which is sent to user's email
         /// </summary>
@@ -48,7 +52,8 @@ namespace Asana.ViewModel
                 {
                     if (Randomizer.RandomKey.Equals(ConfirmationCode))
                     {
-                        navigation.NavigateTo(ViewType.SignUp);
+                        navigation.NavigateTo(ViewType);
+                        ConfirmationCode = String.Empty;
                     }
                     else
                     {

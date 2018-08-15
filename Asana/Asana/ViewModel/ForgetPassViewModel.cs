@@ -70,7 +70,7 @@ namespace Asana.ViewModel
                     {
                         using (var db = new AsanaDbContext())
                         {
-                            string email = CurrentUser.GetInstance().currenUser.Email;
+                            string email = CurrentUser.Instance.User.Email;
                             var user = db.ExtraInfos.Single(users => users.Email == email);
                             user.Password = Hasher.EncryptString(NewPassword);
                             navigation.NavigateTo(ViewType.LogIn);

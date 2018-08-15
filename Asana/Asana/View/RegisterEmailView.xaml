@@ -22,14 +22,7 @@
 
     <!-- UserControl Resources -->
     <UserControl.Resources>
-        <ControlTemplate x:Key="validationFailed">
-            <StackPanel Orientation="Horizontal">
-                <Border BorderBrush="Red" BorderThickness="2">
-                    <AdornedElementPlaceholder />
-                </Border>
-                <TextBlock Foreground="Red" FontSize="26" FontWeight="Bold">!</TextBlock>
-            </StackPanel>
-        </ControlTemplate>
+
 
         <Image x:Key="MyImage" Source="../Resources/Images/CancelIcon.png"/>
         
@@ -92,27 +85,27 @@
                 <RowDefinition Height="40*"/>
             </Grid.RowDefinitions>
 
-            <!-- The first row for Sign Up Header -->
+            <!--  Sign Up Header -->
             <Label Grid.Row="0" Content="Sign Up" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Georgia" Height="78" Margin="267,4,267,7" Width="221"/>
 
-            <!--  The second row for decription -->
+            <!--   decription -->
             <Label Grid.Row="1" Content="Please use your work email address, so we can connect you with your team in Asana." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray" />
             <Button Grid.Column="0" BorderBrush="Transparent" Content="{StaticResource MyImage}"
                         Command="{Binding CancelCommand}" Background="Transparent" Foreground="White"
                            FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <!--  The third row for textbox and button (Email and Sign Up Button)-->
+            <!--  textbox and button (Email and Sign Up Button)-->
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- The first column for textbox of email-->
+                <!--  textbox of email-->
                 <TextBox  Name="EmailTxtBox"  Grid.Column="0" Width="350"
                  BorderThickness="1" Height="50" TextWrapping="Wrap"
                  Padding="5" TextAlignment="Center" FontSize="25"
-                 Text="{ Binding User.Email, UpdateSourceTrigger=PropertyChanged,
-                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
+                 Text="{ Binding Email, UpdateSourceTrigger=PropertyChanged,
+                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}"  >
                 </TextBox>
                 <!--  Watermark effect for email textbox-->
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" IsHitTestVisible="False" Text="example@gmail.com"  Foreground="DarkGray">
@@ -128,7 +121,7 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-                <!--  The second column for sign up button -->
+                <!--  sign up button -->
                 <Button Grid.Column="1"   Content="Sign Up" Command="{Binding SendConfirmationCodeCommand}"  FontSize="25" Foreground="White" FontWeight="Bold" Background="DarkViolet" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50">
                     <ToolTipService.ToolTip >
                         <ToolTip Content="Sign Up"  Placement="Mouse" />
