@@ -139,6 +139,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\Country.cs" />

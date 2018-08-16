@@ -5,14 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Asana.Objects
 {
     public class AsanaDbContext : DbContext
     {
-        public AsanaDbContext() : base("name=AsanaDbContext")
+        public AsanaDbContext() : base("AsanaDbContext")
         {
 
         }
+
+      
         public DbSet<User> Users{ get; set; }
         public DbSet<UserRole> UserRoles{ get; set; }
         public DbSet<TaskState> TaskStates { get; set; }
