@@ -17,8 +17,10 @@ namespace Asana.Objects
         [StringLength(25),Required]
         public string Title { get; set; }
 
+        [ForeignKey("Project")]
         public int ProjectId { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
+        public Project Project { get; set; }
 
+        public virtual ICollection<Task> Tasks { get; set; }
     }
 }

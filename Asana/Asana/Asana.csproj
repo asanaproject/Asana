@@ -144,14 +144,13 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Utilities\DbContext\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
-    <Compile Include="Model\Country.cs" />
     <Compile Include="Model\CurrentUser.cs" />
     <Compile Include="Model\Dashboard.cs" />
     <Compile Include="Model\ExtraInfo.cs" />
     <Compile Include="Model\Language.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\Task.cs" />
-    <Compile Include="Model\TaskState.cs" />
+    <Compile Include="Model\KanbanState.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserRole.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
