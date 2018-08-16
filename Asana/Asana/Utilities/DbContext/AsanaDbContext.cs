@@ -15,7 +15,7 @@ namespace Asana.Objects
         }
         public DbSet<User> Users{ get; set; }
         public DbSet<UserRole> UserRoles{ get; set; }
-        public DbSet<TaskState> TaskStates { get; set; }
+        public DbSet<KanbanState> TaskStates { get; set; }
         public DbSet<Task> Tasks{ get; set; }
         public DbSet<Project> Projects{ get; set; }
         public DbSet<Language> Languages{ get; set; }
