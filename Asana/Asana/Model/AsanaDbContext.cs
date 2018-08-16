@@ -10,7 +10,7 @@ namespace Asana.Objects
 {
     public class AsanaDbContext : DbContext
     {
-        public AsanaDbContext() : base("AsanaDbContext")
+        public AsanaDbContext() : base("name=AsanaDbContext")
         {
 
         }
