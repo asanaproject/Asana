@@ -1,9 +1,14 @@
-using Asana.Navigation;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
+﻿using Asana.Navigation;
+using Asana.Objects;
+using Asana.Services;
+using Asana.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Asana.ViewModel
+namespace Asana
 {
     /// <summary>
     /// This class contains static references to all the view models in the
@@ -11,7 +16,9 @@ namespace Asana.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        private AsanaDbContext dbContext;
         private NavigationService navigationService;
+        private UserService userService;
         public AppViewModel appViewModel;
         public LogInViewModel logInViewModel;
         public ForgetPassViewModel forGetPassViewModel;
@@ -22,7 +29,10 @@ namespace Asana.ViewModel
         public SignUpViewModel signUpViewModel;
         public ViewModelLocator()
         {
-            navigationService = new NavigationService();
+            dbContext = new AsanaDbContext();
+
+            navigationService = new NavigationService();        
+            userService = new UserService(dbContext);
 
             appViewModel = new AppViewModel();
             logInViewModel = new LogInViewModel(navigationService);
@@ -31,14 +41,14 @@ namespace Asana.ViewModel
             sendCodeEmailViewModel = new SendCodeEmailViewModel(navigationService);
             homeViewModel = new HomeViewModel(navigationService);
             confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
-            signUpViewModel = new SignUpViewModel(navigationService);
+            signUpViewModel = new SignUpViewModel(navigationService,userService);
 
-            navigationService.AddPage(signUpViewModel,ViewType.SignUp);
-            navigationService.AddPage(confirmationCodeViewModel,ViewType.ConfirmCode);
+            navigationService.AddPage(signUpViewModel, ViewType.SignUp);
+            navigationService.AddPage(confirmationCodeViewModel, ViewType.ConfirmCode);
             navigationService.AddPage(registerEmailViewModel, ViewType.RegisterEmail);
             navigationService.AddPage(forGetPassViewModel, ViewType.ForgetPass);
             navigationService.AddPage(sendCodeEmailViewModel, ViewType.ForgotEmailCode);
-            navigationService.AddPage(logInViewModel,ViewType.LogIn);
+            navigationService.AddPage(logInViewModel, ViewType.LogIn);
             navigationService.AddPage(homeViewModel, ViewType.Home);
             navigationService.NavigateTo(ViewType.LogIn);
         }

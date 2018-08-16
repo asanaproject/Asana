@@ -11,14 +11,20 @@ namespace Asana.Objects
     [Table("Tasks")]
     public class Task
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [StringLength(25),Required]
         public string Title { get; set; }
-        [Required]
-        public int ProjectId { get; set; }
-        public DateTime Deadline { get; set; }
+
+        [ForeignKey("Column"),Required]
         public int ColumnId { get; set; }
-        public int ExtraInfoId { get; set; }
+        public virtual Column Column { get; set; }
+
+        [ForeignKey("KanbanState")]
+        public int KanbanStateId { get; set; }
+        public KanbanState KanbanState { get; set; }
+
+        public DateTime Deadline { get; set; }
     }
 }

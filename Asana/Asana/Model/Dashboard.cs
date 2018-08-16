@@ -10,10 +10,9 @@ namespace Asana.Objects
     [Table("Dashboards")]
     public class Dashboard
     {
-
-        public virtual ICollection<Project> Projects { get; set; }
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        public virtual ICollection<Project> Projects { get; set; }    
     }
 }

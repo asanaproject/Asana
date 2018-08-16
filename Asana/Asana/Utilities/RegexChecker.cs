@@ -48,7 +48,7 @@ namespace Asana.Tools
         {
             try
             {
-                Regex regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,18}$"); //6-18 araliginda en az bir boyuk bir kicik ve reqem olmalidi :)
+                Regex regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,18}$"); //8-18 araliginda en az bir boyuk bir kicik ve reqem olmalidi :)
                 Match match = regex.Match(password);
                 if (match.Success)
                     return true;

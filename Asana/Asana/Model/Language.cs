@@ -16,7 +16,6 @@ namespace Asana.Objects
 
         [StringLength(30),Required]
         public string Name { get; set; }
-        public virtual ICollection<User> Users{ get; set; }
        
     }
 }
