@@ -139,6 +139,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
+    <Compile Include="Migrations\201808161803433_Initial_Model.cs" />
+    <Compile Include="Migrations\201808161803433_Initial_Model.Designer.cs">
+      <DependentUpon>201808161803433_Initial_Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -253,6 +258,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201808161803433_Initial_Model.resx">
+      <DependentUpon>201808161803433_Initial_Model.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

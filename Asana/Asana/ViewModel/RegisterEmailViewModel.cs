@@ -70,7 +70,7 @@ namespace Asana.ViewModel
             get => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
                 x =>
                 {
-                    ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
+                   // ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
                     if (RegexChecker.CheckEmail(Email))
                     {
                         GetEmail.SendRegisterActivationCode(Email);

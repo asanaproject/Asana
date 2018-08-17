@@ -10,21 +10,20 @@ namespace Asana.Objects
 {
     public class AsanaDbContext : DbContext
     {
-        public AsanaDbContext() : base("name=AsanaDbContext")
+        public AsanaDbContext() : base("AsanaDbContext")
         {
-
+            Database.SetInitializer<AsanaDbContext>(new CreateDatabaseIfNotExists<AsanaDbContext>());
         }
 
       
         public DbSet<User> Users{ get; set; }
-        public DbSet<UserRole> UserRoles{ get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<KanbanState> TaskStates { get; set; }
         public DbSet<Task> Tasks{ get; set; }
         public DbSet<Project> Projects{ get; set; }
         public DbSet<Language> Languages{ get; set; }
         public DbSet<ExtraInfo> ExtraInfos{ get; set; }
         public DbSet<Dashboard> Dashboards{ get; set; }
-        public DbSet<Country> Countries { get; set; }
         public DbSet<Column> Columns{ get; set; }
     }
 }
