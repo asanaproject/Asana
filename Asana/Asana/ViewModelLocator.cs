@@ -1,6 +1,7 @@
 ﻿using Asana.Navigation;
 using Asana.Objects;
 using Asana.Services;
+using Asana.Services.Interfaces;
 using Asana.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Asana
     {
         private AsanaDbContext dbContext;
         private NavigationService navigationService;
-        private UserService userService;
+        private IUserService userService;
         public AppViewModel appViewModel;
         public LogInViewModel logInViewModel;
         public ForgetPassViewModel forGetPassViewModel;

@@ -1,10 +1,12 @@
-﻿using Asana.Navigation;
+﻿using Asana.Model;
+using Asana.Navigation;
 using Asana.Services.Interfaces;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +24,7 @@ namespace Asana.ViewModel
             this.userService = userService;
         }
 
-        private string profieImgPath;
+        private string profieImgPath= "pack://application:,,,/Asana;component/Resources/Images/user.png";
         public string ProfileImgPath
         {
             get { return profieImgPath; }
@@ -32,20 +34,12 @@ namespace Asana.ViewModel
             }
         }
 
-        
+
         private string fullName;
         public string FullName
         {
             get { return fullName; }
-            set {  Set(ref fullName, value); }
-        }
-
-
-        private string email;
-        public string Email
-        {
-            get { return email; }
-            set { Set(ref email, value); }
+            set { Set(ref fullName, value); }
         }
 
         private string password;
@@ -86,11 +80,13 @@ namespace Asana.ViewModel
         public RelayCommand RegisterCommand => _registerCommand ?? (_registerCommand = new RelayCommand(
             x =>
             {
-                var path = ProfilePhoto.LoadImage();
-                if (!String.IsNullOrEmpty(path))
-                {
-                    ProfileImgPath = path;
-                }
+
+
+                CurrentUser.Instance.User.FullName = FullName;
+                CurrentUser.Instance.User.Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath));
+                CurrentUser.Instance.User.Password = Password;
+               
+                userService.Insert(CurrentUser.Instance.User);
             }
             ));
         public string Error => throw new NotImplementedException();
@@ -106,7 +102,7 @@ namespace Asana.ViewModel
                     {
                         result = "Add your name, so your teammates\nknow who you are.";
                     }
-                }              
+                }
                 else if (columnName.Equals(nameof(Password)))
                 {
                     if (!RegexChecker.CheckPassword(Password))
@@ -118,7 +114,7 @@ namespace Asana.ViewModel
                 {
                     if (!Password.Equals(RePassword))
                     {
-                        result ="Passwords aren't the same.";
+                        result = "Passwords aren't the same.";
                     }
                 }
                 return result;

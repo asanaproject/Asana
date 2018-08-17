@@ -1,7 +1,9 @@
 ﻿using Asana.Objects;
 using Asana.Services.Interfaces;
+using Asana.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +20,15 @@ namespace Asana.Services
             this.dbContext = dbContext;
         }
 
-        public async System.Threading.Tasks.Task Insert(User user)
+        public  void Insert(User user)
         {
             try
             {
                 if (user != null)
                 {
+                    user.Password = PasswordHasher.Hash(user.Password);
                     dbContext.Users.Add(user);
-                    await dbContext.SaveChangesAsync();
+                    dbContext.SaveChanges();
                 }
 
             }

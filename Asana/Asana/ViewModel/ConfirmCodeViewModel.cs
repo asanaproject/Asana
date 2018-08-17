@@ -37,7 +37,7 @@ namespace Asana.ViewModel
                 Set(ref confirmationCode, value);
             }
         }
-
+        public static ViewType ViewType { get; set; }
         /// <summary>
         /// command checks sameness of inputted code and code which is sent to user's email
         /// </summary>

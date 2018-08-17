@@ -76,13 +76,13 @@
     </UserControl.Resources>
 
 
-    <Border HorizontalAlignment="Center" VerticalAlignment="Center"  Background="White" BorderBrush="White"  CornerRadius="8" Height="400"  Width="600" >
+    <Border HorizontalAlignment="Center" VerticalAlignment="Center"  Background="White" BorderBrush="White"  CornerRadius="8" Height="400"  Width="700" >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="11*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="50*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="60*"/>
             </Grid.RowDefinitions>
             <!--   this button is for come back to Home View -->
             <Button Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" Content="{StaticResource MyImage}"
@@ -134,7 +134,7 @@
 
                 <!-- Full Name-->
                 <TextBox Grid.Row="0" Grid.Column="0" Name="FullNameTxtBox"  Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
-                 Padding="5" TextAlignment="Center" FontSize="25"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="250" Text="{ Binding FullName, UpdateSourceTrigger=PropertyChanged,
+                 Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{ Binding FullName, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
                 </TextBox>
                 <!--  Watermark effect for email textbox-->
@@ -155,15 +155,15 @@
 
                 <!--   Email   -->
                 <TextBox Grid.Row="1" Grid.Column="0" Name="EmailTxtBox" Margin="10 0 10 0" IsEnabled="False"  BorderThickness="1" TextWrapping="Wrap"
-                 Padding="5" TextAlignment="Center" FontSize="25"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="250" Text="{ Binding Source={x:Static asana:CurrentUser.Instance}, Path=User.Email, UpdateSourceTrigger=PropertyChanged,
-                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
+                 Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{ Binding Source={x:Static asana:CurrentUser.Instance}, Path=User.Email, UpdateSourceTrigger=PropertyChanged,
+                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}"  >
                 </TextBox>
              
 
 
                 <!-- Password  -->
                 <TextBox Grid.Row="2" Grid.Column="0" Name="PasswordTxtBox" Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
-                 Padding="5" TextAlignment="Center" FontSize="25"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="250" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged,
+                 Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
                 </TextBox>
                 <!--  Watermark effect for email textbox-->
@@ -183,7 +183,7 @@
 
                 <!-- Password Confirmation -->
                 <TextBox Grid.Row="3" Grid.Column="0" Name="RePasswordTxtBox" Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
-                 Padding="5" TextAlignment="Center" FontSize="25"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="250" Text="{ Binding RePassword, UpdateSourceTrigger=PropertyChanged,
+                 Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{ Binding RePassword, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
                 </TextBox>
                 <!--  Watermark effect for email textbox-->
@@ -206,7 +206,7 @@
                 <!-- Profile Image-->               
                 <Ellipse Grid.Column="1" Grid.RowSpan="3" Width="150" Height="150">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="../Resources/Images/CancelIcon.png"  />
+                        <ImageBrush ImageSource="{Binding ProfileImgPath}"  />
                     </Ellipse.Fill>
                 </Ellipse>
                 

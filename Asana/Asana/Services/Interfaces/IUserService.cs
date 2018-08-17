@@ -9,6 +9,6 @@ namespace Asana.Services.Interfaces
 {
     public interface IUserService
     {
-        System.Threading.Tasks.Task Insert(User user);
+       void Insert(User user);
     }
 }

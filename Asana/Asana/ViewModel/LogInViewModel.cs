@@ -1,4 +1,5 @@
-﻿using Asana.Navigation;
+﻿using Asana.Model;
+using Asana.Navigation;
 using Asana.Objects;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
@@ -49,6 +50,7 @@ namespace Asana.ViewModel
                        {
                           if( db.Users.Any(user => user.Email == Email && user.Password == Password))
                            {
+                           
                                navigation.NavigateTo(ViewType.Home);
                            }
                            else

@@ -139,6 +139,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
+    <Compile Include="Migrations\201808172002412_Initial_Model.cs" />
+    <Compile Include="Migrations\201808172002412_Initial_Model.Designer.cs">
+      <DependentUpon>201808172002412_Initial_Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808172042543_SomeChanges_Added.cs" />
+    <Compile Include="Migrations\201808172042543_SomeChanges_Added.Designer.cs">
+      <DependentUpon>201808172042543_SomeChanges_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808172111381_Password_Validation.cs" />
+    <Compile Include="Migrations\201808172111381_Password_Validation.Designer.cs">
+      <DependentUpon>201808172111381_Password_Validation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -160,6 +173,7 @@
     <Compile Include="Utilities\Hasher.cs" />
     <Compile Include="Utilities\HtmlParser.cs" />
     <Compile Include="Utilities\NotifyClass.cs" />
+    <Compile Include="Utilities\PasswordHasher.cs" />
     <Compile Include="Utilities\ProfilePhoto.cs" />
     <Compile Include="Utilities\Randomizer.cs" />
     <Compile Include="Utilities\RegexChecker.cs" />
@@ -253,6 +267,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201808172002412_Initial_Model.resx">
+      <DependentUpon>201808172002412_Initial_Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808172042543_SomeChanges_Added.resx">
+      <DependentUpon>201808172042543_SomeChanges_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808172111381_Password_Validation.resx">
+      <DependentUpon>201808172111381_Password_Validation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -274,6 +297,7 @@
     <Content Include="Resources\forgotpassword.html" />
     <Resource Include="Resources\Images\newgif.gif" />
     <Resource Include="Resources\Images\CancelIcon.png" />
+    <Resource Include="Resources\Images\user.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
