@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Asana.Objects
 {
     public class AsanaDbContext : DbContext
@@ -13,8 +14,10 @@ namespace Asana.Objects
         {
             Database.SetInitializer<AsanaDbContext>(new CreateDatabaseIfNotExists<AsanaDbContext>());
         }
+
+      
         public DbSet<User> Users{ get; set; }
-        public DbSet<UserRole> UserRoles{ get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<KanbanState> TaskStates { get; set; }
         public DbSet<Task> Tasks{ get; set; }
         public DbSet<Project> Projects{ get; set; }
