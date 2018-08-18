@@ -290,6 +290,22 @@
     <Content Include="Resources\forgotpassword.html" />
     <Resource Include="Resources\Images\newgif.gif" />
     <Resource Include="Resources\Images\CancelIcon.png" />
+    <Resource Include="Resources\Images\1.jpg" />
+    <Resource Include="Resources\Images\2.jpg" />
+    <Resource Include="Resources\Images\3.jpg" />
+    <Resource Include="Resources\Images\4.jpg" />
+    <Resource Include="Resources\Images\ac.png" />
+    <Resource Include="Resources\Images\arr.png" />
+    <Resource Include="Resources\Images\bg3.png" />
+    <Resource Include="Resources\Images\clouds.png" />
+    <Resource Include="Resources\Images\icon1.png" />
+    <Resource Include="Resources\Images\icon2.png" />
+    <Resource Include="Resources\Images\icon3.png" />
+    <Resource Include="Resources\Images\icon4.png" />
+    <Resource Include="Resources\Images\messaging.png" />
+    <Resource Include="Resources\Images\np.png" />
+    <Resource Include="Resources\Images\setting.png" />
+    <Resource Include="Resources\Images\user.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
