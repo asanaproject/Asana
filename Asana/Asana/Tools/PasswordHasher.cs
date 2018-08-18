@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Asana.Utilities
+namespace Asana.Tools
 {
-   public class PasswordHasher
+    public class PasswordHasher
     {
         public static string Hash(string password)
         {
