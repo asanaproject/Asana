@@ -17,6 +17,7 @@ namespace Asana.ViewModel
 {
     public class LogInViewModel:ViewModelBase
     {
+        public readonly AccountService accountService;
         private readonly NavigationService navigation;
         public LogInViewModel(NavigationService navigation)
         {
@@ -46,19 +47,10 @@ namespace Asana.ViewModel
         public RelayCommand LogInBtnCommand => _logInBtnCommand ?? (_logInBtnCommand = new RelayCommand(
                    x =>
                    {
-                       using (var db = new AsanaDbContext())
-                       {
-                          if( db.Users.Any(user => user.Email == Email && user.Password == Password))
-                           {
-                           
-                               navigation.NavigateTo(ViewType.Home);
-                           }
-                           else
-                           {
-                               MessageBox.Show("Your email or password is not correct!", "Warning!", MessageBoxButton.OK);
-                               return;
-                           }
-                       }
+                       if (accountService.LoginControl(Email, Password))
+                           navigation.NavigateTo(ViewType.Home);
+                       else
+                           Errors.LoginErrorMsg();
                    }));
 
         private RelayCommand _forgotPassCommand;

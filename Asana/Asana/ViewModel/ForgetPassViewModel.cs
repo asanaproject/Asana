@@ -82,8 +82,7 @@ namespace Asana.ViewModel
                     }
                 }
                 else
-                    MessageBox.Show("Passwords are not same , enter it correctly!",
-                                        "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    Errors.PasswordForgotErrorMsg();
                
 
             }));

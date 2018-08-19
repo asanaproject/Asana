@@ -53,7 +53,7 @@ namespace Asana.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Your Email Wrong,Please check your email!", "Email", MessageBoxButton.OK);
+                    Errors.SendCodeErrorMsg();
                     return;
                 }
             }

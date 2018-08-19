@@ -53,8 +53,7 @@ namespace Asana.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Confirmation Code is not correct, enter it correctly!",
-                                        "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        Errors.ConfirmCodeErrorMsg();
                     }
                 }
             ));

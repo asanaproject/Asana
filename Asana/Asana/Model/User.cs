@@ -22,13 +22,16 @@ namespace Asana.Objects
 
         [Required, RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")]
         public string Email { get; set; }
-
+ 
         public byte[] Image { get; set; }
 
         [Required]
         public string Password { get; set; }
 
+        [NotMapped]
+        public bool IsLogged { get; set; }
 
-     //   public virtual ICollection<UserRole> UserRoles { get; set; }
+
+        //   public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }
