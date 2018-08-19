@@ -180,6 +180,7 @@
     <Compile Include="Tools\Errors.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
+    <Compile Include="ViewModel\ChatViewModel.cs" />
     <Compile Include="ViewModel\ConfirmCodeViewModel.cs" />
     <Compile Include="ViewModel\ForgetPassViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
@@ -190,6 +191,9 @@
     <Compile Include="ViewModel\SignUpViewModel.cs" />
     <Compile Include="View\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChatView.xaml.cs">
+      <DependentUpon>ChatView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ConfirmCodeView.xaml.cs">
       <DependentUpon>ConfirmCodeView.xaml</DependentUpon>
@@ -224,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AppView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

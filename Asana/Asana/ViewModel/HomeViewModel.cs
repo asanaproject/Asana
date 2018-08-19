@@ -26,13 +26,11 @@ namespace Asana.ViewModel
         {
         }));
 
-
         private RelayCommand _backSlide;
 
         public RelayCommand BackSlide => _backSlide ?? (_backSlide = new RelayCommand(
         x =>
         {
         }));
-
     }
 }
