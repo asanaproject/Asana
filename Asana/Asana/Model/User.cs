@@ -19,6 +19,9 @@ namespace Asana.Objects
 
         [Required]
         public string FullName { get; set; }
+        
+        [Required]
+        public string  Username { get; set; }
 
         [Required, RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")]
         public string Email { get; set; }
