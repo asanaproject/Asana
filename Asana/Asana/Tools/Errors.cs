@@ -31,5 +31,11 @@ namespace Asana.Tools
         {
             MessageBox.Show("Your Email Wrong,Please check your email!", "Email", MessageBoxButton.OK);
         }
+
+        public static void SomthingErrorMsg()
+        {
+            MessageBox.Show("Something error,please check your information!",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

@@ -184,6 +184,7 @@
     <Compile Include="ViewModel\ForgetPassViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
+    <Compile Include="ViewModel\ProjectsViewModel.cs" />
     <Compile Include="ViewModel\RegisterEmailViewModel.cs" />
     <Compile Include="ViewModel\SendCodeEmailViewModel.cs" />
     <Compile Include="ViewModel\SignUpViewModel.cs" />
@@ -205,6 +206,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\ProjectsView.xaml.cs">
+      <DependentUpon>ProjectsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegisterEmailView.xaml.cs">
       <DependentUpon>RegisterEmailView.xaml</DependentUpon>
@@ -236,6 +240,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProjectsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -293,6 +301,9 @@
     <Content Include="Resources\forgotpassword.html" />
     <Resource Include="Resources\Images\newgif.gif" />
     <Resource Include="Resources\Images\CancelIcon.png" />
+    <Resource Include="Resources\Images\Settings.png" />
+    <Resource Include="Resources\Images\converstation.png" />
+    <Resource Include="Resources\Images\activities.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

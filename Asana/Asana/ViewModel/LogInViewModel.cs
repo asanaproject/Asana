@@ -57,7 +57,7 @@ namespace Asana.ViewModel
         public RelayCommand ForgotPassCommand
         {
             get => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.ForgotEmailCode)
+                (x => navigation.NavigateTo(ViewType.ProjecstView)
                 )));
         }
 

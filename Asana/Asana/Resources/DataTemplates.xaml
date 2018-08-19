@@ -38,6 +38,10 @@
         <v:HomeView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:ProjectsViewModel}">
+        <v:ProjectsView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:SendCodeEmailViewModel}">
         <v:SendCodeEmailView/>
     </DataTemplate>

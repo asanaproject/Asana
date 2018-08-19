@@ -28,6 +28,7 @@ namespace Asana
         public SendCodeEmailViewModel sendCodeEmailViewModel;
         public ConfirmCodeViewModel confirmationCodeViewModel;
         public SignUpViewModel signUpViewModel;
+        public ProjectsViewModel projectsViewModel;
         public ViewModelLocator()
         {
             dbContext = new AsanaDbContext();
@@ -43,6 +44,7 @@ namespace Asana
             homeViewModel = new HomeViewModel(navigationService);
             confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
             signUpViewModel = new SignUpViewModel(navigationService,userService);
+            projectsViewModel = new ProjectsViewModel(navigationService);
 
             navigationService.AddPage(signUpViewModel, ViewType.SignUp);
             navigationService.AddPage(confirmationCodeViewModel, ViewType.ConfirmCode);
@@ -51,6 +53,7 @@ namespace Asana
             navigationService.AddPage(sendCodeEmailViewModel, ViewType.ForgotEmailCode);
             navigationService.AddPage(logInViewModel, ViewType.LogIn);
             navigationService.AddPage(homeViewModel, ViewType.Home);
+            navigationService.AddPage(projectsViewModel, ViewType.ProjecstView);
             navigationService.NavigateTo(ViewType.LogIn);
         }
     }
