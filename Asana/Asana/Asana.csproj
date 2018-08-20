@@ -185,7 +185,8 @@
     <Compile Include="ViewModel\ForgetPassViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
-    <Compile Include="ViewModel\ProjectsViewModel.cs" />
+    <Compile Include="ViewModel\CreateProjectViewModel.cs" />
+    <Compile Include="ViewModel\ProjectPageViewModel.cs" />
     <Compile Include="ViewModel\RegisterEmailViewModel.cs" />
     <Compile Include="ViewModel\SendCodeEmailViewModel.cs" />
     <Compile Include="ViewModel\SignUpViewModel.cs" />
@@ -211,8 +212,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\ProjectsView.xaml.cs">
-      <DependentUpon>ProjectsView.xaml</DependentUpon>
+    <Compile Include="View\CreateProjectView.xaml.cs">
+      <DependentUpon>CreateProjectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProjectPageView.xaml.cs">
+      <DependentUpon>ProjectPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegisterEmailView.xaml.cs">
       <DependentUpon>RegisterEmailView.xaml</DependentUpon>
@@ -251,7 +255,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ProjectsView.xaml">
+    <Page Include="View\CreateProjectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProjectPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +320,7 @@
     <Resource Include="Resources\Images\Settings.png" />
     <Resource Include="Resources\Images\converstation.png" />
     <Resource Include="Resources\Images\activities.png" />
+    <Resource Include="Resources\Images\menu.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -20,17 +20,20 @@ namespace Asana.Services
             this.dbContext = dbContext;
         }
 
-        public  void Insert(User user)
+        public void Insert(User user)
         {
             try
             {
                 if (user != null)
                 {
+                    if (dbContext.Users.ToList().Exists(x => x.Username == user.Username))
+                    {
+                        throw new Exception("User with this username already exists.");
+                    }
                     user.Password = PasswordHasher.Hash(user.Password);
                     dbContext.Users.Add(user);
                     dbContext.SaveChanges();
                 }
-
             }
             catch (Exception ex)
             {

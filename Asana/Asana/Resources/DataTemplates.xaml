@@ -38,7 +38,7 @@
         <v:HomeView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:ProjectsViewModel}">
+    <DataTemplate DataType="{x:Type vm:CreateProjectViewModel}">
         <v:ProjectsView/>
     </DataTemplate>
     

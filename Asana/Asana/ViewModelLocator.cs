@@ -28,7 +28,7 @@ namespace Asana
         public SendCodeEmailViewModel sendCodeEmailViewModel;
         public ConfirmCodeViewModel confirmationCodeViewModel;
         public SignUpViewModel signUpViewModel;
-        public ProjectsViewModel projectsViewModel;
+        public CreateProjectViewModel projectsViewModel;
         public ChatViewModel chatViewModel;
         public ViewModelLocator()
         {
@@ -46,7 +46,10 @@ namespace Asana
             confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
             signUpViewModel = new SignUpViewModel(navigationService,userService);
             chatViewModel = new ChatViewModel(navigationService);
-            projectsViewModel = new ProjectsViewModel(navigationService);
+            projectsViewModel = new CreateProjectViewModel(navigationService);
+
+
+
             navigationService.AddPage(signUpViewModel, ViewType.SignUp);
             navigationService.AddPage(confirmationCodeViewModel, ViewType.ConfirmCode);
             navigationService.AddPage(registerEmailViewModel, ViewType.RegisterEmail);
@@ -54,8 +57,9 @@ namespace Asana
             navigationService.AddPage(sendCodeEmailViewModel, ViewType.ForgotEmailCode);
             navigationService.AddPage(logInViewModel, ViewType.LogIn);
             navigationService.AddPage(homeViewModel, ViewType.Home);
-            navigationService.AddPage(projectsViewModel, ViewType.ProjecstView);
+            navigationService.AddPage(projectsViewModel, ViewType.CreateProject);
             navigationService.AddPage(chatViewModel, ViewType.ChatView);
+
             navigationService.NavigateTo(ViewType.LogIn);
         }
     }
