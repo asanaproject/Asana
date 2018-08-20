@@ -151,10 +151,29 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-               
+
+                <!-- UserName-->
+                <TextBox Grid.Row="1" Grid.Column="0" Name="UserNameTxtBox"  Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
+                 Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{ Binding UserName, UpdateSourceTrigger=PropertyChanged,
+                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
+                </TextBox>
+                <!--  Watermark effect for email textbox-->
+                <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" IsHitTestVisible="False" Text="UserName"  Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=UserNameTxtBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
 
                 <!--   Email   -->
-                <TextBox Grid.Row="1" Grid.Column="0" Name="EmailTxtBox" Margin="10 0 10 0" IsEnabled="False"  BorderThickness="1" TextWrapping="Wrap"
+                <TextBox Grid.Row="2" Grid.Column="0" Name="EmailTxtBox" Margin="10 0 10 0" IsEnabled="False"  BorderThickness="1" TextWrapping="Wrap"
                  Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{ Binding Source={x:Static asana:CurrentUser.Instance}, Path=User.Email, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}"  >
                 </TextBox>
@@ -162,12 +181,12 @@
 
 
                 <!-- Password  -->
-                <TextBox Grid.Row="2" Grid.Column="0" Name="PasswordTxtBox" Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
+                <TextBox Grid.Row="3" Grid.Column="0" Name="PasswordTxtBox" Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
                  Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
                 </TextBox>
                 <!--  Watermark effect for email textbox-->
-                <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" IsHitTestVisible="False" Text="Password"  Foreground="DarkGray">
+                <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" IsHitTestVisible="False" Text="Password"  Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -182,12 +201,12 @@
 
 
                 <!-- Password Confirmation -->
-                <TextBox Grid.Row="3" Grid.Column="0" Name="RePasswordTxtBox" Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
+                <TextBox Grid.Row="3" Grid.Column="1" Name="RePasswordTxtBox" Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
                  Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{ Binding RePassword, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
                 </TextBox>
                 <!--  Watermark effect for email textbox-->
-                <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" IsHitTestVisible="False" Text="Re-Password"  Foreground="DarkGray">
+                <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" IsHitTestVisible="False" Text="Re-Password"  Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -204,7 +223,7 @@
                 <Button Grid.ColumnSpan="2" Grid.Row="4" Command="{Binding RegisterCommand}" Height="40" Width="250" Content="Continue" FontSize="23" FontWeight="Bold" Foreground="White"/>
 
                 <!-- Profile Image-->               
-                <Ellipse Grid.Column="1" Grid.RowSpan="3" Width="150" Height="150">
+                <Ellipse Grid.Column="1" Grid.RowSpan="2" Width="110" Height="110">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding ProfileImgPath}"  />
                     </Ellipse.Fill>
@@ -212,7 +231,7 @@
                 
                 
                 <!--  Load profile image  -->
-                <Button Grid.Column="1" Grid.Row="3" Width="100" Height="40" FontSize="15" Foreground="White" FontWeight="Bold" Content="Load Image" Command="{Binding LoadImageCommand}"/>
+                <Button Grid.Column="1" Grid.Row="2" Width="100" Height="40" FontSize="15" Foreground="White" FontWeight="Bold" Content="Load Image" Command="{Binding LoadImageCommand}"/>
 
             </Grid>
         </Grid>

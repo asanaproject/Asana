@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
 
 namespace Asana.ViewModel
 {
@@ -49,6 +49,14 @@ namespace Asana.ViewModel
             set { Set(ref password, value); }
         }
 
+
+        private string username;
+        public string UserName
+        {
+            get { return username; }
+            set { Set(ref username, value); }
+        }
+
         private string rePassword;
         public string RePassword
         {
@@ -80,13 +88,19 @@ namespace Asana.ViewModel
         public RelayCommand RegisterCommand => _registerCommand ?? (_registerCommand = new RelayCommand(
             x =>
             {
-
-
                 CurrentUser.Instance.User.FullName = FullName;
                 CurrentUser.Instance.User.Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath));
                 CurrentUser.Instance.User.Password = Password;
-               
-                userService.Insert(CurrentUser.Instance.User);
+                CurrentUser.Instance.User.Username = UserName;
+                try
+                {
+                    userService.Insert(CurrentUser.Instance.User);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             ));
         public string Error => throw new NotImplementedException();
@@ -101,6 +115,13 @@ namespace Asana.ViewModel
                     if (String.IsNullOrEmpty(FullName))
                     {
                         result = "Add your name, so your teammates\nknow who you are.";
+                    }
+                }
+                else if (columnName.Equals(nameof(UserName)))
+                {
+                    if (!RegexChecker.CheckUsername(UserName))
+                    {
+                        result = "Username is not valid";
                     }
                 }
                 else if (columnName.Equals(nameof(Password)))
