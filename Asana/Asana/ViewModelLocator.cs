@@ -60,7 +60,7 @@ namespace Asana
             navigationService.AddPage(projectsViewModel, ViewType.CreateProject);
             navigationService.AddPage(chatViewModel, ViewType.ChatView);
 
-            navigationService.NavigateTo(ViewType.CreateProject);
+            navigationService.NavigateTo(ViewType.LogIn);
         }
     }
 }
