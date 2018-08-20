@@ -17,12 +17,6 @@
         </LinearGradientBrush>
     </UserControl.Background>
 
-    <!--<UserControl.Resources>
-        <Image x:Key="Activities" Source="../Resources/Images/activities.png"/>
-        <Image x:Key="converstation" Source="../Resources/Images/converstation.png"/>
-        <Image x:Key="Settings" Source="../Resources/Images/Settings.png"/>
-    </UserControl.Resources>-->
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="0.1*"/>
@@ -47,55 +41,57 @@
 
                 <Grid Grid.Row="0" Background="#FF9D79B0" >
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
                         <ColumnDefinition Width="80*"/>
                         <ColumnDefinition Width="90*"/>
                         <ColumnDefinition Width="60*"/>
                         <ColumnDefinition Width="90*"/>
-                        <ColumnDefinition Width="90*"/>
-                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="20*"/>
                         <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="60*"/>
                     </Grid.ColumnDefinitions>
 
-
-                    <Image   Grid.Column="6" Grid.Row="0" Source="../Resources/Images/activities.png"
+                    <Image Grid.Column="0" Source="pack://application:,,,/Asana;component/Resources/Images/menu.png" VerticalAlignment="Stretch" Height="20" Width="20"/>
+                  
+                    <Image   Grid.Column="7" Source="../Resources/Images/activities.png"
                         VerticalAlignment="Stretch"
-                         HorizontalAlignment="Center" Height="20"  Width="20"   ></Image>
+                         HorizontalAlignment="Center" Height="20"  Width="20"/>
 
 
-                    <Image   Grid.Column="7" Grid.Row="0" Source="../Resources/Images/converstation.png"
+                    <Image   Grid.Column="8" Source="../Resources/Images/converstation.png"
                        VerticalAlignment="Stretch"
-                         HorizontalAlignment="Left" Height="20"  Width="20"   ></Image>
+                         HorizontalAlignment="Left" Height="20"  Width="20"/>
 
-                    <Image  Grid.Column="8" Grid.Row="0" Source="../Resources/Images/Settings.png"
+                    <Image  Grid.Column="9"  Source="../Resources/Images/Settings.png"
                       VerticalAlignment="Stretch"
-                         HorizontalAlignment="Left" Height="30"  Width="20"   ></Image>
+                         HorizontalAlignment="Left" Height="30"  Width="20"/>
 
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="25" FontWeight="Bold" 
+                    <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" 
                                HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="83" >Project</TextBlock>
 
 
 
-                    <Button  Content="Dashboard" Grid.Column="1" Grid.Row="0"
+                    <Button  Content="Dashboard" Grid.Column="2"
                        BorderThickness="0" Background="#FF9D79B0" VerticalAlignment="Center"
-                         HorizontalAlignment="Center" Height="30"  Width="110"   ></Button>
+                         HorizontalAlignment="Center" Height="30"  Width="110"/>
 
 
 
-                    <Button  Content="Search" VerticalAlignment="Center" Grid.Column="2"
+                    <Button  Content="Search" VerticalAlignment="Center" Grid.Column="3"
                         HorizontalAlignment="Center" BorderThickness="0" Background="#FF9D79B0"
                                  Height="30"  Width="80"    />
 
-                    <Button  Content="Reporting" VerticalAlignment="Center" Grid.Column="3"
+                    <Button  Content="Reporting" VerticalAlignment="Center" Grid.Column="4"
                         HorizontalAlignment="Center"  BorderThickness="0" 
                              Background="#FF9D79B0" Height="30"  Width="110"  />
 
 
 
 
-                    <Button  Content="Configurations" VerticalAlignment="Center" Grid.Column="4" 
+                    <Button  Content="Configurations" VerticalAlignment="Center" Grid.Column="5" 
                         HorizontalAlignment="Center" BorderThickness="0" 
                              Background="#FF9D79B0" Height="30"  Width="120"  />
 

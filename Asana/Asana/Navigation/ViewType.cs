@@ -8,6 +8,6 @@ namespace Asana.Navigation
 {
     public enum ViewType
     {
-        LogIn, SignUp,ForgetPass,ForgotEmailCode,RegisterEmail,Home,ConfirmCode,ProjecstView,ChatView
+        LogIn, SignUp,ForgetPass,ForgotEmailCode,RegisterEmail,Home,ConfirmCode,CreateProject,ChatView,ProjectPage
     }
 }

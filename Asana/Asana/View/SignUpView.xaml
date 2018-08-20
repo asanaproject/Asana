@@ -79,9 +79,9 @@
     <Border HorizontalAlignment="Center" VerticalAlignment="Center"  Background="White" BorderBrush="White"  CornerRadius="8" Height="400"  Width="700" >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="8*"/>
-                <RowDefinition Height="6*"/>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="9*"/>
                 <RowDefinition Height="60*"/>
             </Grid.RowDefinitions>
             <!--   this button is for come back to Home View -->
