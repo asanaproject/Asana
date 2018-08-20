@@ -12,10 +12,10 @@
             <GradientStop Color="#4158d0" Offset="0.9"></GradientStop>
             <LinearGradientBrush.Transform>
                 <RotateTransform CenterX="60" CenterY="30" Angle="-135" />
-
             </LinearGradientBrush.Transform>
         </LinearGradientBrush>
     </UserControl.Background>
+
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -30,70 +30,99 @@
         </Grid.RowDefinitions>
 
         <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch"  Background="White" BorderBrush="White"  CornerRadius="8">
-
             <Grid>
                 <Grid.RowDefinitions >
                     <RowDefinition Height="19*"/>
+                    <RowDefinition Height="40*"/>
                     <RowDefinition Height="106*"/>
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
+                <TextBox  Grid.Row="1" Grid.Column="1" Name="SearchtxtBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="330"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15" FontStyle="Italic" IsHitTestVisible="False" Text="Search.."  Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=SearchtxtBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
+                <TextBlock Grid.Row="1" Text="Projects" Foreground="DarkGray" Margin="5" 
+                           FontWeight="Bold" VerticalAlignment="Top" FontSize="15" Height="30" HorizontalAlignment="Left"></TextBlock>
+                <Button Grid.Row="1" ToolTip="Create New Project" VerticalAlignment="Center" Content="Create" Height="25" Width="70"
+                        Background="#FF36C1E4" FontSize="10" HorizontalAlignment="Left" Margin="5,0,0,0" ></Button>
 
-                <Grid Grid.Row="0" Background="#FF9D79B0" >
+                <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FF9D79B0" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*"/>
-                        <ColumnDefinition Width="80*"/>
-                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="85"/>
+                        <ColumnDefinition Width="70*"/>
                         <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="90*"/>
-                        <ColumnDefinition Width="100*"/>
-                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="60*"/>
                         <ColumnDefinition Width="20*"/>
                         <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="70*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Image Grid.Column="0" Source="pack://application:,,,/Asana;component/Resources/Images/menu.png" VerticalAlignment="Stretch" Height="20" Width="20"/>
-                  
-                    <Image   Grid.Column="7" Source="../Resources/Images/activities.png"
-                        VerticalAlignment="Stretch"
-                         HorizontalAlignment="Center" Height="20"  Width="20"/>
+                    <!--Header items-->
+                    <Image   Grid.Column="4" Grid.Row="0" ToolTip="Activities" Source="../Resources/Images/activities.png"
+                        VerticalAlignment="Center"
+                         HorizontalAlignment="Center" Height="20"  Width="20"   ></Image>
 
 
-                    <Image   Grid.Column="8" Source="../Resources/Images/converstation.png"
+                    <Image  ToolTip="Chat" Grid.Column="5" Grid.Row="0" Source="../Resources/Images/converstation.png"
                        VerticalAlignment="Stretch"
-                         HorizontalAlignment="Left" Height="20"  Width="20"/>
+                         HorizontalAlignment="Center" Height="20"  Width="20"   ></Image>
 
-                    <Image  Grid.Column="9"  Source="../Resources/Images/Settings.png"
+                    <Image  Grid.Column="6" ToolTip="Settings" Grid.Row="0" Source="../Resources/Images/Settings.png"
                       VerticalAlignment="Stretch"
-                         HorizontalAlignment="Left" Height="30"  Width="20"/>
+                         HorizontalAlignment="Center" Height="30"  Width="20"   ></Image>
 
 
-                    <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" 
+                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="25" FontWeight="Bold" 
                                HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="83" >Project</TextBlock>
 
 
 
-                    <Button  Content="Dashboard" Grid.Column="2"
-                       BorderThickness="0" Background="#FF9D79B0" VerticalAlignment="Center"
-                         HorizontalAlignment="Center" Height="30"  Width="110"/>
+                    <Button  Content="Dashboard" Grid.Column="1" Grid.Row="0"
+                       BorderThickness="0" FontSize="10" Background="#FF9D79B0" VerticalAlignment="Center"
+                         HorizontalAlignment="Center" Height="30"  Width="90"   ></Button>
 
 
 
-                    <Button  Content="Search" VerticalAlignment="Center" Grid.Column="3"
-                        HorizontalAlignment="Center" BorderThickness="0" Background="#FF9D79B0"
-                                 Height="30"  Width="80"    />
+                    <Button  Content="Search" VerticalAlignment="Center" Grid.Column="2"
+                        HorizontalAlignment="Center" FontSize="10" BorderThickness="0" Background="#FF9D79B0"
+                                 Height="30"  Width="70"  />
 
-                    <Button  Content="Reporting" VerticalAlignment="Center" Grid.Column="4"
-                        HorizontalAlignment="Center"  BorderThickness="0" 
-                             Background="#FF9D79B0" Height="30"  Width="110"  />
+                  
+
+                    <Button  Content="Settings" VerticalAlignment="Center" Grid.Column="3" 
+                        HorizontalAlignment="Center" FontSize="10" BorderThickness="0" 
+                             Background="#FF9D79B0" Height="30"  Width="80"  />
+
+                    <Menu Grid.Column="8" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
+                        <MenuItem Header="UserName" FontSize="10" >
+                            <MenuItem Header="Account"/>
+                            <MenuItem Header="Language">
+                                <MenuItem Header="Az"/>
+                                <MenuItem Header ="Ru"/>
+                            </MenuItem>
+                        </MenuItem>
+                        
+                    </Menu>
+                    
+                    <!--Header items end-->
 
 
 
-
-                    <Button  Content="Configurations" VerticalAlignment="Center" Grid.Column="5" 
-                        HorizontalAlignment="Center" BorderThickness="0" 
-                             Background="#FF9D79B0" Height="30"  Width="120"  />
 
 
                 </Grid>

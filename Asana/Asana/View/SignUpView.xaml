@@ -85,7 +85,7 @@
                 <RowDefinition Height="60*"/>
             </Grid.RowDefinitions>
             <!--   this button is for come back to Home View -->
-            <Button Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" Content="{StaticResource MyImage}"
+            <Button Grid.Row="0" ToolTip="Previous Page" Grid.Column="0" BorderBrush="Transparent" Content="{StaticResource MyImage}"
                         Command="{Binding BackCommand}" Background="Transparent" Foreground="White"
                            FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
@@ -153,11 +153,11 @@
 
 
                 <!-- UserName-->
-                <TextBox Grid.Row="1" Grid.Column="0" Name="UserNameTxtBox"  Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
+                <TextBox Grid.Row="1" ToolTip="Your name in project" Grid.Column="0" Name="UserNameTxtBox"  Margin="10 0 10 0"  BorderThickness="1" TextWrapping="Wrap"
                  Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{ Binding UserName, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" >
                 </TextBox>
-                <!--  Watermark effect for email textbox-->
+                <!--  Watermark effect for Username textbox-->
                 <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" IsHitTestVisible="False" Text="UserName"  Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
@@ -177,6 +177,19 @@
                  Padding="5" TextAlignment="Center" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="300" Text="{ Binding Source={x:Static asana:CurrentUser.Instance}, Path=User.Email, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}"  >
                 </TextBox>
+                <!--  Watermark effect for email textbox-->
+                <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" IsHitTestVisible="False" Text="Email"  Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=EmailTxtBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
              
 
 
