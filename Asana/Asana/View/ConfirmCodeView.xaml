@@ -69,7 +69,7 @@
             
             
             <!--    Button for come back to previous view   -->
-            <Button Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" Content="{StaticResource MyImage}"
+            <Button Grid.Row="0" Grid.Column="0" ToolTip="Previous page" BorderBrush="Transparent" Content="{StaticResource MyImage}"
                         Command="{Binding BackCommand}" Background="Transparent" Foreground="White"
                            FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
           

@@ -63,7 +63,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0"  Source="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Envelope_font_awesome.svg/1024px-Envelope_font_awesome.svg.png" Width="15" Height="15"></Image>
-                            <TextBox Name="EmailTxtbox" Text="{Binding Email}" Grid.Column="1"  BorderBrush="Transparent" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
+                            <TextBox Name="EmailTxtbox" ToolTip="Enter your Email" Text="{Binding Email}" Grid.Column="1"  BorderBrush="Transparent" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
                             <TextBlock Grid.Column="1" FontSize="16" IsHitTestVisible="False" Text="Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
@@ -87,7 +87,7 @@
                     </Border>
 
                 </Grid>
-                <Button BorderBrush="Transparent" Content="{StaticResource MyImage}" Command="{Binding CancelCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Button BorderBrush="Transparent" ToolTip="Previous Page" Content="{StaticResource MyImage}" Command="{Binding CancelCommand}" Background="Transparent" Foreground="White" FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
 
         </Border>

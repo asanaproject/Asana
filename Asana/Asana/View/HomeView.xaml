@@ -38,8 +38,8 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Button Command="{Binding NextSlide}" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
-            <Button Command="{Binding BackSlide}" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
+            <Button Command="{Binding NextSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
+            <Button Command="{Binding BackSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
             <Image Grid.Row="1" HorizontalAlignment="Center" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>
         </Grid>
         <Rectangle Stretch="Fill" Fill="White" Grid.Row="1" Grid.RowSpan="2"></Rectangle>
