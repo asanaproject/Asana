@@ -60,71 +60,11 @@
                 <Button Grid.Row="1" ToolTip="Create New Project" VerticalAlignment="Center" Content="Create" Height="25" Width="70"
                         Background="#FF36C1E4" FontSize="10" HorizontalAlignment="Left" Margin="5,0,0,0" ></Button>
 
-                <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FF9D79B0" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="85"/>
-                        <ColumnDefinition Width="70*"/>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="70*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!--Header items-->
-                    <Image   Grid.Column="4" Grid.Row="0" ToolTip="Activities" Source="../Resources/Images/activities.png"
-                        VerticalAlignment="Center"
-                         HorizontalAlignment="Center" Height="20"  Width="20"   ></Image>
-
-
-                    <Image  ToolTip="Chat" Grid.Column="5" Grid.Row="0" Source="../Resources/Images/converstation.png"
-                       VerticalAlignment="Stretch"
-                         HorizontalAlignment="Center" Height="20"  Width="20"   ></Image>
-
-                    <Image  Grid.Column="6" ToolTip="Settings" Grid.Row="0" Source="../Resources/Images/Settings.png"
-                      VerticalAlignment="Stretch"
-                         HorizontalAlignment="Center" Height="30"  Width="20"   ></Image>
-
-
-                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="25" FontWeight="Bold" 
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="83" >Project</TextBlock>
-
-
-
-                    <Button  Content="Dashboard" Grid.Column="1" Grid.Row="0"
-                       BorderThickness="0" FontSize="10" Background="#FF9D79B0" VerticalAlignment="Center"
-                         HorizontalAlignment="Center" Height="30"  Width="90"   ></Button>
-
-
-
-                    <Button  Content="Search" VerticalAlignment="Center" Grid.Column="2"
-                        HorizontalAlignment="Center" FontSize="10" BorderThickness="0" Background="#FF9D79B0"
-                                 Height="30"  Width="70"  />
-
-                  
-
-                    <Button  Content="Settings" VerticalAlignment="Center" Grid.Column="3" 
-                        HorizontalAlignment="Center" FontSize="10" BorderThickness="0" 
-                             Background="#FF9D79B0" Height="30"  Width="80"  />
-
-                    <Menu Grid.Column="8" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
-                        <MenuItem Header="UserName" FontSize="10" >
-                            <MenuItem Header="Account"/>
-                            <MenuItem Header="Language">
-                                <MenuItem Header="Az"/>
-                                <MenuItem Header ="Ru"/>
-                            </MenuItem>
-                        </MenuItem>
-                        
-                    </Menu>
-                    
-                    <!--Header items end-->
-
-
-
-
-
+                
+                
+                <!--     HEADER    -->
+                <Grid Grid.Row="0" Grid.ColumnSpan="2" >
+                    <local:HeaderView/>
                 </Grid>
             </Grid>
 
