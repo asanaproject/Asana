@@ -10,9 +10,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="85"/>
-            <ColumnDefinition Width="70*"/>
-            <ColumnDefinition Width="60*"/>
-            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="20*"/>
@@ -63,6 +63,7 @@
                     <MenuItem Header="Az"/>
                     <MenuItem Header ="Ru"/>
                 </MenuItem>
+                <MenuItem Header="Log Off"/>
             </MenuItem>
 
         </Menu>
