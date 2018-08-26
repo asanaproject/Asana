@@ -25,5 +25,18 @@ namespace Asana.Tools
                 return "";
             }
         }
+        public static string GetPath(string path)
+        {
+            try
+            {
+                string pathfile = Assembly.GetExecutingAssembly().Location + "\\..\\..\\.." + path;
+                return pathfile;
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+                return "";
+            }
+        }
     }
 }
