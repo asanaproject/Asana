@@ -6,7 +6,234 @@
              xmlns:local="clr-namespace:Asana.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#c850c0" Offset="0"></GradientStop>
+            <GradientStop Color="#4158d0" Offset="0.9"></GradientStop>
+            <LinearGradientBrush.Transform>
+                <RotateTransform CenterX="60" CenterY="30" Angle="-135" />
+            </LinearGradientBrush.Transform>
+        </LinearGradientBrush>
+    </UserControl.Background>
+    <UserControl.Resources>
+        <Image x:Key="star" Source="../Resources/Images/star.png"></Image>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="0.1*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition/>
+            <RowDefinition  Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch"   BorderBrush="White"  CornerRadius="8">
+            <Grid>
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <local:HeaderView Grid.Row="0" Grid.ColumnSpan="2" />
+                <Grid Grid.Row="1" Background="#2f3136">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border CornerRadius="0" BorderThickness="0,0,0,1" BorderBrush="Gray">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Button HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0"  Height="25"  Background="Transparent" BorderBrush="Transparent" Foreground="White">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Height="19" Source="../Resources/Images/inbox.png" ></Image>
+                                    <TextBlock Text="Inbox" Grid.Column="1" FontSize="13" Padding="10,0,0,0" VerticalAlignment="Center" ></TextBlock>
+                                </Grid>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  Background="Transparent" BorderBrush="Transparent" Foreground="White">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Height="19" Source="../Resources/Images/star.png" ></Image>
+                                    <TextBlock Text="Starred" Padding="10,0,0,0" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
+                                </Grid>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    <ScrollViewer Margin="0,5,0,0" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+                        <StackPanel CanHorizontallyScroll="True"  >
+                            <Grid Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Padding="15,0,0,0" Foreground="#777777" FontSize="15">CHANNELS</TextBlock>
+                                <TextBlock Foreground="#777777" Grid.Column="1"    FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0"> +</TextBlock>
+                            </Grid>
+                            <ListBox ItemsSource="{Binding Channels}" Background="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="0.2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
+                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding }"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>  
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Padding="15,0,0,0" Foreground="#777777" FontSize="15">DIRECT MESSAGES</TextBlock>
+                                <TextBlock Foreground="#777777" Grid.Column="1"    FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0"> +</TextBlock>
+                            </Grid>
+                            <ListBox ItemsSource="{Binding DirectMessages}" Background="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="0.2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
+                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding }"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Padding="15,0,0,0" Foreground="#777777"  FontSize="15">PRIVATE MESSAGES</TextBlock>
+                                <TextBlock Foreground="#777777" Grid.Column="1"     FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0"> +</TextBlock>
+                            </Grid>
+                            <ListBox ItemsSource="{Binding PrivateMessages}" Background="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="0.2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
+                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding }"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <Grid Background="White"  Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="White" ItemsSource="{Binding ChatItems}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border  >
+                                    <Grid>
+                                        <!-- Profile picture -->
+                                        <Border VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="0 7.5 0 7.5"
+                                                CornerRadius="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                Height="{
+                                            Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                Width="35"
+                                                Background="Green"
+                                                BorderBrush="Red"
+                                                BorderThickness="1">
+                                            <TextBlock Text="{Binding Path=ProfName}"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                            />
+                                        </Border>
+
+                                        <!-- Chat message container -->
+                                        <Grid Margin="50 0 0 0"  HorizontalAlignment="Stretch">
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <!-- Speech bubble rectangle -->
+                                            <Border CornerRadius="10" Padding="15" Background="#0084ff">
+                                                <!-- Message text -->
+                                                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=Body}"/>
+                                            </Border>
+
+                                            <!-- Chat bubble anchor -->
+                                            <Path Grid.Row="1" 
+                                                Stroke="Black"
+                                                Panel.ZIndex="1"
+                                                Margin="15 -1 15 0"
+                                                Data="M 0,0 L 10,10 L 20,0 L 0,0" 
+                                                StrokeThickness="0"
+                                                Fill="#0084ff" />
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.01*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0.20*"/>
+                            <ColumnDefinition Width="0.01*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Height="35" CornerRadius="5 0 0 5" BorderThickness="0.5" BorderBrush="Gray" Grid.Column="1" Padding="7 7 5 0" >
+                            <TextBox BorderBrush="Transparent" BorderThickness="0"  Style="{x:Null}" FontSize="14"   Text="Write To Something"></TextBox>
+                        </Border>
+                        <Button Height="35" BorderBrush="Gray" BorderThickness="1"  Style="{x:Null}" Grid.Column="2" Content="Send" Foreground="White" Background="#008784" >
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
