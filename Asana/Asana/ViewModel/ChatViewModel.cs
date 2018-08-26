@@ -44,6 +44,7 @@ namespace Asana.ViewModel
             set { chatItems = value; Set(ref chatItems, value); }
         }
 
+
         private readonly NavigationService navigationService;
 
         public ChatViewModel(NavigationService navigationService)
