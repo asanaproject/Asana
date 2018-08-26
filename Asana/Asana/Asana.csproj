@@ -148,6 +148,7 @@
       <DependentUpon>201808181024194_Initial_Model1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
