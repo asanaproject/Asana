@@ -167,6 +167,7 @@
     <Compile Include="Model\UserRole.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Navigation\ViewType.cs" />
+    <Compile Include="Tools\DesktopNotifier.cs" />
     <Compile Include="Tools\EmailHelper.cs" />
     <Compile Include="Tools\FileHelper.cs" />
     <Compile Include="Tools\Hasher.cs" />
