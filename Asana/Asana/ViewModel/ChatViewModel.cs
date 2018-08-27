@@ -50,12 +50,12 @@ namespace Asana.ViewModel
 
         public ChatViewModel(NavigationService navigationService)
         {
+
             this.navigationService = navigationService;
             PrivateMessages = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
             Channels = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
             DirectMessages = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
             ChatItems = new ObservableCollection<MessageItem>() { new MessageItem() { ProfName = "AB", Body = "TestBodyssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" }, new MessageItem() { ProfName = "NX", Body = "TestBody1" }, new MessageItem() { ProfName = "TM", Body = "TestBody2" }, new MessageItem() { ProfName = "TM", Body = "TestBodyssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" }, new MessageItem() { ProfName = "TM", Body = "TestBody1" }, new MessageItem() { ProfName = "AU", Body = "TestBody2" } };
-
         }
     }
 }

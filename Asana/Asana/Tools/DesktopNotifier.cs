@@ -20,6 +20,7 @@ namespace Asana.Tools
                 string notifitextfile = path + "\\NotificationList.notifi";
                 if (File.Exists(notifitextfile))
                 {
+
                     File.WriteAllText(notifitextfile, String.Empty);
                     using (var writer = new StreamWriter(notifitextfile, true))
                     {
@@ -27,6 +28,7 @@ namespace Asana.Tools
                         writer.Write("::Body::");
                         writer.Write(body);
                     }
+
                     string notifipush = path + "\\NotificationStatusBar.exe";
                     var proc = new Process();
                     proc.StartInfo.UseShellExecute =true;
@@ -35,7 +37,6 @@ namespace Asana.Tools
                     proc.StartInfo.RedirectStandardOutput = true;
                     proc.StartInfo.FileName =notifipush;
                     proc.Start();
-
                 }
             }
             catch (Exception err)
