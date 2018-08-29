@@ -42,9 +42,7 @@ namespace Asana.ViewModel
         /// command checks sameness of inputted code and code which is sent to user's email
         /// </summary>
         private RelayCommand confirmCommand;
-        public RelayCommand ConfirmCommand
-        {
-            get => confirmCommand ?? (confirmCommand = new RelayCommand(
+        public RelayCommand ConfirmCommand => confirmCommand ?? (confirmCommand = new RelayCommand(
                 x =>
                 {
                     if (Randomizer.RandomKey.Equals(ConfirmationCode))
@@ -57,6 +55,5 @@ namespace Asana.ViewModel
                     }
                 }
             ));
-        }
     }
 }
