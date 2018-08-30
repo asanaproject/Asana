@@ -167,6 +167,7 @@
     <Compile Include="Model\UserRole.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Navigation\ViewType.cs" />
+    <Compile Include="Tools\DesktopNotifier.cs" />
     <Compile Include="Tools\EmailHelper.cs" />
     <Compile Include="Tools\FileHelper.cs" />
     <Compile Include="Tools\Hasher.cs" />
@@ -308,6 +309,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Apps\DesktopNotifier\NotificationList.notifi" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -322,6 +324,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="favicon.ico" />
+    <Content Include="Apps\DesktopNotifier\NotificationStatusBar.exe" />
     <Content Include="Resources\forgotpassword.html" />
     <Resource Include="Resources\Images\newgif.gif" />
     <Resource Include="Resources\Images\CancelIcon.png" />
