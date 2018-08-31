@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Asana.ViewModel"
         mc:Ignorable="d"
-        Title="ChatRoomAdd" Height="160" Width="500" WindowStyle="None" >
+        Title="ChatRoomAdd" Height="160" Width="500" WindowStyle="None" WindowStartupLocation="CenterScreen" >
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition/>
