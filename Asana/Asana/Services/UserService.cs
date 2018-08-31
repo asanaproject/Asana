@@ -1,4 +1,5 @@
-﻿using Asana.Objects;
+﻿using Asana.Model;
+using Asana.Objects;
 using Asana.Services.Interfaces;
 using Asana.Tools;
 using System;

@@ -1,0 +1,22 @@
+﻿<Window x:Class="Asana.ViewModel.ChatRoomAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Asana.ViewModel"
+        mc:Ignorable="d"
+        Title="ChatRoomAdd" Height="160" Width="500" WindowStyle="None" >
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="Title" FontSize="18" HorizontalAlignment="Center" Margin="0 20 0 0"></TextBlock>
+        <Border CornerRadius="15" Margin="0 33 0 0" BorderBrush="WhiteSmoke" Height="35" Width="350" Background="WhiteSmoke" BorderThickness="3"  >
+            <TextBox x:Name="Name" Background="Transparent" BorderBrush="Transparent" FontSize="16" Padding="10 1.5 10 0" Foreground="Gray"></TextBox>
+        </Border>
+        <Border Grid.Row="1" Width="150" Height="30" VerticalAlignment="Top" Background="LightGreen" CornerRadius="15">
+            <Button Background="Transparent" BorderBrush="Transparent" Foreground="White" FontSize="17" Content="OK"></Button>
+        </Border>
+    </Grid>
+</Window>
