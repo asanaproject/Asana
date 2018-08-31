@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Asana.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,5 +15,8 @@ namespace Asana.Model
         public virtual ICollection<User> Users { get; set; }
 
         public virtual ICollection<ChatRoom> ChatRooms { get; set; }
+
+       
+        
     }
 }
