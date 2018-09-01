@@ -25,23 +25,9 @@ namespace Asana.ViewModel
         public LogInViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            
+            accountService = new AccountService();
         }
 
-        public LogInViewModel()
-        {
-            accountService = new AccountService();
-            using (var db = new AsanaDbContext())
-            {
-                userService = new UserService(db);
-                string user = CheckLoginLog.Load();
-                if (user != "")
-                {
-                    CurrentUser.Instance.User = userService.Select(user);
-                    navigation.NavigateTo(ViewType.Home);
-                }
-            }
-        }
 
         private string email;
 
