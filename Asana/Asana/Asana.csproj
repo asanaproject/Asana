@@ -153,6 +153,7 @@
     <Compile Include="Model\Message.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
+    <Compile Include="Services\ChannelsService.cs" />
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
@@ -344,6 +345,8 @@
     <Resource Include="Resources\Images\activities.png" />
     <Resource Include="Resources\Images\menu.png" />
     <Resource Include="Resources\Images\plus.png" />
+    <Resource Include="Resources\Images\inbox.png" />
+    <Resource Include="Resources\Images\star.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

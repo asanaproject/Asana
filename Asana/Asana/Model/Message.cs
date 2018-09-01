@@ -22,7 +22,7 @@ namespace Asana.Model
         [Required]
         public DateTime Timestap { get; set; }
 
-        public ChatRoom ChatRoom { get; set; }
+        public int ChatRoomId { get; set; }
         
     }
 }

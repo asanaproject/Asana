@@ -13,7 +13,11 @@
         </Grid.RowDefinitions>
         <TextBlock x:Name="Title" FontSize="18" HorizontalAlignment="Center" Margin="0 20 0 0"></TextBlock>
         <Border CornerRadius="15" Margin="0 33 0 0" BorderBrush="WhiteSmoke" Height="35" Width="350" Background="WhiteSmoke" BorderThickness="3"  >
-            <TextBox x:Name="Name" Background="Transparent" BorderBrush="Transparent" FontSize="16" Padding="10 1.5 10 0" Foreground="Gray"></TextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="16" Padding="10 3 3 0" Foreground="Gray">#</TextBlock>
+                <TextBox x:Name="Name" Background="Transparent" Width="310" BorderBrush="Transparent" FontSize="16" Padding="0 1 0 0" Foreground="Gray">
+                </TextBox>
+            </StackPanel>
         </Border>
         <Border Grid.Row="1" Width="150" Height="30" VerticalAlignment="Top" Background="LightGreen" CornerRadius="15">
             <Button Click="Button_Click" Background="Transparent" BorderBrush="Transparent" Foreground="White" FontSize="17" Content="OK"></Button>

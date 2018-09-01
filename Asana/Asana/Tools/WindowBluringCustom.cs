@@ -28,6 +28,7 @@ namespace Asana.Tools
                 Top = Application.Current.MainWindow.Top
             };
             blurWindow.Show();
+
         }
         public static void Normal()
         {
