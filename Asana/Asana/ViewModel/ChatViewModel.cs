@@ -54,13 +54,15 @@ namespace Asana.ViewModel
         public RelayCommand AddChatRoomChannels => _addChatRoomChannels ?? (_addChatRoomChannels = new RelayCommand(
         x =>
         {
+            WindowBluringCustom.Bluring();
             ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Name");
             chatRoomAdd.ShowDialog();
+            WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
-            using (var db = new AsanaDbContext())
-            {
-                db.ChatRooms.Add(new ChatRoom() { Name = channelname });
-            }
+            //using (var db = new AsanaDbContext())
+            //{
+            //    db.ChatRooms.Add(new ChatRoom() { Name = channelname });
+            //}
         }));
 
 
@@ -71,10 +73,6 @@ namespace Asana.ViewModel
         public ChatViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
-            PrivateMessages = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
-            Channels = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
-            DirectMessages = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
-            ChatItems = new ObservableCollection<MessageItem>() { new MessageItem() { ProfName = "Ali", Body = "TestBodyssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" }, new MessageItem() { ProfName = "Ali1", Body = "TestBody1" }, new MessageItem() { ProfName = "Ali2", Body = "TestBody2" }, new MessageItem() { ProfName = "Ali", Body = "TestBodyssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" }, new MessageItem() { ProfName = "Ali1", Body = "TestBody1" }, new MessageItem() { ProfName = "Ali2", Body = "TestBody2" } };
         }
     }
 }
