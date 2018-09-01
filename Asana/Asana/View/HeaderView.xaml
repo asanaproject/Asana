@@ -36,32 +36,34 @@
 
         <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Height="25" Source="pack://application:,,,/Asana;component/Resources/Images/menu.png"/>
 
-        <TextBlock Grid.Column="1" FontSize="24" FontWeight="Bold" 
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="83" FontFamily="Comic Sans MS" >Project</TextBlock>
+        <TextBlock Grid.Column="1" FontSize="27" FontWeight="Bold" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="WhiteSmoke" Height="36" Width="83" FontFamily="Calibri" >Project</TextBlock>
 
  
 
         <Button  Content="Dashboard" Grid.Column="2" Grid.Row="0"
-                       BorderThickness="0" FontSize="10" Background="#FF9D79B0" VerticalAlignment="Center"
-                         HorizontalAlignment="Center" Height="30"  Width="90"   ></Button>
+                       BorderThickness="0"  Background="#FF9D79B0" VerticalAlignment="Center"
+                         HorizontalAlignment="Right" Margin="0 0 4 0" Height="30"  Width="95"   Foreground="WhiteSmoke" FontSize="14" FontFamily="Calibri" ></Button>
 
 
 
         <Button  Content="Search" VerticalAlignment="Center" Grid.Column="3"
-                        HorizontalAlignment="Center" FontSize="10" BorderThickness="0" Background="#FF9D79B0"
-                                 Height="30"  Width="70"  />
+                        HorizontalAlignment="Center"  FontSize="14" FontFamily="Calibri" BorderThickness="0" Background="#FF9D79B0"
+                                 Height="30"  Width="80"  Foreground="WhiteSmoke" >
+           
+        </Button>
 
 
 
-        <Button  Content="Settings" VerticalAlignment="Center" Grid.Column="4" 
-                        HorizontalAlignment="Center" FontSize="10" BorderThickness="0" 
-                             Background="#FF9D79B0" Height="30"  Width="80"  />
+        <Button  Content="Settings" VerticalAlignment="Center" Grid.Column="4"
+                        HorizontalAlignment="Left" Margin="4 0 0 0" FontSize="14" FontFamily="Calibri" BorderThickness="0" 
+                             Background="#FF9D79B0" Height="30"  Width="80"   Foreground="WhiteSmoke" />
         <Menu Grid.Column="9" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
-            <MenuItem Header="{x:Static model:CurrentUser.Username}" FontSize="10" >
-                <MenuItem Header="Account"/>
-                <MenuItem Header="Language">
-                    <MenuItem Header="Az"/>
-                    <MenuItem Header ="Ru"/>
+            <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="WhiteSmoke"  FontSize="15" FontFamily="Calibri" >
+                <MenuItem Foreground="WhiteSmoke"  Header="Account"/>
+                <MenuItem Foreground="WhiteSmoke" Header="Language">
+                    <MenuItem Foreground="WhiteSmoke" Header="Az"/>
+                    <MenuItem Foreground="WhiteSmoke" Header ="Ru"/>
                 </MenuItem>
                 <MenuItem Header="Log Off"/>
             </MenuItem>
