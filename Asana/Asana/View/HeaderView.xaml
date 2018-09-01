@@ -6,7 +6,33 @@
              xmlns:local="clr-namespace:Asana.View"
              xmlns:model ="clr-namespace:Asana.Model"
              mc:Ignorable="d" 
-             d:DesignHeight="70" d:DesignWidth="800">
+             d:DesignHeight="50" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="m_nav_bar" TargetType="{x:Type Button}"  >
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="95"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#68465f"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FF9D79B0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>
@@ -42,22 +68,19 @@
  
 
         <Button  Content="Dashboard" Grid.Column="2" Grid.Row="0"
-                       BorderThickness="0"  Background="#FF9D79B0" VerticalAlignment="Center"
-                         HorizontalAlignment="Right" Margin="0 0 4 0" Height="30"  Width="95"   Foreground="WhiteSmoke" FontSize="14" FontFamily="Calibri" ></Button>
+                       VerticalAlignment="Center"
+                         HorizontalAlignment="Right" Margin="0 0 4 0" Style="{StaticResource m_nav_bar}"  ></Button>
 
 
 
         <Button  Content="Search" VerticalAlignment="Center" Grid.Column="3"
-                        HorizontalAlignment="Center"  FontSize="14" FontFamily="Calibri" BorderThickness="0" Background="#FF9D79B0"
-                                 Height="30"  Width="80"  Foreground="WhiteSmoke" >
+                        HorizontalAlignment="Center"  Style="{StaticResource m_nav_bar}">
            
         </Button>
 
 
-
         <Button  Content="Settings" VerticalAlignment="Center" Grid.Column="4"
-                        HorizontalAlignment="Left" Margin="4 0 0 0" FontSize="14" FontFamily="Calibri" BorderThickness="0" 
-                             Background="#FF9D79B0" Height="30"  Width="80"   Foreground="WhiteSmoke" />
+                        HorizontalAlignment="Left" Margin="4 0 0 0" Style="{StaticResource m_nav_bar}" />
         <Menu Grid.Column="9" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
             <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="WhiteSmoke"  FontSize="15" FontFamily="Calibri" >
                 <MenuItem Foreground="WhiteSmoke"  Header="Account"/>
