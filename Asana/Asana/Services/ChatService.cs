@@ -17,10 +17,31 @@ namespace Asana.Services
                 name = "#" + name;
                 db.ChatRooms.Add(new ChatRoom() { Name = name });
                 //db.UserChatRooms.Add(new UserChatRoom() { Users = 1, ChatRooms = });
-                db.Messages.Add(new Message() { ChatUserID = CurrentUser.Instance.User.Id, Timestap = DateTime.Now, Body = "created " + name });
-
-                }
+                ChatRoom room = new ChatRoom();
+                room.Name = name;
+                room.Users.Add(CurrentUser.Instance.User);
+                db.ChatRooms.Add(room);
+            }
             return true;
-        }   
+        }
+
+
+        public bool RemoveRoom(string name)
+        {
+            return true;
+        }
+        //-- Ayri Service olacaq
+
+        public bool SendMessagesChannel(int channel_id,string body)
+        {
+            return true;
+        }
+
+        public bool SendMessagePrivateChannel(int channel_id,string body)
+        {
+            return true;
+        }
+
+
     }
 }
