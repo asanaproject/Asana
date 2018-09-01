@@ -371,6 +371,7 @@
     <Resource Include="Resources\Images\np.png" />
     <Resource Include="Resources\Images\setting.png" />
     <Resource Include="Resources\Images\user.png" />
+    <Resource Include="Resources\Images\plus1.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
