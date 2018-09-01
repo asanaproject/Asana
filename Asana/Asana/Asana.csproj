@@ -147,6 +147,10 @@
     <Compile Include="Migrations\201808181024194_Initial_Model1.Designer.cs">
       <DependentUpon>201808181024194_Initial_Model1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809011151419_Initial_Mode.cs" />
+    <Compile Include="Migrations\201809011151419_Initial_Mode.Designer.cs">
+      <DependentUpon>201809011151419_Initial_Mode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\MessageItem.cs" />
@@ -316,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808181024194_Initial_Model1.resx">
       <DependentUpon>201808181024194_Initial_Model1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809011151419_Initial_Mode.resx">
+      <DependentUpon>201809011151419_Initial_Mode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
