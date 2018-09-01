@@ -344,6 +344,8 @@
     <Resource Include="Resources\Images\activities.png" />
     <Resource Include="Resources\Images\menu.png" />
     <Resource Include="Resources\Images\plus.png" />
+    <Resource Include="Resources\Images\inbox.png" />
+    <Resource Include="Resources\Images\star.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

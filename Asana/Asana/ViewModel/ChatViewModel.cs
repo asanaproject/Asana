@@ -59,6 +59,7 @@ namespace Asana.ViewModel
             chatRoomAdd.ShowDialog();
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
+            Channels.Add(channelname);
             //using (var db = new AsanaDbContext())
             //{
             //    db.ChatRooms.Add(new ChatRoom() { Name = channelname });
@@ -73,6 +74,9 @@ namespace Asana.ViewModel
         public ChatViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
+            Channels = new ObservableCollection<string>();
+            PrivateMessages = new ObservableCollection<string>();
+            DirectMessages = new ObservableCollection<string>();
         }
     }
 }
