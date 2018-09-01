@@ -28,6 +28,11 @@ namespace Asana.ViewModel
         {
             InitializeComponent();
             this.Title.Text = Title;
-        }   
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

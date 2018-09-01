@@ -17,9 +17,12 @@ namespace Asana.Model
         public string Body { get; set; }
 
         [Required]
-        public virtual string ChatUserID { get; set; }
+        public virtual int ChatUserID { get; set; }
 
         [Required]
         public DateTime Timestap { get; set; }
+
+        public int ChatRoomId { get; set; }
+        
     }
 }

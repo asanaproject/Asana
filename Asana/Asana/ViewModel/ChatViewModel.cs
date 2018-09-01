@@ -1,28 +1,29 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
 using Asana.Objects;
+using Asana.Services;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Asana.ViewModel
 {
     public class ChatViewModel : ViewModelBase
     {
+        private int selectedId;
 
+        private readonly ChannelsService ChannelsService;
+        private ObservableCollection<string> privateChannels;
 
-        private ObservableCollection<string> privateMessages;
-
-        public ObservableCollection<string> PrivateMessages
+        public ObservableCollection<string> PrivateChannels
         {
-            get { return privateMessages; }
-            set { privateMessages = value; Set(ref privateMessages, value); }
+            get { return privateChannels; }
+            set { privateChannels = value; Set(ref privateChannels, value); }
         }
 
         private ObservableCollection<string> directMessages;
@@ -33,12 +34,12 @@ namespace Asana.ViewModel
             set { directMessages = value; Set(ref directMessages, value); }
         }
 
-        private ObservableCollection<string> channels;
+        private ObservableCollection<string> publicChannels;
 
-        public ObservableCollection<string> Channels
+        public ObservableCollection<string> PublicChannels
         {
-            get { return channels; }
-            set { channels = value; Set(ref channels, value); }
+            get { return publicChannels; }
+            set { publicChannels = value; Set(ref publicChannels, value); }
         }
 
         private ObservableCollection<MessageItem> chatItems;
@@ -54,27 +55,55 @@ namespace Asana.ViewModel
         public RelayCommand AddChatRoomChannels => _addChatRoomChannels ?? (_addChatRoomChannels = new RelayCommand(
         x =>
         {
+            WindowBluringCustom.Bluring();
             ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Name");
             chatRoomAdd.ShowDialog();
+            WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
-            using (var db = new AsanaDbContext())
-            {
-                db.ChatRooms.Add(new ChatRoom() { Name = channelname });
-            }
+            ChannelsService.InsertRoom(channelname);
+            publicChannels.Add(channelname);
         }));
 
+        private RelayCommand _addChatRoomPrivate;
 
+        public RelayCommand AddChatRoomPrivate => _addChatRoomPrivate ?? (_addChatRoomPrivate = new RelayCommand(
+        x =>
+        {
+            WindowBluringCustom.Bluring();
+            ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Name");
+            chatRoomAdd.ShowDialog();
+            WindowBluringCustom.Normal();
+            string channelname = chatRoomAdd.GetName();
+            ChannelsService.InsertRoom(channelname);
+            PrivateChannels.Add(channelname);
+        }));
 
+        //private Timer timer;
+
+        //private void OnCallBack()
+        //{
+        //    using (var db = new AsanaDbContext()) 
+        //    {
+        //        db.Messages.Select(x => x.ChatRoomId == selectedId);
+        //    }
+        //}
 
         private readonly NavigationService navigationService;
 
         public ChatViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
-            PrivateMessages = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
-            Channels = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
-            DirectMessages = new ObservableCollection<string>() { "Ali", "Ali1", "Ali2" };
-            ChatItems = new ObservableCollection<MessageItem>() { new MessageItem() { ProfName = "Ali", Body = "TestBodyssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" }, new MessageItem() { ProfName = "Ali1", Body = "TestBody1" }, new MessageItem() { ProfName = "Ali2", Body = "TestBody2" }, new MessageItem() { ProfName = "Ali", Body = "TestBodyssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" }, new MessageItem() { ProfName = "Ali1", Body = "TestBody1" }, new MessageItem() { ProfName = "Ali2", Body = "TestBody2" } };
+            PublicChannels = new ObservableCollection<string>();
+            PrivateChannels = new ObservableCollection<string>();
+            DirectMessages = new ObservableCollection<string>();
+            ChatItems = new ObservableCollection<MessageItem>();
+            ChannelsService = new ChannelsService();
+            PrivateChannels = ChannelsService.GetListPublicChannelsId();
+            PublicChannels = ChannelsService.GetListPrivateChannelsId();
+            //System.Threading.Tasks.Task.Run(() =>
+            //{
+            //    timer = new Timer(_ => OnCallBack(), null, 1000 * 10, Timeout.Infinite);
+            //});
         }
     }
 }
