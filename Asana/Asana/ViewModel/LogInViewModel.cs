@@ -22,6 +22,7 @@ namespace Asana.ViewModel
         public LogInViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+            accountService = new AccountService();
         }
 
         private string email;
@@ -48,7 +49,7 @@ namespace Asana.ViewModel
                    x =>
                    {
                        if (accountService.LoginControl(Email, Password))
-                           navigation.NavigateTo(ViewType.Home);
+                           navigation.NavigateTo(ViewType.ChatView);
                        else
                            Errors.LoginErrorMsg();
                    }));

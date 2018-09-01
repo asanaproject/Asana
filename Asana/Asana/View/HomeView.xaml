@@ -8,11 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Image x:Key="LeftArr" Source="../Resources/Images/arr.png"/>
-        <Image x:Key="RightArr" >
-            <Image.Source>
-                <BitmapImage UriSource="../Resources/Images/arr.png" Rotation="Rotate180"></BitmapImage>
-            </Image.Source>
-        </Image>
+        <Image x:Key="RightArr" Source="../Resources/Images/arr.png" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

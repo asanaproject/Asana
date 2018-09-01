@@ -35,6 +35,7 @@ namespace Asana
         {
             dbContext = new AsanaDbContext();
 
+
             navigationService = new NavigationService();        
             userService = new UserService(dbContext);
 
@@ -62,7 +63,7 @@ namespace Asana
             navigationService.AddPage(chatViewModel, ViewType.ChatView);
             navigationService.AddPage(projectPageViewModel,ViewType.ProjectPage);
 
-            navigationService.NavigateTo(ViewType.ChatView);
+            navigationService.NavigateTo(ViewType.LogIn);
         }
     }
 }
