@@ -97,7 +97,7 @@ namespace Asana.Migrations
             CreateTable(
                 "dbo.Users",
                 c => new
-                    {
+                    {  
                         Id = c.Int(nullable: false, identity: true),
                         FirstName = c.String(nullable: false, maxLength: 20),
                         LastName = c.String(nullable: false, maxLength: 20),

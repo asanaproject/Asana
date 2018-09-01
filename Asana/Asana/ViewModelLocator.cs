@@ -37,6 +37,7 @@ namespace Asana
 
             navigationService = new NavigationService();        
             userService = new UserService(dbContext);
+              
 
             appViewModel = new AppViewModel();
             logInViewModel = new LogInViewModel(navigationService);
