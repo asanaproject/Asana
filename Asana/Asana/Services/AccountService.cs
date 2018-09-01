@@ -1,6 +1,7 @@
 ﻿using Asana.Objects;
 using Asana.Services.Interfaces;
 using Asana.Tools;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,25 @@ namespace Asana.Model
                 }
                 else
                     return false;
+            }
+        }
+        
+        public bool ForgotControl(string NewPassword)
+        {
+            try
+            {
+                using (var db = new AsanaDbContext())
+                {
+                    string email = CurrentUser.Instance.User.Email;
+                    var user = db.ExtraInfos.Single(users => users.Email == email);
+                    user.Password = Hasher.EncryptString(NewPassword);
+                    return true;
+                }
+            }
+            catch (Exception error)
+            {
+                Log.Error(error.Message);
+                return false;
             }
         }
     }
