@@ -16,7 +16,7 @@
             <TextBox x:Name="Name" Background="Transparent" BorderBrush="Transparent" FontSize="16" Padding="10 1.5 10 0" Foreground="Gray"></TextBox>
         </Border>
         <Border Grid.Row="1" Width="150" Height="30" VerticalAlignment="Top" Background="LightGreen" CornerRadius="15">
-            <Button Background="Transparent" BorderBrush="Transparent" Foreground="White" FontSize="17" Content="OK"></Button>
+            <Button Click="Button_Click" Background="Transparent" BorderBrush="Transparent" Foreground="White" FontSize="17" Content="OK"></Button>
         </Border>
     </Grid>
 </Window>

@@ -183,6 +183,7 @@
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\Settings.cs" />
     <Compile Include="Tools\Errors.cs" />
+    <Compile Include="Tools\WindowBluringCustom.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="View\ChatRoomAdd.xaml.cs">
