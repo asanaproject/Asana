@@ -66,6 +66,22 @@ namespace Asana.ViewModel
             //}
         }));
 
+        private RelayCommand _addChatRoomPrivate;
+
+        public RelayCommand AddChatRoomPrivate => _addChatRoomPrivate ?? (_addChatRoomPrivate = new RelayCommand(
+        x =>
+        {
+            WindowBluringCustom.Bluring();
+            ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Name");
+            chatRoomAdd.ShowDialog();
+            WindowBluringCustom.Normal();
+            string channelname = chatRoomAdd.GetName();
+            PrivateMessages.Add(channelname);
+            //using (var db = new AsanaDbContext())
+            //{
+            //    db.ChatRooms.Add(new ChatRoom() { Name = channelname });
+            //}
+        }));
 
 
 
