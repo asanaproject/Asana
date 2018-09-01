@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Asana.View"
+             xmlns:model ="clr-namespace:Asana.Model"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="800">
     <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FF9D79B0" >
@@ -35,8 +36,8 @@
 
         <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Height="25" Source="pack://application:,,,/Asana;component/Resources/Images/menu.png"/>
 
-        <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" 
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="83" >Project</TextBlock>
+        <TextBlock Grid.Column="1" FontSize="24" FontWeight="Bold" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="83" FontFamily="Comic Sans MS" >Project</TextBlock>
 
  
 
@@ -55,9 +56,8 @@
         <Button  Content="Settings" VerticalAlignment="Center" Grid.Column="4" 
                         HorizontalAlignment="Center" FontSize="10" BorderThickness="0" 
                              Background="#FF9D79B0" Height="30"  Width="80"  />
-
         <Menu Grid.Column="9" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
-            <MenuItem Header="UserName" FontSize="10" >
+            <MenuItem Header="{x:Static model:CurrentUser.Username}" FontSize="10" >
                 <MenuItem Header="Account"/>
                 <MenuItem Header="Language">
                     <MenuItem Header="Az"/>

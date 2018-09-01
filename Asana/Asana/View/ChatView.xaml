@@ -170,7 +170,7 @@
                                     <ColumnDefinition Width="0.2*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Padding="15,0,0,0" Foreground="#777777"  FontSize="15">PRIVATE MESSAGES</TextBlock>
-                                <Button  Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus3}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
+                                <Button Command="{Binding AddChatRoomPrivate}" Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus3}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}">
                                             <Style.Triggers>

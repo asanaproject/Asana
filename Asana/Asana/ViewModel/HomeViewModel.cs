@@ -19,6 +19,43 @@ namespace Asana.ViewModel
             this.navigation = navigation;
         }
 
+        private RelayCommand _discussCommand;
+        public RelayCommand DiscussCommand
+        {
+            get => _discussCommand ?? (_discussCommand = new RelayCommand(
+                (x => navigation.NavigateTo(ViewType.ChatView)
+                )));
+        }
+
+
+        private RelayCommand _projectCommand;
+        public RelayCommand ProjectCommand
+        {
+            get => _projectCommand ?? (_projectCommand = new RelayCommand(
+                (x => navigation.NavigateTo(ViewType.CreateProject)
+                )));
+        }
+
+
+        private RelayCommand _settingsCommand;
+        public RelayCommand SettingsCommand
+        {
+            get => _settingsCommand ?? (_settingsCommand = new RelayCommand(
+                (x => navigation.NavigateTo(ViewType.Home)
+                )));
+        }
+
+
+        private RelayCommand _appsCommand;
+        public RelayCommand AppsCommand
+        {
+            get => _appsCommand ?? (_appsCommand = new RelayCommand(
+                (x => navigation.NavigateTo(ViewType.Home)
+                )));
+        }
+
+
+
         private RelayCommand _nextSlide;
 
         public RelayCommand NextSlide => _nextSlide ?? (_nextSlide = new RelayCommand(

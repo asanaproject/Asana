@@ -55,7 +55,7 @@ namespace Asana.ViewModel
                        if (accountService.LoginControl(Email, Password))
                        {
                            CheckLoginLog.Save(Email);
-                           navigation.NavigateTo(ViewType.ChatView);
+                           navigation.NavigateTo(ViewType.Home);
                        }
                        else
                            Errors.LoginErrorMsg();
