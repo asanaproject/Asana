@@ -24,19 +24,19 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="0.1*"/>
+            <ColumnDefinition  Width="0.02*"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="0.02*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.02*"/>
             <RowDefinition/>
-            <RowDefinition  Height="0.1*"/>
+            <RowDefinition  Height="0.02*"/>
         </Grid.RowDefinitions>
         <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch"   BorderBrush="White"  CornerRadius="8">
             <Grid>
                 <Grid.RowDefinitions >
-                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="55"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>

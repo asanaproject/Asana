@@ -27,8 +27,6 @@ namespace Asana.Objects
         public DbSet<Dashboard> Dashboards{ get; set; }
         public DbSet<Column> Columns{ get; set; }
         public DbSet<ChatRoom> ChatRooms{ get; set; }
-        public DbSet<ChatRoomMsg> ChatRoomMsgs{ get; set; }
-        public DbSet<UserChatRoom> UserChatRooms{ get; set; }
         public DbSet<Message> Messages { get; set; }
 
     }
