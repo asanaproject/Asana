@@ -1,6 +1,7 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
 using Asana.Objects;
+using Asana.Services;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
@@ -15,14 +16,31 @@ using System.Windows.Input;
 
 namespace Asana.ViewModel
 {
-    public class LogInViewModel:ViewModelBase
+    public class LogInViewModel : ViewModelBase
     {
         public readonly AccountService accountService;
+        public readonly UserService userService;
+
         private readonly NavigationService navigation;
         public LogInViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+            
+        }
+
+        public LogInViewModel()
+        {
             accountService = new AccountService();
+            using (var db = new AsanaDbContext())
+            {
+                userService = new UserService(db);
+                string user = CheckLoginLog.Load();
+                if (user != "")
+                {
+                    CurrentUser.Instance.User = userService.Select(user);
+                    navigation.NavigateTo(ViewType.Home);
+                }
+            }
         }
 
         private string email;
@@ -41,7 +59,7 @@ namespace Asana.ViewModel
             set { pass = value; Set(ref pass, value); }
         }
 
-      
+
 
         private RelayCommand _logInBtnCommand;
 
@@ -49,7 +67,10 @@ namespace Asana.ViewModel
                    x =>
                    {
                        if (accountService.LoginControl(Email, Password))
+                       {
+                           CheckLoginLog.Save(Email);
                            navigation.NavigateTo(ViewType.ChatView);
+                       }
                        else
                            Errors.LoginErrorMsg();
                    }));

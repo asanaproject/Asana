@@ -42,5 +42,19 @@ namespace Asana.Services
                 MessageBox.Show(ex.Message);
             }
         }
+
+        public User Select(string email)
+        {
+            try
+            {
+                if((email != "" || email != null) && dbContext.Users.Any(x=>x.Email == email))
+                    return dbContext.Users.Single(x => x.Email == email);
+                throw new Exception("User with this email not founded");
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
