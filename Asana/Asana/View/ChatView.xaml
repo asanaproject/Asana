@@ -36,7 +36,7 @@
         <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch"   BorderBrush="White"  CornerRadius="8">
             <Grid>
                 <Grid.RowDefinitions >
-                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="45"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
