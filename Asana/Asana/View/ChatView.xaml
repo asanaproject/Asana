@@ -118,7 +118,7 @@
                                     </Button.Style>
                                 </Button>
                             </Grid>
-                            <ListBox ItemsSource="{Binding Channels}" Background="Transparent">
+                            <ListBox ItemsSource="{Binding PublicChannels}" Background="Transparent">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid >
@@ -182,7 +182,7 @@
                                     </Button.Style>
                                 </Button>
                             </Grid>
-                            <ListBox ItemsSource="{Binding PrivateMessages}" Background="Transparent">
+                            <ListBox ItemsSource="{Binding PrivateChannels}" Background="Transparent">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid >

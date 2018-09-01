@@ -1,28 +1,29 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
 using Asana.Objects;
+using Asana.Services;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Asana.ViewModel
 {
     public class ChatViewModel : ViewModelBase
     {
+        private int selectedId;
 
+        private readonly ChannelsService ChannelsService;
+        private ObservableCollection<string> privateChannels;
 
-        private ObservableCollection<string> privateMessages;
-
-        public ObservableCollection<string> PrivateMessages
+        public ObservableCollection<string> PrivateChannels
         {
-            get { return privateMessages; }
-            set { privateMessages = value; Set(ref privateMessages, value); }
+            get { return privateChannels; }
+            set { privateChannels = value; Set(ref privateChannels, value); }
         }
 
         private ObservableCollection<string> directMessages;
@@ -33,12 +34,12 @@ namespace Asana.ViewModel
             set { directMessages = value; Set(ref directMessages, value); }
         }
 
-        private ObservableCollection<string> channels;
+        private ObservableCollection<string> publicChannels;
 
-        public ObservableCollection<string> Channels
+        public ObservableCollection<string> PublicChannels
         {
-            get { return channels; }
-            set { channels = value; Set(ref channels, value); }
+            get { return publicChannels; }
+            set { publicChannels = value; Set(ref publicChannels, value); }
         }
 
         private ObservableCollection<MessageItem> chatItems;
@@ -59,11 +60,8 @@ namespace Asana.ViewModel
             chatRoomAdd.ShowDialog();
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
-            Channels.Add(channelname);
-            //using (var db = new AsanaDbContext())
-            //{
-            //    db.ChatRooms.Add(new ChatRoom() { Name = channelname });
-            //}
+            ChannelsService.InsertRoom(channelname);
+            publicChannels.Add(channelname);
         }));
 
         private RelayCommand _addChatRoomPrivate;
@@ -76,23 +74,36 @@ namespace Asana.ViewModel
             chatRoomAdd.ShowDialog();
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
-            PrivateMessages.Add(channelname);
-            //using (var db = new AsanaDbContext())
-            //{
-            //    db.ChatRooms.Add(new ChatRoom() { Name = channelname });
-            //}
+            ChannelsService.InsertRoom(channelname);
+            PrivateChannels.Add(channelname);
         }));
 
+        //private Timer timer;
 
+        //private void OnCallBack()
+        //{
+        //    using (var db = new AsanaDbContext()) 
+        //    {
+        //        db.Messages.Select(x => x.ChatRoomId == selectedId);
+        //    }
+        //}
 
         private readonly NavigationService navigationService;
 
         public ChatViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
-            Channels = new ObservableCollection<string>();
-            PrivateMessages = new ObservableCollection<string>();
+            PublicChannels = new ObservableCollection<string>();
+            PrivateChannels = new ObservableCollection<string>();
             DirectMessages = new ObservableCollection<string>();
+            ChatItems = new ObservableCollection<MessageItem>();
+            ChannelsService = new ChannelsService();
+            PrivateChannels = ChannelsService.GetListPublicChannelsId();
+            PublicChannels = ChannelsService.GetListPrivateChannelsId();
+            //System.Threading.Tasks.Task.Run(() =>
+            //{
+            //    timer = new Timer(_ => OnCallBack(), null, 1000 * 10, Timeout.Infinite);
+            //});
         }
     }
 }

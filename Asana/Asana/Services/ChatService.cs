@@ -5,43 +5,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Asana.Services
 {
     public class ChatService
     {
-        public bool InsertRoom(string name)
-        {
-            using (var db = new AsanaDbContext())
-            {
-                name = "#" + name;
-                db.ChatRooms.Add(new ChatRoom() { Name = name });
-                //db.UserChatRooms.Add(new UserChatRoom() { Users = 1, ChatRooms = });
-                ChatRoom room = new ChatRoom();
-                room.Name = name;
-                room.Users.Add(CurrentUser.Instance.User);
-                db.ChatRooms.Add(room);
-            }
-            return true;
-        }
-
-
-        public bool RemoveRoom(string name)
-        {
-            return true;
-        }
-        //-- Ayri Service olacaq
-
         public bool SendMessagesChannel(int channel_id,string body)
         {
-            return true;
+            try
+            {
+                using (var db = new AsanaDbContext())
+                {
+                    db.Messages.Add(new Message() { ChatRoomId = channel_id, Body = body, Timestap = DateTime.Now, ChatUserID = CurrentUser.Instance.User.Id });
+                    return true;
+                }
+            }
+            catch(Exception err)
+            {
+                Log.Error(err.Message);
+                return false;
+            }
         }
-
-        public bool SendMessagePrivateChannel(int channel_id,string body)
-        {
-            return true;
-        }
-
 
     }
 }
