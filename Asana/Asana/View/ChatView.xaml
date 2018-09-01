@@ -21,6 +21,34 @@
         <Image x:Key="plus1" Source="../Resources/Images/plus.png"></Image>
         <Image x:Key="plus2" Source="../Resources/Images/plus.png"></Image>
         <Image x:Key="plus3" Source="../Resources/Images/plus.png"></Image>
+        <Image x:Key="plusw1" Source="../Resources/Images/plus1.png"></Image>
+        <Image x:Key="plusw2" Source="../Resources/Images/plus1.png"></Image>
+        <Image x:Key="plusw3" Source="../Resources/Images/plus1.png"></Image>
+        <Style x:Key="m_nav_menu1" TargetType="{x:Type Button}"  >
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1e2124"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+       
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -37,7 +65,6 @@
             <Grid>
                 <Grid.RowDefinitions >
                     <RowDefinition Height="45"/>
-                    
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -56,7 +83,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Button HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0"  Height="25"  Background="Transparent" BorderBrush="Transparent" Foreground="White">
+                            <Button HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Style="{StaticResource m_nav_menu1}" >
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="30"/>
@@ -65,38 +92,16 @@
                                     <Image Height="15" Source="../Resources/Images/inbox.png" ></Image>
                                     <TextBlock Text="Inbox" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
                                 </Grid>
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
                             </Button>
-                            <Button HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  >
+                            <Button HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  Style="{StaticResource m_nav_menu1}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="30"/>
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <Image Height="12" Margin="0 1.2 0 0 " Source="../Resources/Images/star.png" ></Image>
-                                    <TextBlock Text="Starred"  Grid.Column="1" FontSize="13" VerticalAlignment="Center" />
+                                    <Image Height="15" Source="../Resources/Images/star.png" ></Image>
+                                    <TextBlock Text="Starred" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
                                 </Grid>
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="false">
-                                                <Setter Property="Background" Value="Transparent"/>
-                                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                                <Setter Property="Foreground" Value="White"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
                             </Button>
                         </Grid>
                     </Border>
@@ -111,8 +116,19 @@
                                 <Button  Foreground="#777777" Command="{Binding AddChatRoomChannels}" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus1}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Content" Value="{StaticResource plusw1}"/>
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
@@ -142,9 +158,19 @@
                                 <Button  Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus2}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Content" Value="{StaticResource star}"/>
+                                                    <Setter Property="Content" Value="{StaticResource plusw2}"/>
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
@@ -174,9 +200,19 @@
                                 <Button Command="{Binding AddChatRoomPrivate}" Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus3}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Content" Value="{StaticResource star}"/>
+                                                    <Setter Property="Content" Value="{StaticResource plusw3}"/>
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
