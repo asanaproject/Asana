@@ -162,6 +162,7 @@
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Tools\CheckLoginLog.cs" />
     <Compile Include="Tools\DbContext\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\CurrentUser.cs" />
@@ -356,6 +357,23 @@
     <Resource Include="Resources\Images\plus.png" />
     <Resource Include="Resources\Images\inbox.png" />
     <Resource Include="Resources\Images\star.png" />
+    <Resource Include="Resources\Images\bg3.png" />
+    <Resource Include="Resources\Images\1.jpg" />
+    <Resource Include="Resources\Images\2.jpg" />
+    <Resource Include="Resources\Images\3.jpg" />
+    <Resource Include="Resources\Images\4.jpg" />
+    <Resource Include="Resources\Images\ac.png" />
+    <Resource Include="Resources\Images\arr.png" />
+    <Resource Include="Resources\Images\clouds.png" />
+    <Resource Include="Resources\Images\icon1.png" />
+    <Resource Include="Resources\Images\icon2.png" />
+    <Resource Include="Resources\Images\icon3.png" />
+    <Resource Include="Resources\Images\icon4.png" />
+    <Resource Include="Resources\Images\messaging.png" />
+    <Resource Include="Resources\Images\np.png" />
+    <Resource Include="Resources\Images\setting.png" />
+    <Resource Include="Resources\Images\user.png" />
+    <Resource Include="Resources\Images\plus1.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

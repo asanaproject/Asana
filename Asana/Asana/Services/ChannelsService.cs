@@ -16,7 +16,8 @@ namespace Asana.Services
             using (var db = new AsanaDbContext())
             {
                 name = "#" + name;
-                db.ChatRooms.Add(new ChatRoom() { Name = name , Type = type}).Users.Add(CurrentUser.Instance.User);
+                ChatRoom chat = new ChatRoom() { Name = name, Type = type };
+                db.ChatRooms.Add(chat);
             }
             return true;
         }

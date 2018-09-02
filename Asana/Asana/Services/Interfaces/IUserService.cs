@@ -10,6 +10,7 @@ namespace Asana.Services.Interfaces
 {
     public interface IUserService
     {
-       void Insert(User user);
+        void Insert(User user);
+        User Select(string email);
     }
 }
