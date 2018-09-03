@@ -33,6 +33,7 @@ namespace Asana
         public CreateProjectViewModel createProjectViewModel;
         public ProjectPageViewModel projectPageViewModel;
         public ChatViewModel chatViewModel;
+        public ListChannelsViewModel listChannelsViewModel;
         public ViewModelLocator()
         {
             dbContext = new AsanaDbContext();
@@ -52,7 +53,7 @@ namespace Asana
             chatViewModel = new ChatViewModel(navigationService);
             createProjectViewModel = new CreateProjectViewModel(navigationService);
             projectPageViewModel = new ProjectPageViewModel(navigationService);
-
+            listChannelsViewModel = new ListChannelsViewModel(navigationService);
 
             navigationService.AddPage(signUpViewModel, ViewType.SignUp);
             navigationService.AddPage(confirmationCodeViewModel, ViewType.ConfirmCode);
@@ -64,16 +65,17 @@ namespace Asana
             navigationService.AddPage(createProjectViewModel, ViewType.CreateProject);
             navigationService.AddPage(chatViewModel, ViewType.ChatView);
             navigationService.AddPage(projectPageViewModel, ViewType.ProjectPage);
+            navigationService.AddPage(listChannelsViewModel, ViewType.ListChannels);
 
             userService = new UserService(dbContext);
             string user = CheckLoginLog.Load();
             if (user != "")
             {
                 CurrentUser.Instance.User = userService.Select(user);
-                navigationService.NavigateTo(ViewType.Home);
+                navigationService.NavigateTo(ViewType.ListChannels);
             }
             else
-                navigationService.NavigateTo(ViewType.LogIn);
+                navigationService.NavigateTo(ViewType.ListChannels);
 
         }
     }

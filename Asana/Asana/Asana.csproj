@@ -192,6 +192,7 @@
     <Compile Include="Tools\WindowBluringCustom.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
+    <Compile Include="ViewModel\ListChannelsViewModel.cs" />
     <Compile Include="View\ChatRoomAdd.xaml.cs">
       <DependentUpon>ChatRoomAdd.xaml</DependentUpon>
     </Compile>
@@ -222,6 +223,9 @@
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ListChannelsView.xaml.cs">
+      <DependentUpon>ListChannelsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -274,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ListChannelsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
