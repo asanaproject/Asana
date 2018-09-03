@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Asana.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" >
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="Parent">
     <UserControl.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#c850c0" Offset="0"></GradientStop>
@@ -28,22 +28,29 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="1" Grid.Column="1" Background="WhiteSmoke">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.15*"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid Background="White">
+            <local:HeaderView></local:HeaderView>
+            <Grid Background="White" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Foreground="#8f8f8f" FontFamily="Calibri" FontSize="23" VerticalAlignment="Center" Margin="10 0 0 10">Public Channels</TextBlock>
-                <TextBox Grid.Column="1" Height="25" FontSize="16" Padding="7 0.3 0 0">Search..</TextBox>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Calibri" FontSize="23" VerticalAlignment="Center" Margin="10 0 0 0">Public Channels</TextBlock>
+                <!--<TextBox Grid.Column="1" Height="25" FontSize="16" Padding="7 0.3 0 0">Search..</TextBox>-->
             </Grid>
-            <ListBox ItemsSource="{Binding ChatRooms}" Grid.Row="1">
+            <ListBox  ItemsSource="{Binding ChatRooms}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" Grid.Row="2">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness="1" BorderBrush="LightGray">
-                            <Grid Background="White">
+                            <Grid Width="350" Height="100" Background="White">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="0.2*"/>
@@ -53,8 +60,8 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <TextBlock VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding Name}"></TextBlock>
-                                <TextBlock Grid.Row="1" Padding="10 1 5 0" Margin="0 0 0 4" TextWrapping="Wrap" Text="{Binding Description}"></TextBlock>
-                                <Button Grid.Column="1" Grid.Row="1" Width="50" Height="17" Background="#00a09d" BorderBrush="Transparent" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 8" >Join</Button>
+                                <TextBlock Grid.Row="1" Padding="10 1 5 0" Margin="0 0 0 4" TextWrapping="Wrap" Text="asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddasdasdasdasdasdasdasdasdasdasdasdasdadasdddddddddddddddddddddd"></TextBlock>
+                                <Button Command="{Binding DataContext.JoinCommand, ElementName=Parent}" CommandParameter="{Binding .}" Grid.Column="1" Grid.Row="1" Width="50" Height="30" Background="#00a09d" BorderBrush="Transparent" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 10 8" >Join</Button>
                             </Grid>
                         </Border>
                     </DataTemplate>
