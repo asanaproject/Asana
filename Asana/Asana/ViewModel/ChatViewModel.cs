@@ -88,6 +88,16 @@ namespace Asana.ViewModel
         //    }
         //}
 
+        private RelayCommand _channelListCommand;
+        public RelayCommand ChannelListCommand
+        {
+            get => _channelListCommand ?? (_channelListCommand = new RelayCommand(
+                (x => navigationService.NavigateTo(ViewType.ListChannels)
+                )));
+        }
+
+
+
         private readonly NavigationService navigationService;
 
         public ChatViewModel(NavigationService navigationService)
@@ -98,8 +108,8 @@ namespace Asana.ViewModel
             DirectMessages = new ObservableCollection<string>();
             ChatItems = new ObservableCollection<MessageItem>();
             ChannelsService = new ChannelsService();
-            PrivateChannels = ChannelsService.GetListPublicChannelsId();
-            PublicChannels = ChannelsService.GetListPrivateChannelsId();
+            //PrivateChannels = ChannelsService.GetListPublicChannelsId();
+            //PublicChannels = ChannelsService.GetListPrivateChannelsId();
             //System.Threading.Tasks.Task.Run(() =>
             //{
             //    timer = new Timer(_ => OnCallBack(), null, 1000 * 10, Timeout.Infinite);
