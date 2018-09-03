@@ -72,10 +72,10 @@ namespace Asana
             if (user != "")
             {
                 CurrentUser.Instance.User = userService.Select(user);
-                navigationService.NavigateTo(ViewType.ListChannels);
+                navigationService.NavigateTo(ViewType.Home);
             }
             else
-                navigationService.NavigateTo(ViewType.ListChannels);
+                navigationService.NavigateTo(ViewType.LogIn);
 
         }
     }
