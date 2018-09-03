@@ -51,7 +51,9 @@
     <DataTemplate DataType="{x:Type vm:ProjectPageViewModel}">
         <v:ProjectPageView/>
     </DataTemplate>
-
+    <DataTemplate DataType="{x:Type vm:ListChannelsViewModel}">
+        <v:ListChannelsView/>
+    </DataTemplate>
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>
