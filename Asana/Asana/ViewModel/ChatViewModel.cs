@@ -19,8 +19,10 @@ namespace Asana.ViewModel
     {
 
         #region Props
-        private readonly ChannelsService ChannelsService;
+     
 
+        private readonly ChannelsService ChannelsService;
+        private readonly ChatService ChatService;
         private ObservableCollection<ChatRoom> privateChannels;
 
         public ObservableCollection<ChatRoom> PrivateChannels
@@ -45,13 +47,40 @@ namespace Asana.ViewModel
             set { publicChannels = value; Set(ref publicChannels, value); }
         }
 
-        private ObservableCollection<MessageItem> chatItems;
+        //private ObservableCollection<dynamic> inbox;
 
-        public ObservableCollection<MessageItem> ChatItems
+        //public ObservableCollection<dynamic> Inbox
+        //{
+        //    get { return inbox; }
+        //    set { inbox = value; Set(ref inbox, value); }
+        //}
+
+
+        private ObservableCollection<dynamic> chatItems;
+
+        public ObservableCollection<dynamic> ChatItems
         {
             get { return chatItems; }
             set { chatItems = value; Set(ref chatItems, value); }
         }
+
+
+        private ChatRoom selectedItem;
+
+        public ChatRoom SelectedItem
+        {
+            get { return selectedItem; }
+            set { selectedItem = value; Set(ref selectedItem, value); }
+        }
+
+        private string message_Text;
+
+        public string Message_Text
+        {
+            get { return message_Text; }
+            set { message_Text = value; Set(ref message_Text, value); }
+        }
+
         #endregion
 
         #region Commands
@@ -67,6 +96,17 @@ namespace Asana.ViewModel
             string channelname = chatRoomAdd.GetName();
             ChannelsService.InsertRoom(channelname);
             ChatRoomDatas();
+        }));
+
+
+        private RelayCommand _sendMessageCommand;
+
+        public RelayCommand SendMessageCommand => _sendMessageCommand ?? (_sendMessageCommand = new RelayCommand(
+        () =>
+        {
+            if(SelectedItem !=  null)
+                ChatService.SendMessagesChannel(SelectedItem.ID, Message_Text);
+            GetMessages();
         }));
 
         private RelayCommand _addChatRoomPrivate;
@@ -99,20 +139,10 @@ namespace Asana.ViewModel
             get => _loadedCommand ?? (_loadedCommand = new RelayCommand((() => LoadedDatas())));
         }
 
-        private Timer timer;
-
-        private void OnCallBack()
-        {
-
-        }
-
-
         private void LoadedDatas()
         {
             ChatRoomDatas();
-            System.Threading.Tasks.Task.Run(() => {
-                
-            });
+         
         }
 
         private void ChatRoomDatas()
@@ -123,6 +153,12 @@ namespace Asana.ViewModel
             ChannelsService.GetListPublicChannelsId().ToList().ForEach(x => PublicChannels.Add(x));
             ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
             //ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
+        }
+
+        private void GetMessages()
+        {
+            ChatItems.Clear();
+            ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach(x=>ChatItems.Add(x));
         }
         #endregion
 
@@ -136,15 +172,9 @@ namespace Asana.ViewModel
             PublicChannels = new ObservableCollection<ChatRoom>();
             PrivateChannels = new ObservableCollection<ChatRoom>();
             DirectMessages = new ObservableCollection<ChatRoom>();
-            ChatItems = new ObservableCollection<MessageItem>();
+            ChatItems = new ObservableCollection<dynamic>();
             ChannelsService = new ChannelsService();
-            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS",ECS=false});
-            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS",ECS=true});
-            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS",ECS=false });
-            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS", ECS = true });
-            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS", ECS = true });
-            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS", ECS = false });
-
+            ChatService = new ChatService();
         }
     }
 }

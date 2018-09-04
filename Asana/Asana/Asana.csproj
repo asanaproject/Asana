@@ -167,6 +167,10 @@
     <Compile Include="Migrations\201809041643413_Types_Property_IsAdded.Designer.cs">
       <DependentUpon>201809041643413_Types_Property_IsAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809042143410_Message_Class_IsAdded.cs" />
+    <Compile Include="Migrations\201809042143410_Message_Class_IsAdded.Designer.cs">
+      <DependentUpon>201809042143410_Message_Class_IsAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -361,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809041643413_Types_Property_IsAdded.resx">
       <DependentUpon>201809041643413_Types_Property_IsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809042143410_Message_Class_IsAdded.resx">
+      <DependentUpon>201809042143410_Message_Class_IsAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
