@@ -11,14 +11,16 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Windows;
 
 namespace Asana.ViewModel
 {
     public class ChatViewModel : ViewModelBase
     {
-        private int selectedId;
-        private readonly AsanaDbContext asanaDbContext;
+
+        #region Props
         private readonly ChannelsService ChannelsService;
+
         private ObservableCollection<ChatRoom> privateChannels;
 
         public ObservableCollection<ChatRoom> PrivateChannels
@@ -50,7 +52,9 @@ namespace Asana.ViewModel
             get { return chatItems; }
             set { chatItems = value; Set(ref chatItems, value); }
         }
+        #endregion
 
+        #region Commands
         private RelayCommand _addChatRoomChannels;
 
         public RelayCommand AddChatRoomChannels => _addChatRoomChannels ?? (_addChatRoomChannels = new RelayCommand(
@@ -62,6 +66,7 @@ namespace Asana.ViewModel
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
             ChannelsService.InsertRoom(channelname);
+            ChatRoomDatas();
         }));
 
         private RelayCommand _addChatRoomPrivate;
@@ -75,6 +80,7 @@ namespace Asana.ViewModel
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
             ChannelsService.InsertRoom(channelname);
+            ChatRoomDatas();
         }));
 
         private RelayCommand _channelListCommand;
@@ -86,37 +92,59 @@ namespace Asana.ViewModel
         }
 
 
+        private RelayCommand _loadedCommand;
+
+        public RelayCommand LoadedCommand
+        {
+            get => _loadedCommand ?? (_loadedCommand = new RelayCommand((() => LoadedDatas())));
+        }
+
         private Timer timer;
 
         private void OnCallBack()
         {
-            //ObservableCollection<ChatRoom> chatroomNames = new ObservableCollection<ChatRoom>();
-            //using (var db = new AsanaDbContext())
-            //{
-            //    foreach (var dd in db.ChatRoomUsers)
-            //    {
-            //        if (db.ChatRooms.Single(x => x.ID == dd.ChatRoomId && dd.UserId == CurrentUser.Instance.User.Id) != null)
-            //            chatroomNames.Add(db.ChatRooms.Single(x => x.ID == dd.ChatRoomId && dd.UserId == CurrentUser.Instance.User.Id));
-            //    }
-            //}
-            //PublicChannels = chatroomNames;
+
         }
 
 
+        private void LoadedDatas()
+        {
+            ChatRoomDatas();
+            System.Threading.Tasks.Task.Run(() => {
+                
+            });
+        }
+
+        private void ChatRoomDatas()
+        {
+            PublicChannels.Clear();
+            PrivateChannels.Clear();
+            DirectMessages.Clear();
+            ChannelsService.GetListPublicChannelsId().ToList().ForEach(x => PublicChannels.Add(x));
+            ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
+            //ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
+        }
+        #endregion
+
+   
+
         private readonly NavigationService navigationService;
 
-        public ChatViewModel(NavigationService navigationService,AsanaDbContext asanaDbContext)
+        public ChatViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
             PublicChannels = new ObservableCollection<ChatRoom>();
             PrivateChannels = new ObservableCollection<ChatRoom>();
             DirectMessages = new ObservableCollection<ChatRoom>();
             ChatItems = new ObservableCollection<MessageItem>();
-           
-            ChannelsService = new ChannelsService(asanaDbContext);
-            //PublicChannels = ChannelsService.GetListPublicChannelsId();
-            //PrivateChannels = ChannelsService.GetListPublicChannelsId();
-            //PublicChannels = ChannelsService.GetListPrivateChannelsId();
+            ChannelsService = new ChannelsService();
+            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS",ECS=false});
+            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS",ECS=true});
+            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS",ECS=false });
+            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS", ECS = true });
+            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS", ECS = true });
+            ChatItems.Add(new MessageItem() { Body = "Glebbbbbbbbbbb", ProfName = "GS", ECS = false });
+
         }
     }
 }

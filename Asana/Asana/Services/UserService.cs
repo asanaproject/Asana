@@ -14,12 +14,6 @@ namespace Asana.Services
 {
     public class UserService : IUserService
     {
-        private readonly AsanaDbContext dbContext;
-
-        public UserService(AsanaDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
 
         public void Insert(User user)
         {
@@ -27,13 +21,17 @@ namespace Asana.Services
             {
                 if (user != null)
                 {
-                    if (dbContext.Users.ToList().Exists(x => x.Username == user.Username))
+                    using (var dbContext = new AsanaDbContext())
                     {
-                        throw new Exception("User with this username already exists.");
+
+                        if (dbContext.Users.ToList().Exists(x => x.Username == user.Username))
+                        {
+                            throw new Exception("User with this username already exists.");
+                        }
+                        user.Password = PasswordHasher.Hash(user.Password);
+                        dbContext.Users.Add(user);
+                        dbContext.SaveChanges();
                     }
-                    user.Password = PasswordHasher.Hash(user.Password);
-                    dbContext.Users.Add(user);
-                    dbContext.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -47,9 +45,12 @@ namespace Asana.Services
         {
             try
             {
-                if((email != "" || email != null) && dbContext.Users.Any(x=>x.Email == email))
-                    return dbContext.Users.Single(x => x.Email == email);
-                throw new Exception("User with this email not founded");
+                using (var dbContext = new AsanaDbContext())
+                {
+                    if ((email != "" || email != null) && dbContext.Users.Any(x => x.Email == email))
+                        return dbContext.Users.Single(x => x.Email == email);
+                    throw new Exception("User with this email not founded");
+                }
             }
             catch
             {
