@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
-    public class MessageItem
+    public enum ChatRoomType
     {
-        public string ProfName { get; set; }
-        public string Body { get; set; }
-        public bool ECS { get; set; }
+        Public,Private,Direct
     }
 }

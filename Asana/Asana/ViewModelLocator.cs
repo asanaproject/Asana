@@ -19,7 +19,6 @@ namespace Asana
     /// </summary>
     public class ViewModelLocator
     {
-        private AsanaDbContext dbContext;
         private NavigationService navigationService;
         private IUserService userService;
         public AppViewModel appViewModel;
@@ -36,10 +35,7 @@ namespace Asana
         public ListChannelsViewModel listChannelsViewModel;
         public ViewModelLocator()
         {
-            dbContext = new AsanaDbContext();
-
             navigationService = new NavigationService();
-            userService = new UserService(dbContext);
 
             appViewModel = new AppViewModel();
             logInViewModel = new LogInViewModel(navigationService);
@@ -48,8 +44,8 @@ namespace Asana
             sendCodeEmailViewModel = new SendCodeEmailViewModel(navigationService);
             homeViewModel = new HomeViewModel(navigationService);
             confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
-            signUpViewModel = new SignUpViewModel(navigationService, userService);
-            chatViewModel = new ChatViewModel(navigationService,dbContext);
+            signUpViewModel = new SignUpViewModel(navigationService);
+            chatViewModel = new ChatViewModel(navigationService);
             createProjectViewModel = new CreateProjectViewModel(navigationService);
             projectPageViewModel = new ProjectPageViewModel(navigationService);
             listChannelsViewModel = new ListChannelsViewModel(navigationService);
@@ -65,8 +61,7 @@ namespace Asana
             navigationService.AddPage(chatViewModel, ViewType.ChatView);
             navigationService.AddPage(projectPageViewModel, ViewType.ProjectPage);
             navigationService.AddPage(listChannelsViewModel, ViewType.ListChannels);
-
-            userService = new UserService(dbContext);
+            userService = new UserService();
             string user = CheckLoginLog.Load();
             if (user != "" && userService.Select(user) != null)
             {

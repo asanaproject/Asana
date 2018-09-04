@@ -163,8 +163,13 @@
     <Compile Include="Migrations\201809041353435_ICollectionProperty_ISAdded_InChatRoom1.Designer.cs">
       <DependentUpon>201809041353435_ICollectionProperty_ISAdded_InChatRoom1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809041643413_Types_Property_IsAdded.cs" />
+    <Compile Include="Migrations\201809041643413_Types_Property_IsAdded.Designer.cs">
+      <DependentUpon>201809041643413_Types_Property_IsAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
+    <Compile Include="Model\ChatRoomTypes.cs" />
     <Compile Include="Model\ChatRoomUsers.cs" />
     <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Model\Message.cs" />
@@ -353,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809041353435_ICollectionProperty_ISAdded_InChatRoom1.resx">
       <DependentUpon>201809041353435_ICollectionProperty_ISAdded_InChatRoom1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809041643413_Types_Property_IsAdded.resx">
+      <DependentUpon>201809041643413_Types_Property_IsAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

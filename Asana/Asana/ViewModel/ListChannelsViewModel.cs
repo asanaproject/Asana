@@ -17,13 +17,11 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigationService;
         ChannelsService channelService;
-        private readonly AsanaDbContext asanaDbContext;
         public ListChannelsViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
             chatRooms = new ObservableCollection<ChatRoom>();
-            asanaDbContext = new AsanaDbContext();
-            channelService = new ChannelsService(asanaDbContext);
+            channelService = new ChannelsService();
         }
 
         private ObservableCollection<ChatRoom> chatRooms;

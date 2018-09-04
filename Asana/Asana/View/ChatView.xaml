@@ -3,9 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Asana.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <UserControl.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#c850c0" Offset="0"></GradientStop>
@@ -48,6 +57,104 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
+        <DataTemplate x:Key="Template1">
+            <Border  >
+                <Grid>
+                    <!-- Profile picture -->
+                    <Border  VerticalAlignment="Top"
+                            HorizontalAlignment="Left"
+                            Margin="0 7.5 0 7.5"
+                            CornerRadius="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Height="{
+                        Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Width="35"
+                            Background="Green"
+                            BorderBrush="Red"
+                            BorderThickness="1">
+                        <TextBlock Text="{Binding Path=ProfName}"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                         />
+                    </Border>
+                    <!-- Chat message container -->
+                    <Grid Margin="50 0 0 0"  HorizontalAlignment="Stretch">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!-- Speech bubble rectangle -->
+                        <Border CornerRadius="10" Padding="15" Background="#0084ff">
+                            <!-- Message text -->
+                            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=Body}"/>
+                        </Border>
+
+                        <!-- Chat bubble anchor -->
+                        <Path Grid.Row="1" 
+                             Stroke="Black"
+                             Panel.ZIndex="1"
+                             HorizontalAlignment="Left"
+                             Margin="15 -1 15 0"
+                             Data="M 0,0 L 10,10 L 20,0 L 0,0" 
+                             StrokeThickness="0"
+                             Fill="#0084ff">
+                        </Path>
+                    </Grid>
+
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Template2">
+            <Border  >
+                <Grid>
+                    <!-- Profile picture -->
+                    <Border  VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Margin="0 7.5 0 7.5"
+                            CornerRadius="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Height="{
+                        Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Width="35"
+                            Background="Green"
+                            BorderBrush="Red"
+                            BorderThickness="1">
+                        <TextBlock Text="{Binding Path=ProfName}"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                         />
+                    </Border>
+                    <!-- Chat message container -->
+                    <Grid Margin="0 0 50 0"  HorizontalAlignment="Stretch">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!-- Speech bubble rectangle -->
+                        <Border CornerRadius="10" Padding="15" Background="#0084ff">
+                            <!-- Message text -->
+                            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=Body}"/>
+                        </Border>
+
+                        <!-- Chat bubble anchor -->
+                        <Path Grid.Row="1" 
+                             Stroke="Black"
+                             Panel.ZIndex="1"
+                             HorizontalAlignment="Right"
+                             Margin="15 -1 15 0"
+                             Data="M 0,0 L 10,10 L 20,0 L 0,0" 
+                             StrokeThickness="0"
+                             Fill="#0084ff">
+                        </Path>
+                    </Grid>
+
+                </Grid>
+            </Border>
+        </DataTemplate>
 
     </UserControl.Resources>
     <Grid>
@@ -194,7 +301,7 @@
                                                 <ColumnDefinition Width="0.2*"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
-                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding }"></TextBlock>
+                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -236,7 +343,7 @@
                                                 <ColumnDefinition Width="0.2*"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
-                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding }"></TextBlock>
+                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -252,52 +359,32 @@
                     </Grid.RowDefinitions>
 
                     <ListBox BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="White" ItemsSource="{Binding ChatItems}">
+                        <ListBox.Style>
+                            <Style TargetType="{x:Type ListBox}">
+                                <Setter Property="ItemTemplate" Value="{StaticResource Template1}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=ECS}" Value="True">
+                                        <Setter Property="ItemTemplate" Value="{StaticResource Template2}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border  >
-                                    <Grid>
-                                        <!-- Profile picture -->
-                                        <Border VerticalAlignment="Top"
-                                                HorizontalAlignment="Left"
-                                                Margin="0 7.5 0 7.5"
-                                                CornerRadius="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                                                Height="{
-                                            Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                                                Width="35"
-                                                Background="Green"
-                                                BorderBrush="Red"
-                                                BorderThickness="1">
-                                            <TextBlock Text="{Binding Path=ProfName}"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"
-                                            />
-                                        </Border>
-
-                                        <!-- Chat message container -->
-                                        <Grid Margin="50 0 0 0"  HorizontalAlignment="Stretch">
-
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <!-- Speech bubble rectangle -->
-                                            <Border CornerRadius="10" Padding="15" Background="#0084ff">
-                                                <!-- Message text -->
-                                                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=Body}"/>
-                                            </Border>
-
-                                            <!-- Chat bubble anchor -->
-                                            <Path Grid.Row="1" 
-                                                Stroke="Black"
-                                                Panel.ZIndex="1"
-                                                Margin="15 -1 15 0"
-                                                Data="M 0,0 L 10,10 L 20,0 L 0,0" 
-                                                StrokeThickness="0"
-                                                Fill="#0084ff" />
-                                        </Grid>
-                                    </Grid>
-                                </Border>
+                                <ContentControl Content="{Binding .}">
+                                    <ContentControl.Style>
+                                        <Style TargetType="ContentControl">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=ECS}" Value="True">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource Template1}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=ECS}" Value="False">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource Template2}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

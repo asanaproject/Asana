@@ -1,5 +1,6 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
+using Asana.Services;
 using Asana.Services.Interfaces;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
@@ -19,10 +20,10 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigation;
         private readonly IUserService userService;
-        public SignUpViewModel(NavigationService navigation, IUserService userService)
+        public SignUpViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            this.userService = userService;
+            this.userService = new UserService() ;
         }
 
         private string profieImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
