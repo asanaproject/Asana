@@ -4,6 +4,7 @@ using Asana.Objects;
 using Asana.Services;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,27 +17,27 @@ namespace Asana.ViewModel
     public class ChatViewModel : ViewModelBase
     {
         private int selectedId;
-
+        private readonly AsanaDbContext asanaDbContext;
         private readonly ChannelsService ChannelsService;
-        private ObservableCollection<string> privateChannels;
+        private ObservableCollection<ChatRoom> privateChannels;
 
-        public ObservableCollection<string> PrivateChannels
+        public ObservableCollection<ChatRoom> PrivateChannels
         {
             get { return privateChannels; }
             set { privateChannels = value; Set(ref privateChannels, value); }
         }
 
-        private ObservableCollection<string> directMessages;
+        private ObservableCollection<ChatRoom> directMessages;
 
-        public ObservableCollection<string> DirectMessages
+        public ObservableCollection<ChatRoom> DirectMessages
         {
             get { return directMessages; }
             set { directMessages = value; Set(ref directMessages, value); }
         }
 
-        private ObservableCollection<string> publicChannels;
+        private ObservableCollection<ChatRoom> publicChannels;
 
-        public ObservableCollection<string> PublicChannels
+        public ObservableCollection<ChatRoom> PublicChannels
         {
             get { return publicChannels; }
             set { publicChannels = value; Set(ref publicChannels, value); }
@@ -53,7 +54,7 @@ namespace Asana.ViewModel
         private RelayCommand _addChatRoomChannels;
 
         public RelayCommand AddChatRoomChannels => _addChatRoomChannels ?? (_addChatRoomChannels = new RelayCommand(
-        x =>
+        () =>
         {
             WindowBluringCustom.Bluring();
             ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Name");
@@ -61,13 +62,12 @@ namespace Asana.ViewModel
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
             ChannelsService.InsertRoom(channelname);
-            publicChannels.Add(channelname);
         }));
 
         private RelayCommand _addChatRoomPrivate;
 
         public RelayCommand AddChatRoomPrivate => _addChatRoomPrivate ?? (_addChatRoomPrivate = new RelayCommand(
-        x =>
+        () =>
         {
             WindowBluringCustom.Bluring();
             ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Name");
@@ -75,45 +75,48 @@ namespace Asana.ViewModel
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
             ChannelsService.InsertRoom(channelname);
-            PrivateChannels.Add(channelname);
         }));
-
-        //private Timer timer;
-
-        //private void OnCallBack()
-        //{
-        //    using (var db = new AsanaDbContext()) 
-        //    {
-        //        db.Messages.Select(x => x.ChatRoomId == selectedId);
-        //    }
-        //}
 
         private RelayCommand _channelListCommand;
         public RelayCommand ChannelListCommand
         {
             get => _channelListCommand ?? (_channelListCommand = new RelayCommand(
-                (x => navigationService.NavigateTo(ViewType.ListChannels)
+                (() => navigationService.NavigateTo(ViewType.ListChannels)
                 )));
         }
 
 
+        private Timer timer;
+
+        private void OnCallBack()
+        {
+            //ObservableCollection<ChatRoom> chatroomNames = new ObservableCollection<ChatRoom>();
+            //using (var db = new AsanaDbContext())
+            //{
+            //    foreach (var dd in db.ChatRoomUsers)
+            //    {
+            //        if (db.ChatRooms.Single(x => x.ID == dd.ChatRoomId && dd.UserId == CurrentUser.Instance.User.Id) != null)
+            //            chatroomNames.Add(db.ChatRooms.Single(x => x.ID == dd.ChatRoomId && dd.UserId == CurrentUser.Instance.User.Id));
+            //    }
+            //}
+            //PublicChannels = chatroomNames;
+        }
+
 
         private readonly NavigationService navigationService;
 
-        public ChatViewModel(NavigationService navigationService)
+        public ChatViewModel(NavigationService navigationService,AsanaDbContext asanaDbContext)
         {
             this.navigationService = navigationService;
-            PublicChannels = new ObservableCollection<string>();
-            PrivateChannels = new ObservableCollection<string>();
-            DirectMessages = new ObservableCollection<string>();
+            PublicChannels = new ObservableCollection<ChatRoom>();
+            PrivateChannels = new ObservableCollection<ChatRoom>();
+            DirectMessages = new ObservableCollection<ChatRoom>();
             ChatItems = new ObservableCollection<MessageItem>();
-            ChannelsService = new ChannelsService();
+           
+            ChannelsService = new ChannelsService(asanaDbContext);
+            //PublicChannels = ChannelsService.GetListPublicChannelsId();
             //PrivateChannels = ChannelsService.GetListPublicChannelsId();
             //PublicChannels = ChannelsService.GetListPrivateChannelsId();
-            //System.Threading.Tasks.Task.Run(() =>
-            //{
-            //    timer = new Timer(_ => OnCallBack(), null, 1000 * 10, Timeout.Infinite);
-            //});
         }
     }
 }

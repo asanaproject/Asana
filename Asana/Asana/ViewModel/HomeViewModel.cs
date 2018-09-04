@@ -1,6 +1,7 @@
 ﻿using Asana.Navigation;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Asana.ViewModel
         public RelayCommand DiscussCommand
         {
             get => _discussCommand ?? (_discussCommand = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.ChatView)
+                (()=> navigation.NavigateTo(ViewType.ChatView)
                 )));
         }
 
@@ -32,7 +33,7 @@ namespace Asana.ViewModel
         public RelayCommand ProjectCommand
         {
             get => _projectCommand ?? (_projectCommand = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.CreateProject)
+                (()=> navigation.NavigateTo(ViewType.CreateProject)
                 )));
         }
 
@@ -41,7 +42,7 @@ namespace Asana.ViewModel
         public RelayCommand SettingsCommand
         {
             get => _settingsCommand ?? (_settingsCommand = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.Home)
+                (()=> navigation.NavigateTo(ViewType.Home)
                 )));
         }
 
@@ -50,7 +51,7 @@ namespace Asana.ViewModel
         public RelayCommand AppsCommand
         {
             get => _appsCommand ?? (_appsCommand = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.Home)
+                (()=> navigation.NavigateTo(ViewType.Home)
                 )));
         }
 
@@ -59,14 +60,14 @@ namespace Asana.ViewModel
         private RelayCommand _nextSlide;
 
         public RelayCommand NextSlide => _nextSlide ?? (_nextSlide = new RelayCommand(
-        x =>
+        ()=>
         {
         }));
 
         private RelayCommand _backSlide;
 
         public RelayCommand BackSlide => _backSlide ?? (_backSlide = new RelayCommand(
-        x =>
+        () =>
         {
         }));
     }

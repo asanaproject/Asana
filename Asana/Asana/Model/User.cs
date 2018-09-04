@@ -34,7 +34,7 @@ namespace Asana.Model
         [NotMapped]
         public bool IsLogged { get; set; }
 
-
+        public ICollection<ChatRoomUsers> Users { get; set; }
         //   public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

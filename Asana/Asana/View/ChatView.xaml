@@ -152,7 +152,7 @@
                                                 <ColumnDefinition Width="0.2*"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
-                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding }"></TextBlock>
+                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>

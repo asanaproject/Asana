@@ -10,6 +10,7 @@ using System.Windows;
 using Asana.Objects;
 using Asana.Model;
 using Serilog;
+using GalaSoft.MvvmLight.Command;
 
 namespace Asana.ViewModel
 {
@@ -62,7 +63,7 @@ namespace Asana.ViewModel
         private RelayCommand _newPassAplyCommand;
 
         public RelayCommand NewPassAplyCommand => _newPassAplyCommand ?? (_newPassAplyCommand = new RelayCommand(
-            x =>
+            () =>
             {
                 if (RegexChecker.CheckPassword(NewPassword) && NewPassword.Equals(ReEnterPassword) && accountService.ForgotControl(NewPassword))
                     navigation.NavigateTo(ViewType.LogIn);
@@ -75,7 +76,7 @@ namespace Asana.ViewModel
         private RelayCommand _cancelCommand;
 
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.ForgotEmailCode)
+            ()=> navigation.NavigateTo(ViewType.ForgotEmailCode)
             ));
 
 
