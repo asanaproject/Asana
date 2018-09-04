@@ -6,27 +6,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Serilog;
+using System.Collections.ObjectModel;
 
 namespace Asana.Services
 {
     public class ChatService
     {
-        public bool SendMessagesChannel(int channel_id,string body)
+        public bool SendMessagesChannel(int ChatRoomId, string body)
         {
             try
             {
-                using (var db = new AsanaDbContext())
+                using (var db= new AsanaDbContext())
                 {
-                    db.Messages.Add(new Message() { ChatRoomId = channel_id, Body = body, Timestap = DateTime.Now, ChatUserID = CurrentUser.Instance.User.Id });
-                    return true;
+                    db.Messages.Add(new Message() { Body = body, ChatRoomId = ChatRoomId, SendTime = DateTime.Now, UserId = CurrentUser.Instance.User.Id });
+                    db.SaveChanges();
                 }
+                return true;
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 Log.Error(err.Message);
                 return false;
             }
         }
+
+        public ObservableCollection<Message> GetSelectedChannelMessages(int ChatRoomId)
+        {
+            try
+            {
+                ObservableCollection<Message> messages = new ObservableCollection<Message>();
+                using (var db = new AsanaDbContext())
+                    db.Messages.Where(x => x.ChatRoomId == ChatRoomId).ToList().ForEach(x => messages.Add(x));    
+                return messages;
+            }
+            catch(Exception err)
+            {
+                Log.Error(err.Message);
+                return new ObservableCollection<Message>();
+            }
+        }
+
+
 
     }
 }

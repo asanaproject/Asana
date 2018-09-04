@@ -13,16 +13,21 @@ namespace Asana.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required, MaxLength(250)]
+        [Required, MaxLength(500)]
         public string Body { get; set; }
 
         [Required]
-        public virtual int ChatUserID { get; set; }
+        public DateTime SendTime { get; set; }
 
-        [Required]
-        public DateTime Timestap { get; set; }
+        [ForeignKey(nameof(User))]
+        public int UserId { get; set; }
 
+        [ForeignKey(nameof(ChatRoom))]
         public int ChatRoomId { get; set; }
+
+        public virtual User User { get; set; }
+
+        public virtual ChatRoom ChatRoom { get; set; }
         
     }
 }
