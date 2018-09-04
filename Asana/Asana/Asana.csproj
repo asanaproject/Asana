@@ -151,8 +151,21 @@
     <Compile Include="Migrations\201809011151419_Initial_Mode.Designer.cs">
       <DependentUpon>201809011151419_Initial_Mode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809041250306_DescriptionProperty_IsAdded_InChatRoom.cs" />
+    <Compile Include="Migrations\201809041250306_DescriptionProperty_IsAdded_InChatRoom.Designer.cs">
+      <DependentUpon>201809041250306_DescriptionProperty_IsAdded_InChatRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809041323199_ICollectionProperty_ISAdded_InChatRoom.cs" />
+    <Compile Include="Migrations\201809041323199_ICollectionProperty_ISAdded_InChatRoom.Designer.cs">
+      <DependentUpon>201809041323199_ICollectionProperty_ISAdded_InChatRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809041353435_ICollectionProperty_ISAdded_InChatRoom1.cs" />
+    <Compile Include="Migrations\201809041353435_ICollectionProperty_ISAdded_InChatRoom1.Designer.cs">
+      <DependentUpon>201809041353435_ICollectionProperty_ISAdded_InChatRoom1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
+    <Compile Include="Model\ChatRoomUsers.cs" />
     <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Model\Message.cs" />
     <Compile Include="Services\AccountService.cs" />
@@ -186,7 +199,6 @@
     <Compile Include="Tools\ProfilePhoto.cs" />
     <Compile Include="Tools\Randomizer.cs" />
     <Compile Include="Tools\RegexChecker.cs" />
-    <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\Settings.cs" />
     <Compile Include="Tools\Errors.cs" />
     <Compile Include="Tools\WindowBluringCustom.cs" />
@@ -332,6 +344,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809011151419_Initial_Mode.resx">
       <DependentUpon>201809011151419_Initial_Mode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809041250306_DescriptionProperty_IsAdded_InChatRoom.resx">
+      <DependentUpon>201809041250306_DescriptionProperty_IsAdded_InChatRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809041323199_ICollectionProperty_ISAdded_InChatRoom.resx">
+      <DependentUpon>201809041323199_ICollectionProperty_ISAdded_InChatRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809041353435_ICollectionProperty_ISAdded_InChatRoom1.resx">
+      <DependentUpon>201809041353435_ICollectionProperty_ISAdded_InChatRoom1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

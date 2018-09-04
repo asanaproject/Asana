@@ -1,6 +1,7 @@
 ﻿using Asana.Navigation;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Asana.ViewModel
 
         private RelayCommand _backCommand;
         public RelayCommand BackCommand => _backCommand ?? (_backCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.LogIn)
+            () => navigation.NavigateTo(ViewType.LogIn)
             ));
          
 
@@ -43,7 +44,7 @@ namespace Asana.ViewModel
         /// </summary>
         private RelayCommand confirmCommand;
         public RelayCommand ConfirmCommand => confirmCommand ?? (confirmCommand = new RelayCommand(
-                x =>
+                () =>
                 {
                     if (Randomizer.RandomKey.Equals(ConfirmationCode))
                     {

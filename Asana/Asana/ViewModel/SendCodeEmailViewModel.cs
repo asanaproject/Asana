@@ -2,6 +2,7 @@
 using Asana.Navigation;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,14 +33,14 @@ namespace Asana.ViewModel
         private RelayCommand _cancelCommand;
 
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.LogIn)
+            () => navigation.NavigateTo(ViewType.LogIn)
             ));
 
 
         private RelayCommand _sendCommand;
 
         public RelayCommand SendCommand => _sendCommand ?? (_sendCommand = new RelayCommand(
-            x =>
+            () =>
             {
 
                 if (RegexChecker.CheckEmail(Email))

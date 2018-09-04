@@ -86,7 +86,7 @@
             </Grid.RowDefinitions>
             <!--   this button is for come back to Home View -->
             <Button Grid.Row="0" ToolTip="Previous Page" Grid.Column="0" BorderBrush="Transparent" Content="{StaticResource MyImage}"
-                        Command="{Binding BackCommand}" Background="Transparent" Foreground="White"
+                        Command="{Binding GoToLogInViewCommand}" Background="Transparent" Foreground="White"
                            FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
 

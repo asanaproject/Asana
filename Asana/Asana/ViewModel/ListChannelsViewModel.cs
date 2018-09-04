@@ -1,6 +1,7 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
 using Asana.Objects;
+using Asana.Services;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -15,22 +16,14 @@ namespace Asana.ViewModel
     public class ListChannelsViewModel : ViewModelBase
     {
         private readonly NavigationService navigationService;
-
+        ChannelsService channelService;
+        private readonly AsanaDbContext asanaDbContext;
         public ListChannelsViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
             chatRooms = new ObservableCollection<ChatRoom>();
-            chatRooms.Add(new ChatRoom() { Name = "#Title1", Type = "Public" });
-            chatRooms.Add(new ChatRoom() { Name = "#Title2", Type = "Public" });
-            chatRooms.Add(new ChatRoom() { Name = "#Title3", Type = "Public" });
-            chatRooms.Add(new ChatRoom() { Name = "#Title4", Type = "Public" });
-            chatRooms.Add(new ChatRoom() { Name = "#Title", Type = "Public" });
-            chatRooms.Add(new ChatRoom() { Name = "#Title", Type = "Public" });
-            chatRooms.Add(new ChatRoom() { Name = "#Title", Type = "Public" });
-            chatRooms.Add(new ChatRoom() { Name = "#Title", Type = "Public" });
-            chatRooms.Add(new ChatRoom() { Name = "#Title", Type = "Public" });
-
-
+            asanaDbContext = new AsanaDbContext();
+            channelService = new ChannelsService(asanaDbContext);
         }
 
         private ObservableCollection<ChatRoom> chatRooms;
@@ -59,18 +52,18 @@ namespace Asana.ViewModel
             //{
             //    db.ChatRooms.Single(y => y.ID == x.ID).Users.Add(CurrentUser.Instance.User);
             //}
+            channelService.JoinRoom(x.ID);
             ChatRooms.Remove(x);
             MessageBox.Show("Your joined " + x.Name + "!", "Channel", MessageBoxButton.OK, MessageBoxImage.Information);
         }));
 
         public void UpdateSource()
         {
-            using (var db = new AsanaDbContext())
-            {
-                var tmp = db.ChatRooms.ToList().Where(x => x.Users.ToList().Exists(y => y == CurrentUser.Instance.User)).ToList();
-                tmp.ForEach(x => chatRooms.Add(x));
-            }
-
+            //using (var db = new AsanaDbContext())
+            //{
+            //    var tmp = db.ChatRooms.ToList().Where(x => x.Users.ToList().Exists(y => y == CurrentUser.Instance.User)).ToList();
+            //    tmp.ForEach(x => chatRooms.Add(x));
+            //}
         }
     }
 }

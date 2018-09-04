@@ -38,7 +38,6 @@ namespace Asana
         {
             dbContext = new AsanaDbContext();
 
-
             navigationService = new NavigationService();
             userService = new UserService(dbContext);
 
@@ -50,7 +49,7 @@ namespace Asana
             homeViewModel = new HomeViewModel(navigationService);
             confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
             signUpViewModel = new SignUpViewModel(navigationService, userService);
-            chatViewModel = new ChatViewModel(navigationService);
+            chatViewModel = new ChatViewModel(navigationService,dbContext);
             createProjectViewModel = new CreateProjectViewModel(navigationService);
             projectPageViewModel = new ProjectPageViewModel(navigationService);
             listChannelsViewModel = new ListChannelsViewModel(navigationService);
@@ -69,7 +68,7 @@ namespace Asana
 
             userService = new UserService(dbContext);
             string user = CheckLoginLog.Load();
-            if (user != "")
+            if (user != "" && userService.Select(user) != null)
             {
                 CurrentUser.Instance.User = userService.Select(user);
                 navigationService.NavigateTo(ViewType.Home);
