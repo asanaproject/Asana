@@ -47,13 +47,37 @@ namespace Asana.ViewModel
             set { publicChannels = value; Set(ref publicChannels, value); }
         }
 
-        //private ObservableCollection<dynamic> inbox;
+        private ObservableCollection<dynamic> inbox;
 
-        //public ObservableCollection<dynamic> Inbox
-        //{
-        //    get { return inbox; }
-        //    set { inbox = value; Set(ref inbox, value); }
-        //}
+        public ObservableCollection<dynamic> Inbox
+        {
+            get { return inbox; }
+            set { inbox = value; Set(ref inbox, value); }
+        }
+
+        private Visibility inboxVisibility = Visibility.Hidden;
+
+        public Visibility InboxVisibility
+        {
+            get { return inboxVisibility; }
+            set { inboxVisibility = value; Set(ref inboxVisibility, value); }
+        }
+
+        private Visibility starredVisibility = Visibility.Hidden;
+
+        public Visibility StarredVisibility
+        {
+            get { return starredVisibility; }
+            set { starredVisibility = value; Set(ref starredVisibility, value); }
+        }
+
+        private Visibility listBoxVisibility = Visibility.Visible;
+
+        public Visibility ListBoxVisibility
+        {
+            get { return listBoxVisibility; }
+            set { listBoxVisibility = value; Set(ref listBoxVisibility, value);  }
+        }
 
 
         private ObservableCollection<dynamic> chatItems;
@@ -70,7 +94,7 @@ namespace Asana.ViewModel
         public ChatRoom SelectedItem
         {
             get { return selectedItem; }
-            set { selectedItem = value; Set(ref selectedItem, value); }
+            set { selectedItem = value; Set(ref selectedItem, value); ListBoxVisibility = Visibility.Visible; StarredVisibility = Visibility.Hidden;InboxVisibility = Visibility.Hidden; }
         }
 
         private string message_Text;
@@ -109,6 +133,29 @@ namespace Asana.ViewModel
             GetMessages();
         }));
 
+
+        private RelayCommand _inboxCommand;
+
+        public RelayCommand InboxCommand => _inboxCommand ?? (_inboxCommand = new RelayCommand(
+        () =>
+        {
+            ListBoxVisibility = Visibility.Hidden;
+            StarredVisibility = Visibility.Hidden;
+            InboxVisibility = Visibility.Visible;
+        }));
+
+
+        private RelayCommand _starredCommand;
+
+        public RelayCommand StarredCommand => _starredCommand ?? (_starredCommand = new RelayCommand(
+        () =>
+        {
+            ListBoxVisibility = Visibility.Hidden;
+            StarredVisibility = Visibility.Visible;
+            InboxVisibility = Visibility.Hidden;
+        }));
+
+
         private RelayCommand _addChatRoomPrivate;
 
         public RelayCommand AddChatRoomPrivate => _addChatRoomPrivate ?? (_addChatRoomPrivate = new RelayCommand(
@@ -131,6 +178,8 @@ namespace Asana.ViewModel
                 )));
         }
 
+
+        
 
         private RelayCommand _loadedCommand;
 
@@ -172,6 +221,7 @@ namespace Asana.ViewModel
             PublicChannels = new ObservableCollection<ChatRoom>();
             PrivateChannels = new ObservableCollection<ChatRoom>();
             DirectMessages = new ObservableCollection<ChatRoom>();
+            Inbox = new ObservableCollection<dynamic>();
             ChatItems = new ObservableCollection<dynamic>();
             ChannelsService = new ChannelsService();
             ChatService = new ChatService();
