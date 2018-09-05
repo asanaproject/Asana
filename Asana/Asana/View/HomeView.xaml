@@ -3,27 +3,71 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Asana.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Image x:Key="LeftArr" Source="../Resources/Images/arr.png"/>
-        <Image x:Key="RightArr" Source="../Resources/Images/arr.png">
-
+        <Image x:Key="RightArr" Source="../Resources/Images/arr.png" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <ScaleTransform ScaleX="-1"/>
+            </Image.RenderTransform>
         </Image>
+        <DataTemplate x:Key="Slide1">
+            <Image Source="../Resources/Images/1.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+        </DataTemplate>
+        <DataTemplate x:Key="Slide2">
+            <Image Source="../Resources/Images/2.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+        </DataTemplate>
+        <DataTemplate x:Key="Slide3">
+            <Image Source="../Resources/Images/3.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+        </DataTemplate>
+        <DataTemplate x:Key="Slide4">
+            <Image Source="../Resources/Images/4.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+        </DataTemplate>
     </UserControl.Resources>
-    <Grid>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Window_Closed">
+            <i:InvokeCommandAction Command="{Binding ClosedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.8*"/>
             <RowDefinition Height="0.2*"></RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Background="White">
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0.15*"/>
             </Grid.RowDefinitions>
-            <Image Source="../Resources/Images/1.jpg" Name="SelectedImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" Grid.RowSpan="2" />
+            <ContentControl  Grid.RowSpan="2">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedColumn}" Value="1">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Slide1}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedColumn}" Value="2">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Slide2}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedColumn}" Value="3">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Slide3}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedColumn}" Value="4">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Slide4}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
             <Rectangle Grid.RowSpan="2">
                 <Rectangle.Fill>
                     <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
@@ -31,21 +75,24 @@
                         <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
                         <LinearGradientBrush.Transform>
                             <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
-
                         </LinearGradientBrush.Transform>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Button Command="{Binding NextSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
-            <Button Command="{Binding BackSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
-            <Image Grid.Row="1" HorizontalAlignment="Center" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>
+            <Button Command="{Binding BackSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
+            <Button Command="{Binding NextSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
+
+            <Border Grid.Row="1" BorderBrush="White" BorderThickness="0 0 0 5" ></Border>
+            <Image Grid.Row="1" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>
         </Grid>
         <Rectangle Stretch="Fill" Fill="White" Grid.Row="1" Grid.RowSpan="2"></Rectangle>
-        <Rectangle Grid.Row="1" Grid.RowSpan="2" Stretch="Fill" >
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="../Resources/Images/bg3.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,350,350" />
-            </Rectangle.Fill>
-        </Rectangle>
+        <Border BorderThickness="0 5 0 0" Background="White" Grid.Row="1" Grid.RowSpan="2">
+            <Rectangle  Stretch="Fill" >
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="../Resources/Images/bg3.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,350,350" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Border>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.2*"/>
@@ -65,10 +112,10 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Border Padding="5"  BorderBrush="#dedef8"  CornerRadius="5">
-                        <Border.BitmapEffect>
-                            <DropShadowBitmapEffect Color="#dedef8" Direction="200"
+                    <Border.BitmapEffect>
+                        <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
-                        </Border.BitmapEffect>
+                    </Border.BitmapEffect>
                     <Button Style="{x:Null}" Command="{Binding DiscussCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  BorderBrush="Transparent">
                         <Grid  Background="WhiteSmoke">
                             <Grid.RowDefinitions>

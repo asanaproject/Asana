@@ -171,10 +171,15 @@
     <Compile Include="Migrations\201809042143410_Message_Class_IsAdded.Designer.cs">
       <DependentUpon>201809042143410_Message_Class_IsAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809052236415_Mail_Table_IsCreated.cs" />
+    <Compile Include="Migrations\201809052236415_Mail_Table_IsCreated.Designer.cs">
+      <DependentUpon>201809052236415_Mail_Table_IsCreated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
     <Compile Include="Model\ChatRoomUsers.cs" />
+    <Compile Include="Model\Mail.cs" />
     <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Model\Message.cs" />
     <Compile Include="Services\AccountService.cs" />
@@ -370,6 +375,9 @@
     <EmbeddedResource Include="Migrations\201809042143410_Message_Class_IsAdded.resx">
       <DependentUpon>201809042143410_Message_Class_IsAdded.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809052236415_Mail_Table_IsCreated.resx">
+      <DependentUpon>201809052236415_Mail_Table_IsCreated.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -417,6 +425,7 @@
     <Resource Include="Resources\Images\setting.png" />
     <Resource Include="Resources\Images\user.png" />
     <Resource Include="Resources\Images\plus1.png" />
+    <Resource Include="Resources\Images\mainlogo.png" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
