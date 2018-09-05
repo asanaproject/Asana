@@ -32,5 +32,10 @@ namespace Asana.Tools
             }
 
         }
+
+        public static void Remove()
+        {
+            File.Delete(path);
+        }
     }
 }

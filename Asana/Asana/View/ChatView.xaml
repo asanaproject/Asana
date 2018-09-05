@@ -66,45 +66,45 @@
             <Border  >
                 <Grid>
                     <!-- Profile picture -->
-                    <Border  VerticalAlignment="Top"
+                    <Border  VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
-                            Margin="0 7.5 0 7.5"
-                            CornerRadius="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                            Height="{
-                        Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Margin="0 7.5 0 2.5"
+                            CornerRadius="30"
+                            Height="35"
                             Width="35"
                             Background="Green"
                             BorderBrush="Red"
                             BorderThickness="1">
-                        <TextBlock Text="{Binding Path=ProfName}"
+                        <TextBlock Text="TM"
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                          />
                     </Border>
                     <!-- Chat message container -->
-                    <Grid Margin="50 0 0 0"  HorizontalAlignment="Stretch">
+                    <Grid Margin="40 0 3 0"  HorizontalAlignment="Stretch">
 
+                        
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <!-- Speech bubble rectangle -->
-                        <Border CornerRadius="10" Padding="15" HorizontalAlignment="Left" Background="##f1f0f0">
+                        <Border CornerRadius="15" Padding="12 6 12 6" HorizontalAlignment="Left" VerticalAlignment="Center"  Background="#f1f0f0">
                             <!-- Message text -->
-                            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=Body}"/>
+                            <TextBlock VerticalAlignment="Center" TextAlignment="Left" TextWrapping="WrapWithOverflow" FontSize="14" Text="{Binding Path=Body}"/>
                         </Border>
 
                         <!-- Chat bubble anchor -->
-                        <Path Grid.Row="1" 
+                        <!--<Path Grid.Row="1" 
                              Stroke="Black"
                              Panel.ZIndex="1"
                              HorizontalAlignment="Left"
                              Margin="15 -1 15 0"
                              Data="M 0,0 L 10,10 L 20,0 L 0,0" 
                              StrokeThickness="0"
-                             Fill="#0084ff">
-                        </Path>
+                             Fill="#f1f0f0">
+                        </Path>-->
                     </Grid>
 
                 </Grid>
@@ -123,12 +123,11 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <!-- Speech bubble rectangle -->
-                        <Border CornerRadius="10" Padding="15" HorizontalAlignment="Right"  Background="#0084ff">
+                        <Border CornerRadius="15" Padding="12 6 12 6" HorizontalAlignment="Right" VerticalAlignment="Center"  Background="#0084ff">
                             <!-- Message text -->
-                            <TextBlock VerticalAlignment="Center" TextAlignment="Right" TextWrapping="Wrap" Text="{Binding Path=Body}"/>
+                            <TextBlock VerticalAlignment="Center" TextAlignment="Right" Foreground="White" FontSize="14" TextWrapping="WrapWithOverflow" Text="{Binding Path=Body}"/>
                         </Border>
-
-                        <!-- Chat bubble anchor -->
+                        <!-- Chat bubble anchor --><!--
                         <Path Grid.Row="1" 
                              Stroke="Black"
                              Panel.ZIndex="1"
@@ -137,7 +136,7 @@
                              Data="M 0,0 L 10,10 L 20,0 L 0,0" 
                              StrokeThickness="0"
                              Fill="#0084ff">
-                        </Path>
+                        </Path>-->
                     </Grid>
 
                 </Grid>
@@ -168,16 +167,16 @@
                     <RowDefinition/>
                     <RowDefinition Height="45"/>
                 </Grid.RowDefinitions>
-                <ListBox BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="White" ItemsSource="{Binding ChatItems}">
+                <ListBox BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="WhiteSmoke" ItemsSource="{Binding ChatItems}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <ContentControl Content="{Binding .}">
                                 <ContentControl.Style>
                                     <Style TargetType="ContentControl">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource Template2}" />
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Template1}" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=Id}" Value="{x:Static model:CurrentUser.Id}">
-                                                <Setter Property="ContentTemplate" Value="{StaticResource Template1}" />
+                                            <DataTrigger Binding="{Binding Path=Iam}" Value="true">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource Template2}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -223,7 +222,7 @@
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <local:HeaderView Grid.Row="0" Grid.ColumnSpan="2" />
+                <ContentControl Content="{Binding Header}" Grid.Row="0" Grid.ColumnSpan="2" />
                 <Grid Grid.Row="1" Background="#2f3136">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="65"/>
@@ -235,7 +234,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Button Command="{Binding InboxCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Style="{StaticResource m_nav_menu1}" >
+                            <Button Margin="8 0 0 0" Command="{Binding InboxCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Style="{StaticResource m_nav_menu1}" >
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="30"/>
@@ -245,7 +244,7 @@
                                     <TextBlock Text="Inbox" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
                                 </Grid>
                             </Button>
-                            <Button Command="{Binding StarredCommand}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  Style="{StaticResource m_nav_menu1}">
+                            <Button Margin="8 0 0 0" Command="{Binding StarredCommand}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  Style="{StaticResource m_nav_menu1}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="30"/>
