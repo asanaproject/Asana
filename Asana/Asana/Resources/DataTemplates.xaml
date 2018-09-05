@@ -54,6 +54,11 @@
     <DataTemplate DataType="{x:Type vm:ListChannelsViewModel}">
         <v:ListChannelsView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:HeaderViewModel}">
+        <v:HeaderView/>
+    </DataTemplate>
+
+
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>

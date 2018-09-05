@@ -32,24 +32,26 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Image x:Key="home" Source="../Resources/Images/menu.png"/>
+        <Image x:Key="home1" Source="../Resources/Images/star.png"/>
     </UserControl.Resources>
     <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FF9D79B0" >
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="30*"/>
             <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="85"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <!--Header items-->
         <Image   Grid.Column="5" Grid.Row="0" ToolTip="Activities" Source="../Resources/Images/activities.png"
                         VerticalAlignment="Center"
-                         HorizontalAlignment="Center" Height="20"  Width="20"   ></Image>
+                         HorizontalAlignment="Right" Margin="0 0 20 0" Height="20"  Width="20"   ></Image>
 
 
         <Image  ToolTip="Chat" Grid.Column="6" Grid.Row="0" Source="../Resources/Images/converstation.png"
@@ -58,28 +60,27 @@
 
         <Image  Grid.Column="7" ToolTip="Settings" Grid.Row="0" Source="../Resources/Images/Settings.png"
                       VerticalAlignment="Stretch"
-                         HorizontalAlignment="Center" Height="30"  Width="20"   ></Image>
-
-        <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Height="25" Source="pack://application:,,,/Asana;component/Resources/Images/menu.png"/>
-
-        <TextBlock Grid.Column="1" FontSize="27" FontWeight="Bold" 
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="WhiteSmoke" Height="36" Width="83" FontFamily="Calibri" >Project</TextBlock>
+                         HorizontalAlignment="Left" Margin="20 0 0 0" Height="30"  Width="20"   ></Image>
+        <Button Command="{Binding HomeCommand}" Background="Transparent"   BorderBrush="Transparent"  Grid.Column="0" >
+                <Image  Width="25" Height="25" Source="../Resources/Images/menu.png" ></Image>
+        </Button>
+        <TextBlock Grid.Column="1" FontSize="27" FontWeight="Bold"  
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="WhiteSmoke"  FontFamily="Calibri" >Project</TextBlock>
 
  
 
-        <Button  Content="Dashboard" Grid.Column="2" Grid.Row="0"
+        <Button Command="{Binding DashBoardCommand}"  Content="Dashboard" Grid.Column="2" Grid.Row="0"
                        VerticalAlignment="Center"
-                         HorizontalAlignment="Right" Margin="0 0 4 0" Style="{StaticResource m_nav_bar}"  ></Button>
+                         HorizontalAlignment="Right" Style="{StaticResource m_nav_bar}"  ></Button>
 
 
 
-        <Button  Content="Search" VerticalAlignment="Center" Grid.Column="3"
+        <Button Command="{Binding SearchCommand}"  Content="Search" VerticalAlignment="Center" Grid.Column="3"
                         HorizontalAlignment="Center"  Style="{StaticResource m_nav_bar}">
-           
         </Button>
 
 
-        <Button  Content="Settings" VerticalAlignment="Center" Grid.Column="4"
+        <Button Command="{Binding SettingsCommand}"  Content="Settings" VerticalAlignment="Center" Grid.Column="4"
                         HorizontalAlignment="Left" Margin="4 0 0 0" Style="{StaticResource m_nav_bar}" />
         <Menu Grid.Column="9" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
             <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="WhiteSmoke"  FontSize="15" FontFamily="Calibri" >
@@ -88,7 +89,7 @@
                     <MenuItem Foreground="WhiteSmoke" Header="Az"/>
                     <MenuItem Foreground="WhiteSmoke" Header ="Ru"/>
                 </MenuItem>
-                <MenuItem Header="Log Off"/>
+                <MenuItem Command="{Binding LogoutCommand}" Header="Log Off"/>
             </MenuItem>
 
         </Menu>

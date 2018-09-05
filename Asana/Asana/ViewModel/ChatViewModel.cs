@@ -91,7 +91,35 @@ namespace Asana.ViewModel
                         App.Current.Dispatcher.Invoke((Action)delegate
                         {
                             ChatItems.Clear();
-                            ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach(x => ChatItems.Add(x));
+
+                            ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach((x) =>
+                            {
+                                if (x.UserId == CurrentUser.Instance.User.Id)
+                                {
+                                    ChatItems.Add(new
+                                    {
+                                        x.ID,
+                                        x.UserId,
+                                        x.ChatRoomId,
+                                        x.Body,
+                                        x.SendTime,
+                                        Iam = true
+                                    });
+                                }
+                                else
+                                {
+                                    ChatItems.Add(new
+                                    {
+                                        x.ID,
+                                        x.UserId,
+                                        x.ChatRoomId,
+                                        x.Body,
+                                        x.SendTime,
+                                        Iam = false
+                                    });
+                                }
+                            });
+
                         });
                         Thread.Sleep(500);
                     }
@@ -121,7 +149,7 @@ namespace Asana.ViewModel
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
             ChannelsService.InsertRoom(channelname);
-            
+
             ChatRoomDatas();
         }));
 
@@ -205,6 +233,13 @@ namespace Asana.ViewModel
 
         #endregion
 
+        private object header;
+
+        public object Header
+        {
+            get { return header; }
+            set { header = value; Set(ref header, value); }
+        }
 
 
         private readonly NavigationService navigationService;
@@ -219,6 +254,7 @@ namespace Asana.ViewModel
             ChatItems = new ObservableCollection<dynamic>();
             ChannelsService = new ChannelsService();
             ChatService = new ChatService();
+            Header = new HeaderViewModel(navigationService);
         }
     }
 }
