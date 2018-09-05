@@ -29,7 +29,7 @@ namespace Asana.Objects
         public DbSet<ChatRoom> ChatRooms{ get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<ChatRoomUsers> ChatRoomUsers{ get; set; }
-
+        public DbSet<Mail> Mails{ get; set; }
 
     }
 }
