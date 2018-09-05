@@ -19,10 +19,20 @@ namespace Asana.ViewModel
     {
 
         #region Props
-     
+
 
         private readonly ChannelsService ChannelsService;
         private readonly ChatService ChatService;
+
+        private int selectedColumn;
+
+        public int SelectedColumn
+        {
+            get { return selectedColumn; }
+            set { Set(ref selectedColumn, value); }
+        }
+
+
         private ObservableCollection<ChatRoom> privateChannels;
 
         public ObservableCollection<ChatRoom> PrivateChannels
@@ -55,30 +65,6 @@ namespace Asana.ViewModel
             set { inbox = value; Set(ref inbox, value); }
         }
 
-        private Visibility inboxVisibility = Visibility.Hidden;
-
-        public Visibility InboxVisibility
-        {
-            get { return inboxVisibility; }
-            set { inboxVisibility = value; Set(ref inboxVisibility, value); }
-        }
-
-        private Visibility starredVisibility = Visibility.Hidden;
-
-        public Visibility StarredVisibility
-        {
-            get { return starredVisibility; }
-            set { starredVisibility = value; Set(ref starredVisibility, value); }
-        }
-
-        private Visibility listBoxVisibility = Visibility.Visible;
-
-        public Visibility ListBoxVisibility
-        {
-            get { return listBoxVisibility; }
-            set { listBoxVisibility = value; Set(ref listBoxVisibility, value);  }
-        }
-
 
         private ObservableCollection<dynamic> chatItems;
 
@@ -88,13 +74,29 @@ namespace Asana.ViewModel
             set { chatItems = value; Set(ref chatItems, value); }
         }
 
+        private System.Threading.Tasks.Task task;
 
         private ChatRoom selectedItem;
 
         public ChatRoom SelectedItem
         {
             get { return selectedItem; }
-            set { selectedItem = value; Set(ref selectedItem, value); ListBoxVisibility = Visibility.Visible; StarredVisibility = Visibility.Hidden;InboxVisibility = Visibility.Hidden; }
+            set
+            {
+                Set(ref selectedItem, value); SelectedColumn = 3;
+                task = System.Threading.Tasks.Task.Run(() =>
+                {
+                    while (SelectedColumn == 3 && SelectedItem != null && ChatService != null)
+                    {
+                        App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            ChatItems.Clear();
+                            ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach(x => ChatItems.Add(x));
+                        });
+                        Thread.Sleep(500);
+                    }
+                });
+            }
         }
 
         private string message_Text;
@@ -119,6 +121,7 @@ namespace Asana.ViewModel
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
             ChannelsService.InsertRoom(channelname);
+            
             ChatRoomDatas();
         }));
 
@@ -128,9 +131,9 @@ namespace Asana.ViewModel
         public RelayCommand SendMessageCommand => _sendMessageCommand ?? (_sendMessageCommand = new RelayCommand(
         () =>
         {
-            if(SelectedItem !=  null)
+            if (SelectedItem != null)
                 ChatService.SendMessagesChannel(SelectedItem.ID, Message_Text);
-            GetMessages();
+
         }));
 
 
@@ -139,9 +142,8 @@ namespace Asana.ViewModel
         public RelayCommand InboxCommand => _inboxCommand ?? (_inboxCommand = new RelayCommand(
         () =>
         {
-            ListBoxVisibility = Visibility.Hidden;
-            StarredVisibility = Visibility.Hidden;
-            InboxVisibility = Visibility.Visible;
+            SelectedItem = null;
+            SelectedColumn = 0;
         }));
 
 
@@ -150,9 +152,8 @@ namespace Asana.ViewModel
         public RelayCommand StarredCommand => _starredCommand ?? (_starredCommand = new RelayCommand(
         () =>
         {
-            ListBoxVisibility = Visibility.Hidden;
-            StarredVisibility = Visibility.Visible;
-            InboxVisibility = Visibility.Hidden;
+            SelectedItem = null;
+            SelectedColumn = 1;
         }));
 
 
@@ -178,9 +179,6 @@ namespace Asana.ViewModel
                 )));
         }
 
-
-        
-
         private RelayCommand _loadedCommand;
 
         public RelayCommand LoadedCommand
@@ -191,7 +189,7 @@ namespace Asana.ViewModel
         private void LoadedDatas()
         {
             ChatRoomDatas();
-         
+
         }
 
         private void ChatRoomDatas()
@@ -204,14 +202,10 @@ namespace Asana.ViewModel
             //ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
         }
 
-        private void GetMessages()
-        {
-            ChatItems.Clear();
-            ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach(x=>ChatItems.Add(x));
-        }
+
         #endregion
 
-   
+
 
         private readonly NavigationService navigationService;
 

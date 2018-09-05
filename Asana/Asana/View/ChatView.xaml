@@ -14,6 +14,9 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Window_Closed">
+            <i:InvokeCommandAction Command="{Binding CloseCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <UserControl.Background>
@@ -141,6 +144,63 @@
             </Border>
         </DataTemplate>
 
+        <DataTemplate x:Key="Inbox">
+            <Grid  Background="White" Grid.Row="1" Grid.Column="1">
+                <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
+                    <TextBlock FontSize="23" FontFamily="Calibri" Foreground="#666666" >Congratulations, your inbox is empty</TextBlock>
+                    <TextBlock FontSize="15" FontFamily="Calibri" Foreground="#8f8f8f">New messages appear here.</TextBlock>
+                </WrapPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Starred">
+            <Grid  Background="White" Grid.Row="1" Grid.Column="1">
+                <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
+                    <TextBlock FontSize="23"  FontFamily="Calibri" Foreground="#666666">No starred message</TextBlock>
+                    <TextBlock FontSize="15" FontFamily="Calibri" Foreground="#8f8f8f">You can mark any message as 'starred', and it shows up in this channel.</TextBlock>
+                </WrapPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Chat">
+            <Grid Background="White" Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+                <ListBox BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="White" ItemsSource="{Binding ChatItems}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding .}">
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Template2}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Id}" Value="{x:Static model:CurrentUser.Id}">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource Template1}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.01*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.20*"/>
+                        <ColumnDefinition Width="0.01*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Height="35" CornerRadius="5 0 0 5" BorderThickness="0.5" BorderBrush="Gray" Grid.Column="1" Padding="7 7 5 0" >
+                        <TextBox Text="{Binding Message_Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0"  Style="{x:Null}" FontSize="14"></TextBox>
+                    </Border>
+                    <Button Command="{Binding SendMessageCommand}" Height="35" BorderBrush="Gray" BorderThickness="1"  Style="{x:Null}" Grid.Column="2" Content="Send" Foreground="White" Background="#008784" >
+                    </Button>
+                </Grid>
+            </Grid>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -336,66 +396,25 @@
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
-
-                <Grid Background="White" Visibility="{Binding ListBoxVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="45"/>
-                    </Grid.RowDefinitions>
-                    <ListBox BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="White" ItemsSource="{Binding ChatItems}">
-                        <!--<ListBox.Style>
-                            <Style TargetType="{x:Type ListBox}">
-                                <Setter Property="ItemTemplate" Value="{StaticResource Template1}"/>
+                <ContentControl Grid.Row="1" Grid.Column="1">
+                    <ContentControl Content="{Binding .}">
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Chat}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Id}" Value="{x:Static model:CurrentUser.Id}">
-                                        <Setter Property="ItemTemplate" Value="{StaticResource Template2}"/>
+                                    <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="0">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Inbox}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="1">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Starred}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </ListBox.Style>-->
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <ContentControl Content="{Binding .}">
-                                    <ContentControl.Style>
-                                        <Style TargetType="ContentControl">
-                                            <Setter Property="ContentTemplate" Value="{StaticResource Template2}" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path=Id}" Value="{x:Static model:CurrentUser.Id}">
-                                                    <Setter Property="ContentTemplate" Value="{StaticResource Template1}" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </ContentControl.Style>
-                                </ContentControl>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.01*"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="0.20*"/>
-                            <ColumnDefinition Width="0.01*"/>
-                        </Grid.ColumnDefinitions>
-                        <Border Height="35" CornerRadius="5 0 0 5" BorderThickness="0.5" BorderBrush="Gray" Grid.Column="1" Padding="7 7 5 0" >
-                            <TextBox Text="{Binding Message_Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0"  Style="{x:Null}" FontSize="14"></TextBox>
-                        </Border>
-                        <Button Command="{Binding SendMessageCommand}" Height="35" BorderBrush="Gray" BorderThickness="1"  Style="{x:Null}" Grid.Column="2" Content="Send" Foreground="White" Background="#008784" >
-                        </Button>
-                    </Grid>
-                </Grid>
-                <Grid Visibility="{Binding InboxVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="White" Grid.Row="1" Grid.Column="1">
-                    <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
-                        <TextBlock FontSize="19" FontFamily="Calibri" Foreground="#666666" >Congratulations, your inbox is empty</TextBlock>
-                        <TextBlock FontSize="15" FontFamily="Calibri" Foreground="#8f8f8f">New messages appear here.</TextBlock>
-                    </WrapPanel>
-                </Grid>
-                <Grid Visibility="{Binding StarredVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="White" Grid.Row="1" Grid.Column="1">
-                    <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
-                        <TextBlock FontSize="23" Margin="0 0 0 10" FontFamily="Calibri" Foreground="#666666">No starred message</TextBlock>
-                        <TextBlock FontSize="13" FontFamily="Calibri" Foreground="#8f8f8f">You can mark any message as 'starred', and it shows up in this channel.</TextBlock>
-                    </WrapPanel>
-                </Grid>
+                        </ContentControl.Style>
+                    </ContentControl>
+                </ContentControl>
+                
+               
 
             </Grid>
         </Border>
