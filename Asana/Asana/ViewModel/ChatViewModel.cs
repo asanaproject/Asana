@@ -19,10 +19,20 @@ namespace Asana.ViewModel
     {
 
         #region Props
-     
+
 
         private readonly ChannelsService ChannelsService;
         private readonly ChatService ChatService;
+
+        private int selectedColumn;
+
+        public int SelectedColumn
+        {
+            get { return selectedColumn; }
+            set { Set(ref selectedColumn, value); }
+        }
+
+
         private ObservableCollection<ChatRoom> privateChannels;
 
         public ObservableCollection<ChatRoom> PrivateChannels
@@ -47,13 +57,13 @@ namespace Asana.ViewModel
             set { publicChannels = value; Set(ref publicChannels, value); }
         }
 
-        //private ObservableCollection<dynamic> inbox;
+        private ObservableCollection<dynamic> inbox;
 
-        //public ObservableCollection<dynamic> Inbox
-        //{
-        //    get { return inbox; }
-        //    set { inbox = value; Set(ref inbox, value); }
-        //}
+        public ObservableCollection<dynamic> Inbox
+        {
+            get { return inbox; }
+            set { inbox = value; Set(ref inbox, value); }
+        }
 
 
         private ObservableCollection<dynamic> chatItems;
@@ -64,13 +74,29 @@ namespace Asana.ViewModel
             set { chatItems = value; Set(ref chatItems, value); }
         }
 
+        private System.Threading.Tasks.Task task;
 
         private ChatRoom selectedItem;
 
         public ChatRoom SelectedItem
         {
             get { return selectedItem; }
-            set { selectedItem = value; Set(ref selectedItem, value); }
+            set
+            {
+                Set(ref selectedItem, value); SelectedColumn = 3;
+                task = System.Threading.Tasks.Task.Run(() =>
+                {
+                    while (SelectedColumn == 3 && SelectedItem != null && ChatService != null)
+                    {
+                        App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            ChatItems.Clear();
+                            ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach(x => ChatItems.Add(x));
+                        });
+                        Thread.Sleep(500);
+                    }
+                });
+            }
         }
 
         private string message_Text;
@@ -95,6 +121,7 @@ namespace Asana.ViewModel
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
             ChannelsService.InsertRoom(channelname);
+            
             ChatRoomDatas();
         }));
 
@@ -104,10 +131,31 @@ namespace Asana.ViewModel
         public RelayCommand SendMessageCommand => _sendMessageCommand ?? (_sendMessageCommand = new RelayCommand(
         () =>
         {
-            if(SelectedItem !=  null)
+            if (SelectedItem != null)
                 ChatService.SendMessagesChannel(SelectedItem.ID, Message_Text);
-            GetMessages();
+
         }));
+
+
+        private RelayCommand _inboxCommand;
+
+        public RelayCommand InboxCommand => _inboxCommand ?? (_inboxCommand = new RelayCommand(
+        () =>
+        {
+            SelectedItem = null;
+            SelectedColumn = 0;
+        }));
+
+
+        private RelayCommand _starredCommand;
+
+        public RelayCommand StarredCommand => _starredCommand ?? (_starredCommand = new RelayCommand(
+        () =>
+        {
+            SelectedItem = null;
+            SelectedColumn = 1;
+        }));
+
 
         private RelayCommand _addChatRoomPrivate;
 
@@ -131,7 +179,6 @@ namespace Asana.ViewModel
                 )));
         }
 
-
         private RelayCommand _loadedCommand;
 
         public RelayCommand LoadedCommand
@@ -142,7 +189,7 @@ namespace Asana.ViewModel
         private void LoadedDatas()
         {
             ChatRoomDatas();
-         
+
         }
 
         private void ChatRoomDatas()
@@ -155,14 +202,10 @@ namespace Asana.ViewModel
             //ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
         }
 
-        private void GetMessages()
-        {
-            ChatItems.Clear();
-            ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach(x=>ChatItems.Add(x));
-        }
+
         #endregion
 
-   
+
 
         private readonly NavigationService navigationService;
 
@@ -172,6 +215,7 @@ namespace Asana.ViewModel
             PublicChannels = new ObservableCollection<ChatRoom>();
             PrivateChannels = new ObservableCollection<ChatRoom>();
             DirectMessages = new ObservableCollection<ChatRoom>();
+            Inbox = new ObservableCollection<dynamic>();
             ChatItems = new ObservableCollection<dynamic>();
             ChannelsService = new ChannelsService();
             ChatService = new ChatService();
