@@ -68,7 +68,7 @@ namespace Asana
                 navigationService.NavigateTo(ViewType.Home);
             }
             else
-                navigationService.NavigateTo(ViewType.ProjectPage);
+                navigationService.NavigateTo(ViewType.LogIn);
 
         }
     }
