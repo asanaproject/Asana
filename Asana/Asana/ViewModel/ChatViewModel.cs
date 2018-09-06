@@ -32,6 +32,14 @@ namespace Asana.ViewModel
             set { Set(ref selectedColumn, value); }
         }
 
+        private object chatSelectedItem;
+
+        public object ChatSelectedItem
+        {
+            get { return chatSelectedItem; }
+            set { Set(ref chatSelectedItem, value); }
+        }
+
 
         private ObservableCollection<ChatRoom> privateChannels;
 
@@ -133,7 +141,7 @@ namespace Asana.ViewModel
         () =>
         {
             SelectedItem = null;
-            if (ChatService.GetAllMails() != null)
+            if (ChatService.GetAllMails().Count != 0)
                 SelectedColumn = 1;
             else
                 SelectedColumn = 0;
@@ -219,6 +227,8 @@ namespace Asana.ViewModel
             get { return header; }
             set { header = value; Set(ref header, value); }
         }
+
+
         private void ChatItemsRefresh(object sender, ElapsedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() =>
@@ -236,6 +246,7 @@ namespace Asana.ViewModel
                         x.SendTime
                     });
                 });
+                ChatSelectedItem = ChatItems[ChatItems.Count - 1];
             });
         }
 
