@@ -1,4 +1,5 @@
 ﻿    using Asana.Model;
+using Asana.Objects;
 using Asana.Tools;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
+    [Table("User")]
     public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -34,7 +36,9 @@ namespace Asana.Model
         [NotMapped]
         public bool IsLogged { get; set; }
 
-        public ICollection<ChatRoomUsers> Users { get; set; }
+        public virtual ICollection<ChatRoomUsers> Users { get; set; }
+
+        public virtual ICollection<UsersProjects> Projects { get; set; }
         //   public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

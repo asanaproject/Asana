@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Asana.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
-    [Table("ChatRoomUser")]
-    public class ChatRoomUsers
+    [Table("UsersProject")]
+    public class UsersProjects
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -17,8 +18,8 @@ namespace Asana.Model
         public int UserId { get; set; }
         public virtual User User { get; set; }
 
-        [ForeignKey(nameof(ChatRoom))]
-        public int ChatRoomId { get; set; }
-        public virtual ChatRoom ChatRoom { get; set; }
+        [ForeignKey(nameof(Project))]
+        public int ProjectId { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

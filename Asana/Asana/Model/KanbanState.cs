@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
-    [Table("KanbanStates")]
+    [Table("KanbanState")]
     public class KanbanState
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

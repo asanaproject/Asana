@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Asana.Objects
 {
     
-    [Table("UserRoles")]
+    [Table("UserRole")]
     public class UserRole
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

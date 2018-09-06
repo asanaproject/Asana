@@ -7,13 +7,13 @@ namespace Asana.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class SendTime_Property_IsAdded_To_Mail : IMigrationMetadata
+    public sealed partial class Initial_Model : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SendTime_Property_IsAdded_To_Mail));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial_Model));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809060202358_SendTime_Property_IsAdded_To_Mail"; }
+            get { return "201809060747052_Initial_Model"; }
         }
         
         string IMigrationMetadata.Source

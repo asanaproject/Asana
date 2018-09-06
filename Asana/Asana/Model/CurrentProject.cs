@@ -1,15 +1,19 @@
 ﻿using Asana.Objects;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Asana.Model
 {
-    public class CurrentProject
+    public class CurrentProject:ViewModelBase
     {
-        private  CurrentProject() { }
+        private CurrentProject(){
+            Project = new Project {DashboardId=1,ProjectEmail="nkh.nubarkhalid@gmail.com",Name="Asana" };
+        }
         private static CurrentProject instance;
         public static CurrentProject Instance
         {
@@ -19,9 +23,18 @@ namespace Asana.Model
                 {
                     instance = new CurrentProject();
                 }
-                return Instance;
+                return instance;
             }
         }
-        public Project Project { get; set; }
+        private Project project;
+
+        public Project Project
+        {
+            get { return project; }
+            set { project = value;   }
+        }
+
+      
+
     }
 }

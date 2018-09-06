@@ -2,6 +2,8 @@
 using Asana.Model;
 using Asana.Navigation;
 using Asana.Objects;
+using Asana.Services;
+using Asana.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -17,30 +19,34 @@ namespace Asana.ViewModel
     public class ProjectPageViewModel : ViewModelBase
     {
         private readonly NavigationService navigation;
+        private readonly IColumnService columnService;
+        private readonly ITaskService taskService;
         public ProjectPageViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            Column = new Column();
-        }
-        private Column column;
-        public Column Column
-        {
-            get { return column; }
-            set { Set(ref column, value); }
+            columnService = new ColumnService();
+            taskService = new TaskService();
+            Columns = new ObservableCollection<ColumnItemViewModel>();
         }
 
-     
-        
-        private RelayCommand createTaskCommand;
-        public RelayCommand CreateTaskCommand => createTaskCommand ?? (createTaskCommand = new RelayCommand(
+
+        private ObservableCollection<ColumnItemViewModel> columns;
+        public ObservableCollection<ColumnItemViewModel> Columns
+        {
+            get { return columns; }
+            set { Set(ref columns,value); }
+        }
+
+        private RelayCommand createColumnCommand;
+        public RelayCommand CreateColumnCommand => createColumnCommand ?? (createColumnCommand = new RelayCommand(
             () =>
             {
-                using (AsanaDbContext context=new AsanaDbContext())
-                {
-                    context.Users.Find(CurrentProject.Instance.Project.Columns.Add(Column))
-                }
-                Columns.Add(new Column());
+               Columns.Add(new ColumnItemViewModel());
+
             }
+
 ));
+
+
     }
 }

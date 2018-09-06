@@ -8,33 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Asana.Tools;
+using Asana.ViewModel;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Asana.Objects
 {
-    [Table("Columns")]
-    public class Column:NotifyClass
+    [Table("Column")]
+    public class Column
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         [StringLength(25), Required]
-        public string Title { get; set; } = "Column title";
+        public string Title { get; set; }
 
         [ForeignKey("Project")]
         public int ProjectId { get; set; }
         public Project Project { get; set; }
 
-        [NotMapped]
-        private Visibility setting=Visibility.Visible;
+        public bool ColumnIsAdded { get; set; } = false;
 
-        [NotMapped]
-        public Visibility Setting
-        {
-            get { return setting; }
-            set { OnPropertyChanged(nameof(Setting)); }
-        }
         public virtual ICollection<Task> Tasks { get; set; }
-
-        
     }
 }

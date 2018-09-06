@@ -10,32 +10,30 @@ using System.Windows;
 
 namespace Asana.Services
 {
-    public class TaskService : ITaskService
+    public class ColumnService : IColumnService
     {
-        AsanaDbContext context = new AsanaDbContext();
-        public async System.Threading.Tasks.Task Add(Objects.Task task)
+        public async System.Threading.Tasks.Task Add(Column column)
         {
             try
             {
-                if (task == null)
+                if (column==null)
                 {
-                    throw new Exception("Task is null");
+                    throw new Exception("column is null");
                 }
-                using (context=new AsanaDbContext())
+                using (var context=new AsanaDbContext())
                 {
+                    //MessageBox.Show(column.Title);
                     //context.Users.First(x => x.Id == CurrentUser.Id)
                     //       .Projects.First(x => x.Id == CurrentProject.Instance.Project.Id)
-                    //       .Project.Columns.First(x => x.Id == task.ColumnId)
-                    //       .Tasks.Add(task);
-                   await context.SaveChangesAsync();
+                    //       .Project.Columns.Add(column);
+                    context.Columns.Add(column);
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-               
             }
-           
         }
     }
 }

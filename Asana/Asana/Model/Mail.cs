@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
+    [Table("Mail")]
     public class Mail
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -28,7 +29,6 @@ namespace Asana.Model
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
-
         public virtual User User { get; set; }
     }
 }

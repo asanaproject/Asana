@@ -7,13 +7,13 @@ namespace Asana.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ICollectionProperty_ISAdded_InChatRoom1 : IMigrationMetadata
+    public sealed partial class TableNames : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ICollectionProperty_ISAdded_InChatRoom1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(TableNames));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809041353435_ICollectionProperty_ISAdded_InChatRoom1"; }
+            get { return "201809060806008_TableNames"; }
         }
         
         string IMigrationMetadata.Source

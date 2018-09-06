@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
+    [Table("ChatRoom")]
     public class ChatRoom
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,6 +22,6 @@ namespace Asana.Model
 
         public ChatRoomType Type { get; set; }
 
-        public ICollection<ChatRoomUsers> Users { get; set; }
+        public virtual ICollection<ChatRoomUsers> Users { get; set; }
     }
 }
