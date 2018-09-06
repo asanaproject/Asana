@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Task = Asana.Objects.Task;
 
 namespace Asana.ViewModel
 {
@@ -70,11 +71,7 @@ namespace Asana.ViewModel
         public RelayCommand AddTaskCommand => addTaskCommand ?? (addTaskCommand = new RelayCommand(
             () =>
             {
-                if (!String.IsNullOrWhiteSpace(Title))
-                {
-                    // columnService.Add(new Column { Title = Title, ProjectId = 2 ,ColumnIsAdded=true});
-                    ColumnIsAdded = true;
-                }
+                Column.Tasks.Add(new Task());
             }
 ));
     }
