@@ -15,7 +15,7 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Window_Closed">
-            <i:InvokeCommandAction Command="{Binding CloseCommand}" />
+            <i:InvokeCommandAction Command="{Binding ClosedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -83,7 +83,7 @@
                     <!-- Chat message container -->
                     <Grid Margin="40 0 3 0"  HorizontalAlignment="Stretch">
 
-                        
+
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
@@ -127,7 +127,8 @@
                             <!-- Message text -->
                             <TextBlock VerticalAlignment="Center" TextAlignment="Right" Foreground="White" FontSize="14" TextWrapping="WrapWithOverflow" Text="{Binding Path=Body}"/>
                         </Border>
-                        <!-- Chat bubble anchor --><!--
+                        <!-- Chat bubble anchor -->
+                        <!--
                         <Path Grid.Row="1" 
                              Stroke="Black"
                              Panel.ZIndex="1"
@@ -175,7 +176,7 @@
                                     <Style TargetType="ContentControl">
                                         <Setter Property="ContentTemplate" Value="{StaticResource Template1}" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=Iam}" Value="true">
+                                            <DataTrigger Binding="{Binding Path=UserId}" Value="{x:Static model:CurrentUser.Id}">
                                                 <Setter Property="ContentTemplate" Value="{StaticResource Template2}" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -198,6 +199,27 @@
                     <Button Command="{Binding SendMessageCommand}" Height="35" BorderBrush="Gray" BorderThickness="1"  Style="{x:Null}" Grid.Column="2" Content="Send" Foreground="White" Background="#008784" >
                     </Button>
                 </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="InboxList">
+            <Grid>
+                <ListBox IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch"  Background="WhiteSmoke" ItemsSource="{Binding Inbox}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch" Height="35" Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="DemiBold" VerticalAlignment="Center" Text="{Binding SenderEmail}"></TextBlock>
+                                <TextBlock Grid.Column="2" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center" Text="{Binding Body}"></TextBlock>
+                                <TextBlock Grid.Column="4" HorizontalAlignment="Center" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center" Margin="0 0 0 0" Text="{Binding SendTime}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -399,21 +421,26 @@
                     <ContentControl Content="{Binding .}">
                         <ContentControl.Style>
                             <Style TargetType="ContentControl">
-                                <Setter Property="ContentTemplate" Value="{StaticResource Chat}" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="0">
                                         <Setter Property="ContentTemplate" Value="{StaticResource Inbox}" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="1">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource InboxList}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="2">
                                         <Setter Property="ContentTemplate" Value="{StaticResource Starred}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="3">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Chat}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </ContentControl.Style>
                     </ContentControl>
                 </ContentControl>
-                
-               
+
+
 
             </Grid>
         </Border>

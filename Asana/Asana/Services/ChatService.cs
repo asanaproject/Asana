@@ -46,6 +46,21 @@ namespace Asana.Services
             }
         }
 
+        public ObservableCollection<Mail> GetAllMails()
+        {
+            try
+            {
+                ObservableCollection<Mail> messages = new ObservableCollection<Mail>();
+                using (var db = new AsanaDbContext())
+                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id).ToList().ForEach(x => messages.Add(x));
+                return messages;
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+                return new ObservableCollection<Mail>();
+            }
+        }
 
 
     }

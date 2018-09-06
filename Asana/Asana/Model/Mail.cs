@@ -22,6 +22,10 @@ namespace Asana.Model
         [Required, MaxLength(100)]
         public string SenderEmail { get; set; }
 
+        [Required]
+        public DateTime SendTime { get; set; }
+
+
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
 
