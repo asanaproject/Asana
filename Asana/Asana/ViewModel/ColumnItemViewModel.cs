@@ -5,7 +5,6 @@ using Asana.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -27,6 +26,7 @@ namespace Asana.ViewModel
         {
             Column = new Column { ProjectId = 2 };
             columnService = new ColumnService();
+            ColumnIsAdded = false;
         }
         private string title;
         public string Title
@@ -34,18 +34,48 @@ namespace Asana.ViewModel
             get { return title; }
             set { Set(ref title, value); }
         }
+        private bool columnIsAdded;
+
+        public bool ColumnIsAdded
+        {
+            get { return columnIsAdded; }
+            set { Set(ref columnIsAdded,value); }
+        }
+
         private RelayCommand addColumnCommand;
         public RelayCommand AddColumnCommand => addColumnCommand ?? (addColumnCommand = new RelayCommand(
             () =>
             {
                 if (!String.IsNullOrWhiteSpace(Title))
                 {
-                    columnService.Add(new Column { Title = Title, ProjectId = 2 ,ColumnIsAdded=true});
+                   // columnService.Add(new Column { Title = Title, ProjectId = 2 ,ColumnIsAdded=true});
+                    ColumnIsAdded = true;
                 }
             }
 ));
 
 
-      
+        private RelayCommand columnSettingCommand;
+        public RelayCommand ColumnSettingCommand => columnSettingCommand ?? (columnSettingCommand = new RelayCommand(
+            () =>
+            {
+                if (!String.IsNullOrWhiteSpace(Title))
+                {
+                    // columnService.Add(new Column { Title = Title, ProjectId = 2 ,ColumnIsAdded=true});
+                    ColumnIsAdded = true;
+                }
+            }
+));
+        private RelayCommand addTaskCommand;
+        public RelayCommand AddTaskCommand => addTaskCommand ?? (addTaskCommand = new RelayCommand(
+            () =>
+            {
+                if (!String.IsNullOrWhiteSpace(Title))
+                {
+                    // columnService.Add(new Column { Title = Title, ProjectId = 2 ,ColumnIsAdded=true});
+                    ColumnIsAdded = true;
+                }
+            }
+));
     }
 }

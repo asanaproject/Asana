@@ -26,8 +26,6 @@ namespace Asana.Objects
         public int ProjectId { get; set; }
         public Project Project { get; set; }
 
-        public bool ColumnIsAdded { get; set; } = false;
-
         public virtual ICollection<Task> Tasks { get; set; }
     }
 }
