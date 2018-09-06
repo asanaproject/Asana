@@ -200,6 +200,7 @@
     <Compile Include="ViewModel\ColumnItemViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
+    <Compile Include="ViewModel\ProjectAddViewModel.cs" />
     <Compile Include="View\ChatRoomAdd.xaml.cs">
       <DependentUpon>ChatRoomAdd.xaml</DependentUpon>
     </Compile>
