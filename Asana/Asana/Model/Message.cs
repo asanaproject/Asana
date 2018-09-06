@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
+    [Table("Message")]
     public class Message
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,13 +22,10 @@ namespace Asana.Model
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
+        public virtual User User { get; set; }
 
         [ForeignKey(nameof(ChatRoom))]
         public int ChatRoomId { get; set; }
-
-        public virtual User User { get; set; }
-
         public virtual ChatRoom ChatRoom { get; set; }
-        
     }
 }

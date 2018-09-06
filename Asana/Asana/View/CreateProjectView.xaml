@@ -32,7 +32,7 @@
         <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch"  Background="White" BorderBrush="White"  CornerRadius="8">
             <Grid>
                 <Grid.RowDefinitions >
-                    <RowDefinition Height="19*"/>
+                    <RowDefinition Height="45"/>
                     <RowDefinition Height="40*"/>
                     <RowDefinition Height="106*"/>
                 </Grid.RowDefinitions>

@@ -45,7 +45,6 @@ namespace Asana
             homeViewModel = new HomeViewModel(navigationService);
             confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
             signUpViewModel = new SignUpViewModel(navigationService);
-            chatViewModel = new ChatViewModel(navigationService);
             createProjectViewModel = new CreateProjectViewModel(navigationService);
             projectPageViewModel = new ProjectPageViewModel(navigationService);
             listChannelsViewModel = new ListChannelsViewModel(navigationService);
@@ -69,7 +68,7 @@ namespace Asana
                 navigationService.NavigateTo(ViewType.Home);
             }
             else
-                navigationService.NavigateTo(ViewType.LogIn);
+                navigationService.NavigateTo(ViewType.ProjectPage);
 
         }
     }

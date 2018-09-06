@@ -43,17 +43,17 @@ namespace Asana.ViewModel
 
         private GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom> _joinCommand;
 
-        public GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom> JoinCommand => _joinCommand ?? (_joinCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom>(
-        x =>
-        {
-            //using (var db = new AsanaDbContext())
-            //{
-            //    db.ChatRooms.Single(y => y.ID == x.ID).Users.Add(CurrentUser.Instance.User);
-            //}
-            channelService.JoinRoom(x.ID);
-            ChatRooms.Remove(x);
-            MessageBox.Show("Your joined " + x.Name + "!", "Channel", MessageBoxButton.OK, MessageBoxImage.Information);
-        }));
+        //public GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom> JoinCommand => _joinCommand ?? (_joinCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom>(
+        //x =>
+        //{
+        //    //using (var db = new AsanaDbContext())
+        //    //{
+        //    //    db.ChatRooms.Single(y => y.ID == x.ID).Users.Add(CurrentUser.Instance.User);
+        //    //}
+        //    channelService.JoinRoom(x.ID);
+        //    ChatRooms.Remove(x);
+        //    MessageBox.Show("Your joined " + x.Name + "!", "Channel", MessageBoxButton.OK, MessageBoxImage.Information);
+        //}));
 
         public void UpdateSource()
         {

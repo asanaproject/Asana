@@ -139,59 +139,34 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201808161803433_Initial_Model.cs" />
-    <Compile Include="Migrations\201808161803433_Initial_Model.Designer.cs">
-      <DependentUpon>201808161803433_Initial_Model.cs</DependentUpon>
+    <Compile Include="Migrations\201809060747052_Initial_Model.cs" />
+    <Compile Include="Migrations\201809060747052_Initial_Model.Designer.cs">
+      <DependentUpon>201809060747052_Initial_Model.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808181024194_Initial_Model1.cs" />
-    <Compile Include="Migrations\201808181024194_Initial_Model1.Designer.cs">
-      <DependentUpon>201808181024194_Initial_Model1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809011151419_Initial_Mode.cs" />
-    <Compile Include="Migrations\201809011151419_Initial_Mode.Designer.cs">
-      <DependentUpon>201809011151419_Initial_Mode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809041250306_DescriptionProperty_IsAdded_InChatRoom.cs" />
-    <Compile Include="Migrations\201809041250306_DescriptionProperty_IsAdded_InChatRoom.Designer.cs">
-      <DependentUpon>201809041250306_DescriptionProperty_IsAdded_InChatRoom.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809041323199_ICollectionProperty_ISAdded_InChatRoom.cs" />
-    <Compile Include="Migrations\201809041323199_ICollectionProperty_ISAdded_InChatRoom.Designer.cs">
-      <DependentUpon>201809041323199_ICollectionProperty_ISAdded_InChatRoom.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809041353435_ICollectionProperty_ISAdded_InChatRoom1.cs" />
-    <Compile Include="Migrations\201809041353435_ICollectionProperty_ISAdded_InChatRoom1.Designer.cs">
-      <DependentUpon>201809041353435_ICollectionProperty_ISAdded_InChatRoom1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809041643413_Types_Property_IsAdded.cs" />
-    <Compile Include="Migrations\201809041643413_Types_Property_IsAdded.Designer.cs">
-      <DependentUpon>201809041643413_Types_Property_IsAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809042143410_Message_Class_IsAdded.cs" />
-    <Compile Include="Migrations\201809042143410_Message_Class_IsAdded.Designer.cs">
-      <DependentUpon>201809042143410_Message_Class_IsAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809052236415_Mail_Table_IsCreated.cs" />
-    <Compile Include="Migrations\201809052236415_Mail_Table_IsCreated.Designer.cs">
-      <DependentUpon>201809052236415_Mail_Table_IsCreated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809060202358_SendTime_Property_IsAdded_To_Mail.cs" />
-    <Compile Include="Migrations\201809060202358_SendTime_Property_IsAdded_To_Mail.Designer.cs">
-      <DependentUpon>201809060202358_SendTime_Property_IsAdded_To_Mail.cs</DependentUpon>
+    <Compile Include="Migrations\201809060806008_TableNames.cs" />
+    <Compile Include="Migrations\201809060806008_TableNames.Designer.cs">
+      <DependentUpon>201809060806008_TableNames.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
     <Compile Include="Model\ChatRoomUsers.cs" />
+    <Compile Include="Model\CurrentColumn.cs" />
+    <Compile Include="Model\CurrentProject.cs" />
     <Compile Include="Model\Mail.cs" />
     <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\UsersProjects.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
     <Compile Include="Services\ChannelsService.cs" />
     <Compile Include="Services\ChatService.cs" />
+    <Compile Include="Services\ColumnService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\IColumnService.cs" />
+    <Compile Include="Services\Interfaces\ITaskService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
+    <Compile Include="Services\TaskService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Tools\CheckLoginLog.cs" />
     <Compile Include="Tools\DbContext\AsanaDbContext.cs" />
@@ -222,8 +197,10 @@
     <Compile Include="Tools\WindowBluringCustom.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
+    <Compile Include="ViewModel\ColumnItemViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
+    <Compile Include="ViewModel\ProjectAddViewModel.cs" />
     <Compile Include="View\ChatRoomAdd.xaml.cs">
       <DependentUpon>ChatRoomAdd.xaml</DependentUpon>
     </Compile>
@@ -267,6 +244,10 @@
     </Compile>
     <Compile Include="View\CreateProjectView.xaml.cs">
       <DependentUpon>CreateProjectView.xaml</DependentUpon>
+    </Compile>
+   
+    <Compile Include="View\ProjectAddView.xaml.cs">
+      <DependentUpon>ProjectAddView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ProjectPageView.xaml.cs">
       <DependentUpon>ProjectPageView.xaml</DependentUpon>
@@ -324,6 +305,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
+      <Page Include="View\ProjectAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ProjectPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -355,35 +341,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201808161803433_Initial_Model.resx">
-      <DependentUpon>201808161803433_Initial_Model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809060747052_Initial_Model.resx">
+      <DependentUpon>201809060747052_Initial_Model.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808181024194_Initial_Model1.resx">
-      <DependentUpon>201808181024194_Initial_Model1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809011151419_Initial_Mode.resx">
-      <DependentUpon>201809011151419_Initial_Mode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809041250306_DescriptionProperty_IsAdded_InChatRoom.resx">
-      <DependentUpon>201809041250306_DescriptionProperty_IsAdded_InChatRoom.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809041323199_ICollectionProperty_ISAdded_InChatRoom.resx">
-      <DependentUpon>201809041323199_ICollectionProperty_ISAdded_InChatRoom.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809041353435_ICollectionProperty_ISAdded_InChatRoom1.resx">
-      <DependentUpon>201809041353435_ICollectionProperty_ISAdded_InChatRoom1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809041643413_Types_Property_IsAdded.resx">
-      <DependentUpon>201809041643413_Types_Property_IsAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809042143410_Message_Class_IsAdded.resx">
-      <DependentUpon>201809042143410_Message_Class_IsAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809052236415_Mail_Table_IsCreated.resx">
-      <DependentUpon>201809052236415_Mail_Table_IsCreated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809060202358_SendTime_Property_IsAdded_To_Mail.resx">
-      <DependentUpon>201809060202358_SendTime_Property_IsAdded_To_Mail.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809060806008_TableNames.resx">
+      <DependentUpon>201809060806008_TableNames.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
-    [Table("Languages")]
+    [Table("Language")]
     public class Language 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

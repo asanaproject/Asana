@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
-    [Table("Dashboards")]
+    [Table("Dashboard")]
     public class Dashboard
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

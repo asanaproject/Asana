@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
-    [Table("Tasks")]
+    [Table("Task")]
     public class Task
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,7 +23,7 @@ namespace Asana.Objects
 
         [ForeignKey("KanbanState")]
         public int KanbanStateId { get; set; }
-        public KanbanState KanbanState { get; set; }
+        public virtual KanbanState KanbanState { get; set; }
 
         public DateTime Deadline { get; set; }
     }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Objects
 {
+    [Table("Customer")]
     public class ExtraInfo
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
