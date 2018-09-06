@@ -10,17 +10,20 @@ using System.Windows;
 using Asana.Objects;
 using Asana.Model;
 using Serilog;
+using GalaSoft.MvvmLight.Command;
 
 namespace Asana.ViewModel
 {
     public class ForgetPassViewModel : ViewModelBase
     {
-        EmailHelper emailHelper = new EmailHelper();
+        private EmailHelper emailHelper = new EmailHelper();
+        private AccountService accountService;
         private readonly NavigationService navigation;
+
         public ForgetPassViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-
+            accountService = new AccountService();
         }
 
         private string _email;
@@ -60,31 +63,12 @@ namespace Asana.ViewModel
         private RelayCommand _newPassAplyCommand;
 
         public RelayCommand NewPassAplyCommand => _newPassAplyCommand ?? (_newPassAplyCommand = new RelayCommand(
-            x =>
+            () =>
             {
-                if (NewPassword.Equals(ReEnterPassword) && RegexChecker.CheckPassword(NewPassword))
-                {
-
-
-                    try
-                    {
-                        using (var db = new AsanaDbContext())
-                        {
-                            string email = CurrentUser.Instance.User.Email;
-                            var user = db.ExtraInfos.Single(users => users.Email == email);
-                            user.Password = Hasher.EncryptString(NewPassword);
-                            navigation.NavigateTo(ViewType.LogIn);
-                        }
-                    }
-                    catch (Exception error)
-                    {
-                        Log.Error(error.Message);
-                    }
-                }
+                if (RegexChecker.CheckPassword(NewPassword) && NewPassword.Equals(ReEnterPassword) && accountService.ForgotControl(NewPassword))
+                    navigation.NavigateTo(ViewType.LogIn);
                 else
                     Errors.PasswordForgotErrorMsg();
-               
-
             }));
 
 
@@ -92,7 +76,7 @@ namespace Asana.ViewModel
         private RelayCommand _cancelCommand;
 
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.ForgotEmailCode)
+            ()=> navigation.NavigateTo(ViewType.ForgotEmailCode)
             ));
 
 

@@ -48,7 +48,16 @@
     <DataTemplate DataType="{x:Type vm:SendCodeEmailViewModel}">
         <v:SendCodeEmailView/>
     </DataTemplate>
- 
+    <DataTemplate DataType="{x:Type vm:ProjectPageViewModel}">
+        <v:ProjectPageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ListChannelsViewModel}">
+        <v:ListChannelsView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:HeaderViewModel}">
+        <v:HeaderView/>
+    </DataTemplate>
+
 
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
@@ -66,8 +75,8 @@
             </Setter.Value>
         </Setter>
 
-
-
+        
+        
     </Style>
 
     <!--<UserControl.Background>

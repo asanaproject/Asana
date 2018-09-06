@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Asana.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -25,5 +26,10 @@ namespace Asana.Objects
         public DbSet<ExtraInfo> ExtraInfos{ get; set; }
         public DbSet<Dashboard> Dashboards{ get; set; }
         public DbSet<Column> Columns{ get; set; }
+        public DbSet<ChatRoom> ChatRooms{ get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<ChatRoomUsers> ChatRoomUsers{ get; set; }
+        public DbSet<Mail> Mails{ get; set; }
+
     }
 }

@@ -1,7 +1,9 @@
-﻿using Asana.Navigation;
+﻿using Asana.Model;
+using Asana.Navigation;
 using Asana.Objects;
 using Asana.Services;
 using Asana.Services.Interfaces;
+using Asana.Tools;
 using Asana.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,6 @@ namespace Asana
     /// </summary>
     public class ViewModelLocator
     {
-        private AsanaDbContext dbContext;
         private NavigationService navigationService;
         private IUserService userService;
         public AppViewModel appViewModel;
@@ -28,14 +29,13 @@ namespace Asana
         public SendCodeEmailViewModel sendCodeEmailViewModel;
         public ConfirmCodeViewModel confirmationCodeViewModel;
         public SignUpViewModel signUpViewModel;
-        public CreateProjectViewModel projectsViewModel;
+        public CreateProjectViewModel createProjectViewModel;
+        public ProjectPageViewModel projectPageViewModel;
         public ChatViewModel chatViewModel;
+        public ListChannelsViewModel listChannelsViewModel;
         public ViewModelLocator()
         {
-            dbContext = new AsanaDbContext();
-
-            navigationService = new NavigationService();        
-            userService = new UserService(dbContext);
+            navigationService = new NavigationService();
 
             appViewModel = new AppViewModel();
             logInViewModel = new LogInViewModel(navigationService);
@@ -44,23 +44,33 @@ namespace Asana
             sendCodeEmailViewModel = new SendCodeEmailViewModel(navigationService);
             homeViewModel = new HomeViewModel(navigationService);
             confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
-            signUpViewModel = new SignUpViewModel(navigationService,userService);
+            signUpViewModel = new SignUpViewModel(navigationService);
             chatViewModel = new ChatViewModel(navigationService);
-            projectsViewModel = new CreateProjectViewModel(navigationService);
-
-
+            createProjectViewModel = new CreateProjectViewModel(navigationService);
+            projectPageViewModel = new ProjectPageViewModel(navigationService);
+            listChannelsViewModel = new ListChannelsViewModel(navigationService);
 
             navigationService.AddPage(signUpViewModel, ViewType.SignUp);
             navigationService.AddPage(confirmationCodeViewModel, ViewType.ConfirmCode);
             navigationService.AddPage(registerEmailViewModel, ViewType.RegisterEmail);
             navigationService.AddPage(forGetPassViewModel, ViewType.ForgetPass);
             navigationService.AddPage(sendCodeEmailViewModel, ViewType.ForgotEmailCode);
-            navigationService.AddPage(logInViewModel, ViewType.LogIn);
             navigationService.AddPage(homeViewModel, ViewType.Home);
-            navigationService.AddPage(projectsViewModel, ViewType.CreateProject);
+            navigationService.AddPage(logInViewModel, ViewType.LogIn);
+            navigationService.AddPage(createProjectViewModel, ViewType.CreateProject);
             navigationService.AddPage(chatViewModel, ViewType.ChatView);
+            navigationService.AddPage(projectPageViewModel, ViewType.ProjectPage);
+            navigationService.AddPage(listChannelsViewModel, ViewType.ListChannels);
+            userService = new UserService();
+            string user = CheckLoginLog.Load();
+            if (user != "" && userService.Select(user) != null)
+            {
+                CurrentUser.Instance.User = userService.Select(user);
+                navigationService.NavigateTo(ViewType.Home);
+            }
+            else
+                navigationService.NavigateTo(ViewType.ProjectPage);
 
-            navigationService.NavigateTo(ViewType.CreateProject);
         }
     }
 }

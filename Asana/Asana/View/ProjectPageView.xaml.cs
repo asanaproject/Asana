@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Asana.Objects;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,13 @@ namespace Asana.View
     /// </summary>
     public partial class ProjectPageView : UserControl
     {
+        public ObservableCollection<Column> Columns=new ObservableCollection<Column>();
         public ProjectPageView()
         {
             InitializeComponent();
+         
         }
+
+      
     }
 }

@@ -3,68 +3,179 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Asana.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Image x:Key="LeftArr" Source="../Resources/Images/arr.png"/>
-        <Image x:Key="RightArr" >
-            <Image.Source>
-                <BitmapImage UriSource="../Resources/Images/arr.png" Rotation="Rotate180"></BitmapImage>
-            </Image.Source>
+        <Image x:Key="RightArr" Source="../Resources/Images/arr.png" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <ScaleTransform ScaleX="-1"/>
+            </Image.RenderTransform>
         </Image>
+        <DataTemplate x:Key="Slide1">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="../Resources/Images/1.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+                <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
+                            <GradientStop Color="#3023eb" Offset="0"></GradientStop>
+                            <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
+                            <LinearGradientBrush.Transform>
+                                <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+                            </LinearGradientBrush.Transform>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" Foreground="WhiteSmoke">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+           
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="Slide2">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="../Resources/Images/2.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+                <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
+                            <GradientStop Color="#3023eb" Offset="0"></GradientStop>
+                            <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
+                            <LinearGradientBrush.Transform>
+                                <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+                            </LinearGradientBrush.Transform>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" FontFamily="Calibri" Foreground="White">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="Slide3">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="../Resources/Images/3.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+                <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
+                            <GradientStop Color="#3023eb" Offset="0"></GradientStop>
+                            <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
+                            <LinearGradientBrush.Transform>
+                                <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+                            </LinearGradientBrush.Transform>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" FontFamily="Calibri" Foreground="White">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="Slide4">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="../Resources/Images/4.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+                <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
+                            <GradientStop Color="#3023eb" Offset="0"></GradientStop>
+                            <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
+                            <LinearGradientBrush.Transform>
+                                <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+                            </LinearGradientBrush.Transform>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="20" FontFamily="Calibri" Foreground="White">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+            </Grid>
+        </DataTemplate>
     </UserControl.Resources>
-    <Grid>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Window_Closed">
+            <i:InvokeCommandAction Command="{Binding ClosedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.8*"/>
             <RowDefinition Height="0.2*"></RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Background="White">
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0.15*"/>
             </Grid.RowDefinitions>
-            <Image Source="../Resources/Images/1.jpg" Name="SelectedImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" Grid.RowSpan="2" />
-            <Rectangle Grid.RowSpan="2">
-                <Rectangle.Fill>
-                    <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
-                        <GradientStop Color="#3023eb" Offset="0"></GradientStop>
-                        <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
-                        <LinearGradientBrush.Transform>
-                            <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+            <ContentControl  Grid.RowSpan="2">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedColumn}" Value="1">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Slide1}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedColumn}" Value="2">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Slide2}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedColumn}" Value="3">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Slide3}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedColumn}" Value="4">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Slide4}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+            
+            <Button Opacity="0.4" Command="{Binding BackSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
+            <Button Opacity="0.4" Command="{Binding NextSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
 
-                        </LinearGradientBrush.Transform>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Button Command="{Binding NextSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
-            <Button Command="{Binding BackSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
-            <Image Grid.Row="1" HorizontalAlignment="Center" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>
+            <Border Grid.Row="1" BorderBrush="White" BorderThickness="0 0 0 5" ></Border>
+            <Image Grid.Row="1" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>
         </Grid>
         <Rectangle Stretch="Fill" Fill="White" Grid.Row="1" Grid.RowSpan="2"></Rectangle>
-        <Rectangle Grid.Row="1" Grid.RowSpan="2" Stretch="Fill" >
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="../Resources/Images/bg3.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,350,350" />
-            </Rectangle.Fill>
-        </Rectangle>
-        <!--<Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.3*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <WrapPanel Grid.Column="3" Grid.Row="2">
-                <Image Margin="0,0,3,0" Source="../Resources/Images/ac.png" Width="20" Height="20"></Image>
-                <Image Margin="0,0,3,0" Source="../Resources/Images/messaging.png" Width="20" Height="20"></Image>
-                <Image Margin="0,0,3,0" Source="../Resources/Images/setting.png" Width="20" Height="20"></Image>
-                <Image Margin="0,0,3,0" Source="../Resources/Images/np.png" Width="20" Height="20"></Image>
-                <TextBlock Foreground="Gray" Margin="0,2,0,0">Ali Babayev</TextBlock>
-            </WrapPanel>
-        </Grid>-->
+        <Border BorderThickness="0 5 0 0" Background="White" Grid.Row="1" Grid.RowSpan="2">
+            <Rectangle  Stretch="Fill" >
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="../Resources/Images/bg3.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,350,350" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Border>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.2*"/>
@@ -88,60 +199,68 @@
                         <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
                     </Border.BitmapEffect>
-                    <Grid  Background="White">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.2*"/>
-                            <RowDefinition />
-                            <RowDefinition Height="0.1*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Regular" FontFamily="Arial">Discuss</TextBlock>
-                        <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon1.png" ></Image>
-                    </Grid>
+                    <Button Style="{x:Null}" Command="{Binding DiscussCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  BorderBrush="Transparent">
+                        <Grid  Background="WhiteSmoke">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.25*"/>
+                                <RowDefinition />
+                                <RowDefinition Height="0.1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="SaddleBrown">Discuss</TextBlock>
+                            <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon1.png" ></Image>
+                        </Grid>
+                    </Button>
                 </Border>
                 <Border  Padding="5"   Grid.Column="1" BorderBrush="#dedef8"  CornerRadius="5">
                     <Border.BitmapEffect>
                         <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
                     </Border.BitmapEffect>
-                    <Grid  Background="White">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.2*"/>
-                            <RowDefinition />
-                            <RowDefinition Height="0.1*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Regular" FontFamily="Arial">Project</TextBlock>
-                        <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon2.png"></Image>
-                    </Grid>
+                    <Button Style="{x:Null}" Command="{Binding ProjectCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  BorderBrush="Transparent">
+                        <Grid  Background="WhiteSmoke">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.25*"/>
+                                <RowDefinition />
+                                <RowDefinition Height="0.1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="CornflowerBlue">Project</TextBlock>
+                            <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon2.png"></Image>
+                        </Grid>
+                    </Button>
                 </Border>
                 <Border   Padding="5"  Grid.Column="2" BorderBrush="#dedef8" CornerRadius="5">
                     <Border.BitmapEffect>
                         <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
                     </Border.BitmapEffect>
-                    <Grid  Background="White">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.2*"/>
-                            <RowDefinition />
-                            <RowDefinition Height="0.1*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Regular" FontFamily="Arial">Apps</TextBlock>
-                        <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon3.png"></Image>
-                    </Grid>
+                    <Button Style="{x:Null}" Command="{Binding AppsCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  BorderBrush="Transparent">
+                        <Grid  Background="WhiteSmoke">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.25*"/>
+                                <RowDefinition />
+                                <RowDefinition Height="0.1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="PaleVioletRed">Apps</TextBlock>
+                            <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon3.png"></Image>
+                        </Grid>
+                    </Button>
                 </Border>
                 <Border  Padding="5"   Grid.Column="3" BorderBrush="#dedef8" CornerRadius="5">
                     <Border.BitmapEffect>
                         <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
                     </Border.BitmapEffect>
-                    <Grid  Background="White">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.2*"/>
-                            <RowDefinition />
-                            <RowDefinition Height="0.1*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Regular" FontFamily="Arial">Settings</TextBlock>
-                        <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon4.png"></Image>
-                    </Grid>
+                    <Button Style="{x:Null}" Command="{Binding SettingsCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  BorderBrush="Transparent">
+                        <Grid  Background="WhiteSmoke">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.25*"/>
+                                <RowDefinition />
+                                <RowDefinition Height="0.1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="YellowGreen">Settings</TextBlock>
+                            <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon4.png"></Image>
+                        </Grid>
+                    </Button>
                 </Border>
             </Grid>
         </Grid>

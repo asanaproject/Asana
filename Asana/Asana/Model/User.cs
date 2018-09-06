@@ -1,4 +1,4 @@
-﻿using Asana.Model;
+﻿    using Asana.Model;
 using Asana.Tools;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Asana.Objects
+namespace Asana.Model
 {
     public class User
     {
@@ -34,7 +34,7 @@ namespace Asana.Objects
         [NotMapped]
         public bool IsLogged { get; set; }
 
-
+        public ICollection<ChatRoomUsers> Users { get; set; }
         //   public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

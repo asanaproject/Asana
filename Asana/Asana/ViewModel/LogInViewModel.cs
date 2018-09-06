@@ -1,8 +1,10 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
 using Asana.Objects;
+using Asana.Services;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -15,14 +17,18 @@ using System.Windows.Input;
 
 namespace Asana.ViewModel
 {
-    public class LogInViewModel:ViewModelBase
+    public class LogInViewModel : ViewModelBase
     {
         public readonly AccountService accountService;
+        public readonly UserService userService;
+
         private readonly NavigationService navigation;
         public LogInViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+            accountService = new AccountService();
         }
+
 
         private string email;
 
@@ -40,15 +46,18 @@ namespace Asana.ViewModel
             set { pass = value; Set(ref pass, value); }
         }
 
-      
+
 
         private RelayCommand _logInBtnCommand;
 
         public RelayCommand LogInBtnCommand => _logInBtnCommand ?? (_logInBtnCommand = new RelayCommand(
-                   x =>
+                   () =>
                    {
                        if (accountService.LoginControl(Email, Password))
+                       {
+                           CheckLoginLog.Save(Email);
                            navigation.NavigateTo(ViewType.Home);
+                       }
                        else
                            Errors.LoginErrorMsg();
                    }));
@@ -57,7 +66,7 @@ namespace Asana.ViewModel
         public RelayCommand ForgotPassCommand
         {
             get => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.ForgotEmailCode)
+                (() => navigation.NavigateTo(ViewType.ForgotEmailCode)
                 )));
         }
 
@@ -66,7 +75,7 @@ namespace Asana.ViewModel
         public RelayCommand GoToLogInView
         {
             get => goToLogInView ?? (goToLogInView = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.RegisterEmail)
+                (() => navigation.NavigateTo(ViewType.RegisterEmail)
                 )));
         }
 
