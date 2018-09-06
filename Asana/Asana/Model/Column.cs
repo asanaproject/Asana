@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +16,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 namespace Asana.Objects
 {
     [Table("Column")]
-    public class Column
+    public class Column:ViewModelBase
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -26,8 +27,15 @@ namespace Asana.Objects
         public int ProjectId { get; set; }
         public Project Project { get; set; }
 
-        public bool ColumnIsAdded { get; set; } = false;
-
-        public virtual ICollection<Task> Tasks { get; set; }
+        private ICollection<Task> tasks;
+        public virtual ICollection<Task> Tasks
+        {
+            get { return tasks; }
+            set { tasks = value; }
+        }
+        public Column()
+        {
+            Tasks = new ObservableCollection<Task>();
+        }
     }
 }
