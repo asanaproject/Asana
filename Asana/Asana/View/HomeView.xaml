@@ -15,16 +15,108 @@
             </Image.RenderTransform>
         </Image>
         <DataTemplate x:Key="Slide1">
-            <Image Source="../Resources/Images/1.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="../Resources/Images/1.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+                <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
+                            <GradientStop Color="#3023eb" Offset="0"></GradientStop>
+                            <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
+                            <LinearGradientBrush.Transform>
+                                <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+                            </LinearGradientBrush.Transform>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" Foreground="WhiteSmoke">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="Slide2">
-            <Image Source="../Resources/Images/2.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="../Resources/Images/2.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+                <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
+                            <GradientStop Color="#3023eb" Offset="0"></GradientStop>
+                            <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
+                            <LinearGradientBrush.Transform>
+                                <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+                            </LinearGradientBrush.Transform>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" FontFamily="Calibri" Foreground="White">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="Slide3">
-            <Image Source="../Resources/Images/3.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="../Resources/Images/3.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+                <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
+                            <GradientStop Color="#3023eb" Offset="0"></GradientStop>
+                            <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
+                            <LinearGradientBrush.Transform>
+                                <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+                            </LinearGradientBrush.Transform>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" FontFamily="Calibri" Foreground="White">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="Slide4">
-            <Image Source="../Resources/Images/4.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="../Resources/Images/4.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Stretch="Fill" />
+                <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
+                            <GradientStop Color="#3023eb" Offset="0"></GradientStop>
+                            <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
+                            <LinearGradientBrush.Transform>
+                                <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
+                            </LinearGradientBrush.Transform>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="20" FontFamily="Calibri" Foreground="White">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+            </Grid>
         </DataTemplate>
     </UserControl.Resources>
 
@@ -68,19 +160,9 @@
                     </Style>
                 </ContentControl.Style>
             </ContentControl>
-            <Rectangle Grid.RowSpan="2">
-                <Rectangle.Fill>
-                    <LinearGradientBrush Opacity="0.8" StartPoint="0,0" EndPoint="0,3">
-                        <GradientStop Color="#3023eb" Offset="0"></GradientStop>
-                        <GradientStop Color="#f7135b" Offset="0.9"></GradientStop>
-                        <LinearGradientBrush.Transform>
-                            <RotateTransform CenterX="60" CenterY="30" Angle="-95" />
-                        </LinearGradientBrush.Transform>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Button Command="{Binding BackSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
-            <Button Command="{Binding NextSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
+            
+            <Button Opacity="0.4" Command="{Binding BackSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
+            <Button Opacity="0.4" Command="{Binding NextSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
 
             <Border Grid.Row="1" BorderBrush="White" BorderThickness="0 0 0 5" ></Border>
             <Image Grid.Row="1" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>
