@@ -38,6 +38,7 @@
                     </Rectangle.Fill>
                 </Rectangle>
                 <!--<TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" Foreground="WhiteSmoke">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
+           
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="Slide2">
