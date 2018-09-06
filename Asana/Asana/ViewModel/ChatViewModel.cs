@@ -10,9 +10,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Windows;
-
+using System.Timers;
 namespace Asana.ViewModel
 {
     public class ChatViewModel : ViewModelBase
@@ -23,7 +22,8 @@ namespace Asana.ViewModel
 
         private readonly ChannelsService ChannelsService;
         private readonly ChatService ChatService;
-
+        private readonly Timer inboxtimer;
+        private readonly Timer chattimer;
         private int selectedColumn;
 
         public int SelectedColumn
@@ -74,56 +74,18 @@ namespace Asana.ViewModel
             set { chatItems = value; Set(ref chatItems, value); }
         }
 
-        private System.Threading.Tasks.Task task;
+
+
 
         private ChatRoom selectedItem;
-
         public ChatRoom SelectedItem
         {
             get { return selectedItem; }
             set
             {
-                Set(ref selectedItem, value); SelectedColumn = 3;
-                task = System.Threading.Tasks.Task.Run(() =>
-                {
-                    while (SelectedColumn == 3 && SelectedItem != null && ChatService != null)
-                    {
-                        App.Current.Dispatcher.Invoke((Action)delegate
-                        {
-                            ChatItems.Clear();
-
-                            ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach((x) =>
-                            {
-                                if (x.UserId == CurrentUser.Instance.User.Id)
-                                {
-                                    ChatItems.Add(new
-                                    {
-                                        x.ID,
-                                        x.UserId,
-                                        x.ChatRoomId,
-                                        x.Body,
-                                        x.SendTime,
-                                        Iam = true
-                                    });
-                                }
-                                else
-                                {
-                                    ChatItems.Add(new
-                                    {
-                                        x.ID,
-                                        x.UserId,
-                                        x.ChatRoomId,
-                                        x.Body,
-                                        x.SendTime,
-                                        Iam = false
-                                    });
-                                }
-                            });
-
-                        });
-                        Thread.Sleep(500);
-                    }
-                });
+                Set(ref selectedItem, value);
+                SelectedColumn = 3;
+                chattimer.Start();
             }
         }
 
@@ -171,8 +133,20 @@ namespace Asana.ViewModel
         () =>
         {
             SelectedItem = null;
-            SelectedColumn = 0;
+            if (ChatService.GetAllMails() != null)
+                SelectedColumn = 1;
+            else
+                SelectedColumn = 0;
+            inboxtimer.Start();
         }));
+
+        private RelayCommand _closedCommand;
+
+        public RelayCommand ClosedCommand
+        {
+            get => _closedCommand ?? (_closedCommand = new RelayCommand((() => { inboxtimer.Stop(); chattimer.Stop(); })));
+        }
+
 
 
         private RelayCommand _starredCommand;
@@ -181,7 +155,8 @@ namespace Asana.ViewModel
         () =>
         {
             SelectedItem = null;
-            SelectedColumn = 1;
+            SelectedColumn = 2;
+            inboxtimer.Stop(); chattimer.Stop();
         }));
 
 
@@ -217,7 +192,11 @@ namespace Asana.ViewModel
         private void LoadedDatas()
         {
             ChatRoomDatas();
-
+            if (ChatService.GetAllMails() != null)
+                SelectedColumn = 1;
+            else
+                SelectedColumn = 0;
+            inboxtimer.Start();
         }
 
         private void ChatRoomDatas()
@@ -240,6 +219,44 @@ namespace Asana.ViewModel
             get { return header; }
             set { header = value; Set(ref header, value); }
         }
+        private void ChatItemsRefresh(object sender, ElapsedEventArgs e)
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                ChatItems.Clear();
+                if(SelectedItem != null)
+                ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach((x) =>
+                {
+                    ChatItems.Add(new
+                    {
+                        x.ID,
+                        x.UserId,
+                        x.ChatRoomId,
+                        x.Body,
+                        x.SendTime
+                    });
+                });
+            });
+        }
+
+        private void InboxItemsRefresh(object sender, ElapsedEventArgs e)
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                Inbox.Clear();
+                ChatService.GetAllMails().ToList().ForEach((x) =>
+                {
+                    Inbox.Add(new
+                    {
+                        x.ID,
+                        x.UserId,
+                        x.SenderEmail,
+                        Body = x.Title + " - " + x.Body,
+                        SendTime = x.SendTime.ToShortDateString()
+                    });
+                });
+            });
+        }
 
 
         private readonly NavigationService navigationService;
@@ -255,6 +272,13 @@ namespace Asana.ViewModel
             ChannelsService = new ChannelsService();
             ChatService = new ChatService();
             Header = new HeaderViewModel(navigationService);
+            inboxtimer = new Timer(500);
+            chattimer = new Timer(500);
+            inboxtimer.Elapsed += InboxItemsRefresh;
+            chattimer.Elapsed += ChatItemsRefresh;
+            
         }
+
+
     }
 }

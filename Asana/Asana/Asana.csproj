@@ -175,6 +175,10 @@
     <Compile Include="Migrations\201809052236415_Mail_Table_IsCreated.Designer.cs">
       <DependentUpon>201809052236415_Mail_Table_IsCreated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809060202358_SendTime_Property_IsAdded_To_Mail.cs" />
+    <Compile Include="Migrations\201809060202358_SendTime_Property_IsAdded_To_Mail.Designer.cs">
+      <DependentUpon>201809060202358_SendTime_Property_IsAdded_To_Mail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -264,6 +268,9 @@
     <Compile Include="View\CreateProjectView.xaml.cs">
       <DependentUpon>CreateProjectView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ProjectPageView.xaml.cs">
       <DependentUpon>ProjectPageView.xaml</DependentUpon>
     </Compile>
@@ -317,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CreateProjectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Page1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -377,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809052236415_Mail_Table_IsCreated.resx">
       <DependentUpon>201809052236415_Mail_Table_IsCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809060202358_SendTime_Property_IsAdded_To_Mail.resx">
+      <DependentUpon>201809060202358_SendTime_Property_IsAdded_To_Mail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
