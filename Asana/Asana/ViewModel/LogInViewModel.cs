@@ -4,6 +4,7 @@ using Asana.Objects;
 using Asana.Services;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace Asana.ViewModel
         private RelayCommand _logInBtnCommand;
 
         public RelayCommand LogInBtnCommand => _logInBtnCommand ?? (_logInBtnCommand = new RelayCommand(
-                   x =>
+                   () =>
                    {
                        if (accountService.LoginControl(Email, Password))
                        {
@@ -65,7 +66,7 @@ namespace Asana.ViewModel
         public RelayCommand ForgotPassCommand
         {
             get => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.CreateProject)
+                (() => navigation.NavigateTo(ViewType.ForgotEmailCode)
                 )));
         }
 
@@ -74,7 +75,7 @@ namespace Asana.ViewModel
         public RelayCommand GoToLogInView
         {
             get => goToLogInView ?? (goToLogInView = new RelayCommand(
-                (x => navigation.NavigateTo(ViewType.RegisterEmail)
+                (() => navigation.NavigateTo(ViewType.RegisterEmail)
                 )));
         }
 

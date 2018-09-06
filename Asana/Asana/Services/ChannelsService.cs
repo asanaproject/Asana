@@ -1,5 +1,6 @@
 ﻿using Asana.Model;
 using Asana.Objects;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,73 +12,93 @@ namespace Asana.Services
 {
     public class ChannelsService
     {
-        public bool InsertRoom(string name,string type = "Public")
+
+        public bool InsertRoom(string name, ChatRoomType chatRoomType = ChatRoomType.Public)
         {
-            using (var db = new AsanaDbContext())
+            try
             {
-                name = "#" + name;
-                ChatRoom chat = new ChatRoom() { Name = name, Type = type };
-                db.ChatRooms.Add(chat);
+                using (var dbContext = new AsanaDbContext())
+                {
+                    ChatRoom chat = new ChatRoom() { Name = name, Type = chatRoomType, Desc = "Desccc" };
+                    dbContext.ChatRooms.Add(chat);
+                    dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = CurrentUser.Instance.User.Id, ChatRoomId = chat.ID });
+                    dbContext.SaveChanges();
+                }
+                return true;
             }
-            return true;
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+                return false;
+            }
+
         }
 
-        public bool JoinRoom(string name)
+        public bool JoinRoom(int ChatId)
         {
-            using (var db = new AsanaDbContext())
+            try
             {
-                if (db.ChatRooms.Single(x => x.Name == name).Users.Single(x => x == CurrentUser.Instance.User) == null)
+                using (var dbContext = new AsanaDbContext())
                 {
-                    db.ChatRooms.Single(x => x.Name == name).Users.Add(CurrentUser.Instance.User);
-                    return true;
+                    //int ChatId = db.ChatRooms.Single(x => x.Name == name).ID;
+                    dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { ChatRoomId = ChatId, UserId = CurrentUser.Instance.User.Id });
+                    dbContext.SaveChanges();
                 }
+                return true;
+
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
                 return false;
             }
         }
 
         public bool RemoveRoom(string name)
         {
-            using (var db = new AsanaDbContext())
+            try
             {
-                if(db.ChatRooms.Any(x=>x.Name == name) && db.ChatRooms.Single(x=>x.Name == name).Users.ToList()[0] == CurrentUser.Instance.User)
+                using (var dbContext = new AsanaDbContext())
                 {
-                    db.ChatRooms.ToList().RemoveAll(x=>x.Name == name);
+                    int ChatId = dbContext.ChatRooms.Single(x => x.Name == name).ID;
+                    dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { ChatRoomId = ChatId, UserId = CurrentUser.Instance.User.Id });
+                    dbContext.SaveChanges();
                     return true;
                 }
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
                 return false;
             }
         }
 
-        public ObservableCollection<string> GetListPublicChannelsId()
+        public ObservableCollection<ChatRoom> GetListPublicChannelsId()
         {
-            ObservableCollection<string> listId = new ObservableCollection<string>();
-            using (var db = new AsanaDbContext())
+            using (var dbContext = new AsanaDbContext())
             {
-                foreach (var item in db.ChatRooms)
+                ObservableCollection<ChatRoom> listId = new ObservableCollection<ChatRoom>();
+                foreach (var cru in dbContext.ChatRoomUsers.ToList())
                 {
-                    if(item.Users.Any(x=> x == CurrentUser.Instance.User) && item.Type == "Public")
-                    {
-                        listId.Add(item.Name);
-                    }
+                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId ).Type == ChatRoomType.Public && cru.UserId == CurrentUser.Instance.User.Id)
+                        listId.Add(dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId));
                 }
+                return listId;
             }
-            return listId;
         }
 
-        public ObservableCollection<string> GetListPrivateChannelsId()
+        public ObservableCollection<ChatRoom> GetListPrivateChannelsId()
         {
-            ObservableCollection<string> listId = new ObservableCollection<string>();
-            using (var db = new AsanaDbContext())
+            using (var dbContext = new AsanaDbContext())
             {
-                foreach (var item in db.ChatRooms)
+                ObservableCollection<ChatRoom> listId = new ObservableCollection<ChatRoom>();
+                foreach (var cru in dbContext.ChatRoomUsers.ToList())
                 {
-                    if (item.Users.Any(x => x == CurrentUser.Instance.User) && item.Type == "Private")
-                    {
-                        listId.Add(item.Name);
-                    }
+                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).Type == ChatRoomType.Private && cru.UserId == CurrentUser.Instance.User.Id)
+                        listId.Add(dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId));
                 }
+                return listId;
             }
-            return listId;
         }
     }
 }

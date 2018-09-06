@@ -1,8 +1,10 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
+using Asana.Services;
 using Asana.Services.Interfaces;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,13 +20,13 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigation;
         private readonly IUserService userService;
-        public SignUpViewModel(NavigationService navigation, IUserService userService)
+        public SignUpViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            this.userService = userService;
+            this.userService = new UserService() ;
         }
 
-        private string profieImgPath= "pack://application:,,,/Asana;component/Resources/Images/user.png";
+        private string profieImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
         public string ProfileImgPath
         {
             get { return profieImgPath; }
@@ -35,14 +37,14 @@ namespace Asana.ViewModel
         }
 
 
-        private string fullName;
+        private string fullName = "";
         public string FullName
         {
             get { return fullName; }
             set { Set(ref fullName, value); }
         }
 
-        private string password;
+        private string password = "";
         public string Password
         {
             get { return password; }
@@ -50,14 +52,14 @@ namespace Asana.ViewModel
         }
 
 
-        private string username;
+        private string username = "";
         public string UserName
         {
             get { return username; }
             set { Set(ref username, value); }
         }
 
-        private string rePassword;
+        private string rePassword = "";
         public string RePassword
         {
             get { return rePassword; }
@@ -68,13 +70,13 @@ namespace Asana.ViewModel
         /// </summary>
         private RelayCommand _goToLogInCommand;
         public RelayCommand GoToLogInViewCommand => _goToLogInCommand ?? (_goToLogInCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.LogIn)
+            () => navigation.NavigateTo(ViewType.LogIn)
             ));
 
 
         private RelayCommand _loadImageCommand;
         public RelayCommand LoadImageCommand => _loadImageCommand ?? (_loadImageCommand = new RelayCommand(
-            x =>
+            () =>
             {
                 var path = ProfilePhoto.LoadImage();
                 if (!String.IsNullOrEmpty(path))
@@ -86,16 +88,13 @@ namespace Asana.ViewModel
 
         private RelayCommand _registerCommand;
         public RelayCommand RegisterCommand => _registerCommand ?? (_registerCommand = new RelayCommand(
-            x =>
+            () =>
             {
-                CurrentUser.Instance.User.FullName = FullName;
-                CurrentUser.Instance.User.Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath));
-                CurrentUser.Instance.User.Password = Password;
-                CurrentUser.Instance.User.Username = UserName;
                 try
                 {
-                    userService.Insert(CurrentUser.Instance.User);
-
+                    User user = new User() {Email = CurrentUser.Instance.User.Email, FullName = FullName, Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath)), Password = Password, Username = UserName };
+                    userService.Insert(user);
+                    navigation.NavigateTo(ViewType.LogIn);
                 }
                 catch (Exception ex)
                 {

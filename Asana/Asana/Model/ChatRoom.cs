@@ -16,8 +16,11 @@ namespace Asana.Model
         [Required, MaxLength(25)]
         public string Name { get; set; }
 
-        public string Type { get; set; }
+        [Required,MaxLength(500)]
+        public string Desc { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public ChatRoomType Type { get; set; }
+
+        public ICollection<ChatRoomUsers> Users { get; set; }
     }
 }

@@ -47,5 +47,20 @@ namespace Asana.Model
                 return false;
             }
         }
+
+        public bool Logout()
+        {
+            try
+            {
+                CheckLoginLog.Remove();
+                CurrentUser.Instance.User = null;
+                return true;
+            }
+            catch(Exception err)
+            {
+                Log.Error(err.Message);
+                return false;
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using Asana.Navigation;
 using Asana.Objects;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -68,7 +69,7 @@ namespace Asana.ViewModel
         public RelayCommand SendConfirmationCodeCommand
         {
             get => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
-                x =>
+                () =>
                 {
                    // ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
                     if (RegexChecker.CheckEmail(Email))
@@ -96,7 +97,7 @@ namespace Asana.ViewModel
         /// </summary>
         private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
-            x => navigation.NavigateTo(ViewType.LogIn)
+            ()=> navigation.NavigateTo(ViewType.LogIn)
             ));
     }
 }

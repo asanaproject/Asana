@@ -8,26 +8,27 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
-    public class Message
+    public class Mail
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        [Required, MaxLength(100)]
+        public string Title { get; set; }
+
         [Required, MaxLength(500)]
         public string Body { get; set; }
+
+        [Required, MaxLength(100)]
+        public string SenderEmail { get; set; }
 
         [Required]
         public DateTime SendTime { get; set; }
 
+
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
 
-        [ForeignKey(nameof(ChatRoom))]
-        public int ChatRoomId { get; set; }
-
         public virtual User User { get; set; }
-
-        public virtual ChatRoom ChatRoom { get; set; }
-        
     }
 }

@@ -19,7 +19,6 @@ namespace Asana
     /// </summary>
     public class ViewModelLocator
     {
-        private AsanaDbContext dbContext;
         private NavigationService navigationService;
         private IUserService userService;
         public AppViewModel appViewModel;
@@ -33,13 +32,10 @@ namespace Asana
         public CreateProjectViewModel createProjectViewModel;
         public ProjectPageViewModel projectPageViewModel;
         public ChatViewModel chatViewModel;
+        public ListChannelsViewModel listChannelsViewModel;
         public ViewModelLocator()
         {
-            dbContext = new AsanaDbContext();
-
-
             navigationService = new NavigationService();
-            userService = new UserService(dbContext);
 
             appViewModel = new AppViewModel();
             logInViewModel = new LogInViewModel(navigationService);
@@ -48,11 +44,11 @@ namespace Asana
             sendCodeEmailViewModel = new SendCodeEmailViewModel(navigationService);
             homeViewModel = new HomeViewModel(navigationService);
             confirmationCodeViewModel = new ConfirmCodeViewModel(navigationService);
-            signUpViewModel = new SignUpViewModel(navigationService, userService);
+            signUpViewModel = new SignUpViewModel(navigationService);
             chatViewModel = new ChatViewModel(navigationService);
             createProjectViewModel = new CreateProjectViewModel(navigationService);
             projectPageViewModel = new ProjectPageViewModel(navigationService);
-
+            listChannelsViewModel = new ListChannelsViewModel(navigationService);
 
             navigationService.AddPage(signUpViewModel, ViewType.SignUp);
             navigationService.AddPage(confirmationCodeViewModel, ViewType.ConfirmCode);
@@ -64,10 +60,10 @@ namespace Asana
             navigationService.AddPage(createProjectViewModel, ViewType.CreateProject);
             navigationService.AddPage(chatViewModel, ViewType.ChatView);
             navigationService.AddPage(projectPageViewModel, ViewType.ProjectPage);
-
-            userService = new UserService(dbContext);
+            navigationService.AddPage(listChannelsViewModel, ViewType.ListChannels);
+            userService = new UserService();
             string user = CheckLoginLog.Load();
-            if (user != "")
+            if (user != "" && userService.Select(user) != null)
             {
                 CurrentUser.Instance.User = userService.Select(user);
                 navigationService.NavigateTo(ViewType.Home);
