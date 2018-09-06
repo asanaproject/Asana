@@ -56,6 +56,9 @@
     <DataTemplate DataType="{x:Type vm:HeaderViewModel}">
         <v:HeaderView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
+        <v:ProjectAddView/>
+    </DataTemplate>
 
 
     <Style TargetType="{x:Type Border}">
