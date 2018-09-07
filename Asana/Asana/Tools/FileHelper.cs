@@ -1,6 +1,7 @@
 ﻿using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -53,7 +54,37 @@ namespace Asana.Tools
             catch(Exception err)
             {
                 Log.Error(err.Message);
-                return "";            }
+                return "";
+            }
+        }
+
+        public static bool WriteBytesToFileWithStrin(byte[] htmlBytes)
+        {
+            try
+            {
+                //Process.Start("chrome.exe", GetPath("//Resources//mail.html"));
+                string htmlString = Encoding.ASCII.GetString(htmlBytes);
+                File.WriteAllText(GetPath("\\Resources\\mail.html"), htmlString);
+                return true;
+            }  
+            catch(Exception err)
+            {
+                Log.Error(err.Message);
+                return false;
+            }
+        }
+        public static bool WriteTextToFile(string file)
+        {
+            try
+            {
+                File.WriteAllText(GetPath("\\Resources\\mail.html"), file);
+                return true;
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+                return false;
+            }
         }
     }
 }

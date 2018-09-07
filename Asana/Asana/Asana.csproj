@@ -151,6 +151,10 @@
     <Compile Include="Migrations\201809070049004_Added_BodyHtml_To_Mails.Designer.cs">
       <DependentUpon>201809070049004_Added_BodyHtml_To_Mails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809072217411_Added_Favorite_Column_To_Mails.cs" />
+    <Compile Include="Migrations\201809072217411_Added_Favorite_Column_To_Mails.Designer.cs">
+      <DependentUpon>201809072217411_Added_Favorite_Column_To_Mails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -264,6 +268,7 @@
     <Compile Include="View\SignUpView.xaml.cs">
       <DependentUpon>SignUpView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tools\WebBrowserBehavior.cs" />
     <Page Include="Resources\DataTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -352,6 +357,9 @@
     <EmbeddedResource Include="Migrations\201809070049004_Added_BodyHtml_To_Mails.resx">
       <DependentUpon>201809070049004_Added_BodyHtml_To_Mails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809072217411_Added_Favorite_Column_To_Mails.resx">
+      <DependentUpon>201809072217411_Added_Favorite_Column_To_Mails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -402,6 +410,9 @@
     <Resource Include="Resources\Images\mainlogo.png" />
     <Resource Include="Resources\Images\add.png" />
     <Resource Include="Resources\Images\column_setting.png" />
+    <Resource Include="Resources\Images\starg.png" />
+    <Resource Include="Resources\Images\stargfilled.png" />
+    <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

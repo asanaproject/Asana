@@ -46,13 +46,28 @@ namespace Asana.Services
             }
         }
 
-        public ObservableCollection<Mail> GetAllMails()
+        public ObservableCollection<Mail> GetAllUnFavoritesMails()
         {
             try
             {
                 ObservableCollection<Mail> messages = new ObservableCollection<Mail>();
                 using (var db = new AsanaDbContext())
-                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id).ToList().ForEach(x => messages.Add(x));
+                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id && x.Favorite == false).ToList().ForEach(x => messages.Add(x));
+                return messages;
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+                return new ObservableCollection<Mail>();
+            }
+        }
+        public ObservableCollection<Mail> GetAllFavoritesMails()
+        {
+            try
+            {
+                ObservableCollection<Mail> messages = new ObservableCollection<Mail>();
+                using (var db = new AsanaDbContext())
+                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id && x.Favorite == true).ToList().ForEach(x => messages.Add(x));
                 return messages;
             }
             catch (Exception err)
@@ -63,5 +78,53 @@ namespace Asana.Services
         }
 
 
+        public void SetMarked(int id)
+        {
+            try
+            {
+                using (var db = new AsanaDbContext())
+                {
+                    db.Mails.Single(x => x.ID == id).Marked = true;
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception err)
+            {
+                Log.Error(err.Message);
+            }
+        }
+
+
+        public void AddStarred(int id)
+        {
+            try
+            {
+                using (var db = new AsanaDbContext())
+                {
+                    db.Mails.Single(x => x.ID == id).Favorite = true;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+            }
+        }
+
+        public void RemoveStarred(int id)
+        {
+            try
+            {
+                using (var db = new AsanaDbContext())
+                {
+                    db.Mails.Single(x => x.ID == id).Favorite = false;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+            }
+        }
     }
 }

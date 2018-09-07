@@ -29,6 +29,9 @@ namespace Asana.Model
         [Required]
         public bool Marked { get; set; }
 
+        [Required]
+        public bool Favorite { get; set; }
+
         public byte[] BodyHtml { get; set; }
 
         [ForeignKey(nameof(User))]
