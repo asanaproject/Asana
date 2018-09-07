@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Asana.View"
-             xmlns:lcl="clr-namespace:Asana.Tools"
+             xmlns:tools="clr-namespace:Asana.Tools"
              xmlns:model="clr-namespace:Asana.Model"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="Parent"
              >
 
     <i:Interaction.Triggers>
@@ -61,6 +62,22 @@
                     <Setter Property="Background" Value="#1e2124"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="l_box_item_star" TargetType="{x:Type Button}"  >
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <DropShadowEffect x:Key="MyEffect" ShadowDepth="0.4" Color="Black" Opacity="0.7" BlurRadius="10" />
@@ -149,53 +166,54 @@
         </DataTemplate>
 
 
-        <DataTemplate x:Key="Starred">
-            <Grid  Background="White" Grid.Row="1" Grid.Column="1">
-                <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
-                    <TextBlock FontSize="23"  FontFamily="Calibri" Foreground="#666666">No starred message</TextBlock>
-                    <TextBlock FontSize="15" FontFamily="Calibri" Foreground="#8f8f8f">You can mark any message as 'starred', and it shows up in this channel.</TextBlock>
-                </WrapPanel>
-            </Grid>
-        </DataTemplate>
-
         <DataTemplate x:Key="Chat">
-            <Grid Background="White" Grid.Row="1" Grid.Column="1">
+            <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
                     <RowDefinition/>
-                    <RowDefinition Height="45"/>
                 </Grid.RowDefinitions>
-                <ListBox ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectedItem="{Binding ChatSelectedItem}" ItemsSource="{Binding ChatItems}">
+                <Rectangle  Fill="White"/>
+                <TextBlock  Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
+                <Border  Grid.Row="1" Grid.Column="1"  BorderThickness="0 0.8 0 0" BorderBrush="LightGray">
+                <Grid  Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+                    <ListBox ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectedItem="{Binding ChatSelectedItem}" ItemsSource="{Binding ChatItems}">
 
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <ContentControl Content="{Binding .}">
-                                <ContentControl.Style>
-                                    <Style TargetType="ContentControl">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource ChatItemLeft}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=UserId}" Value="{x:Static model:CurrentUser.Id}">
-                                                <Setter Property="ContentTemplate" Value="{StaticResource ChatItemRight}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ContentControl.Style>
-                            </ContentControl>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.01*"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="0.20*"/>
-                        <ColumnDefinition Width="0.01*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Height="35" CornerRadius="5 0 0 5" BorderThickness="0.5" BorderBrush="Gray" Grid.Column="1" Padding="7 7 5 0" >
-                        <TextBox Text="{Binding Message_Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0"  Style="{x:Null}" FontSize="14"></TextBox>
-                    </Border>
-                    <Button Command="{Binding SendMessageCommand}" Height="35" BorderBrush="Gray" BorderThickness="1"  Style="{x:Null}" Grid.Column="2" Content="Send" Foreground="White" Background="#008784" >
-                    </Button>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding .}">
+                                    <ContentControl.Style>
+                                        <Style TargetType="ContentControl">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource ChatItemLeft}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=UserId}" Value="{x:Static model:CurrentUser.Id}">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource ChatItemRight}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.01*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0.20*"/>
+                            <ColumnDefinition Width="0.01*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Height="35" CornerRadius="5 0 0 5" BorderThickness="0.5" BorderBrush="Gray" Grid.Column="1" Padding="7 7 5 0" >
+                            <TextBox Text="{Binding Message_Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0"  Style="{x:Null}" FontSize="14"></TextBox>
+                        </Border>
+                        <Button Command="{Binding SendMessageCommand}" Height="35" BorderBrush="Gray" BorderThickness="1"  Style="{x:Null}" Grid.Column="2" Content="Send" Foreground="White" Background="#008784" >
+                        </Button>
+                    </Grid>
                 </Grid>
+                </Border>
             </Grid>
         </DataTemplate>
 
@@ -215,7 +233,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Rectangle Fill="White"/>
-                <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="#Inbox" FontSize="23"></TextBlock>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
                 <ListBox BorderThickness="0 0.8 0 0" BorderBrush="LightGray" Grid.Row="1" Padding="1"   SnapsToDevicePixels="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Background="White" SelectedItem="{Binding SelectedItemInbox}" ItemsSource="{Binding Inbox}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -258,11 +276,93 @@
                                         </Style>
                                     </Grid.Style>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="35"/>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
+                                    <Button Command="{Binding DataContext.AddFavorite, ElementName=Parent}" CommandParameter="{Binding .}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1" Style="{StaticResource l_box_item_star}" >
+                                        <Image Height="15" Source="../Resources/Images/starg.png" />
+                                    </Button>
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="DemiBold" VerticalAlignment="Center" Text="{Binding SenderEmail}"></TextBlock>
+                                    <TextBlock Grid.Column="2" Margin="10 0 10 0" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center"  Text="{Binding Body}"></TextBlock>
+                                    <TextBlock Grid.Column="4" HorizontalAlignment="Center" FontSize="13" FontFamily="Roboto" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding SendTime}"></TextBlock>
+                                </Grid>
+                            </Border>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="Starred">
+            <Grid  Background="White" Grid.Row="1" Grid.Column="1">
+                <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
+                    <TextBlock FontSize="23"  FontFamily="Calibri" Foreground="#666666">No starred message</TextBlock>
+                    <TextBlock FontSize="15" FontFamily="Calibri" Foreground="#8f8f8f">You can mark any message as 'starred', and it shows up in this channel.</TextBlock>
+                </WrapPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="StarredList">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="White"/>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
+                <ListBox ItemsSource="{Binding StarredList}" SelectedItem="{Binding SelectedItemInbox}"  BorderThickness="0 0.8 0 0" BorderBrush="LightGray" Grid.Row="1" Padding="1"   SnapsToDevicePixels="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Background="White">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <!--<Setter Property="Background" Value="White"></Setter>-->
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                            <Setter Property="BorderThickness" Value="10 5 10 5"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Stretch" Height="35"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Margin" Value="0 0 0 3"/>
+                                    <Setter Property="BorderThickness" Value="10 5 10 5"/>
+                                    <Setter Property="Effect" Value="{StaticResource MyEffect}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="0.5 0.5 0.5 1 " BorderBrush="LightGray">
+                                <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Marked}" Value="True">
+                                                    <Setter Property="Background" Value="#f5f7f6"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Marked}" Value="False">
+                                                    <Setter Property="Background" Value="White"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35"/>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Command="{Binding DataContext.RemoveFavorite, ElementName=Parent}" CommandParameter="{Binding .}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1" Style="{StaticResource l_box_item_star}" >
+                                        <Image Height="15" Source="../Resources/Images/stargfilled.png" />
+                                    </Button>
                                     <TextBlock Grid.Column="1" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="DemiBold" VerticalAlignment="Center" Text="{Binding SenderEmail}"></TextBlock>
                                     <TextBlock Grid.Column="2" Margin="10 0 10 0" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center"  Text="{Binding Body}"></TextBlock>
                                     <TextBlock Grid.Column="4" HorizontalAlignment="Center" FontSize="13" FontFamily="Roboto" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding SendTime}"></TextBlock>
@@ -275,8 +375,19 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="InboxView">
-            <WebBrowser Source="google.com" ></WebBrowser>
+
+        <DataTemplate x:Key="MailView">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="White"/>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
+                <Border  Grid.Row="1"  BorderThickness="0 0.8 0 0" BorderBrush="LightGray">
+                    <WebBrowser Grid.Row="1" tools:WebBrowserBehavior.Body="{Binding UrlForMail}" />
+                </Border>
+            </Grid>
         </DataTemplate>
 
     </UserControl.Resources>
@@ -492,8 +603,12 @@
                                         <Setter Property="ContentTemplate" Value="{StaticResource Chat}" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="4">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource InboxView}" />
+                                        <Setter Property="ContentTemplate" Value="{StaticResource MailView}" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="5">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource StarredList}" />
+                                    </DataTrigger>
+
                                 </Style.Triggers>
                             </Style>
                         </ContentControl.Style>
