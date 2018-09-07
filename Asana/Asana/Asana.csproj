@@ -143,6 +143,14 @@
     <Compile Include="Migrations\201809062231177_Added_All_Tables.Designer.cs">
       <DependentUpon>201809062231177_Added_All_Tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809062353427_Added_Marked_Column_To_Mails.cs" />
+    <Compile Include="Migrations\201809062353427_Added_Marked_Column_To_Mails.Designer.cs">
+      <DependentUpon>201809062353427_Added_Marked_Column_To_Mails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809070049004_Added_BodyHtml_To_Mails.cs" />
+    <Compile Include="Migrations\201809070049004_Added_BodyHtml_To_Mails.Designer.cs">
+      <DependentUpon>201809070049004_Added_BodyHtml_To_Mails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -337,6 +345,12 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201809062231177_Added_All_Tables.resx">
       <DependentUpon>201809062231177_Added_All_Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809062353427_Added_Marked_Column_To_Mails.resx">
+      <DependentUpon>201809062353427_Added_Marked_Column_To_Mails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809070049004_Added_BodyHtml_To_Mails.resx">
+      <DependentUpon>201809070049004_Added_BodyHtml_To_Mails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

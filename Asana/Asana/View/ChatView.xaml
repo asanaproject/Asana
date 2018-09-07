@@ -62,7 +62,10 @@
             </Style.Triggers>
         </Style>
 
-        <DataTemplate x:Key="Template1">
+        <DropShadowEffect x:Key="MyEffect" ShadowDepth="0.4" Color="Black" Opacity="0.7" BlurRadius="10" />
+
+
+        <DataTemplate x:Key="ChatItemLeft">
             <Border  >
                 <Grid>
                     <!-- Profile picture -->
@@ -111,7 +114,7 @@
             </Border>
         </DataTemplate>
 
-        <DataTemplate x:Key="Template2">
+        <DataTemplate x:Key="ChatItemRight">
             <Border  >
                 <Grid>
                     <!-- Chat message container -->
@@ -144,14 +147,6 @@
             </Border>
         </DataTemplate>
 
-        <DataTemplate x:Key="Inbox">
-            <Grid  Background="White" Grid.Row="1" Grid.Column="1">
-                <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
-                    <TextBlock FontSize="23" FontFamily="Calibri" Foreground="#666666" >Congratulations, your inbox is empty</TextBlock>
-                    <TextBlock FontSize="15" FontFamily="Calibri" Foreground="#8f8f8f">New messages appear here.</TextBlock>
-                </WrapPanel>
-            </Grid>
-        </DataTemplate>
 
         <DataTemplate x:Key="Starred">
             <Grid  Background="White" Grid.Row="1" Grid.Column="1">
@@ -169,16 +164,16 @@
                     <RowDefinition Height="45"/>
                 </Grid.RowDefinitions>
                 <ListBox ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectedItem="{Binding ChatSelectedItem}" ItemsSource="{Binding ChatItems}">
-                
+
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <ContentControl Content="{Binding .}">
                                 <ContentControl.Style>
                                     <Style TargetType="ContentControl">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource Template1}" />
+                                        <Setter Property="ContentTemplate" Value="{StaticResource ChatItemLeft}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Path=UserId}" Value="{x:Static model:CurrentUser.Id}">
-                                                <Setter Property="ContentTemplate" Value="{StaticResource Template2}" />
+                                                <Setter Property="ContentTemplate" Value="{StaticResource ChatItemRight}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -202,53 +197,87 @@
                 </Grid>
             </Grid>
         </DataTemplate>
+        
+        <DataTemplate x:Key="Inbox">
+            <Grid  Background="White" Grid.Row="1" Grid.Column="1">
+                <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
+                    <TextBlock FontSize="23" FontFamily="Calibri" Foreground="#666666" >Congratulations, your inbox is empty</TextBlock>
+                    <TextBlock FontSize="15" FontFamily="Calibri" Foreground="#8f8f8f">New messages appear here.</TextBlock>
+                </WrapPanel>
+            </Grid>
+        </DataTemplate>
+        
         <DataTemplate x:Key="InboxList">
             <Grid>
-                <ListBox  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Background="#ebeff9" ItemsSource="{Binding Inbox}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="White"/>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="#Inbox" FontSize="23"></TextBlock>
+                <ListBox BorderThickness="0 0.8 0 0" BorderBrush="LightGray" Grid.Row="1" Padding="1"   SnapsToDevicePixels="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Background="White"  ItemsSource="{Binding Inbox}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
-                            <Setter Property="Background" Value="White"></Setter>
-                            <Setter Property="Padding" Value="7"/>
-                            <Setter Property="Margin" Value="0 0 0 1"/>
+                            <!--<Setter Property="Background" Value="White"></Setter>-->
+                            <Setter Property="Padding" Value="10"/>
                             <Setter Property="BorderBrush" Value="LightGray"/>
-                            <Setter Property="BorderThickness" Value="0 0 0 2"/>
+                            <Setter Property="BorderThickness" Value="10 5 10 5"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                         <Border Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                            <ContentPresenter HorizontalAlignment="Stretch" Height="35"/>
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="BorderThickness" Value="0 0 0 5"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="Margin" Value="0 0 0 3"/>
+                                    <Setter Property="BorderThickness" Value="10 5 10 5"/>
+                                    <Setter Property="Effect" Value="{StaticResource MyEffect}" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                              
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.ColumnSpan="4" Fill="White" Opacity="0.7"></Rectangle>
-                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="DemiBold" VerticalAlignment="Center" Text="{Binding SenderEmail}"></TextBlock>
-                                <TextBlock Grid.Column="2" Margin="10 0 10 0" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center" Text="{Binding Body}"></TextBlock>
-                                <TextBlock Grid.Column="4" HorizontalAlignment="Center" FontSize="13" FontFamily="Roboto" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 0 0" Text="{Binding SendTime}"></TextBlock>
-                            </Grid>
+                            <Border BorderThickness="0.5 0.5 0.5 1 " BorderBrush="LightGray">
+                                <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Marked}" Value="True">
+                                                    <Setter Property="Background" Value="#f5f7f6"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Marked}" Value="False">
+                                                    <Setter Property="Background" Value="White"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="DemiBold" VerticalAlignment="Center" Text="{Binding SenderEmail}"></TextBlock>
+                                    <TextBlock Grid.Column="2" Margin="10 0 10 0" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center"  Text="{Binding Body}"></TextBlock>
+                                    <TextBlock Grid.Column="4" HorizontalAlignment="Center" FontSize="13" FontFamily="Roboto" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding SendTime}"></TextBlock>
+                                </Grid>
+                            </Border>
+
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
         </DataTemplate>
+
+        <DataTemplate x:Key="InboxView">
+            
+        </DataTemplate>
+        
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
