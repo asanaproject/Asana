@@ -402,6 +402,7 @@
     <Resource Include="Resources\Images\mainlogo.png" />
     <Resource Include="Resources\Images\add.png" />
     <Resource Include="Resources\Images\column_setting.png" />
+    <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

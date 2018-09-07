@@ -17,7 +17,12 @@ namespace Asana.ViewModel
 {
     public class ChatViewModel : ViewModelBase
     {
-
+        //SelectedColumns
+        //Inbox - 0
+        //InboxList - 1
+        //Starred - 2
+        //Chat - 3
+        //InboxView - 4
 
         private readonly ChannelsService ChannelsService;
         private readonly ChatService ChatService;
@@ -158,6 +163,44 @@ namespace Asana.ViewModel
             set { inbox = value; Set(ref inbox, value); }
         }
 
+        private object selectedItemInbox;
+
+        public void SelectedItemInbox_Change(dynamic obj)
+        {
+            if(obj.BodyHtml != null)
+                FileHelper.WriteTextToFile(obj.BodyHtml);
+            else
+                FileHelper.WriteTextToFile(obj.Body);
+            SelectedColumn = 4; 
+        }
+
+        public object SelectedItemInbox
+        {
+            get { return selectedItemInbox; }
+            set { Set(ref selectedItemInbox, value); SelectedItemInbox_Change(value); }
+        }
+
+        private void InboxItemsRefresh(object sender, ElapsedEventArgs e)
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                Inbox.Clear();
+                ChatService.GetAllMails().ToList().ForEach((x) =>
+                {
+                    Inbox.Add(new
+                    {
+                        x.ID,
+                        x.UserId,
+                        x.SenderEmail,
+                        x.Marked,
+                        x.BodyHtml,
+                        Body = x.Title + " - " + x.Body,
+                        SendTime = x.SendTime.ToShortDateString()
+                    });
+                });
+            });
+        }
+
         private RelayCommand _inboxCommand;
 
         public RelayCommand InboxCommand => _inboxCommand ?? (_inboxCommand = new RelayCommand(
@@ -245,27 +288,6 @@ namespace Asana.ViewModel
                 ChatSelectedItem = ChatItems[ChatItems.Count - 1];
             });
         }
-
-        private void InboxItemsRefresh(object sender, ElapsedEventArgs e)
-        {
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                Inbox.Clear();
-                ChatService.GetAllMails().ToList().ForEach((x) =>
-                {
-                    Inbox.Add(new
-                    {
-                        x.ID,
-                        x.UserId,
-                        x.SenderEmail,
-                        x.Marked,
-                        Body = x.Title + " - " + x.Body,
-                        SendTime = x.SendTime.ToShortDateString()
-                    });
-                });
-            });
-        }
-
 
         private object header;
 

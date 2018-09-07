@@ -53,7 +53,24 @@ namespace Asana.Tools
             catch(Exception err)
             {
                 Log.Error(err.Message);
-                return "";            }
+                return "";
+            }
         }
+
+        public static bool WriteTextToFile(byte[] htmlBytes)
+        {
+            try
+            {
+                string htmlString = Encoding.ASCII.GetString(htmlBytes);
+                File.WriteAllText(GetPath("//Resources//mail.html"), htmlString);
+                return true;
+            }  
+            catch(Exception err)
+            {
+                Log.Error(err.Message);
+                return false;
+            }
+        }
+
     }
 }
