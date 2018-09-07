@@ -12,18 +12,16 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Timers;
+
 namespace Asana.ViewModel
 {
     public class ChatViewModel : ViewModelBase
     {
 
-        #region Props
-
 
         private readonly ChannelsService ChannelsService;
         private readonly ChatService ChatService;
-        private readonly Timer inboxtimer;
-        private readonly Timer chattimer;
+
         private int selectedColumn;
 
         public int SelectedColumn
@@ -32,6 +30,8 @@ namespace Asana.ViewModel
             set { Set(ref selectedColumn, value); }
         }
 
+        #region Channels
+        private readonly Timer chattimer;
         private object chatSelectedItem;
 
         public object ChatSelectedItem
@@ -39,7 +39,6 @@ namespace Asana.ViewModel
             get { return chatSelectedItem; }
             set { Set(ref chatSelectedItem, value); }
         }
-
 
         private ObservableCollection<ChatRoom> privateChannels;
 
@@ -65,14 +64,6 @@ namespace Asana.ViewModel
             set { publicChannels = value; Set(ref publicChannels, value); }
         }
 
-        private ObservableCollection<dynamic> inbox;
-
-        public ObservableCollection<dynamic> Inbox
-        {
-            get { return inbox; }
-            set { inbox = value; Set(ref inbox, value); }
-        }
-
 
         private ObservableCollection<dynamic> chatItems;
 
@@ -81,9 +72,6 @@ namespace Asana.ViewModel
             get { return chatItems; }
             set { chatItems = value; Set(ref chatItems, value); }
         }
-
-
-
 
         private ChatRoom selectedItem;
         public ChatRoom SelectedItem
@@ -97,17 +85,7 @@ namespace Asana.ViewModel
             }
         }
 
-        private string message_Text;
 
-        public string Message_Text
-        {
-            get { return message_Text; }
-            set { message_Text = value; Set(ref message_Text, value); }
-        }
-
-        #endregion
-
-        #region Commands
         private RelayCommand _addChatRoomChannels;
 
         public RelayCommand AddChatRoomChannels => _addChatRoomChannels ?? (_addChatRoomChannels = new RelayCommand(
@@ -124,6 +102,14 @@ namespace Asana.ViewModel
         }));
 
 
+        private string message_Text;
+
+        public string Message_Text
+        {
+            get { return message_Text; }
+            set { message_Text = value; Set(ref message_Text, value); }
+        }
+
         private RelayCommand _sendMessageCommand;
 
         public RelayCommand SendMessageCommand => _sendMessageCommand ?? (_sendMessageCommand = new RelayCommand(
@@ -134,38 +120,7 @@ namespace Asana.ViewModel
 
         }));
 
-
-        private RelayCommand _inboxCommand;
-
-        public RelayCommand InboxCommand => _inboxCommand ?? (_inboxCommand = new RelayCommand(
-        () =>
-        {
-            SelectedItem = null;
-            if (ChatService.GetAllMails().Count != 0)
-                SelectedColumn = 1;
-            else
-                SelectedColumn = 0;
-            inboxtimer.Start();
-        }));
-
-        private RelayCommand _closedCommand;
-
-        public RelayCommand ClosedCommand
-        {
-            get => _closedCommand ?? (_closedCommand = new RelayCommand((() => { inboxtimer.Stop(); chattimer.Stop(); })));
-        }
-
-
-
         private RelayCommand _starredCommand;
-
-        public RelayCommand StarredCommand => _starredCommand ?? (_starredCommand = new RelayCommand(
-        () =>
-        {
-            SelectedItem = null;
-            SelectedColumn = 2;
-            inboxtimer.Stop(); chattimer.Stop();
-        }));
 
 
         private RelayCommand _addChatRoomPrivate;
@@ -189,6 +144,59 @@ namespace Asana.ViewModel
                 (() => navigationService.NavigateTo(ViewType.ListChannels)
                 )));
         }
+
+        #endregion
+
+        #region Inbox
+        private readonly Timer inboxtimer;
+
+        private ObservableCollection<dynamic> inbox;
+
+        public ObservableCollection<dynamic> Inbox
+        {
+            get { return inbox; }
+            set { inbox = value; Set(ref inbox, value); }
+        }
+
+        private RelayCommand _inboxCommand;
+
+        public RelayCommand InboxCommand => _inboxCommand ?? (_inboxCommand = new RelayCommand(
+        () =>
+        {
+            SelectedItem = null;
+            if (ChatService.GetAllMails().Count != 0)
+                SelectedColumn = 1;
+            else
+                SelectedColumn = 0;
+            inboxtimer.Start();
+        }));
+
+
+        #endregion
+
+        #region Starred
+
+        public RelayCommand StarredCommand => _starredCommand ?? (_starredCommand = new RelayCommand(
+        () =>
+        {
+            SelectedItem = null;
+            SelectedColumn = 2;
+            inboxtimer.Stop(); chattimer.Stop();
+        }));
+
+
+        #endregion
+
+        #region UserControl
+
+        private RelayCommand _closedCommand;
+
+        public RelayCommand ClosedCommand
+        {
+            get => _closedCommand ?? (_closedCommand = new RelayCommand((() => { inboxtimer.Stop(); chattimer.Stop(); })));
+        }
+
+
 
         private RelayCommand _loadedCommand;
 
@@ -217,35 +225,23 @@ namespace Asana.ViewModel
             //ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
         }
 
-
-        #endregion
-
-        private object header;
-
-        public object Header
-        {
-            get { return header; }
-            set { header = value; Set(ref header, value); }
-        }
-
-
         private void ChatItemsRefresh(object sender, ElapsedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() =>
             {
                 ChatItems.Clear();
-                if(SelectedItem != null)
-                ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach((x) =>
-                {
-                    ChatItems.Add(new
+                if (SelectedItem != null)
+                    ChatService.GetSelectedChannelMessages(SelectedItem.ID).ToList().ForEach((x) =>
                     {
-                        x.ID,
-                        x.UserId,
-                        x.ChatRoomId,
-                        x.Body,
-                        x.SendTime
+                        ChatItems.Add(new
+                        {
+                            x.ID,
+                            x.UserId,
+                            x.ChatRoomId,
+                            x.Body,
+                            x.SendTime
+                        });
                     });
-                });
                 ChatSelectedItem = ChatItems[ChatItems.Count - 1];
             });
         }
@@ -262,6 +258,7 @@ namespace Asana.ViewModel
                         x.ID,
                         x.UserId,
                         x.SenderEmail,
+                        x.Marked,
                         Body = x.Title + " - " + x.Body,
                         SendTime = x.SendTime.ToShortDateString()
                     });
@@ -269,6 +266,14 @@ namespace Asana.ViewModel
             });
         }
 
+
+        private object header;
+
+        public object Header
+        {
+            get { return header; }
+            set { header = value; Set(ref header, value); }
+        }
 
         private readonly NavigationService navigationService;
 
@@ -287,9 +292,9 @@ namespace Asana.ViewModel
             chattimer = new Timer(500);
             inboxtimer.Elapsed += InboxItemsRefresh;
             chattimer.Elapsed += ChatItemsRefresh;
-            
-        }
 
+        }
+        #endregion
 
     }
 }

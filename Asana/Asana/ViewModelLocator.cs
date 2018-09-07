@@ -48,6 +48,7 @@ namespace Asana
             createProjectViewModel = new CreateProjectViewModel(navigationService);
             projectPageViewModel = new ProjectPageViewModel(navigationService);
             listChannelsViewModel = new ListChannelsViewModel(navigationService);
+            chatViewModel = new ChatViewModel(navigationService);
 
             navigationService.AddPage(signUpViewModel, ViewType.SignUp);
             navigationService.AddPage(confirmationCodeViewModel, ViewType.ConfirmCode);
