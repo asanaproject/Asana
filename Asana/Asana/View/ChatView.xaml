@@ -180,9 +180,9 @@
                         <RowDefinition/>
                         <RowDefinition Height="45"/>
                     </Grid.RowDefinitions>
-                    <ListBox ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectedItem="{Binding ChatSelectedItem}" ItemsSource="{Binding ChatItems}">
-
-                        <ListBox.ItemTemplate>
+                        <ListBox ItemsSource="{Binding ChatItems}" SelectedItem="{Binding ChatSelectedItem}"  tools:ListBoxBehavior.ScrollOnNewItem="true" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" >
+                            
+                            <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding .}">
                                     <ContentControl.Style>

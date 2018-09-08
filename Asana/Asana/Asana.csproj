@@ -199,6 +199,7 @@
     <Compile Include="Tools\FileHelper.cs" />
     <Compile Include="Tools\Hasher.cs" />
     <Compile Include="Tools\HtmlParser.cs" />
+    <Compile Include="Tools\ListBoxBehavior.cs" />
     <Compile Include="Tools\NotifyClass.cs" />
     <Compile Include="Tools\PasswordHasher.cs" />
     <Compile Include="Tools\ProfilePhoto.cs" />
