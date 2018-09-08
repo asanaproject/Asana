@@ -193,6 +193,9 @@ namespace Asana.ViewModel
 
         private void ChatItemsRefresh(object sender, ElapsedEventArgs e)
         {
+
+            if (SelectedItem == null)
+                return;
             var listed = ChatService.GetSelectedChannelMessages(SelectedItem.ID);
             App.Current.Dispatcher.Invoke(() =>
             {

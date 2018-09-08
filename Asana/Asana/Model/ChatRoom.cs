@@ -20,7 +20,7 @@ namespace Asana.Model
         [Required,MaxLength(500)]
         public string Desc { get; set; }
 
-        public ChatRoomType Type { get; set; }
+        public ChatRoomType ChatRoomType { get; set; }
 
         public virtual ICollection<ChatRoomUsers> Users { get; set; }
     }

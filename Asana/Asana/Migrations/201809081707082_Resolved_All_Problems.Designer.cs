@@ -7,13 +7,13 @@ namespace Asana.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Name_Length_Setted_100 : IMigrationMetadata
+    public sealed partial class Resolved_All_Problems : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Name_Length_Setted_100));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Resolved_All_Problems));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809081509120_Name_Length_Setted_100"; }
+            get { return "201809081707082_Resolved_All_Problems"; }
         }
         
         string IMigrationMetadata.Source
