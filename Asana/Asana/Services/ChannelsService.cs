@@ -20,7 +20,7 @@ namespace Asana.Services
             {
                 using (var dbContext = new AsanaDbContext())
                 {
-                    ChatRoom chat = new ChatRoom() { Name = name, Type = chatRoomType, Desc = "Don't have description." };
+                    ChatRoom chat = new ChatRoom() { Name = name, ChatRoomType = chatRoomType, Desc = "Don't have description." };
                     dbContext.ChatRooms.Add(chat);
                     dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = CurrentUser.Instance.User.Id, ChatRoomId = chat.ID });
                     dbContext.SaveChanges();
@@ -44,7 +44,7 @@ namespace Asana.Services
                     var friendUser = dbContext.Users.Single(x => x.Email == email);
                     if (friendUser == null || dbContext.ChatRooms.Any(x=>x.Name == email + " - " + CurrentUser.Instance.User.Email))
                         throw new Exception();
-                    ChatRoom chat = new ChatRoom() { Name = email + " - " + CurrentUser.Instance.User.Email, Type = chatRoomType, Desc = "Don't have description." };
+                    ChatRoom chat = new ChatRoom() { Name = email + " - " + CurrentUser.Instance.User.Email, ChatRoomType = chatRoomType, Desc = "Don't have description." };
                     dbContext.ChatRooms.Add(chat);
                     dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = CurrentUser.Instance.User.Id, ChatRoomId = chat.ID });
                     dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = friendUser.Id, ChatRoomId = chat.ID });
@@ -106,7 +106,7 @@ namespace Asana.Services
                 ObservableCollection<ChatRoom> listId = new ObservableCollection<ChatRoom>();
                 foreach (var cru in dbContext.ChatRoomUsers.ToList())
                 {
-                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId ).Type == ChatRoomType.Public && cru.UserId == CurrentUser.Instance.User.Id)
+                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId ).ChatRoomType == ChatRoomType.Public && cru.UserId == CurrentUser.Instance.User.Id)
                         listId.Add(dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId));
                 }
                 return listId;
@@ -120,7 +120,7 @@ namespace Asana.Services
                 ObservableCollection<ChatRoom> listId = new ObservableCollection<ChatRoom>();
                 foreach (var cru in dbContext.ChatRoomUsers.ToList())
                 {
-                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).Type == ChatRoomType.Private && cru.UserId == CurrentUser.Instance.User.Id)
+                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).ChatRoomType == ChatRoomType.Private && cru.UserId == CurrentUser.Instance.User.Id)
                         listId.Add(dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId));
                 }
                 return listId;
@@ -134,12 +134,12 @@ namespace Asana.Services
                 ObservableCollection<ChatRoom> listId = new ObservableCollection<ChatRoom>();
                 foreach (var cru in dbContext.ChatRoomUsers.ToList())
                 {
-                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).Type == ChatRoomType.Direct && cru.UserId == CurrentUser.Instance.User.Id)
+                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).ChatRoomType == ChatRoomType.Direct && cru.UserId == CurrentUser.Instance.User.Id)
                     {
                         var xy = dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId);
                         int id = dbContext.ChatRoomUsers.Single(x => x.ChatRoomId == xy.ID && x.UserId != CurrentUser.Id).UserId;
                         string name = dbContext.Users.Single(y => y.Id == id).FullName;
-                        listId.Add(new ChatRoom() { ID = xy.ID , Desc = xy.Desc,Name = name,Type = xy.Type});
+                        listId.Add(new ChatRoom() { ID = xy.ID , Desc = xy.Desc,Name = name, ChatRoomType = xy.ChatRoomType });
                     }
                 }
                 return listId;
