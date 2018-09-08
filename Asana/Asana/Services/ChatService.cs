@@ -30,50 +30,79 @@ namespace Asana.Services
             }
         }
 
-        public ObservableCollection<Message> GetSelectedChannelMessages(int ChatRoomId)
+        public ObservableCollection<dynamic> GetSelectedChannelMessages(int ChatRoomId)
         {
             try
             {
-                ObservableCollection<Message> messages = new ObservableCollection<Message>();
+                ObservableCollection<dynamic> messages = new ObservableCollection<dynamic>();
                 using (var db = new AsanaDbContext())
-                    db.Messages.Where(x => x.ChatRoomId == ChatRoomId).ToList().ForEach(x => messages.Add(x));    
+                    db.Messages.Where(x => x.ChatRoomId == ChatRoomId).ToList().ForEach(x => messages.Add(new
+                    {
+                        x.ID,
+                        x.UserId,
+                        x.ChatRoomId,
+                        x.Body,
+                        x.SendTime
+                    }));    
                 return messages;
             }
             catch(Exception err)
             {
                 Log.Error(err.Message);
-                return new ObservableCollection<Message>();
+                return new ObservableCollection<dynamic>();
             }
         }
 
-        public ObservableCollection<Mail> GetAllUnFavoritesMails()
+        public ObservableCollection<dynamic> GetAllUnFavoritesMails()
         {
             try
             {
-                ObservableCollection<Mail> messages = new ObservableCollection<Mail>();
+                ObservableCollection<dynamic> messages = new ObservableCollection<dynamic>();
                 using (var db = new AsanaDbContext())
-                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id && x.Favorite == false).ToList().ForEach(x => messages.Add(x));
+                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id && x.Favorite == false).ToList().ForEach(x => messages.Add(new
+                    {
+                        x.ID,
+                        x.Title,
+                        x.UserId,
+                        x.SenderEmail,
+                        x.Marked,
+                        x.BodyHtml,
+                        x.Favorite,
+                        Body = x.Title + " - " + x.Body,
+                        SendTime = x.SendTime.ToShortDateString()
+                    }));
                 return messages;
             }
             catch (Exception err)
             {
                 Log.Error(err.Message);
-                return new ObservableCollection<Mail>();
+                return new ObservableCollection<dynamic>();
             }
         }
-        public ObservableCollection<Mail> GetAllFavoritesMails()
+        public ObservableCollection<dynamic> GetAllFavoritesMails()
         {
             try
             {
-                ObservableCollection<Mail> messages = new ObservableCollection<Mail>();
+                ObservableCollection<dynamic> messages = new ObservableCollection<dynamic>();
                 using (var db = new AsanaDbContext())
-                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id && x.Favorite == true).ToList().ForEach(x => messages.Add(x));
+                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id && x.Favorite == true).ToList().ForEach(x => messages.Add(new
+                    {
+                        x.ID,
+                        x.Title,
+                        x.UserId,
+                        x.SenderEmail,
+                        x.Marked,
+                        x.BodyHtml,
+                        x.Favorite,
+                        Body = x.Title + " - " + x.Body,
+                        SendTime = x.SendTime.ToShortDateString()
+                    }));
                 return messages;
             }
             catch (Exception err)
             {
                 Log.Error(err.Message);
-                return new ObservableCollection<Mail>();
+                return new ObservableCollection<dynamic>();
             }
         }
 
