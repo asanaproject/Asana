@@ -41,13 +41,14 @@ namespace Asana.ViewModel
         public int SelectedColumn
         {
             get { return selectedColumn; }
-            set {
+            set
+            {
                 Set(ref selectedColumn, value);
-                if(value == 0 || value == 1)
+                if (value == 0 || value == 1)
                 {
                     ColumnTitle = "#Inbox";
                 }
-                else if(value == 2 || value == 5)
+                else if (value == 2 || value == 5)
                 {
                     ColumnTitle = "#Starred";
                 }
@@ -59,7 +60,6 @@ namespace Asana.ViewModel
         }
 
 
-
         #region Channels
         private readonly Timer chattimer;
         private object chatSelectedItem;
@@ -67,7 +67,7 @@ namespace Asana.ViewModel
         public object ChatSelectedItem
         {
             get { return chatSelectedItem; }
-            set { Set(ref chatSelectedItem, value);  }
+            set { Set(ref chatSelectedItem, value); }
         }
 
         private ObservableCollection<ChatRoom> privateChannels;
@@ -111,7 +111,7 @@ namespace Asana.ViewModel
             {
                 Set(ref selectedItem, value);
                 SelectedColumn = 3;
-                if(value != null)
+                if (value != null)
                     ColumnTitle = "#" + value.Name;
                 ChatItems.Clear();
                 chattimer.Start();
@@ -129,8 +129,7 @@ namespace Asana.ViewModel
             chatRoomAdd.ShowDialog();
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
-            ChannelsService.InsertRoom(channelname);
-
+            if (ChannelsService.InsertRoom(channelname)) ;
             ChatRoomDatas();
         }));
 
@@ -166,9 +165,22 @@ namespace Asana.ViewModel
             chatRoomAdd.ShowDialog();
             WindowBluringCustom.Normal();
             string channelname = chatRoomAdd.GetName();
-            ChannelsService.InsertRoom(channelname,ChatRoomType.Private);
+            if (ChannelsService.InsertRoom(channelname, ChatRoomType.Private)) ;
             ChatRoomDatas();
         }));
+
+        private RelayCommand _addDirectMessage;
+        public RelayCommand AddDirectMessage => _addDirectMessage ?? (_addDirectMessage = new RelayCommand(
+      () =>
+      {
+          WindowBluringCustom.Bluring();
+          ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Friend Email");
+          chatRoomAdd.ShowDialog();
+          WindowBluringCustom.Normal();
+          string channelname = chatRoomAdd.GetName();
+          if (ChannelsService.InsertDirectMessage(channelname));
+            ChatRoomDatas();
+      }));
 
         private RelayCommand _channelListCommand;
         public RelayCommand ChannelListCommand
@@ -227,7 +239,7 @@ namespace Asana.ViewModel
 
         public void SelectedItemInbox_Change(dynamic obj)
         {
-            if(obj.BodyHtml != null)
+            if (obj.BodyHtml != null)
                 FileHelper.WriteBytesToFileWithStrin(obj.BodyHtml);
             else
                 FileHelper.WriteTextToFile(obj.Body);
@@ -250,18 +262,18 @@ namespace Asana.ViewModel
                 Inbox.Clear();
                 ChatService.GetAllUnFavoritesMails().ToList().ForEach((x) =>
                 {
-                        Inbox.Add(new
-                        {
-                            x.ID,
-                            x.Title,
-                            x.UserId,
-                            x.SenderEmail,
-                            x.Marked,
-                            x.BodyHtml,
-                            x.Favorite,
-                            Body = x.Title + " - " + x.Body,
-                            SendTime = x.SendTime.ToShortDateString()
-                        });
+                    Inbox.Add(new
+                    {
+                        x.ID,
+                        x.Title,
+                        x.UserId,
+                        x.SenderEmail,
+                        x.Marked,
+                        x.BodyHtml,
+                        x.Favorite,
+                        Body = x.Title + " - " + x.Body,
+                        SendTime = x.SendTime.ToShortDateString()
+                    });
                 });
                 if (Inbox.Count == 0)
                     SelectedColumn = 0;

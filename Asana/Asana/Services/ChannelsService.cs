@@ -1,5 +1,6 @@
 ﻿using Asana.Model;
 using Asana.Objects;
+using Asana.Tools;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Asana.Services
             {
                 using (var dbContext = new AsanaDbContext())
                 {
-                    ChatRoom chat = new ChatRoom() { Name = name, Type = chatRoomType, Desc = "Desccc" };
+                    ChatRoom chat = new ChatRoom() { Name = name, Type = chatRoomType, Desc = "Don't have description." };
                     dbContext.ChatRooms.Add(chat);
                     dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = CurrentUser.Instance.User.Id, ChatRoomId = chat.ID });
                     dbContext.SaveChanges();
@@ -29,6 +30,31 @@ namespace Asana.Services
             catch (Exception err)
             {
                 Log.Error(err.Message);
+                return false;
+            }
+
+        }
+
+        public bool InsertDirectMessage(string email, ChatRoomType chatRoomType = ChatRoomType.Direct)
+        {
+            try
+            {
+                using (var dbContext = new AsanaDbContext())
+                {
+                    var friendUser = dbContext.Users.Single(x => x.Email == email);
+                    if (friendUser == null || dbContext.ChatRooms.Any(x=>x.Name == email + " - " + CurrentUser.Instance.User.Email))
+                        throw new Exception();
+                    ChatRoom chat = new ChatRoom() { Name = email + " - " + CurrentUser.Instance.User.Email, Type = chatRoomType, Desc = "Don't have description." };
+                    dbContext.ChatRooms.Add(chat);
+                    dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = CurrentUser.Instance.User.Id, ChatRoomId = chat.ID });
+                    dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = friendUser.Id, ChatRoomId = chat.ID });
+                    dbContext.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception err)
+            {
+                Errors.SeacrhFriendErrorMsg();
                 return false;
             }
 
