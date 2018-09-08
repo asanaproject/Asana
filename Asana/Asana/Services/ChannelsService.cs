@@ -100,5 +100,24 @@ namespace Asana.Services
                 return listId;
             }
         }
+
+        public ObservableCollection<ChatRoom> GetListDirectChannelsId()
+        {
+            using (var dbContext = new AsanaDbContext())
+            {
+                ObservableCollection<ChatRoom> listId = new ObservableCollection<ChatRoom>();
+                foreach (var cru in dbContext.ChatRoomUsers.ToList())
+                {
+                    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).Type == ChatRoomType.Direct && cru.UserId == CurrentUser.Instance.User.Id)
+                    {
+                        var xy = dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId);
+                        int id = dbContext.ChatRoomUsers.Single(x => x.ChatRoomId == xy.ID && x.UserId != CurrentUser.Id).UserId;
+                        string name = dbContext.Users.Single(y => y.Id == id).FullName;
+                        listId.Add(new ChatRoom() { ID = xy.ID , Desc = xy.Desc,Name = name,Type = xy.Type});
+                    }
+                }
+                return listId;
+            }
+        }
     }
 }
