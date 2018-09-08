@@ -14,7 +14,7 @@ namespace Asana.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required, MaxLength(25)]
+        [Required, MaxLength(100)]
         public string Name { get; set; }
 
         [Required,MaxLength(500)]

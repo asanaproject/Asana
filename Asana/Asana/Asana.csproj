@@ -155,6 +155,10 @@
     <Compile Include="Migrations\201809072217411_Added_Favorite_Column_To_Mails.Designer.cs">
       <DependentUpon>201809072217411_Added_Favorite_Column_To_Mails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809081509120_Name_Length_Setted_100.cs" />
+    <Compile Include="Migrations\201809081509120_Name_Length_Setted_100.Designer.cs">
+      <DependentUpon>201809081509120_Name_Length_Setted_100.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -359,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809072217411_Added_Favorite_Column_To_Mails.resx">
       <DependentUpon>201809072217411_Added_Favorite_Column_To_Mails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081509120_Name_Length_Setted_100.resx">
+      <DependentUpon>201809081509120_Name_Length_Setted_100.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

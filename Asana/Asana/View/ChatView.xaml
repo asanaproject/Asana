@@ -504,7 +504,7 @@
                                     <ColumnDefinition Width="0.2*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Padding="15,0,0,0" Foreground="#777777" FontSize="15">DIRECT MESSAGES</TextBlock>
-                                <Button  Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus2}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
+                                <Button Command="{Binding AddDirectMessage}" Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus2}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}">
                                             <Setter Property="Cursor" Value="Hand"/>
