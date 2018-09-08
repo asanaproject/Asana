@@ -155,5 +155,20 @@ namespace Asana.Services
                 Log.Error(err.Message);
             }
         }
+        public void MarkedAllMail()
+        {
+            try
+            {
+                using (var db = new AsanaDbContext())
+                {
+                    db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id).ToList().ForEach(x => x.Marked = true);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.Message);
+            }
+        }
     }
 }

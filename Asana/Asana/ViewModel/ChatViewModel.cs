@@ -35,6 +35,12 @@ namespace Asana.ViewModel
             set { Set(ref columnTitle, value); }
         }
 
+        private void StopAllTimers()
+        {
+            inboxtimer.Stop();
+            chattimer.Stop();
+            starredTimer.Stop();
+        }
 
         private int selectedColumn;
 
@@ -52,10 +58,7 @@ namespace Asana.ViewModel
                 {
                     ColumnTitle = "#Starred";
                 }
-
-                inboxtimer.Stop();
-                starredTimer.Stop();
-                chattimer.Stop();
+                StopAllTimers();
             }
         }
 
@@ -111,6 +114,7 @@ namespace Asana.ViewModel
             {
                 Set(ref selectedItem, value);
                 SelectedColumn = 3;
+                StopAllTimers();
                 if (value != null)
                     ColumnTitle = "#" + value.Name;
                 ChatItems.Clear();
@@ -218,9 +222,8 @@ namespace Asana.ViewModel
         public ObservableCollection<dynamic> Inbox
         {
             get { return inbox; }
-            set { inbox = value; Set(ref inbox, value); }
+            set { Set(ref inbox, value); }
         }
-
 
         private string urlForMail;
 
@@ -260,14 +263,23 @@ namespace Asana.ViewModel
                 {
                     Inbox.Clear();
                     listed.ForEach((x) => Inbox.Add(x));
+                    if (Inbox.Count == 0 && (SelectedColumn == 1 || SelectedColumn == 0))
+                        SelectedColumn = 0;
+                    else if (SelectedColumn != 1 && Inbox.Count != 0 && (SelectedColumn == 1 || SelectedColumn == 0))
+                        SelectedColumn = 1;
                 }
-                if (Inbox.Count == 0)
-                    SelectedColumn = 0;
-                else if (SelectedColumn != 1 && Inbox.Count != 0)
-                    SelectedColumn = 1;
             });
         }
 
+        private RelayCommand _markAllReadCommand;
+
+        public RelayCommand MarkAllReadCommand => _markAllReadCommand ?? (_markAllReadCommand = new RelayCommand(
+        () =>
+        {
+            ChatService.MarkedAllMail();
+            Inbox.Clear();
+            ChatService.GetAllUnFavoritesMails().ToList().ForEach(x=>Inbox.Add(x));
+        }));
 
 
         private RelayCommand _inboxCommand;
@@ -334,11 +346,11 @@ namespace Asana.ViewModel
                 {
                     StarredList.Clear();
                     listed.ForEach((x) => StarredList.Add(x));
+                    if (StarredList.Count == 0 && (SelectedColumn == 2 || SelectedColumn == 5))
+                        SelectedColumn = 2;
+                    else if (SelectedColumn != 5 && StarredList.Count != 0 && (SelectedColumn == 2 || SelectedColumn == 5))
+                        SelectedColumn = 5;
                 }
-                if (StarredList.Count == 0)
-                    SelectedColumn = 2;
-                else if (SelectedColumn != 5 && StarredList.Count != 0)
-                    SelectedColumn = 5;
             });
         }
 

@@ -3,6 +3,7 @@ using Asana.Navigation;
 using Asana.Objects;
 using Asana.Services;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +30,7 @@ namespace Asana.ViewModel
         public ObservableCollection<ChatRoom> ChatRooms
         {
             get { return chatRooms; }
-            set { chatRooms = value; Set(ref chatRooms, value); }
+            set { Set(ref chatRooms, value); }
         }
 
         private ChatRoom selectedItem;
@@ -37,31 +38,28 @@ namespace Asana.ViewModel
         public ChatRoom SelectedItem
         {
             get { return selectedItem; }
-            set { selectedItem = value; Set(ref selectedItem, value); }
+            set { Set(ref selectedItem, value); }
         }
 
+        private RelayCommand _loadedCommand;
 
-        private GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom> _joinCommand;
-
-        //public GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom> JoinCommand => _joinCommand ?? (_joinCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom>(
-        //x =>
-        //{
-        //    //using (var db = new AsanaDbContext())
-        //    //{
-        //    //    db.ChatRooms.Single(y => y.ID == x.ID).Users.Add(CurrentUser.Instance.User);
-        //    //}
-        //    channelService.JoinRoom(x.ID);
-        //    ChatRooms.Remove(x);
-        //    MessageBox.Show("Your joined " + x.Name + "!", "Channel", MessageBoxButton.OK, MessageBoxImage.Information);
-        //}));
-
-        public void UpdateSource()
+        public RelayCommand LoadedCommand
         {
-            //using (var db = new AsanaDbContext())
-            //{
-            //    var tmp = db.ChatRooms.ToList().Where(x => x.Users.ToList().Exists(y => y == CurrentUser.Instance.User)).ToList();
-            //    tmp.ForEach(x => chatRooms.Add(x));
-            //}
+            get => _loadedCommand ?? (_loadedCommand = new RelayCommand((() => UpdateSource())));
         }
+
+
+        private RelayCommand<ChatRoom> _joinCommand;
+
+        public RelayCommand<ChatRoom> JoinCommand => _joinCommand ?? (_joinCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom>(
+        x =>
+        {
+            channelService.JoinRoom(x.ID);
+            ChatRooms.Remove(x);
+            MessageBox.Show("Your joined " + x.Name + "!", "Channel", MessageBoxButton.OK, MessageBoxImage.Information);
+        }));
+
+        public void UpdateSource() => channelService.GetListAllPublicChannelsNotJoined().ToList().ForEach(x => ChatRooms.Add(x));
+        
     }
 }

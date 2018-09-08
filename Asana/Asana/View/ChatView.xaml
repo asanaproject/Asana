@@ -39,6 +39,17 @@
         <Image x:Key="plusw1" Source="../Resources/Images/plus1.png"></Image>
         <Image x:Key="plusw2" Source="../Resources/Images/plus1.png"></Image>
         <Image x:Key="plusw3" Source="../Resources/Images/plus1.png"></Image>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="m_nav_menu1" TargetType="{x:Type Button}"  >
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
@@ -229,11 +240,12 @@
         <DataTemplate x:Key="InboxList">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="70"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Rectangle Fill="White"/>
                 <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
+                <Button Command="{Binding MarkAllReadCommand}" Cursor="Hand" Margin="25 25 0 0" Width="98" FontSize="13" Height="20" Foreground="#008784" Background="Transparent" HorizontalAlignment="Left" BorderBrush="Transparent">MARK ALL READ</Button>
                 <ListBox BorderThickness="0 0.8 0 0" BorderBrush="LightGray" Grid.Row="1" Padding="1"   SnapsToDevicePixels="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Background="White" SelectedItem="{Binding SelectedItemInbox}" ItemsSource="{Binding Inbox}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -241,6 +253,7 @@
                             <Setter Property="Padding" Value="10"/>
                             <Setter Property="BorderBrush" Value="LightGray"/>
                             <Setter Property="BorderThickness" Value="10 5 10 5"/>
+                            <Setter Property="Cursor" Value="Hand"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">

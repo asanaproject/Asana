@@ -28,7 +28,10 @@ namespace Asana.ViewModel
         public RelayCommand DiscussCommand
         {
             get => _discussCommand ?? (_discussCommand = new RelayCommand(
-                (() => navigation.NavigateTo(ViewType.ChatView)
+                (() => {
+                    timer.Stop();
+                    navigation.NavigateTo(ViewType.ChatView);
+                }
                 )));
         }
 
@@ -95,8 +98,6 @@ namespace Asana.ViewModel
         {
             get => _loadedCommand ?? (_loadedCommand = new RelayCommand((() =>
             {
-
-                
                 timer.Start();
             }
             )));
