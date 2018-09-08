@@ -51,6 +51,7 @@ namespace Asana.ViewModel
                 {
                     ColumnTitle = "#Starred";
                 }
+
                 inboxtimer.Stop();
                 starredTimer.Stop();
                 chattimer.Stop();
@@ -112,6 +113,7 @@ namespace Asana.ViewModel
                 SelectedColumn = 3;
                 if(value != null)
                     ColumnTitle = "#" + value.Name;
+                ChatItems.Clear();
                 chattimer.Start();
             }
         }
@@ -403,7 +405,7 @@ namespace Asana.ViewModel
             DirectMessages.Clear();
             ChannelsService.GetListPublicChannelsId().ToList().ForEach(x => PublicChannels.Add(x));
             ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
-            //ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
+            ChannelsService.GetListDirectChannelsId().ToList().ForEach(x => DirectMessages.Add(x));
         }
 
         private object header;
