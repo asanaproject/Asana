@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace Asana.ViewModel
 {
-     public class SendCodeEmailViewModel :ViewModelBase
+    public class SendCodeEmailViewModel : ViewModelBase
     {
         EmailHelper emailHelper = new EmailHelper();
         private readonly NavigationService navigation;
@@ -27,7 +27,7 @@ namespace Asana.ViewModel
         public string Email
         {
             get { return email; }
-            set { email = value; Set(ref email, value); }
+            set { Set(ref email, value); }
         }
 
         private RelayCommand _cancelCommand;
@@ -45,11 +45,9 @@ namespace Asana.ViewModel
 
                 if (RegexChecker.CheckEmail(Email))
                 {
-                    Task.Run(() =>
-                    {
-                        emailHelper.SendForgotPasswordCode(Email);
-                    });
-                   CurrentUser.Instance.User.Email=Email;
+                    emailHelper.SendForgotPasswordCode(Email);
+                    CurrentUser.Instance.User.Email = Email;
+                    CurrentUser.Instance.User.Id = -1;
                     navigation.NavigateTo(ViewType.ConfirmCode);
                 }
                 else

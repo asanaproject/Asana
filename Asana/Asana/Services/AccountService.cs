@@ -36,8 +36,8 @@ namespace Asana.Model
                 using (var db = new AsanaDbContext())
                 {
                     string email = CurrentUser.Instance.User.Email;
-                    var user = db.ExtraInfos.Single(users => users.Email == email);
-                    user.Password = Hasher.EncryptString(NewPassword);
+                    db.Users.Single(users => users.Email == email).Password = PasswordHasher.Hash(NewPassword);
+                    db.SaveChanges();
                     return true;
                 }
             }
