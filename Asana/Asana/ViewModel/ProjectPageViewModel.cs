@@ -43,9 +43,7 @@ namespace Asana.ViewModel
             {
                Columns.Add(new ColumnItemViewModel());
 
-            }
-
-));
+            }));
 
 
     }
