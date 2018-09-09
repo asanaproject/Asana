@@ -63,7 +63,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock FontSize="23" FontWeight="Bold" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontFamily="Calibri">Member Login</TextBlock>
-                    <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="2" BorderThickness="6" Background="#E6E6E6" CornerRadius="19">
+                    <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="60" Width="270"  Grid.Column="1" Grid.Row="2" BorderThickness="6" Background="#E6E6E6" CornerRadius="19">
                         <Grid HorizontalAlignment="Stretch"  >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.25*"/>
@@ -87,7 +87,7 @@
                         </Grid>
                     </Border>
 
-                    <Border  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="3" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
+                    <Border  HorizontalAlignment="Center" Height="53" Width="268" VerticalAlignment="Top" Grid.Column="1" Grid.Row="3" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.25*"/>
@@ -112,7 +112,7 @@
                         </Grid>
                     </Border>
 
-                    <Border VerticalAlignment="Stretch"  BorderThickness="1" Background="#5AB742"  CornerRadius="20" Grid.Column="1" Grid.Row="4">
+                    <Border VerticalAlignment="Top" Width="270" Height="40" BorderThickness="1" Background="#5AB742"  CornerRadius="20" Grid.Column="1" Grid.Row="4">
                         <Button BorderBrush="Transparent" Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" >
                             LOGIN
                         </Button>
