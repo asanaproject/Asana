@@ -21,6 +21,7 @@ namespace Asana.Tools
                 Opacity = 0.4,
                 AllowsTransparency = true,
                 WindowStyle = WindowStyle.None,
+                ShowInTaskbar = false,
                 WindowState = Application.Current.MainWindow.WindowState,
                 Width = Application.Current.MainWindow.Width,
                 Height = Application.Current.MainWindow.Height,
