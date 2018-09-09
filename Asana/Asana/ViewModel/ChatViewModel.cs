@@ -241,14 +241,18 @@ namespace Asana.ViewModel
 
         public void SelectedItemInbox_Change(dynamic obj)
         {
+            if(obj == null)
+            {
+                return;
+            }
             if (obj.BodyHtml != null)
                 FileHelper.WriteBytesToFileWithStrin(obj.BodyHtml);
             else
                 FileHelper.WriteTextToFile(obj.Body);
-            UrlForMail = FileHelper.GetTextFromFile(FileHelper.GetPath("//Resources//mail.html"));
             ChatService.SetMarked(obj.ID);
-            SelectedColumn = 4;
             ColumnTitle = ColumnTitle + " / " + obj.Title;
+            UrlForMail = FileHelper.GetTextFromFile(FileHelper.GetPath("//Resources//mail.html"));
+            SelectedColumn = 4;
         }
 
         public object SelectedItemInbox
@@ -293,7 +297,7 @@ namespace Asana.ViewModel
         public RelayCommand InboxCommand => _inboxCommand ?? (_inboxCommand = new RelayCommand(
         () =>
         {
-            SelectedItem = null;
+            NullAllProperties();
             if (ChatService.GetAllUnFavoritesMails().Count != 0)
                 SelectedColumn = 1;
             else
@@ -316,10 +320,16 @@ namespace Asana.ViewModel
         #region Starred
         private readonly Timer starredTimer;
 
+        public void NullAllProperties()
+        {
+            SelectedItem = null;
+            SelectedItemInbox = null;
+        }
+
         public RelayCommand StarredCommand => _starredCommand ?? (_starredCommand = new RelayCommand(
         () =>
         {
-            SelectedItem = null;
+            NullAllProperties();
             if (ChatService.GetAllFavoritesMails().Count != 0)
                 SelectedColumn = 5;
             else
@@ -446,6 +456,7 @@ namespace Asana.ViewModel
             inboxtimer.Elapsed += InboxItemsRefresh;
             starredTimer.Elapsed += StarredItemsRefresh;
             chattimer.Elapsed += ChatItemsRefresh;
+
         }
         #endregion
 

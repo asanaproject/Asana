@@ -397,7 +397,7 @@
                 </Grid.RowDefinitions>
                 <Rectangle Fill="White"/>
                 <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
-                <Border  Grid.Row="1"  BorderThickness="0 0.8 0 0" BorderBrush="LightGray">
+                <Border  Grid.Row="1" Background="White" BorderThickness="0 0.8 0 0" BorderBrush="LightGray">
                     <WebBrowser Grid.Row="1" tools:WebBrowserBehavior.Body="{Binding UrlForMail}" />
                 </Border>
             </Grid>
