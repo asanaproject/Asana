@@ -4,13 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Asana"
+        xmlns:model="clr-namespace:Asana.View"
         mc:Ignorable="d"
         Title="Asana" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="False"
+        WindowStyle="None"
+        Background="White"
+        >
+        <!--Dont Have Background-->
     <Window.Resources>
-        <ResourceDictionary Source="pack://application:,,,/Asana;component/Resources/DataTemplates.xaml"/>
+        
+            <ResourceDictionary Source="pack://application:,,,/Asana;component/Resources/DataTemplates.xaml"/>
+         
     </Window.Resources>
-    <Grid>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="10"
+            CaptionHeight="25"
+            GlassFrameThickness="0"
+            />
+    </WindowChrome.WindowChrome>
+    <!--<Grid>
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
-    </Grid>
+    </Grid>-->
 </Window>

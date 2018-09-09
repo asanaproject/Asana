@@ -17,6 +17,100 @@
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
+    <Style TargetType="{x:Type Button}" x:Key="WindowControlButtons">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Padding" Value="8"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.5"/>  
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Padding="6" Background="{TemplateBinding Background}">
+                        <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="LightGray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="WindowCloseButtons" BasedOn="{StaticResource WindowControlButtons}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="Red"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type v:AppView}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border > 
+                        <!--Padding - 5-->
+                        <Grid>
+                            <Border x:Name="Container"
+                                    Background="#efefef"
+                                    CornerRadius="10"/>
+                            
+                            <Border CornerRadius="15" Background="White">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0" Opacity="0.6" BlurRadius="5"/>
+                                </Border.Effect>
+                            </Border>
+
+                            <Grid>
+                                <Grid.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=Container}"/>
+                                </Grid.OpacityMask>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" Panel.ZIndex="1" >
+                                    <Grid.ColumnDefinitions>
+                                        <!--<ColumnDefinition Width="*"/>-->
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--<Viewbox Stretch="Uniform">
+                                        <TextBlock Text="Asana"></TextBlock>
+                                    </Viewbox>-->
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 5 0" >
+                                        <Button Command="{Binding MinimizeCommand}" Style="{StaticResource WindowControlButtons}" Content="_"></Button>
+                                        <Button Command="{Binding MaximizeCommand}" Style="{StaticResource WindowControlButtons}" Content="[]"></Button>
+                                        <Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButtons}" Content="X"></Button>
+                                    </StackPanel>
+                                </Grid>
+                                <!--<Border Grid.Row="1" Height="6" BorderThickness="0 0.2 0 0">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="White" Offset="0.0"/>
+                                            <GradientStop Color="#686868" Offset="0.5"/>
+                                            <GradientStop Color="White" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                </Border>-->
+                                <Border Grid.Row="0" Grid.RowSpan="2" Padding="6">
+                                    <ContentControl Content="{Binding CurrentViewModel}"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!-- Data Templates -->
     <DataTemplate DataType="{x:Type vm:LogInViewModel}">
         <v:LoginView/>

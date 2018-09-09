@@ -15,7 +15,6 @@
             </Image.RenderTransform>
         </Image>
         <DataTemplate x:Key="Slide1">
-            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -129,7 +128,10 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid Background="White">
+    <Grid  >
+        <Grid.Background>
+            <ImageBrush ImageSource="../Resources/Images/bg3.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,350,350" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.8*"/>
             <RowDefinition Height="0.2*"></RowDefinition>
@@ -160,7 +162,7 @@
                     </Style>
                 </ContentControl.Style>
             </ContentControl>
-            
+
             <Button Opacity="0.4" Command="{Binding BackSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
             <Button Opacity="0.4" Command="{Binding NextSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
 
