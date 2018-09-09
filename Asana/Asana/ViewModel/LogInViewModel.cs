@@ -53,13 +53,16 @@ namespace Asana.ViewModel
         public RelayCommand LogInBtnCommand => _logInBtnCommand ?? (_logInBtnCommand = new RelayCommand(
                    () =>
                    {
-                       if (accountService.LoginControl(Email, Password))
+                       System.Threading.Tasks.Task.Run(() =>
                        {
-                           CheckLoginLog.Save(Email);
-                           navigation.NavigateTo(ViewType.Home);
-                       }
-                       else
-                           Errors.LoginErrorMsg();
+                           if (accountService.LoginControl(Email, Password))
+                           {
+                               CheckLoginLog.Save(Email);
+                               navigation.NavigateTo(ViewType.Home);
+                           }
+                           else
+                               Errors.LoginErrorMsg();
+                       });
                    }));
 
         private RelayCommand _forgotPassCommand;
