@@ -164,6 +164,7 @@
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\TaskService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Tools\BoundPasswordBox.cs" />
     <Compile Include="Tools\CheckLoginLog.cs" />
     <Compile Include="Tools\DbContext\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
@@ -181,7 +182,6 @@
     <Compile Include="Tools\DesktopNotifier.cs" />
     <Compile Include="Tools\EmailHelper.cs" />
     <Compile Include="Tools\FileHelper.cs" />
-    <Compile Include="Tools\Hasher.cs" />
     <Compile Include="Tools\HtmlParser.cs" />
     <Compile Include="Tools\ListBoxBehavior.cs" />
     <Compile Include="Tools\NotifyClass.cs" />

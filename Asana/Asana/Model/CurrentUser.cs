@@ -12,12 +12,12 @@ namespace Asana.Model
         public static string Username { get; set; } = "{{Username}}";
         public static int Id { get; set; } = 0;
 
-        private User user;
+        private User user = new User();
 
         public User User
         {
             get { return user; }
-            set { user = value; Username = user.Username; Id = user.Id; }
+            set { user = value;  if (value.Username != null) { Username = user.Username; Id = user.Id; } }
         }
 
         private CurrentUser() { }

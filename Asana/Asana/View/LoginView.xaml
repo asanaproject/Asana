@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:local="clr-namespace:Asana.View"
+             xmlns:tools="clr-namespace:Asana.Tools"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"  >
@@ -94,8 +95,13 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
-                            <TextBox Grid.Column="1"  Name="PassTxtbox" Text="{Binding Password}" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBox>
-
+                            <PasswordBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                         
+                                         x:Name="PassTxtbox" tools:BoundPasswordBox.Attach="True" tools:BoundPasswordBox.Password="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         >
+                                
+                            </PasswordBox>
+                            <!--<TextBox Text="{Binding Password}" ></TextBox>-->
                             <!-- Style For Textboxes-->
                             <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" IsHitTestVisible="False" Text="Password"  Foreground="DarkGray">
                                 <TextBlock.Style>
