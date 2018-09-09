@@ -1,0 +1,18 @@
+﻿<Window x:Class="Asana.View.ExtraWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:Asana.ViewModel"
+        xmlns:local="clr-namespace:Asana.View"
+        mc:Ignorable="d"
+        Title="ExtraWindow" Height="{Binding Height}" Width="{Binding Width}" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        
+        >
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/Asana;component/Resources/DataTemplates.xaml"/>
+    </Window.Resources>
+    <Grid>
+          <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding ContentWindow}"/>
+    </Grid>
+</Window>

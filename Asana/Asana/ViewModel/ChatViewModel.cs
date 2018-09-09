@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Timers;
+using Asana.View;
 
 namespace Asana.ViewModel
 {
@@ -128,13 +129,18 @@ namespace Asana.ViewModel
         public RelayCommand AddChatRoomChannels => _addChatRoomChannels ?? (_addChatRoomChannels = new RelayCommand(
         () =>
         {
-            WindowBluringCustom.Bluring();
-            ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Public Channel Name");
-            chatRoomAdd.ShowDialog();
-            WindowBluringCustom.Normal();
-            string channelname = chatRoomAdd.GetName();
-            if (ChannelsService.InsertRoom(channelname)) ;
-            ChatRoomDatas();
+            try
+            {
+                WindowBluringCustom.Bluring();
+                ExtraWindow extraWindow = new ExtraWindow(new ChatRoomAddViewModel(ChatRoomType.Public), 500, 160);
+                extraWindow.ShowDialog();
+                WindowBluringCustom.Normal();
+                ChatRoomDatas();
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }));
 
 
@@ -165,26 +171,36 @@ namespace Asana.ViewModel
         public RelayCommand AddChatRoomPrivate => _addChatRoomPrivate ?? (_addChatRoomPrivate = new RelayCommand(
         () =>
         {
-            WindowBluringCustom.Bluring();
-            ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Private Channel Name");
-            chatRoomAdd.ShowDialog();
-            WindowBluringCustom.Normal();
-            string channelname = chatRoomAdd.GetName();
-            if (ChannelsService.InsertRoom(channelname, ChatRoomType.Private)) ;
-            ChatRoomDatas();
+            try
+            {
+                WindowBluringCustom.Bluring();
+                ExtraWindow extraWindow = new ExtraWindow(new ChatRoomAddViewModel(ChatRoomType.Private), 500, 160);
+                extraWindow.ShowDialog();
+                WindowBluringCustom.Normal();
+                ChatRoomDatas();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }));
 
         private RelayCommand _addDirectMessage;
         public RelayCommand AddDirectMessage => _addDirectMessage ?? (_addDirectMessage = new RelayCommand(
       () =>
       {
-          WindowBluringCustom.Bluring();
-          ChatRoomAdd chatRoomAdd = new ChatRoomAdd("Friend Email");
-          chatRoomAdd.ShowDialog();
-          WindowBluringCustom.Normal();
-          string channelname = chatRoomAdd.GetName();
-          if (ChannelsService.InsertDirectMessage(channelname)) ;
-          ChatRoomDatas();
+          try
+          {
+              WindowBluringCustom.Bluring();
+              ExtraWindow extraWindow = new ExtraWindow(new ChatRoomAddViewModel(ChatRoomType.Direct), 500, 160);
+              extraWindow.ShowDialog();
+              WindowBluringCustom.Normal();
+              ChatRoomDatas();
+          }
+          catch (Exception err)
+          {
+              MessageBox.Show(err.Message);
+          }
       }));
 
         private RelayCommand _channelListCommand;
@@ -396,10 +412,10 @@ namespace Asana.ViewModel
 
         public void CheckInbox()
         {
-            if (ChatService.GetAllUnFavoritesMails().Count != 0)
-                SelectedColumn = 1;
-            else
-                SelectedColumn = 0;
+                if (ChatService.GetAllUnFavoritesMails().Count != 0)
+                    SelectedColumn = 1;
+                else
+                    SelectedColumn = 0;
 
         }
 

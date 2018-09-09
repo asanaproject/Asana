@@ -134,7 +134,7 @@
     <DataTemplate DataType="{x:Type vm:CreateProjectViewModel}">
         <v:ProjectsView/>
     </DataTemplate>
-    
+
     <DataTemplate DataType="{x:Type vm:ChatViewModel}">
         <v:ChatView/>
     </DataTemplate>
@@ -153,8 +153,9 @@
     <DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
         <v:ProjectAddView/>
     </DataTemplate>
-
-
+    <DataTemplate DataType="{x:Type vm:ChatRoomAddViewModel}">
+        <v:ChatRoomAddView/>
+    </DataTemplate>
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>

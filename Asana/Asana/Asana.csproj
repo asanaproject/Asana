@@ -194,7 +194,9 @@
     <Compile Include="Tools\WindowBluringCustom.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
+    <Compile Include="ViewModel\ChatRoomAddViewModel.cs" />
     <Compile Include="ViewModel\ColumnItemViewModel.cs" />
+    <Compile Include="ViewModel\ExtraWindowViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
     <Compile Include="ViewModel\ProjectAddViewModel.cs" />
@@ -214,11 +216,17 @@
     <Compile Include="View\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ChatRoomAddView.xaml.cs">
+      <DependentUpon>ChatRoomAddView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ChatView.xaml.cs">
       <DependentUpon>ChatView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ConfirmCodeView.xaml.cs">
       <DependentUpon>ConfirmCodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExtraWindow.xaml.cs">
+      <DependentUpon>ExtraWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ForgetPassView.xaml.cs">
       <DependentUpon>ForgetPassView.xaml</DependentUpon>
@@ -270,11 +278,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ChatRoomAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ChatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ConfirmCodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExtraWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -392,6 +408,11 @@
     <Resource Include="Resources\Images\column_setting.png" />
     <Resource Include="Resources\Images\starg.png" />
     <Resource Include="Resources\Images\stargfilled.png" />
+    <Resource Include="Resources\Images\directchannel.png" />
+    <Resource Include="Resources\Images\group.png" />
+    <Resource Include="Resources\Images\kisspng-computer-icons-font-awesome-user-clip-art-profile-5acac34e185f59.9826300415232377100998.png" />
+    <Resource Include="Resources\Images\privatechannel.png" />
+    <Resource Include="Resources\Images\publicchannel.png" />
     <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
