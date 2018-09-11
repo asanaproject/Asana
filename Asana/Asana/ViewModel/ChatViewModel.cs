@@ -222,10 +222,11 @@ namespace Asana.ViewModel
                 var listed = await ChatService.GetSelectedChannelMessages(SelectedItem.ID);
                 App.Current.Dispatcher.Invoke(() =>
                 {
+
                     if (SelectedItem != null && listed.Count != ChatItems.Count)
                     {
-                        var changedItems = listed.Count - ChatItems.Count;
-                        listed.Skip(ChatItems.Count).Take(listed.Count).ToList().ForEach(x => ChatItems.Add(x));
+                        ChatItems.Clear();
+                        listed.ToList().ForEach(x => ChatItems.Add(x));
                     }
                 });
             });
