@@ -47,13 +47,18 @@ namespace Asana.ViewModel
         public RelayCommand ConfirmCommand => confirmCommand ?? (confirmCommand = new RelayCommand(
                 () =>
                 {
-                    if (Randomizer.RandomKey.Equals(ConfirmationCode) && CurrentUser.Instance.User.Email != null && CurrentUser.Instance.User.Id == -1)
-                        navigation.NavigateTo(ViewType.ForgetPass);
-                    else if (Randomizer.RandomKey.Equals(ConfirmationCode))
-                        navigation.NavigateTo(ViewType.SignUp);
-                    else
-                        Errors.ConfirmCodeErrorMsg();
+                    Task.Run(()
+                      =>
+                  {
+                      if (Randomizer.RandomKey.Equals(ConfirmationCode) && CurrentUser.Instance.User.Email != null && CurrentUser.Instance.User.Id == -1)
+                          navigation.NavigateTo(ViewType.ForgetPass);
+                      else if (Randomizer.RandomKey.Equals(ConfirmationCode))
+                          navigation.NavigateTo(ViewType.SignUp);
+                      else
+                          Errors.ConfirmCodeErrorMsg();
+                  });
                 }
+
             ));
     }
 }
