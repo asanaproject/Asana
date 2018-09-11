@@ -59,7 +59,13 @@ namespace Asana.ViewModel
             MessageBox.Show("Your joined " + x.Name + "!", "Channel", MessageBoxButton.OK, MessageBoxImage.Information);
         }));
 
-        public void UpdateSource() => channelService.GetListAllPublicChannelsNotJoined().ToList().ForEach(x => ChatRooms.Add(x));
-        
+        public async void UpdateSource()
+        {
+            var result = await channelService.GetListAllPublicChannelsNotJoined();
+            int changedChannels1 = result.Count - ChatRooms.Count;
+            result.Skip(ChatRooms.Count).Take(changedChannels1).ToList().ForEach(x => ChatRooms.Add(x));
+
+        }
+
     }
 }
