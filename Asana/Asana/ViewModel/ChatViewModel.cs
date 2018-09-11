@@ -79,7 +79,7 @@ namespace Asana.ViewModel
         public ObservableCollection<ChatRoom> PrivateChannels
         {
             get { return privateChannels; }
-            set { privateChannels = value; Set(ref privateChannels, value); }
+            set { Set(ref privateChannels, value); }
         }
 
         private ObservableCollection<ChatRoom> directMessages;
@@ -87,7 +87,7 @@ namespace Asana.ViewModel
         public ObservableCollection<ChatRoom> DirectMessages
         {
             get { return directMessages; }
-            set { directMessages = value; Set(ref directMessages, value); }
+            set { Set(ref directMessages, value); }
         }
 
         private ObservableCollection<ChatRoom> publicChannels;
@@ -95,7 +95,7 @@ namespace Asana.ViewModel
         public ObservableCollection<ChatRoom> PublicChannels
         {
             get { return publicChannels; }
-            set { publicChannels = value; Set(ref publicChannels, value); }
+            set { Set(ref publicChannels, value); }
         }
 
 
@@ -104,7 +104,7 @@ namespace Asana.ViewModel
         public ObservableCollection<dynamic> ChatItems
         {
             get { return chatItems; }
-            set { chatItems = value; Set(ref chatItems, value); }
+            set { Set(ref chatItems, value); }
         }
 
         private ChatRoom selectedItem;
@@ -454,7 +454,6 @@ namespace Asana.ViewModel
             var directlist = await ChannelsService.GetListDirectChannelsId();
             int changedChannels3 = directlist.Count - DirectMessages.Count;
             directlist.Skip(DirectMessages.Count).Take(changedChannels3).ToList().ForEach(x => DirectMessages.Add(x));
-
         }
 
 
