@@ -161,6 +161,7 @@
     <Compile Include="Model\ChatRoomUsers.cs" />
     <Compile Include="Model\CurrentColumn.cs" />
     <Compile Include="Model\CurrentProject.cs" />
+    <Compile Include="Model\CurrentTask.cs" />
     <Compile Include="Model\Mail.cs" />
     <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Model\Message.cs" />

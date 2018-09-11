@@ -26,5 +26,7 @@ namespace Asana.Objects
         public virtual KanbanState KanbanState { get; set; }
 
         public DateTime Deadline { get; set; }
+
+        public bool IsTaskAdded { get; set; }
     }
 }

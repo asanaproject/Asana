@@ -1,5 +1,4 @@
-﻿using Asana.Objects;
-using Asana.Tools;
+﻿using Asana.ViewModel;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -9,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
-    public class CurrentColumn
+    public class CurrentColumn: ViewModelBase
     {
-        private CurrentColumn(){
-            //Column = new Column {ProjectId=3,Title="new column" };
+        private CurrentColumn()
+        {
+            Column = new ColumnItemViewModel();
         }
         private static CurrentColumn instance;
         public static CurrentColumn Instance
@@ -23,11 +23,16 @@ namespace Asana.Model
                 {
                     instance = new CurrentColumn();
                 }
-                return Instance;
+                return instance;
             }
         }
-     
+        private ColumnItemViewModel column;
 
+        public ColumnItemViewModel Column
+        {
+            get { return column; }
+            set {Set(ref column, value); }
+        }
 
     }
 }

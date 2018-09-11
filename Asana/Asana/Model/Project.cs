@@ -27,7 +27,6 @@ namespace Asana.Objects
         public int DashboardId { get; set; }
         public virtual Dashboard Dashboard { get; set; }
 
-        // public virtual ICollection<Column> Columns { get; set; }
         public virtual ICollection<UsersProjects> Users { get; set; }
         private ICollection<Column> column;
 

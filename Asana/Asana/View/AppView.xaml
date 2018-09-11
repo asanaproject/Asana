@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Asana" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
+
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/Asana;component/Resources/DataTemplates.xaml"/>
     </Window.Resources>

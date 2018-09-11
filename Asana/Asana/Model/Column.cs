@@ -33,6 +33,8 @@ namespace Asana.Objects
             get { return tasks; }
             set { tasks = value; }
         }
+        public bool IsColumnAdded { get; set; }
+
         public Column()
         {
             Tasks = new ObservableCollection<Task>();

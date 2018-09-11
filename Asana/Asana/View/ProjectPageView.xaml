@@ -8,7 +8,8 @@
              mc:Ignorable="d" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="Parent">
 
     <UserControl.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -20,7 +21,32 @@
         </LinearGradientBrush>
     </UserControl.Background>
     <UserControl.Resources>
-        
+
+        <Style TargetType="TextBox">
+            <!--<Setter Property="Background" Value="White"/>-->
+            <!--<Setter Property="BorderBrush" Value="Black"/>-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Name="Bd"
+                                             
+                                             Background="{TemplateBinding Background}" 
+                                             SnapsToDevicePixels="true">
+                            <ScrollViewer Name="PART_ContentHost" Background="{TemplateBinding Background}" 
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="PART_ContentHost" Property="Background" Value="#F5F5F5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
         <DataTemplate x:Key="AddColumnTemplate">
             <Border Padding="5" Background="WhiteSmoke">
                 <Grid >
@@ -31,9 +57,10 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Row="0" Grid.Column="0" Margin="0 0 2 0" Width="120px" FontSize="16" Name="ColumnTitleTxtBox" Text="{Binding Title}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"  Width="120" Text="Column title" IsHitTestVisible="False"  Foreground="DarkGray">
+                    <TextBox Grid.Row="0" Grid.Column="0" Margin="0 0 2 0" Width="150" Padding="2" Background="#F5F5F5"  FontSize="16" TextWrapping="Wrap" Name="ColumnTitleTxtBox" Text="{Binding Title}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" Padding="2"  VerticalAlignment="Center"  FontSize="16"  Width="150" Text="Column title" IsHitTestVisible="False"  Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -45,13 +72,35 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Button Grid.Row="0" Command="{Binding AddColumnCommand}" Grid.Column="1" Margin="2 0 0 0"  Content="Add" Name="AddBtn"/>
+                    <Button Grid.Row="0" Grid.Column="1" Content="{materialDesign:PackIcon Kind=Plus}" Command="{Binding DataContext.AddColumnCommand, ElementName=Parent}" Padding="0.2" CommandParameter="{Binding .}"  Margin="0 0 2 0" Width="30" Height="30" />
+                    <Button Grid.Row="0" Grid.Column="2" Content="{materialDesign:PackIcon Kind=Delete}" Command="{Binding DataContext.DeleteColumnCommand, ElementName=Parent}" Padding="0.2"  CommandParameter="{Binding .}"  Margin="2 0 0 0" Width="30" Height="30" />
+
                 </Grid>
             </Border>
         </DataTemplate>
 
-
+        <!--   Data template for task  -->
         <DataTemplate x:Key="AddTaskTemplate">
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0"/>
+                    <materialDesign:PackIcon Grid.Column="1" Grid.Row="1" Kind="DotsHorizontal" />
+                </Grid>
+            </Border>
+
+        </DataTemplate>
+
+
+        <!--  Data template for creating task     -->
+        <DataTemplate x:Key="CreateTaskTemplate">
             <Border Padding="5" Background="WhiteSmoke">
                 <Grid >
                     <Grid.RowDefinitions>
@@ -62,31 +111,68 @@
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Row="0" Grid.Column="0" Margin="0 0 2 0" Width="120px" FontSize="16"  Name="TitleTxtBox" Text="{Binding Title}"/>
+                    <TextBox Grid.Row="0" Grid.Column="0" IsEnabled="False" Margin="0 0 2 0" Width="150" TextWrapping="Wrap" FontSize="16"  Name="TitleTxtBox" Text="{Binding Title}"/>
                     <Grid Grid.Row="0" Grid.Column="1" >
-                         <Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Command="{Binding AddTaskCommand}" Content="{materialDesign:PackIcon Kind=Plus}"  Margin="0 0 2 0" Padding="0.2" Width="30" Height="30" />
-                        <Button Grid.Column="1" Content="{materialDesign:PackIcon Kind=Settings}" Margin="2 0 0 0" Padding="0.2" Width="30" Height="30"/>
+                        <Button Grid.Column="0" Command="{Binding DataContext.CreateTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}" Content="{materialDesign:PackIcon Kind=Plus}"  Margin="0 0 2 0" Padding="0.2" Width="30" Height="30" />
+                        <Button Grid.Column="1"  Name="MainButton" Content="{materialDesign:PackIcon Kind=Settings}" Margin="2 0 0 0" Padding="0.2" Width="30" Height="30">
+                            <Button.ContextMenu>
+                                <ContextMenu x:Name="MainContextMenu" >
+                                    <MenuItem Header="Delete" Command="{Binding ElementName=Parent, Path=DataContext.DeleteColumnCommand}" CommandParameter="{Binding .}">
+                                    </MenuItem>
+                                    <MenuItem Header="Edit" />
+                                </ContextMenu>
+                            </Button.ContextMenu>
+
+                            <Button.Triggers>
+                                <EventTrigger SourceName="MainButton" RoutedEvent="Button.Click">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainContextMenu" Storyboard.TargetProperty="(ContextMenu.IsOpen)">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <sys:Boolean>True</sys:Boolean>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Button.Triggers>
+                        </Button>
                     </Grid>
                     <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Column.Tasks}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Title" Grid.Column="0"/>
-                                    <TextBox Grid.Column="1" Text="{Binding TaskName}"/>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock  Text="Title" FontSize="13" Margin="0 2 0 0"  Grid.Row="0"/>
+                                    <TextBox Background="#F5F5F5" Grid.Row="1" Width="200" TextWrapping="Wrap" Padding="5"  Margin="0 0 0 5" FontSize="13" Text="{Binding TaskName}"/>
+                                    <TextBlock Grid.Row="2"  Margin="0 5 0 0"  FontSize="13" Text="Assigned to"/>
+                                    <ComboBox Grid.Row="3" Margin="0 0 0 5" FontSize="13" />
+                                    <Grid Grid.Row="4" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" Width="55" Height="25" VerticalAlignment="Center" Margin="5 0 5 0" Command="{Binding DataContext.AddTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}" FontSize="11" Content="ADD" Foreground="White"/>
+                                        <Button Grid.Column="1"  Width="55" Height="25" FontSize="11" VerticalAlignment="Center" Margin="5 0 5 0" Content="EDIT"/>
+                                        <Button Grid.Column="2" Width="100" VerticalAlignment="Center" Margin="10 0 10 0" Height="25" FontSize="11" Content="DISCARD" Command="{Binding DiscardTaskCommand}" Background="White"  Foreground="Purple" />
+                                    </Grid>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
+
                     </ListBox>
                 </Grid>
             </Border>
@@ -149,7 +235,7 @@
                             <ColumnDefinition Width="74*"/>
                             <ColumnDefinition Width="593*"/>
                         </Grid.ColumnDefinitions>
-                        <ListBox ItemsSource="{Binding Columns}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+                        <ListBox ItemsSource="{Binding Columns}" SelectedItem="{Binding Source={x:Static model:CurrentColumn.Instance},Path=Column}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel IsItemsHost="True" Orientation="Horizontal" FlowDirection="LeftToRight"/>
@@ -158,8 +244,8 @@
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="VerticalAlignment" Value="Top"/>
-                                    <Setter Property="Margin" Value="0 0 15 0"/>
-                                    <Setter Property="Template">                                        
+                                    <Setter Property="Margin" Value="5 0 10 0"/>
+                                    <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                 <Border Background="{TemplateBinding Background}">
@@ -182,7 +268,13 @@
 
                                                     <DataTrigger Binding="{Binding Path=ColumnIsAdded}" Value="True">
                                                         <Setter Property="ContentTemplate"
+                                                                Value="{StaticResource CreateTaskTemplate}" />
+
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=IsTaskAdded}" Value="True">
+                                                        <Setter Property="ContentTemplate"
                                                                 Value="{StaticResource AddTaskTemplate}" />
+
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
