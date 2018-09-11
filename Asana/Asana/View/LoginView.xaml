@@ -96,7 +96,7 @@
                             </Grid.ColumnDefinitions>
                             <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
                             <PasswordBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                         
+                                      
                                          x:Name="PassTxtbox" tools:BoundPasswordBox.Attach="True" tools:BoundPasswordBox.Password="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
                                          >
                                 
