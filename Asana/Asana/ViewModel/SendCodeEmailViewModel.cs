@@ -42,19 +42,24 @@ namespace Asana.ViewModel
         public RelayCommand SendCommand => _sendCommand ?? (_sendCommand = new RelayCommand(
             () =>
             {
+                Task.Run(
+                    () =>
+                    {
 
-                if (RegexChecker.CheckEmail(Email))
-                {
-                    emailHelper.SendForgotPasswordCode(Email);
-                    CurrentUser.Instance.User.Email = Email;
-                    CurrentUser.Instance.User.Id = -1;
-                    navigation.NavigateTo(ViewType.ConfirmCode);
-                }
-                else
-                {
-                    Errors.SendCodeErrorMsg();
-                    return;
-                }
+                        if (RegexChecker.CheckEmail(Email))
+                        {
+                            emailHelper.SendForgotPasswordCode(Email);
+                            CurrentUser.Instance.User.Email = Email;
+                            CurrentUser.Instance.User.Id = -1;
+                            navigation.NavigateTo(ViewType.ConfirmCode);
+                        }
+                        else
+                        {
+                            Errors.SendCodeErrorMsg();
+                            return;
+                        }
+
+                    });
             }
         ));
     }
