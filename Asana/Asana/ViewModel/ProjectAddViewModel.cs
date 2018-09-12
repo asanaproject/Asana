@@ -14,7 +14,10 @@ namespace Asana.ViewModel
     {
 
 
-        public ProjectAddViewModel() { }
+        public ProjectAddViewModel()
+        {
+            
+        }
 
 
         private RelayCommand closewindow;

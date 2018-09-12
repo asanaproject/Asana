@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Asana.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,12 @@ namespace Asana.View
     /// <summary>
     /// Interaction logic for ProjectAddView.xaml
     /// </summary>
-    public partial class ProjectAddView : Window
+    public partial class ProjectAddView : UserControl
     {
         public ProjectAddView()
         {
             InitializeComponent();
+            this.DataContext = new ProjectAddViewModel();
         }
     }
 }

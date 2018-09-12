@@ -2,7 +2,7 @@
 using Asana.Tools;
 using Asana.View;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +43,6 @@ namespace Asana.ViewModel
             }
             ));
 
-       
+
     }
 }
