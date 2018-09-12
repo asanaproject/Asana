@@ -239,7 +239,7 @@
 
                 <!--     HEADER    -->
                 <Grid Grid.Row="0">
-                    <local:HeaderView/>
+                    <ContentControl Content="{Binding Header}"/>
                 </Grid>
 
                 <!--    Projects, tasks-->

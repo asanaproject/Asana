@@ -415,9 +415,9 @@
     <Resource Include="Resources\Images\publicchannel.png" />
     <Resource Include="Resources\Images\profile.png" />
     <Resource Include="Resources\Images\visibility.png" />
-    <Resource Include="Resources\Images\grey_star.png" />
     <Resource Include="Resources\Images\yellow_star.jpg" />
     <Resource Include="Resources\Images\star-icon.png" />
+    <Resource Include="Resources\Images\grey_star.png" />
     <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>

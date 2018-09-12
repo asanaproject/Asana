@@ -28,7 +28,15 @@ namespace Asana.ViewModel
             columnService = new ColumnService();
             taskService = new TaskService();
             Columns = new ObservableCollection<ColumnItemViewModel>();
+            Header = new HeaderViewModel(navigation);
             StarPath = "../Resources/Images/grey_star.png";
+        }
+        private HeaderViewModel header;
+
+        public HeaderViewModel Header
+        {
+            get { return header; }
+            set {Set(ref header,value); }
         }
 
 
@@ -63,7 +71,7 @@ namespace Asana.ViewModel
         x =>
         {
             x.IsStarred = x.IsStarred ? false : true;
-            StarPath = x.IsStarred ? "../Resources/Images/star-icon.png" : "..Resources/Images/grey_star.png";
+            StarPath = x.IsStarred ? "../Resources/Images/star-icon.png" : "../Resources/Images/grey_star.png";
         }));
 
 
