@@ -30,12 +30,18 @@ namespace Asana.ViewModel
                 {
                     if (!RegexChecker.CheckEmail(Email))
                         result = "Enter your email correctly!";
+                    else if (RegexChecker.CheckEmail(Email))
+                    {
+                        using (var db =new AsanaDbContext())
+                        {
+                            if(db.Users.ToList().Exists(user => user.Email == Email))
+                            {
+                                result = "This mail already exists!!!";
+                            }
+                        }
+                    }
                 }
-                // if (columnName == "LastName")
-                // {
-                //     if (string.IsNullOrEmpty(LastName))
-                //         result = "Please enter a Last Name";
-                // }
+               
 
                 return result;
             }
@@ -53,7 +59,7 @@ namespace Asana.ViewModel
         {
             get { return email; }
             set
-            {
+           {
                 Set(ref email, value);
             }
         }
@@ -66,31 +72,34 @@ namespace Asana.ViewModel
         /// and code will be sent to your email 
         /// </summary>
         private RelayCommand sendConfirmationCodeCommand;
-        public RelayCommand SendConfirmationCodeCommand
-        {
-            get => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
+        public RelayCommand SendConfirmationCodeCommand => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
                 () =>
                 {
-                   // ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
-                    if (RegexChecker.CheckEmail(Email))
-                    {
-                        GetEmail.SendRegisterActivationCode(Email);
-                        var result = MessageBox.Show($"Confirmation code is sent to {Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
-                        if (result == MessageBoxResult.OK)
+                    System.Threading.Tasks.Task.Run(
+                        () =>
                         {
-                           
-                            navigation.NavigateTo(ViewType.ConfirmCode);
-                            CurrentUser.Instance.User = new User();
-                            CurrentUser.Instance.User.Email = Email;
-                        }
-                    }
-                   
+
+                            // ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
+                            if (RegexChecker.CheckEmail(Email))
+                            {
+                                GetEmail.SendRegisterActivationCode(Email);
+                                var result = MessageBox.Show($"Confirmation code is sent to {Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
+                                if (result == MessageBoxResult.OK)
+                                {
+
+                                    navigation.NavigateTo(ViewType.ConfirmCode);
+                                    CurrentUser.Instance.User = new User();
+                                    CurrentUser.Instance.User.Email = Email;
+                                }
+                            }
+                            else Errors.SendCodeErrorMsg();
+                        });
+
                 }
             ));
-        }
 
 
-      
+
 
         /// <summary>
         /// When arrow key is pressed current view is replaced with LogIn view
