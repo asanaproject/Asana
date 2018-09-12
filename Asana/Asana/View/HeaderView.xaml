@@ -63,7 +63,7 @@
                       VerticalAlignment="Stretch"
                          HorizontalAlignment="Left" Margin="20 0 0 0" Height="30"  Width="20"   ></materialDesign:PackIcon>
         <Button Command="{Binding HomeCommand}" Padding="0 2 0 0" Background="Transparent"   BorderBrush="Transparent" Cursor="Hand" Grid.Column="0" >
-            <materialDesign:PackIcon Kind="Menu" Foreground="WhiteSmoke" Width="36" Height="36"></materialDesign:PackIcon>
+            <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Menu" Foreground="WhiteSmoke" Width="36" Height="36"></materialDesign:PackIcon>
         </Button>
         
         <TextBlock Grid.Column="1" FontSize="27" FontWeight="Bold"  
