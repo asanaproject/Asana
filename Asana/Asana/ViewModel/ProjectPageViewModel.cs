@@ -66,6 +66,7 @@ namespace Asana.ViewModel
             StarPath = x.IsStarred ? "../Resources/Images/star-icon.png" : "..Resources/Images/grey_star.png";
         }));
 
+
         private RelayCommand<ColumnItemViewModel> addColumnCommand;
         public RelayCommand<ColumnItemViewModel> AddColumnCommand => addColumnCommand ?? (addColumnCommand = new RelayCommand<ColumnItemViewModel>(
         x =>
