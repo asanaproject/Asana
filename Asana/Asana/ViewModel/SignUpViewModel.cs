@@ -4,7 +4,7 @@ using Asana.Services;
 using Asana.Services.Interfaces;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
