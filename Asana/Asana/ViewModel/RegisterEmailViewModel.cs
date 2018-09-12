@@ -1,6 +1,5 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
-using Asana.Objects;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -66,31 +65,33 @@ namespace Asana.ViewModel
         /// and code will be sent to your email 
         /// </summary>
         private RelayCommand sendConfirmationCodeCommand;
-        public RelayCommand SendConfirmationCodeCommand
-        {
-            get => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
+        public RelayCommand SendConfirmationCodeCommand => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
                 () =>
                 {
-                   // ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
-                    if (RegexChecker.CheckEmail(Email))
-                    {
-                        GetEmail.SendRegisterActivationCode(Email);
-                        var result = MessageBox.Show($"Confirmation code is sent to {Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
-                        if (result == MessageBoxResult.OK)
+                    Task.Run(
+                        () =>
                         {
-                           
-                            navigation.NavigateTo(ViewType.ConfirmCode);
-                            CurrentUser.Instance.User = new User();
-                            CurrentUser.Instance.User.Email = Email;
-                        }
-                    }
-                   
+
+                            // ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
+                            if (RegexChecker.CheckEmail(Email))
+                            {
+                                GetEmail.SendRegisterActivationCode(Email);
+                                var result = MessageBox.Show($"Confirmation code is sent to {Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
+                                if (result == MessageBoxResult.OK)
+                                {
+
+                                    navigation.NavigateTo(ViewType.ConfirmCode);
+                                    CurrentUser.Instance.User = new User();
+                                    CurrentUser.Instance.User.Email = Email;
+                                }
+                            }
+                        });
+
                 }
             ));
-        }
 
 
-      
+
 
         /// <summary>
         /// When arrow key is pressed current view is replaced with LogIn view
