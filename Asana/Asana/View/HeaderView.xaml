@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Asana.View"
              xmlns:model ="clr-namespace:Asana.Model"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="800">
     <UserControl.Resources>
@@ -49,25 +50,26 @@
         </Grid.ColumnDefinitions>
 
         <!--Header items-->
-        <Image   Grid.Column="5" Grid.Row="0" ToolTip="Activities" Source="../Resources/Images/activities.png"
+        <materialDesign:PackIcon Foreground="WhiteSmoke" Kind="Clock"   Grid.Column="5" Grid.Row="0" ToolTip="Activities" 
                         VerticalAlignment="Center"
-                         HorizontalAlignment="Right" Margin="0 0 20 0" Height="20"  Width="20"   ></Image>
+                         HorizontalAlignment="Right" Margin="0 0 20 0" Height="20"  Width="20"   ></materialDesign:PackIcon>
 
 
-        <Image  ToolTip="Chat" Grid.Column="6" Grid.Row="0" Source="../Resources/Images/converstation.png"
+        <materialDesign:PackIcon Foreground="WhiteSmoke" Kind="Wechat"  ToolTip="Chat" Grid.Column="6" Grid.Row="0" 
                        VerticalAlignment="Stretch"
-                         HorizontalAlignment="Center" Height="20"  Width="20"   ></Image>
+                         HorizontalAlignment="Center" Height="24"  Width="24"   ></materialDesign:PackIcon>
 
-        <Image  Grid.Column="7" ToolTip="Settings" Grid.Row="0" Source="../Resources/Images/Settings.png"
+        <materialDesign:PackIcon Foreground="WhiteSmoke" Kind="Settings"  Grid.Column="7" ToolTip="Settings" Grid.Row="0" 
                       VerticalAlignment="Stretch"
-                         HorizontalAlignment="Left" Margin="20 0 0 0" Height="30"  Width="20"   ></Image>
-        <Button Command="{Binding HomeCommand}" Background="Transparent"   BorderBrush="Transparent"  Grid.Column="0" >
-                <Image  Width="25" Height="25" Source="../Resources/Images/menu.png" ></Image>
+                         HorizontalAlignment="Left" Margin="20 0 0 0" Height="30"  Width="20"   ></materialDesign:PackIcon>
+        <Button Command="{Binding HomeCommand}" Padding="0 2 0 0" Background="Transparent"   BorderBrush="Transparent" Cursor="Hand" Grid.Column="0" >
+            <materialDesign:PackIcon Kind="Menu" Foreground="WhiteSmoke" Width="36" Height="36"></materialDesign:PackIcon>
         </Button>
+        
         <TextBlock Grid.Column="1" FontSize="27" FontWeight="Bold"  
                                HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="WhiteSmoke"  FontFamily="Calibri" >Project</TextBlock>
 
- 
+
 
         <Button Command="{Binding DashBoardCommand}"  Content="Dashboard" Grid.Column="2" Grid.Row="0"
                        VerticalAlignment="Center"

@@ -24,16 +24,16 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="0.1*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="650"/>
             <ColumnDefinition Width="0.1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
-            <RowDefinition/>
+            <RowDefinition Height="370"/>
             <RowDefinition  Height="0.1*"/>
         </Grid.RowDefinitions>
 
-        <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch"  Background="White" BorderBrush="White"  CornerRadius="8">
+        <Border HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Height="370" Width="650"  Background="White" BorderBrush="White"  CornerRadius="8">
 
             <Grid>
                 <Grid.ColumnDefinitions>
