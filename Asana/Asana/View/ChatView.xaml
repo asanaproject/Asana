@@ -6,6 +6,7 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Asana.View"
              xmlns:tools="clr-namespace:Asana.Tools"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:model="clr-namespace:Asana.Model"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
@@ -444,7 +445,7 @@
                         </Style>
                     </Border.Style>
                     <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
-                        <Image Width="25" Height="25" Source="../Resources/Images/inbox.png"   ></Image>
+                        <materialDesign:PackIcon Kind="Inbox" Width="32" HorizontalAlignment="Center" Height="32" Foreground="Red"></materialDesign:PackIcon>
                     </Button>
                 </Border>
                 <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 12 0 0" HorizontalAlignment="Center" BorderBrush="White">
@@ -461,7 +462,7 @@
                         </Style>
                     </Border.Style>
                     <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
-                        <Image Width="25" Height="25" Source="../Resources/Images/star.png"   ></Image>
+                        <materialDesign:PackIcon Kind="Star" Foreground="WhiteSmoke" Width="30" Height="30" HorizontalAlignment="Center" ></materialDesign:PackIcon>
                     </Button>
                 </Border>
                 <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 12 0 0" HorizontalAlignment="Center" BorderBrush="White">
@@ -479,7 +480,11 @@
                         </Style>
                     </Border.Style>
                     <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
-                        <Image Width="22" Height="22" Source="../Resources/Images/publicchannel.png" ></Image>
+                        <Viewbox Width="28" Height="28">
+                            <Canvas Width="24" Height="24">
+                                <Path Data="M12,6A3,3 0 0,0 9,9A3,3 0 0,0 12,12A3,3 0 0,0 15,9A3,3 0 0,0 12,6M6,8.17A2.5,2.5 0 0,0 3.5,10.67A2.5,2.5 0 0,0 6,13.17C6.88,13.17 7.65,12.71 8.09,12.03C7.42,11.18 7,10.15 7,9C7,8.8 7,8.6 7.04,8.4C6.72,8.25 6.37,8.17 6,8.17M18,8.17C17.63,8.17 17.28,8.25 16.96,8.4C17,8.6 17,8.8 17,9C17,10.15 16.58,11.18 15.91,12.03C16.35,12.71 17.12,13.17 18,13.17A2.5,2.5 0 0,0 20.5,10.67A2.5,2.5 0 0,0 18,8.17M12,14C10,14 6,15 6,17V19H18V17C18,15 14,14 12,14M4.67,14.97C3,15.26 1,16.04 1,17.33V19H4V17C4,16.22 4.29,15.53 4.67,14.97M19.33,14.97C19.71,15.53 20,16.22 20,17V19H23V17.33C23,16.04 21,15.26 19.33,14.97Z" Fill="WhiteSmoke" />
+                            </Canvas>
+                        </Viewbox>
                     </Button>
                 </Border>
                 <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 12 0 0" HorizontalAlignment="Center" BorderBrush="White">
@@ -497,7 +502,7 @@
                         </Style>
                     </Border.Style>
                     <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
-                        <Image Width="20" Height="20" Source="../Resources/Images/directchannel.png" ></Image>
+                        <materialDesign:PackIcon Kind="forum" Width="24" Foreground="WhiteSmoke" HorizontalAlignment="Center" Height="24" ></materialDesign:PackIcon>
                     </Button>
                 </Border>
                 <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 12 0 0" HorizontalAlignment="Center" BorderBrush="White">
@@ -515,7 +520,7 @@
                         </Style>
                     </Border.Style>
                     <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
-                        <Image Width="20" Height="20" Source="../Resources/Images/privatechannel.png" ></Image>
+                        <materialDesign:PackIcon Kind="AccountMultiple" Width="24" HorizontalAlignment="Center" Foreground="WhiteSmoke" Height="24" ></materialDesign:PackIcon>
                     </Button>
                 </Border>
             </StackPanel>
@@ -532,23 +537,23 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Margin="8 0 0 0" Command="{Binding InboxCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Style="{StaticResource m_nav_menu1}" >
+                        <Button Padding="8 0 0 0" Command="{Binding InboxCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Style="{StaticResource m_nav_menu1}" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Image Height="15" Source="../Resources/Images/inbox.png" ></Image>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Inbox" Height="15" Foreground="Red" ></materialDesign:PackIcon>
                                 <TextBlock Text="Inbox" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
                             </Grid>
                         </Button>
-                        <Button Margin="8 0 0 0" Command="{Binding StarredCommand}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  Style="{StaticResource m_nav_menu1}">
+                        <Button Padding="8 0 0 0" Command="{Binding StarredCommand}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  Style="{StaticResource m_nav_menu1}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Image Height="15" Source="../Resources/Images/star.png" ></Image>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Star" Foreground="WhiteSmoke" Height="15" ></materialDesign:PackIcon>
                                 <TextBlock Text="Starred" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
                             </Grid>
                         </Button>
