@@ -6,13 +6,13 @@
         xmlns:model="clr-namespace:Asana.ViewModel"
         xmlns:local="clr-namespace:Asana.View"
         mc:Ignorable="d"
-        Title="ExtraWindow" Height="{Binding Height}" Width="{Binding Width}" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        Title="ExtraWindow" Height="{Binding Height}" Width="{Binding Width}" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None"
         
         >
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/Asana;component/Resources/DataTemplates.xaml"/>
     </Window.Resources>
     <Grid>
-          <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding ContentWindow}"/>
+          <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Content="{Binding ContentWindow}"/>
     </Grid>
 </Window>
