@@ -28,6 +28,7 @@ namespace Asana.ViewModel
             columnService = new ColumnService();
             taskService = new TaskService();
             Columns = new ObservableCollection<ColumnItemViewModel>();
+            StarPath = "../Resources/Images/grey_star.png";
         }
         public dynamic ColumnItem { get; set; }
 
@@ -82,17 +83,39 @@ namespace Asana.ViewModel
         public RelayCommand<ColumnItemViewModel> CreateTaskCommand => createTaskCommand ?? (createTaskCommand = new RelayCommand<ColumnItemViewModel>(
             x =>
             {
-                x.Task = new Task();
+                x.Task = new Task { ColumnId = x.Column.Id };
+                
                 x.Column.Tasks.Add(x.Task);
-
+                CurrentTask.Instance.Task = x.Task;
+                CurrentColumn.Instance.Column.Column = x.Column;
             }
 ));
 
-        private RelayCommand<ColumnItemViewModel> addTaskCommand;
-        public RelayCommand<ColumnItemViewModel> AddTaskCommand => addTaskCommand ?? (addTaskCommand = new RelayCommand<ColumnItemViewModel>(
+        private string starPath;
+
+        public string StarPath
+        {
+            get { return starPath; }
+            set { Set(ref starPath, value); }
+        }
+
+
+        private RelayCommand<Task> addTaskCommand;
+        public RelayCommand<Task> AddTaskCommand => addTaskCommand ?? (addTaskCommand = new RelayCommand<Task>(
             x =>
             {
-                x.Task.IsTaskAdded = true;
+                MessageBox.Show(x.Id.ToString());
+                Columns.First(y => y.Column.Id == x.ColumnId).Task.IsTaskAdded = true;
+            }
+));
+        private RelayCommand<Task> starTaskCommand;
+        public RelayCommand<Task> StarTaskCommand => starTaskCommand ?? (starTaskCommand = new RelayCommand<Task>(
+            x =>
+            {
+
+                x.IsStarred = x.IsStarred ? false : true;
+
+                StarPath = x.IsStarred ? "../Resources/Images/yellow_star.png" : "../Resources/Images/grey_star.png";
             }
 ));
 

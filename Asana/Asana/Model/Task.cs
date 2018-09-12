@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,16 +10,19 @@ using System.Threading.Tasks;
 namespace Asana.Objects
 {
     [Table("Task")]
-    public class Task
+    public class Task:ViewModelBase
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Task()
+        {
+            Id = Guid.NewGuid();
+        }
+        public Guid Id { get; set; }
 
         [StringLength(25),Required]
         public string Title { get; set; }
 
         [ForeignKey("Column"),Required]
-        public int ColumnId { get; set; }
+        public Guid ColumnId { get; set; }
         public virtual Column Column { get; set; }
 
         [ForeignKey("KanbanState")]
@@ -27,6 +31,22 @@ namespace Asana.Objects
 
         public DateTime Deadline { get; set; }
 
-        public bool IsTaskAdded { get; set; }
+        private bool isTaskAdded;
+
+        public bool IsTaskAdded
+        {
+            get { return isTaskAdded; }
+            set { Set(ref isTaskAdded,value); }
+        }
+
+        private bool isStarred;
+
+        public bool IsStarred
+        {
+            get { return isStarred; }
+            set { Set(ref isStarred,value); }
+        }
+
+
     }
 }

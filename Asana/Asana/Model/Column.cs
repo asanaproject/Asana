@@ -16,15 +16,14 @@ using GalaSoft.MvvmLight.CommandWpf;
 namespace Asana.Objects
 {
     [Table("Column")]
-    public class Column:ViewModelBase
+    public class Column : ViewModelBase
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [StringLength(25), Required]
         public string Title { get; set; }
 
         [ForeignKey("Project")]
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
         public Project Project { get; set; }
 
         private ICollection<Task> tasks;
@@ -37,6 +36,7 @@ namespace Asana.Objects
 
         public Column()
         {
+            Id = Guid.NewGuid();
             Tasks = new ObservableCollection<Task>();
         }
     }
