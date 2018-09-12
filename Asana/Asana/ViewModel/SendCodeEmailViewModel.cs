@@ -46,7 +46,6 @@ namespace Asana.ViewModel
                     () =>
                     {
 
-
                         if (RegexChecker.CheckEmail(Email))
                         {
                             emailHelper.SendForgotPasswordCode(Email);

@@ -156,6 +156,11 @@
     <DataTemplate DataType="{x:Type vm:ChatRoomAddViewModel}">
         <v:ChatRoomAddView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
+        <v:ProjectAddView/>
+    </DataTemplate>
+    
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>

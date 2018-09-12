@@ -417,6 +417,7 @@
     <Resource Include="Resources\Images\publicchannel.png" />
     <Resource Include="Resources\Images\profile.png" />
     <Resource Include="Resources\Images\visibility.png" />
+    <Resource Include="Resources\Images\Loading.gif" />
     <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>

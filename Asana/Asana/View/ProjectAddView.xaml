@@ -48,7 +48,7 @@
             </StackPanel>
         </Border>
         <Border Grid.Row="5" Width="150" Height="30" VerticalAlignment="Bottom" Background="LightGreen" CornerRadius="15">
-            <Button  Background="Transparent" BorderBrush="Transparent" Foreground="White" FontSize="17" Content="OK"></Button>
+            <Button  Background="Transparent" Command="{Binding Closewindow}" BorderBrush="Transparent" Foreground="White" FontSize="17" Content="OK"></Button>
         </Border>
     </Grid>
 </Window>
