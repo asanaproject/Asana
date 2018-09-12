@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Task = Asana.Objects.Task;
 
 namespace Asana.ViewModel
 {
@@ -27,6 +28,7 @@ namespace Asana.ViewModel
             columnService = new ColumnService();
             taskService = new TaskService();
             Columns = new ObservableCollection<ColumnItemViewModel>();
+            StarPath = "../Resources/Images/grey_star.png";
         }
 
 
@@ -37,7 +39,15 @@ namespace Asana.ViewModel
             set { Set(ref columns,value); }
         }
 
- 
+        private string starPath;
+
+        public string StarPath
+        {
+            get { return starPath; }
+            set { Set( ref starPath, value); }
+        }
+
+
 
         private RelayCommand<ColumnItemViewModel> createColumnCommand;
         public RelayCommand<ColumnItemViewModel> CreateColumnCommand => createColumnCommand ?? (createColumnCommand = new RelayCommand<ColumnItemViewModel>(
@@ -48,6 +58,14 @@ namespace Asana.ViewModel
                 Columns.Add(new ColumnItemViewModel());
             }
         }));
+        private RelayCommand<Task> starTaskCommand;
+        public RelayCommand<Task> StarTaskCommand => starTaskCommand ?? (starTaskCommand = new RelayCommand<Task>(
+        x =>
+        {
+            x.IsStarred = x.IsStarred ? false : true;
+            StarPath = x.IsStarred ? "../Resources/Images/star-icon.png" : "..Resources/Images/grey_star.png";
+        }));
+
         private RelayCommand<ColumnItemViewModel> addColumnCommand;
         public RelayCommand<ColumnItemViewModel> AddColumnCommand => addColumnCommand ?? (addColumnCommand = new RelayCommand<ColumnItemViewModel>(
         x =>
@@ -73,6 +91,15 @@ namespace Asana.ViewModel
         x =>
         {
             x.Task = new Objects.Task { ColumnId = x.Column.Id };
+            Columns.ToList().First(y => y.Column.Id == x.Column.Id).Column.Tasks.Add(x.Task);
+            CurrentColumn.Instance.Column = x;
+        }));
+        private RelayCommand<Task> addTaskCommand;
+        public RelayCommand<Task> AddTaskCommand => addTaskCommand ?? (addTaskCommand = new RelayCommand<Task>(
+        x =>
+        {
+
+            Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = true;
         }));
     }
 }
