@@ -115,7 +115,8 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Asana2\Asana\Asana\bin\Debug\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -129,6 +130,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WpfAnimatedGif, Version=1.4.17.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WpfAnimatedGif.1.4.17\lib\net\WpfAnimatedGif.dll</HintPath>
     </Reference>
@@ -413,6 +415,8 @@
     <Resource Include="Resources\Images\kisspng-computer-icons-font-awesome-user-clip-art-profile-5acac34e185f59.9826300415232377100998.png" />
     <Resource Include="Resources\Images\privatechannel.png" />
     <Resource Include="Resources\Images\publicchannel.png" />
+    <Resource Include="Resources\Images\profile.png" />
+    <Resource Include="Resources\Images\visibility.png" />
     <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>

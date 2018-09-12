@@ -79,7 +79,7 @@ namespace Asana.ViewModel
         public ObservableCollection<ChatRoom> PrivateChannels
         {
             get { return privateChannels; }
-            set { privateChannels = value; Set(ref privateChannels, value); }
+            set { Set(ref privateChannels, value); }
         }
 
         private ObservableCollection<ChatRoom> directMessages;
@@ -87,7 +87,7 @@ namespace Asana.ViewModel
         public ObservableCollection<ChatRoom> DirectMessages
         {
             get { return directMessages; }
-            set { directMessages = value; Set(ref directMessages, value); }
+            set { Set(ref directMessages, value); }
         }
 
         private ObservableCollection<ChatRoom> publicChannels;
@@ -95,7 +95,7 @@ namespace Asana.ViewModel
         public ObservableCollection<ChatRoom> PublicChannels
         {
             get { return publicChannels; }
-            set { publicChannels = value; Set(ref publicChannels, value); }
+            set { Set(ref publicChannels, value); }
         }
 
 
@@ -104,7 +104,7 @@ namespace Asana.ViewModel
         public ObservableCollection<dynamic> ChatItems
         {
             get { return chatItems; }
-            set { chatItems = value; Set(ref chatItems, value); }
+            set { Set(ref chatItems, value); }
         }
 
         private ChatRoom selectedItem;
@@ -137,7 +137,7 @@ namespace Asana.ViewModel
                 WindowBluringCustom.Normal();
                 ChatRoomDatas();
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
@@ -215,12 +215,14 @@ namespace Asana.ViewModel
         private void ChatItemsRefresh(object sender, ElapsedEventArgs e)
         {
 
-            System.Threading.Tasks.Task.Run(()=>{
+            System.Threading.Tasks.Task.Run(async () =>
+            {
                 if (SelectedItem == null)
                     return;
-                var listed = ChatService.GetSelectedChannelMessages(SelectedItem.ID);
+                var listed = await ChatService.GetSelectedChannelMessages(SelectedItem.ID);
                 App.Current.Dispatcher.Invoke(() =>
                 {
+
                     if (SelectedItem != null && listed.Count != ChatItems.Count)
                     {
                         ChatItems.Clear();
@@ -257,7 +259,7 @@ namespace Asana.ViewModel
 
         public void SelectedItemInbox_Change(dynamic obj)
         {
-            if(obj == null)
+            if (obj == null)
             {
                 return;
             }
@@ -279,9 +281,9 @@ namespace Asana.ViewModel
 
         private void InboxItemsRefresh(object sender, ElapsedEventArgs e)
         {
-            System.Threading.Tasks.Task.Run(() =>
+            System.Threading.Tasks.Task.Run(async() =>
             {
-                var listed = ChatService.GetAllUnFavoritesMails().ToList();
+                var listed = await ChatService.GetAllUnFavoritesMails();
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     if (listed.Count != Inbox.Count)
@@ -300,21 +302,23 @@ namespace Asana.ViewModel
         private RelayCommand _markAllReadCommand;
 
         public RelayCommand MarkAllReadCommand => _markAllReadCommand ?? (_markAllReadCommand = new RelayCommand(
-        () =>
+        async () =>
         {
             ChatService.MarkedAllMail();
             Inbox.Clear();
-            ChatService.GetAllUnFavoritesMails().ToList().ForEach(x => Inbox.Add(x));
+            var result = await ChatService.GetAllUnFavoritesMails();
+            result.ToList().ForEach(x => Inbox.Add(x));
         }));
 
 
         private RelayCommand _inboxCommand;
 
         public RelayCommand InboxCommand => _inboxCommand ?? (_inboxCommand = new RelayCommand(
-        () =>
+        async() =>
         {
             NullAllProperties();
-            if (ChatService.GetAllUnFavoritesMails().Count != 0)
+            var result = await ChatService.GetAllUnFavoritesMails();
+            if (result.Count != 0)
                 SelectedColumn = 1;
             else
                 SelectedColumn = 0;
@@ -343,10 +347,11 @@ namespace Asana.ViewModel
         }
 
         public RelayCommand StarredCommand => _starredCommand ?? (_starredCommand = new RelayCommand(
-        () =>
+        async() =>
         {
             NullAllProperties();
-            if (ChatService.GetAllFavoritesMails().Count != 0)
+            var result = await ChatService.GetAllFavoritesMails();
+            if (result.Count != 0)
                 SelectedColumn = 5;
             else
                 SelectedColumn = 2;
@@ -371,9 +376,9 @@ namespace Asana.ViewModel
 
         private void StarredItemsRefresh(object sender, ElapsedEventArgs e)
         {
-            System.Threading.Tasks.Task.Run(() =>
+            System.Threading.Tasks.Task.Run(async() =>
             {
-                var listed = ChatService.GetAllFavoritesMails().ToList();
+                var listed = await ChatService.GetAllFavoritesMails();
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     if (listed.Count != StarredList.Count)
@@ -410,18 +415,20 @@ namespace Asana.ViewModel
             get => _loadedCommand ?? (_loadedCommand = new RelayCommand((() => LoadedDatas())));
         }
 
-        public void CheckInbox()
+        public async void CheckInbox()
         {
-                if (ChatService.GetAllUnFavoritesMails().Count != 0)
-                    SelectedColumn = 1;
-                else
-                    SelectedColumn = 0;
+            var result = await ChatService.GetAllUnFavoritesMails();
+            if (result.Count != 0)
+                SelectedColumn = 1;
+            else
+                SelectedColumn = 0;
 
         }
 
-        public void CheckStarred()
+        public async void CheckStarred()
         {
-            if (ChatService.GetAllFavoritesMails().Count != 0)
+            var result = await ChatService.GetAllFavoritesMails();
+            if (result.Count != 0)
                 SelectedColumn = 5;
             else
                 SelectedColumn = 2;
@@ -434,15 +441,24 @@ namespace Asana.ViewModel
             inboxtimer.Start();
         }
 
-        private void ChatRoomDatas()
+        private async void ChatRoomDatas()
         {
-            PublicChannels.Clear();
-            PrivateChannels.Clear();
-            DirectMessages.Clear();
-            ChannelsService.GetListPublicChannelsId().ToList().ForEach(x => PublicChannels.Add(x));
-            ChannelsService.GetListPrivateChannelsId().ToList().ForEach(x => PrivateChannels.Add(x));
-            ChannelsService.GetListDirectChannelsId().ToList().ForEach(x => DirectMessages.Add(x));
+            
+            var publiclist = await ChannelsService.GetListPublicChannelsId();
+            int changedChannels1 = publiclist.Count - PublicChannels.Count;
+            publiclist.Skip(PublicChannels.Count).Take(changedChannels1).ToList().ForEach(x => PublicChannels.Add(x));
+
+            var privatelist = await ChannelsService.GetListPrivateChannelsId();
+            int changedChannels2 = privatelist.Count - PrivateChannels.Count;
+            privatelist.Skip(PrivateChannels.Count).Take(changedChannels2).ToList().ForEach(x => PrivateChannels.Add(x));
+
+            var directlist = await ChannelsService.GetListDirectChannelsId();
+            int changedChannels3 = directlist.Count - DirectMessages.Count;
+            directlist.Skip(DirectMessages.Count).Take(changedChannels3).ToList().ForEach(x => DirectMessages.Add(x));
         }
+
+
+
 
         private object header;
 

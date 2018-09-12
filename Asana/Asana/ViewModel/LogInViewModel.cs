@@ -35,15 +35,15 @@ namespace Asana.ViewModel
         public string Email
         {
             get { return email; }
-            set { email = value; Set(ref email, value); }
+            set { Set(ref email, value); }
         }
 
-        private string pass;
+        private string pass ;
 
         public string Password
         {
             get { return pass; }
-            set { pass = value; Set(ref pass, value); }
+            set { Set(ref pass, value); }
         }
 
 
