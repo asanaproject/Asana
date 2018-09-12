@@ -7,13 +7,13 @@ namespace Asana.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ColumnIsAdded_Property_isRemoved_Column : IMigrationMetadata
+    public sealed partial class Resolved_All_Problems : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ColumnIsAdded_Property_isRemoved_Column));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Resolved_All_Problems));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809061557383_ColumnIsAdded_Property_isRemoved_Column"; }
+            get { return "201809081707082_Resolved_All_Problems"; }
         }
         
         string IMigrationMetadata.Source

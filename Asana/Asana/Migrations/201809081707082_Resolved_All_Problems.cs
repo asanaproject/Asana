@@ -3,23 +3,23 @@ namespace Asana.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial_Model : DbMigration
+    public partial class Resolved_All_Problems : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.ChatRooms",
+                "dbo.ChatRoom",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 25),
+                        Name = c.String(nullable: false, maxLength: 100),
                         Desc = c.String(nullable: false, maxLength: 500),
-                        Type = c.Int(nullable: false),
+                        ChatRoomType = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.ChatRoomUsers",
+                "dbo.ChatRoomUser",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -27,13 +27,13 @@ namespace Asana.Migrations
                         ChatRoomId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.ChatRooms", t => t.ChatRoomId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.ChatRoom", t => t.ChatRoomId, cascadeDelete: true)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.ChatRoomId);
             
             CreateTable(
-                "dbo.Users",
+                "dbo.User",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -45,7 +45,7 @@ namespace Asana.Migrations
                         UserRole_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.UserRoles", t => t.UserRole_Id)
+                .ForeignKey("dbo.UserRole", t => t.UserRole_Id)
                 .Index(t => t.UserRole_Id);
             
             CreateTable(
@@ -57,13 +57,13 @@ namespace Asana.Migrations
                         ProjectId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Project", t => t.ProjectId, cascadeDelete: true)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.ProjectId);
             
             CreateTable(
-                "dbo.Projects",
+                "dbo.Project",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -72,11 +72,11 @@ namespace Asana.Migrations
                         DashboardId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Dashboards", t => t.DashboardId, cascadeDelete: true)
+                .ForeignKey("dbo.Dashboard", t => t.DashboardId, cascadeDelete: true)
                 .Index(t => t.DashboardId);
             
             CreateTable(
-                "dbo.Columns",
+                "dbo.Column",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -84,11 +84,11 @@ namespace Asana.Migrations
                         ProjectId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
+                .ForeignKey("dbo.Project", t => t.ProjectId, cascadeDelete: true)
                 .Index(t => t.ProjectId);
             
             CreateTable(
-                "dbo.Tasks",
+                "dbo.Task",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -98,13 +98,13 @@ namespace Asana.Migrations
                         Deadline = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Columns", t => t.ColumnId, cascadeDelete: true)
-                .ForeignKey("dbo.KanbanStates", t => t.KanbanStateId, cascadeDelete: true)
+                .ForeignKey("dbo.Column", t => t.ColumnId, cascadeDelete: true)
+                .ForeignKey("dbo.KanbanState", t => t.KanbanStateId, cascadeDelete: true)
                 .Index(t => t.ColumnId)
                 .Index(t => t.KanbanStateId);
             
             CreateTable(
-                "dbo.KanbanStates",
+                "dbo.KanbanState",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -113,7 +113,7 @@ namespace Asana.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Dashboards",
+                "dbo.Dashboard",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -121,7 +121,7 @@ namespace Asana.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.ExtraInfoes",
+                "dbo.Customer",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -132,7 +132,7 @@ namespace Asana.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Languages",
+                "dbo.Language",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -141,7 +141,7 @@ namespace Asana.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Mails",
+                "dbo.Mail",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
@@ -149,14 +149,17 @@ namespace Asana.Migrations
                         Body = c.String(nullable: false, maxLength: 500),
                         SenderEmail = c.String(nullable: false, maxLength: 100),
                         SendTime = c.DateTime(nullable: false),
+                        Marked = c.Boolean(nullable: false),
+                        Favorite = c.Boolean(nullable: false),
+                        BodyHtml = c.Binary(),
                         UserId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.Messages",
+                "dbo.Message",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
@@ -166,13 +169,13 @@ namespace Asana.Migrations
                         ChatRoomId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.ChatRooms", t => t.ChatRoomId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.ChatRoom", t => t.ChatRoomId, cascadeDelete: true)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.ChatRoomId);
             
             CreateTable(
-                "dbo.UserRoles",
+                "dbo.UserRole",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -184,44 +187,44 @@ namespace Asana.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Users", "UserRole_Id", "dbo.UserRoles");
-            DropForeignKey("dbo.Messages", "UserId", "dbo.Users");
-            DropForeignKey("dbo.Messages", "ChatRoomId", "dbo.ChatRooms");
-            DropForeignKey("dbo.Mails", "UserId", "dbo.Users");
-            DropForeignKey("dbo.ChatRoomUsers", "UserId", "dbo.Users");
-            DropForeignKey("dbo.UsersProject", "UserId", "dbo.Users");
-            DropForeignKey("dbo.UsersProject", "ProjectId", "dbo.Projects");
-            DropForeignKey("dbo.Projects", "DashboardId", "dbo.Dashboards");
-            DropForeignKey("dbo.Tasks", "KanbanStateId", "dbo.KanbanStates");
-            DropForeignKey("dbo.Tasks", "ColumnId", "dbo.Columns");
-            DropForeignKey("dbo.Columns", "ProjectId", "dbo.Projects");
-            DropForeignKey("dbo.ChatRoomUsers", "ChatRoomId", "dbo.ChatRooms");
-            DropIndex("dbo.Messages", new[] { "ChatRoomId" });
-            DropIndex("dbo.Messages", new[] { "UserId" });
-            DropIndex("dbo.Mails", new[] { "UserId" });
-            DropIndex("dbo.Tasks", new[] { "KanbanStateId" });
-            DropIndex("dbo.Tasks", new[] { "ColumnId" });
-            DropIndex("dbo.Columns", new[] { "ProjectId" });
-            DropIndex("dbo.Projects", new[] { "DashboardId" });
+            DropForeignKey("dbo.User", "UserRole_Id", "dbo.UserRole");
+            DropForeignKey("dbo.Message", "UserId", "dbo.User");
+            DropForeignKey("dbo.Message", "ChatRoomId", "dbo.ChatRoom");
+            DropForeignKey("dbo.Mail", "UserId", "dbo.User");
+            DropForeignKey("dbo.ChatRoomUser", "UserId", "dbo.User");
+            DropForeignKey("dbo.UsersProject", "UserId", "dbo.User");
+            DropForeignKey("dbo.UsersProject", "ProjectId", "dbo.Project");
+            DropForeignKey("dbo.Project", "DashboardId", "dbo.Dashboard");
+            DropForeignKey("dbo.Task", "KanbanStateId", "dbo.KanbanState");
+            DropForeignKey("dbo.Task", "ColumnId", "dbo.Column");
+            DropForeignKey("dbo.Column", "ProjectId", "dbo.Project");
+            DropForeignKey("dbo.ChatRoomUser", "ChatRoomId", "dbo.ChatRoom");
+            DropIndex("dbo.Message", new[] { "ChatRoomId" });
+            DropIndex("dbo.Message", new[] { "UserId" });
+            DropIndex("dbo.Mail", new[] { "UserId" });
+            DropIndex("dbo.Task", new[] { "KanbanStateId" });
+            DropIndex("dbo.Task", new[] { "ColumnId" });
+            DropIndex("dbo.Column", new[] { "ProjectId" });
+            DropIndex("dbo.Project", new[] { "DashboardId" });
             DropIndex("dbo.UsersProject", new[] { "ProjectId" });
             DropIndex("dbo.UsersProject", new[] { "UserId" });
-            DropIndex("dbo.Users", new[] { "UserRole_Id" });
-            DropIndex("dbo.ChatRoomUsers", new[] { "ChatRoomId" });
-            DropIndex("dbo.ChatRoomUsers", new[] { "UserId" });
-            DropTable("dbo.UserRoles");
-            DropTable("dbo.Messages");
-            DropTable("dbo.Mails");
-            DropTable("dbo.Languages");
-            DropTable("dbo.ExtraInfoes");
-            DropTable("dbo.Dashboards");
-            DropTable("dbo.KanbanStates");
-            DropTable("dbo.Tasks");
-            DropTable("dbo.Columns");
-            DropTable("dbo.Projects");
+            DropIndex("dbo.User", new[] { "UserRole_Id" });
+            DropIndex("dbo.ChatRoomUser", new[] { "ChatRoomId" });
+            DropIndex("dbo.ChatRoomUser", new[] { "UserId" });
+            DropTable("dbo.UserRole");
+            DropTable("dbo.Message");
+            DropTable("dbo.Mail");
+            DropTable("dbo.Language");
+            DropTable("dbo.Customer");
+            DropTable("dbo.Dashboard");
+            DropTable("dbo.KanbanState");
+            DropTable("dbo.Task");
+            DropTable("dbo.Column");
+            DropTable("dbo.Project");
             DropTable("dbo.UsersProject");
-            DropTable("dbo.Users");
-            DropTable("dbo.ChatRoomUsers");
-            DropTable("dbo.ChatRooms");
+            DropTable("dbo.User");
+            DropTable("dbo.ChatRoomUser");
+            DropTable("dbo.ChatRoom");
         }
     }
 }

@@ -115,7 +115,8 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Asana2\Asana\Asana\bin\Debug\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -129,6 +130,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WpfAnimatedGif, Version=1.4.17.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WpfAnimatedGif.1.4.17\lib\net\WpfAnimatedGif.dll</HintPath>
     </Reference>
@@ -139,21 +141,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201809060747052_Initial_Model.cs" />
-    <Compile Include="Migrations\201809060747052_Initial_Model.Designer.cs">
-      <DependentUpon>201809060747052_Initial_Model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809060806008_TableNames.cs" />
-    <Compile Include="Migrations\201809060806008_TableNames.Designer.cs">
-      <DependentUpon>201809060806008_TableNames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809061530239_ColumnIsAdded_Property_isAdded_Column.cs" />
-    <Compile Include="Migrations\201809061530239_ColumnIsAdded_Property_isAdded_Column.Designer.cs">
-      <DependentUpon>201809061530239_ColumnIsAdded_Property_isAdded_Column.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809061557383_ColumnIsAdded_Property_isRemoved_Column.cs" />
-    <Compile Include="Migrations\201809061557383_ColumnIsAdded_Property_isRemoved_Column.Designer.cs">
-      <DependentUpon>201809061557383_ColumnIsAdded_Property_isRemoved_Column.cs</DependentUpon>
+    <Compile Include="Migrations\201809081707082_Resolved_All_Problems.cs" />
+    <Compile Include="Migrations\201809081707082_Resolved_All_Problems.Designer.cs">
+      <DependentUpon>201809081707082_Resolved_All_Problems.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -176,6 +166,7 @@
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\TaskService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Tools\BoundPasswordBox.cs" />
     <Compile Include="Tools\CheckLoginLog.cs" />
     <Compile Include="Tools\DbContext\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
@@ -193,8 +184,8 @@
     <Compile Include="Tools\DesktopNotifier.cs" />
     <Compile Include="Tools\EmailHelper.cs" />
     <Compile Include="Tools\FileHelper.cs" />
-    <Compile Include="Tools\Hasher.cs" />
     <Compile Include="Tools\HtmlParser.cs" />
+    <Compile Include="Tools\ListBoxBehavior.cs" />
     <Compile Include="Tools\NotifyClass.cs" />
     <Compile Include="Tools\PasswordHasher.cs" />
     <Compile Include="Tools\ProfilePhoto.cs" />
@@ -205,7 +196,9 @@
     <Compile Include="Tools\WindowBluringCustom.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
+    <Compile Include="ViewModel\ChatRoomAddViewModel.cs" />
     <Compile Include="ViewModel\ColumnItemViewModel.cs" />
+    <Compile Include="ViewModel\ExtraWindowViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
     <Compile Include="ViewModel\ProjectAddViewModel.cs" />
@@ -225,11 +218,17 @@
     <Compile Include="View\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ChatRoomAddView.xaml.cs">
+      <DependentUpon>ChatRoomAddView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ChatView.xaml.cs">
       <DependentUpon>ChatView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ConfirmCodeView.xaml.cs">
       <DependentUpon>ConfirmCodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExtraWindow.xaml.cs">
+      <DependentUpon>ExtraWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ForgetPassView.xaml.cs">
       <DependentUpon>ForgetPassView.xaml</DependentUpon>
@@ -253,9 +252,6 @@
     <Compile Include="View\CreateProjectView.xaml.cs">
       <DependentUpon>CreateProjectView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ProjectAddView.xaml.cs">
       <DependentUpon>ProjectAddView.xaml</DependentUpon>
     </Compile>
@@ -271,6 +267,7 @@
     <Compile Include="View\SignUpView.xaml.cs">
       <DependentUpon>SignUpView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tools\WebBrowserBehavior.cs" />
     <Page Include="Resources\DataTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -283,11 +280,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ChatRoomAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ChatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ConfirmCodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExtraWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,10 +317,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CreateProjectView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Page1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -354,17 +355,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201809060747052_Initial_Model.resx">
-      <DependentUpon>201809060747052_Initial_Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809060806008_TableNames.resx">
-      <DependentUpon>201809060806008_TableNames.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809061530239_ColumnIsAdded_Property_isAdded_Column.resx">
-      <DependentUpon>201809061530239_ColumnIsAdded_Property_isAdded_Column.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809061557383_ColumnIsAdded_Property_isRemoved_Column.resx">
-      <DependentUpon>201809061557383_ColumnIsAdded_Property_isRemoved_Column.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809081707082_Resolved_All_Problems.resx">
+      <DependentUpon>201809081707082_Resolved_All_Problems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -416,6 +408,16 @@
     <Resource Include="Resources\Images\mainlogo.png" />
     <Resource Include="Resources\Images\add.png" />
     <Resource Include="Resources\Images\column_setting.png" />
+    <Resource Include="Resources\Images\starg.png" />
+    <Resource Include="Resources\Images\stargfilled.png" />
+    <Resource Include="Resources\Images\directchannel.png" />
+    <Resource Include="Resources\Images\group.png" />
+    <Resource Include="Resources\Images\kisspng-computer-icons-font-awesome-user-clip-art-profile-5acac34e185f59.9826300415232377100998.png" />
+    <Resource Include="Resources\Images\privatechannel.png" />
+    <Resource Include="Resources\Images\publicchannel.png" />
+    <Resource Include="Resources\Images\profile.png" />
+    <Resource Include="Resources\Images\visibility.png" />
+    <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

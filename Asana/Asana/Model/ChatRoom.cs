@@ -14,13 +14,13 @@ namespace Asana.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required, MaxLength(25)]
+        [Required, MaxLength(100)]
         public string Name { get; set; }
 
         [Required,MaxLength(500)]
         public string Desc { get; set; }
 
-        public ChatRoomType Type { get; set; }
+        public ChatRoomType ChatRoomType { get; set; }
 
         public virtual ICollection<ChatRoomUsers> Users { get; set; }
     }

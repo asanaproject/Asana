@@ -40,6 +40,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <Image Grid.Row="1" Source="../Resources/Images/mainlogo.png" HorizontalAlignment="Center" Width="250" VerticalAlignment="Center" ></Image>
+
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.1*"/>
@@ -81,6 +83,8 @@
                             </TextBlock>
                         </Grid>
                     </Border>
+
+
 
                     <Border  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="3" BorderThickness="4" Background="#E6E6E6" CornerRadius="15">
                         <Grid>

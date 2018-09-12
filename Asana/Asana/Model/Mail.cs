@@ -26,6 +26,13 @@ namespace Asana.Model
         [Required]
         public DateTime SendTime { get; set; }
 
+        [Required]
+        public bool Marked { get; set; }
+
+        [Required]
+        public bool Favorite { get; set; }
+
+        public byte[] BodyHtml { get; set; }
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }

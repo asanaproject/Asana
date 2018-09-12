@@ -5,9 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Asana.View"
+             xmlns:tools="clr-namespace:Asana.Tools"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:model="clr-namespace:Asana.Model"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="Parent"
              >
 
     <i:Interaction.Triggers>
@@ -37,6 +40,17 @@
         <Image x:Key="plusw1" Source="../Resources/Images/plus1.png"></Image>
         <Image x:Key="plusw2" Source="../Resources/Images/plus1.png"></Image>
         <Image x:Key="plusw3" Source="../Resources/Images/plus1.png"></Image>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="m_nav_menu1" TargetType="{x:Type Button}"  >
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
@@ -62,7 +76,26 @@
             </Style.Triggers>
         </Style>
 
-        <DataTemplate x:Key="Template1">
+        <Style x:Key="l_box_item_star" TargetType="{x:Type Button}"  >
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DropShadowEffect x:Key="MyEffect" ShadowDepth="0.4" Color="Black" Opacity="0.7" BlurRadius="10" />
+
+
+        <DataTemplate x:Key="ChatItemLeft">
             <Border  >
                 <Grid>
                     <!-- Profile picture -->
@@ -92,7 +125,7 @@
                         <!-- Speech bubble rectangle -->
                         <Border CornerRadius="15" Padding="12 6 12 6" HorizontalAlignment="Left" VerticalAlignment="Center"  Background="#f1f0f0">
                             <!-- Message text -->
-                            <TextBlock VerticalAlignment="Center" TextAlignment="Left" TextWrapping="WrapWithOverflow" FontSize="14" Text="{Binding Path=Body}"/>
+                            <TextBlock VerticalAlignment="Center" TextAlignment="Left" TextWrapping="Wrap" FontSize="14" Text="{Binding Path=Body}"/>
                         </Border>
 
                         <!-- Chat bubble anchor -->
@@ -111,7 +144,7 @@
             </Border>
         </DataTemplate>
 
-        <DataTemplate x:Key="Template2">
+        <DataTemplate x:Key="ChatItemRight">
             <Border  >
                 <Grid>
                     <!-- Chat message container -->
@@ -125,7 +158,7 @@
                         <!-- Speech bubble rectangle -->
                         <Border CornerRadius="15" Padding="12 6 12 6" HorizontalAlignment="Right" VerticalAlignment="Center"  Background="#0084ff">
                             <!-- Message text -->
-                            <TextBlock VerticalAlignment="Center" TextAlignment="Right" Foreground="White" FontSize="14" TextWrapping="WrapWithOverflow" Text="{Binding Path=Body}"/>
+                            <TextBlock VerticalAlignment="Center" TextAlignment="Right" Foreground="White" FontSize="14" TextWrapping="Wrap" Text="{Binding Path=Body}"/>
                         </Border>
                         <!-- Chat bubble anchor -->
                         <!--
@@ -144,12 +177,161 @@
             </Border>
         </DataTemplate>
 
+
+        <DataTemplate x:Key="Chat">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle  Fill="White"/>
+                <TextBlock  Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
+                <Border  Grid.Row="1" Grid.Column="1"  BorderThickness="0 0.8 0 0" BorderBrush="LightGray">
+                    <Grid  Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <ListBox ItemsSource="{Binding ChatItems}" SelectedItem="{Binding ChatSelectedItem}"  tools:ListBoxBehavior.ScrollOnNewItem="true" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" >
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding .}">
+                                        <ContentControl.Style>
+                                            <Style TargetType="ContentControl">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource ChatItemLeft}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=UserId}" Value="{x:Static model:CurrentUser.Id}">
+                                                        <Setter Property="ContentTemplate" Value="{StaticResource ChatItemRight}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ContentControl.Style>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.01*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0.10*"/>
+                                <ColumnDefinition Width="0.01*"/>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  Grid.Column="1">
+                                <TextBox TextWrapping="Wrap" Padding="7 7 5 0"  Text="{Binding Message_Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  BorderBrush="Transparent" BorderThickness="0"  Style="{x:Null}" FontSize="14"></TextBox>
+                            </ScrollViewer>
+                            <Button Command="{Binding SendMessageCommand}" Grid.Column="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Height" Value="35"/>
+                                        <Setter Property="BorderBrush" Value="Gray"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="Foreground" Value="#008280"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  FontFamily="Calibri" FontSize="15">Send</TextBlock>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <!--<Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#007270"></Setter>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </Style.Triggers>-->
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </DataTemplate>
+
         <DataTemplate x:Key="Inbox">
             <Grid  Background="White" Grid.Row="1" Grid.Column="1">
                 <WrapPanel Orientation="Vertical" Margin="20 20 0 0">
                     <TextBlock FontSize="23" FontFamily="Calibri" Foreground="#666666" >Congratulations, your inbox is empty</TextBlock>
                     <TextBlock FontSize="15" FontFamily="Calibri" Foreground="#8f8f8f">New messages appear here.</TextBlock>
                 </WrapPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="InboxList">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="White"/>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
+                <Button Command="{Binding MarkAllReadCommand}" Cursor="Hand" Margin="25 25 0 0" Width="98" FontSize="13" Height="20" Foreground="#008784" Background="Transparent" HorizontalAlignment="Left" BorderBrush="Transparent">MARK ALL READ</Button>
+                <ListBox BorderThickness="0 0.8 0 0" BorderBrush="LightGray" Grid.Row="1" Padding="1"   SnapsToDevicePixels="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Background="White" SelectedItem="{Binding SelectedItemInbox}" ItemsSource="{Binding Inbox}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <!--<Setter Property="Background" Value="White"></Setter>-->
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                            <Setter Property="BorderThickness" Value="10 5 10 5"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Stretch" Height="35"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Margin" Value="0 0 0 3"/>
+                                    <Setter Property="BorderThickness" Value="10 5 10 5"/>
+                                    <Setter Property="Effect" Value="{StaticResource MyEffect}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="0.5 0.5 0.5 1 " BorderBrush="LightGray">
+                                <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Marked}" Value="True">
+                                                    <Setter Property="Background" Value="#f5f7f6"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Marked}" Value="False">
+                                                    <Setter Property="Background" Value="White"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35"/>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Command="{Binding DataContext.AddFavorite, ElementName=Parent}" CommandParameter="{Binding .}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1" Style="{StaticResource l_box_item_star}" >
+                                        <Image Height="15" Source="../Resources/Images/starg.png" />
+                                    </Button>
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="DemiBold" VerticalAlignment="Center" Text="{Binding SenderEmail}"></TextBlock>
+                                    <TextBlock Grid.Column="2" Margin="10 0 10 0" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center"  Text="{Binding Body}"></TextBlock>
+                                    <TextBlock Grid.Column="4" HorizontalAlignment="Center" FontSize="13" FontFamily="Roboto" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding SendTime}"></TextBlock>
+                                </Grid>
+                            </Border>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </DataTemplate>
 
@@ -162,64 +344,359 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="Chat">
-            <Grid Background="White" Grid.Row="1" Grid.Column="1">
+        <DataTemplate x:Key="StarredList">
+            <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
                     <RowDefinition/>
-                    <RowDefinition Height="45"/>
                 </Grid.RowDefinitions>
-                <ListBox BorderThickness="0 0 0 1" BorderBrush="Gray" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="WhiteSmoke" ItemsSource="{Binding ChatItems}">
+                <Rectangle Fill="White"/>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
+                <ListBox ItemsSource="{Binding StarredList}" SelectedItem="{Binding SelectedItemInbox}"  BorderThickness="0 0.8 0 0" BorderBrush="LightGray" Grid.Row="1" Padding="1"   SnapsToDevicePixels="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Background="White">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <!--<Setter Property="Background" Value="White"></Setter>-->
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                            <Setter Property="BorderThickness" Value="10 5 10 5"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Stretch" Height="35"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Margin" Value="0 0 0 3"/>
+                                    <Setter Property="BorderThickness" Value="10 5 10 5"/>
+                                    <Setter Property="Effect" Value="{StaticResource MyEffect}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <ContentControl Content="{Binding .}">
-                                <ContentControl.Style>
-                                    <Style TargetType="ContentControl">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource Template1}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=UserId}" Value="{x:Static model:CurrentUser.Id}">
-                                                <Setter Property="ContentTemplate" Value="{StaticResource Template2}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ContentControl.Style>
-                            </ContentControl>
+                            <Border BorderThickness="0.5 0.5 0.5 1 " BorderBrush="LightGray">
+                                <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Marked}" Value="True">
+                                                    <Setter Property="Background" Value="#f5f7f6"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Marked}" Value="False">
+                                                    <Setter Property="Background" Value="White"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35"/>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Command="{Binding DataContext.RemoveFavorite, ElementName=Parent}" CommandParameter="{Binding .}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1" Style="{StaticResource l_box_item_star}" >
+                                        <Image Height="15" Source="../Resources/Images/stargfilled.png" />
+                                    </Button>
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="DemiBold" VerticalAlignment="Center" Text="{Binding SenderEmail}"></TextBlock>
+                                    <TextBlock Grid.Column="2" Margin="10 0 10 0" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center"  Text="{Binding Body}"></TextBlock>
+                                    <TextBlock Grid.Column="4" HorizontalAlignment="Center" FontSize="13" FontFamily="Roboto" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding SendTime}"></TextBlock>
+                                </Grid>
+                            </Border>
+
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.01*"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="0.20*"/>
-                        <ColumnDefinition Width="0.01*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Height="35" CornerRadius="5 0 0 5" BorderThickness="0.5" BorderBrush="Gray" Grid.Column="1" Padding="7 7 5 0" >
-                        <TextBox Text="{Binding Message_Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0"  Style="{x:Null}" FontSize="14"></TextBox>
-                    </Border>
-                    <Button Command="{Binding SendMessageCommand}" Height="35" BorderBrush="Gray" BorderThickness="1"  Style="{x:Null}" Grid.Column="2" Content="Send" Foreground="White" Background="#008784" >
-                    </Button>
-                </Grid>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="InboxList">
+
+
+        <DataTemplate x:Key="MailView">
             <Grid>
-                <ListBox IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch"  Background="WhiteSmoke" ItemsSource="{Binding Inbox}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch" Height="35" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="White"/>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Roboto" Margin="10 10 0 0" Text="{Binding ColumnTitle}" FontSize="23"></TextBlock>
+                <Border  Grid.Row="1" Background="White" BorderThickness="0 0.8 0 0" BorderBrush="LightGray">
+                    <WebBrowser Grid.Row="1" tools:WebBrowserBehavior.Body="{Binding UrlForMail}" />
+                </Border>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="lmini_bar">
+            <StackPanel Background="#2f3136">
+                <!--Background="#1e2124"-->
+                <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 20 0 0" HorizontalAlignment="Center" BorderBrush="White">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedColumn}" Value="1">
+                                    <Setter Property="Background" Value="#1e2124"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedColumn}" Value="0">
+                                    <Setter Property="Background" Value="#1e2124"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Inbox" Width="32" HorizontalAlignment="Center" Height="32" Foreground="Red"></materialDesign:PackIcon>
+                    </Button>
+                </Border>
+                <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 12 0 0" HorizontalAlignment="Center" BorderBrush="White">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedColumn}" Value="2">
+                                    <Setter Property="Background" Value="#1e2124"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedColumn}" Value="5">
+                                    <Setter Property="Background" Value="#1e2124"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Star" Foreground="WhiteSmoke" Width="30" Height="30" HorizontalAlignment="Center" ></materialDesign:PackIcon>
+                    </Button>
+                </Border>
+                <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 12 0 0" HorizontalAlignment="Center" BorderBrush="White">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding SelectedItem.ChatRoomType}" Value="{x:Static model:ChatRoomType.Public}"/>
+                                        <Condition Binding="{Binding SelectedColumn}" Value="3"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" Value="#1e2124"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
+                        <Viewbox Width="28" Height="28">
+                            <Canvas Width="24" Height="24">
+                                <Path Data="M12,6A3,3 0 0,0 9,9A3,3 0 0,0 12,12A3,3 0 0,0 15,9A3,3 0 0,0 12,6M6,8.17A2.5,2.5 0 0,0 3.5,10.67A2.5,2.5 0 0,0 6,13.17C6.88,13.17 7.65,12.71 8.09,12.03C7.42,11.18 7,10.15 7,9C7,8.8 7,8.6 7.04,8.4C6.72,8.25 6.37,8.17 6,8.17M18,8.17C17.63,8.17 17.28,8.25 16.96,8.4C17,8.6 17,8.8 17,9C17,10.15 16.58,11.18 15.91,12.03C16.35,12.71 17.12,13.17 18,13.17A2.5,2.5 0 0,0 20.5,10.67A2.5,2.5 0 0,0 18,8.17M12,14C10,14 6,15 6,17V19H18V17C18,15 14,14 12,14M4.67,14.97C3,15.26 1,16.04 1,17.33V19H4V17C4,16.22 4.29,15.53 4.67,14.97M19.33,14.97C19.71,15.53 20,16.22 20,17V19H23V17.33C23,16.04 21,15.26 19.33,14.97Z" Fill="WhiteSmoke" />
+                            </Canvas>
+                        </Viewbox>
+                    </Button>
+                </Border>
+                <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 12 0 0" HorizontalAlignment="Center" BorderBrush="White">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding SelectedItem.ChatRoomType}" Value="{x:Static model:ChatRoomType.Direct}"/>
+                                        <Condition Binding="{Binding SelectedColumn}" Value="3"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" Value="#1e2124"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="forum" Width="24" Foreground="WhiteSmoke" HorizontalAlignment="Center" Height="24" ></materialDesign:PackIcon>
+                    </Button>
+                </Border>
+                <Border BorderThickness="0"  CornerRadius="15" Width="40" Height="40" Margin="0 12 0 0" HorizontalAlignment="Center" BorderBrush="White">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding SelectedItem.ChatRoomType}" Value="{x:Static model:ChatRoomType.Private}"/>
+                                        <Condition Binding="{Binding SelectedColumn}" Value="3"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" Value="#1e2124"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Button Background="Transparent"   BorderBrush="Transparent" HorizontalAlignment="Stretch" Margin="0 0 0 2.5" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="AccountMultiple" Width="24" HorizontalAlignment="Center" Foreground="WhiteSmoke" Height="24" ></materialDesign:PackIcon>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="lbig_bar">
+            <Grid Grid.Row="1" Background="#2f3136">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border CornerRadius="0" BorderThickness="0,0,0,1" BorderBrush="Gray">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Padding="8 0 0 0" Command="{Binding InboxCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Style="{StaticResource m_nav_menu1}" >
+                            <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50"/>
-                                    <ColumnDefinition Width="0.3*" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="DemiBold" VerticalAlignment="Center" Text="{Binding SenderEmail}"></TextBlock>
-                                <TextBlock Grid.Column="2" HorizontalAlignment="Left" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center" Text="{Binding Body}"></TextBlock>
-                                <TextBlock Grid.Column="4" HorizontalAlignment="Center" FontSize="23" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center" Margin="0 0 0 0" Text="{Binding SendTime}"></TextBlock>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Inbox" Height="15" Foreground="Red" ></materialDesign:PackIcon>
+                                <TextBlock Text="Inbox" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
                             </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                        </Button>
+                        <Button Padding="8 0 0 0" Command="{Binding StarredCommand}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  Style="{StaticResource m_nav_menu1}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Star" Foreground="WhiteSmoke" Height="15" ></materialDesign:PackIcon>
+                                <TextBlock Text="Starred" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </Border>
+                <ScrollViewer Margin="0,5,0,0" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+                    <StackPanel CanHorizontallyScroll="True"  >
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Command="{Binding ChannelListCommand}" HorizontalContentAlignment="Left"  Foreground="#777777" FontSize="15" FontWeight="Normal" FontFamily="Calibri" Height="20"  Content="CHANNELS">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,0,0,0"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button  Foreground="#777777" Command="{Binding AddChatRoomChannels}" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus1}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Content" Value="{StaticResource plusw1}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                        <ListBox ItemsSource="{Binding PublicChannels}" SelectedItem="{Binding SelectedItem}" Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="0.2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
+                                        <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Padding="15,0,0,0" Foreground="#777777" FontSize="15">DIRECT MESSAGES</TextBlock>
+                            <Button Command="{Binding AddDirectMessage}" Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus2}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Content" Value="{StaticResource plusw2}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                        <ListBox ItemsSource="{Binding DirectMessages}" SelectedItem="{Binding SelectedItem}" Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="0.2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
+                                        <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Padding="15,0,0,0" Foreground="#777777"  FontSize="15">PRIVATE MESSAGES</TextBlock>
+                            <Button Command="{Binding AddChatRoomPrivate}" Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus3}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Content" Value="{StaticResource plusw3}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                        <ListBox ItemsSource="{Binding PrivateChannels}" SelectedItem="{Binding SelectedItem}" Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="0.2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
+                                        <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -241,182 +718,24 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ContentControl Content="{Binding Header}" Grid.Row="0" Grid.ColumnSpan="2" />
-                <Grid Grid.Row="1" Background="#2f3136">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="65"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Border CornerRadius="0" BorderThickness="0,0,0,1" BorderBrush="Gray">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Button Margin="8 0 0 0" Command="{Binding InboxCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Style="{StaticResource m_nav_menu1}" >
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Height="15" Source="../Resources/Images/inbox.png" ></Image>
-                                    <TextBlock Text="Inbox" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
-                                </Grid>
-                            </Button>
-                            <Button Margin="8 0 0 0" Command="{Binding StarredCommand}" HorizontalContentAlignment="Stretch" Height="25" Grid.Row="1"  Style="{StaticResource m_nav_menu1}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Height="15" Source="../Resources/Images/star.png" ></Image>
-                                    <TextBlock Text="Starred" Grid.Column="1" FontSize="13" VerticalAlignment="Center" ></TextBlock>
-                                </Grid>
-                            </Button>
-                        </Grid>
-                    </Border>
-                    <ScrollViewer Margin="0,5,0,0" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
-                        <StackPanel CanHorizontallyScroll="True"  >
-                            <Grid Margin="0,5,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="0.2*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Command="{Binding ChannelListCommand}" HorizontalContentAlignment="Left"  Foreground="#777777" FontSize="15" FontWeight="Normal" FontFamily="Calibri" Height="20"  Content="CHANNELS">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,0,0,0"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                                <Button  Foreground="#777777" Command="{Binding AddChatRoomChannels}" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus1}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Cursor" Value="Hand"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Content" Value="{StaticResource plusw1}"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                            </Grid>
-                            <ListBox ItemsSource="{Binding PublicChannels}" SelectedItem="{Binding SelectedItem}" Background="Transparent">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid >
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="1*"/>
-                                                <ColumnDefinition Width="0.2*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
-                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                            <Grid Margin="0,10,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="0.2*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Padding="15,0,0,0" Foreground="#777777" FontSize="15">DIRECT MESSAGES</TextBlock>
-                                <Button  Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus2}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Cursor" Value="Hand"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Content" Value="{StaticResource plusw2}"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                            </Grid>
-                            <ListBox ItemsSource="{Binding DirectMessages}" SelectedItem="{Binding SelectedItem}" Background="Transparent">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid >
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="1*"/>
-                                                <ColumnDefinition Width="0.2*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
-                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                            <Grid Margin="0,10,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="0.2*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Padding="15,0,0,0" Foreground="#777777"  FontSize="15">PRIVATE MESSAGES</TextBlock>
-                                <Button Command="{Binding AddChatRoomPrivate}" Foreground="#777777" Grid.Column="1"  FontSize="15" HorizontalAlignment="Right" Padding="0,0,5,0" Content="{StaticResource plus3}" Width="22" Height="15" Background="Transparent" BorderBrush="Transparent">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Cursor" Value="Hand"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Content" Value="{StaticResource plusw3}"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                            </Grid>
-                            <ListBox ItemsSource="{Binding PrivateChannels}" SelectedItem="{Binding SelectedItem}" Background="Transparent">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid >
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="1*"/>
-                                                <ColumnDefinition Width="0.2*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Padding="15,0,0,0" Foreground="White">#</TextBlock>
-                                            <TextBlock Padding="30,0,0,0" Foreground="Gray" Text="{Binding Name}"></TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
+                <ContentControl Grid.Row="1" Content="{Binding .}">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Setter Property="ContentTemplate" Value="{StaticResource lmini_bar}"/>
+                            <Setter Property="Width" Value="50"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource lbig_bar}"/>
+                                    <Setter Property="Width" Value="260"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
                 <ContentControl Grid.Row="1" Grid.Column="1">
                     <ContentControl Content="{Binding .}">
                         <ContentControl.Style>
@@ -434,14 +753,18 @@
                                     <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="3">
                                         <Setter Property="ContentTemplate" Value="{StaticResource Chat}" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="4">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource MailView}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="5">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource StarredList}" />
+                                    </DataTrigger>
+
                                 </Style.Triggers>
                             </Style>
                         </ContentControl.Style>
                     </ContentControl>
                 </ContentControl>
-
-
-
             </Grid>
         </Border>
     </Grid>

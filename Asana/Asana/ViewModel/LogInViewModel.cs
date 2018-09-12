@@ -35,17 +35,16 @@ namespace Asana.ViewModel
         public string Email
         {
             get { return email; }
-            set { email = value; Set(ref email, value); }
+            set { Set(ref email, value); }
         }
 
-        private string pass;
+        private string pass ;
 
         public string Password
         {
             get { return pass; }
-            set { pass = value; Set(ref pass, value); }
+            set { Set(ref pass, value); }
         }
-
 
 
         private RelayCommand _logInBtnCommand;
@@ -53,13 +52,16 @@ namespace Asana.ViewModel
         public RelayCommand LogInBtnCommand => _logInBtnCommand ?? (_logInBtnCommand = new RelayCommand(
                    () =>
                    {
-                       if (accountService.LoginControl(Email, Password))
+                       System.Threading.Tasks.Task.Run(() =>
                        {
-                           CheckLoginLog.Save(Email);
-                           navigation.NavigateTo(ViewType.Home);
-                       }
-                       else
-                           Errors.LoginErrorMsg();
+                           if (accountService.LoginControl(Email, Password))
+                           {
+                               CheckLoginLog.Save(Email);
+                               navigation.NavigateTo(ViewType.Home);
+                           }
+                           else
+                               Errors.LoginErrorMsg();
+                       });
                    }));
 
         private RelayCommand _forgotPassCommand;

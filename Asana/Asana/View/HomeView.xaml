@@ -15,7 +15,6 @@
             </Image.RenderTransform>
         </Image>
         <DataTemplate x:Key="Slide1">
-            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -38,7 +37,6 @@
                     </Rectangle.Fill>
                 </Rectangle>
                 <!--<TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" Foreground="WhiteSmoke">STRATEGY,QUALITY, SUCCESS!!</TextBlock>-->
-           
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="Slide2">
@@ -130,11 +128,14 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid Background="White">
+    <Grid  >
+        <Grid.Background>
+            <ImageBrush ImageSource="../Resources/Images/bg3.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,350,350" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.8*"/>
-            <RowDefinition Height="0.2*"></RowDefinition>
-            <RowDefinition/>
+            <RowDefinition Height="0.05*"></RowDefinition>
+            <RowDefinition Height="0.6*"/>
         </Grid.RowDefinitions>
         <Grid >
             <Grid.RowDefinitions>
@@ -161,21 +162,12 @@
                     </Style>
                 </ContentControl.Style>
             </ContentControl>
-            
+
             <Button Opacity="0.4" Command="{Binding BackSlide}" ToolTip="Previous image" HorizontalAlignment="Left"  Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource LeftArr}"></Button>
             <Button Opacity="0.4" Command="{Binding NextSlide}" ToolTip="Next image" HorizontalAlignment="Right" Width="100"  Height="100" BorderBrush="Transparent" Background="Transparent" Content="{StaticResource RightArr}"></Button>
 
-            <Border Grid.Row="1" BorderBrush="White" BorderThickness="0 0 0 5" ></Border>
-            <Image Grid.Row="1" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>
+            <!--<Image VerticalAlignment="Bottom" MaxHeight="30" Grid.Row="1" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>-->
         </Grid>
-        <Rectangle Stretch="Fill" Fill="White" Grid.Row="1" Grid.RowSpan="2"></Rectangle>
-        <Border BorderThickness="0 5 0 0" Background="White" Grid.Row="1" Grid.RowSpan="2">
-            <Rectangle  Stretch="Fill" >
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="../Resources/Images/bg3.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,350,350" />
-                </Rectangle.Fill>
-            </Rectangle>
-        </Border>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.2*"/>
@@ -183,18 +175,18 @@
                 <RowDefinition Height="0.2*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.25*"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.25*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
                 </Grid.ColumnDefinitions>
-                <Border Padding="5"  BorderBrush="#dedef8"  CornerRadius="5">
+                <Border MaxWidth="220" MaxHeight="200" Padding="5"   BorderBrush="#dedef8"  CornerRadius="5">
                     <Border.BitmapEffect>
                         <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
@@ -206,12 +198,12 @@
                                 <RowDefinition />
                                 <RowDefinition Height="0.1*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="SaddleBrown">Discuss</TextBlock>
-                            <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon1.png" ></Image>
+                            <TextBlock  Margin="0 5 0 0"    HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="SaddleBrown">Discuss</TextBlock>
+                            <Image      Margin="0 10 0 0"   Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon1.png" ></Image>
                         </Grid>
                     </Button>
                 </Border>
-                <Border  Padding="5"   Grid.Column="1" BorderBrush="#dedef8"  CornerRadius="5">
+                <Border  MaxWidth="220" MaxHeight="200" Padding="5"   Grid.Column="1" BorderBrush="#dedef8"  CornerRadius="5">
                     <Border.BitmapEffect>
                         <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
@@ -223,29 +215,29 @@
                                 <RowDefinition />
                                 <RowDefinition Height="0.1*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="CornflowerBlue">Project</TextBlock>
-                            <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon2.png"></Image>
+                            <TextBlock Margin="0 5 0 0"  HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="CornflowerBlue">Project</TextBlock>
+                            <Image     Margin="0 10 0 0"    Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon2.png"></Image>
                         </Grid>
                     </Button>
                 </Border>
-                <Border   Padding="5"  Grid.Column="2" BorderBrush="#dedef8" CornerRadius="5">
+                <Border MaxWidth="220" MaxHeight="200"  Padding="5"  Grid.Column="2" BorderBrush="#dedef8" CornerRadius="5">
                     <Border.BitmapEffect>
                         <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
                     </Border.BitmapEffect>
-                    <Button Style="{x:Null}" Command="{Binding AppsCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  BorderBrush="Transparent">
+                    <Button MaxWidth="200" MaxHeight="200" Style="{x:Null}" Command="{Binding AppsCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  BorderBrush="Transparent">
                         <Grid  Background="WhiteSmoke">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="0.25*"/>
                                 <RowDefinition />
                                 <RowDefinition Height="0.1*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="PaleVioletRed">Apps</TextBlock>
-                            <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon3.png"></Image>
+                            <TextBlock Margin="0 2 0 0"   HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="PaleVioletRed">Apps</TextBlock>
+                            <Image     Margin="0 10 0 0"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon3.png"></Image>
                         </Grid>
                     </Button>
                 </Border>
-                <Border  Padding="5"   Grid.Column="3" BorderBrush="#dedef8" CornerRadius="5">
+                <Border  MaxWidth="220" MaxHeight="200" Padding="5"   Grid.Column="3" BorderBrush="#dedef8" CornerRadius="5">
                     <Border.BitmapEffect>
                         <DropShadowBitmapEffect Color="#dedef8" Direction="200"
                     ShadowDepth="0" Softness="0.5" />
@@ -257,8 +249,8 @@
                                 <RowDefinition />
                                 <RowDefinition Height="0.1*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="YellowGreen">Settings</TextBlock>
-                            <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon4.png"></Image>
+                            <TextBlock Margin="0 5 0 0"    HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Comic Sans MS" FontSize="16" Foreground="YellowGreen">Settings</TextBlock>
+                            <Image     Margin="0 10 0 0"   Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="../Resources/Images/icon4.png"></Image>
                         </Grid>
                     </Button>
                 </Border>
