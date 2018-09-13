@@ -54,18 +54,16 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock  Text="Title" FontSize="13" Margin="0 2 0 0"  Grid.Row="0"/>
-                <TextBox Background="#F5F5F5" Grid.Row="1" Width="200" TextWrapping="Wrap" Padding="5"  Margin="0 0 0 5" FontSize="13" Text="{Binding TaskName}"/>
+                <TextBox Background="#F5F5F5" Grid.Row="1" Width="200" TextWrapping="Wrap" Padding="5"  Margin="0 0 0 5" FontSize="13" Text="{Binding Title}"/>
                 <TextBlock Grid.Row="2"  Margin="0 5 0 0"  FontSize="13" Text="Assigned to"/>
                 <ComboBox Grid.Row="3" Margin="0 0 0 5" FontSize="13" />
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0" Width="55" Height="25" VerticalAlignment="Center" Margin="5 0 5 0" Command="{Binding DataContext.AddTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}" FontSize="11" Content="ADD" Foreground="White"/>
-                    <Button Grid.Column="1"  Width="55" Height="25" FontSize="11" VerticalAlignment="Center" Margin="5 0 5 0" Content="EDIT"/>
-                    <Button Grid.Column="2" Width="100" VerticalAlignment="Center" Margin="10 0 10 0" Height="25" FontSize="11" Content="DISCARD" Command="{Binding DiscardTaskCommand}" Background="White"  Foreground="Purple" />
+                    <Button Grid.Column="1" Width="100" VerticalAlignment="Center" Margin="10 0 10 0" Height="25" FontSize="11" Content="DISCARD" Command="{Binding DataContext.DiscardTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}" Background="White"  Foreground="Purple" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -187,7 +185,6 @@
                         </Button>
                     </Grid>
                     <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Column.Tasks}">
-                        
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding .}" >
