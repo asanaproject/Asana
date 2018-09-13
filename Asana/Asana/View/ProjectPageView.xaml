@@ -112,16 +112,17 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Task titcfcbfhhhhhhhhmmmmmmmmmmmmmmvjrle" FontWeight="Bold" TextWrapping="Wrap"/>
-                    <TextBlock Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Top" Text="__________________________________________________" Foreground="Black"/>
-                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Project title" />
-                    <Label Content="{materialDesign:PackIcon Kind=DotsVertical}" Width="30" Height="30" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-                    <Grid Grid.ColumnSpan="2" Grid.Row="3">
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Task titcfcbfhhhhhhhhmmmmmmmmmmmmmmvjrle" FontWeight="Bold" TextWrapping="Wrap"/>
+                    <TextBlock Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" Text="__________________________________________________" Foreground="Black"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Project title" />
+                    <Button BorderBrush="Transparent" Foreground="DarkSlateGray" Background="Transparent" Padding="0.2" HorizontalContentAlignment="Right" Content="{materialDesign:PackIcon Kind=DotsVertical}" Width="30" Height="30" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    <Grid Grid.ColumnSpan="2" Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -186,6 +187,7 @@
                         </Button>
                     </Grid>
                     <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Column.Tasks}">
+                        
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding .}" >
