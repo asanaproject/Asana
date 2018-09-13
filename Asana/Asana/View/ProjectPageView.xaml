@@ -27,7 +27,6 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border Name="Bd"
-                                             
                                              Background="{TemplateBinding Background}" 
                                              SnapsToDevicePixels="true">
                             <ScrollViewer Name="PART_ContentHost" Background="{TemplateBinding Background}" 
@@ -53,10 +52,21 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock  Text="Title" FontSize="13" Margin="0 2 0 0"  Grid.Row="0"/>
-                <TextBox Background="#F5F5F5" Grid.Row="1" Width="200" TextWrapping="Wrap" Padding="5"  Margin="0 0 0 5" FontSize="13" Text="{Binding Title}"/>
-                <TextBlock Grid.Row="2"  Margin="0 5 0 0"  FontSize="13" Text="Assigned to"/>
-                <ComboBox Grid.Row="3" Margin="0 0 0 5" FontSize="13" />
+                <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="Title">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                            <Setter Property="BorderBrush" Value="Gray"/>
+                            <Setter Property="Width" Value="200"/>
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Margin" Value="0 0 0 5"/>
+                            <Setter Property="FontSize" Value="13"/>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <ComboBox materialDesign:HintAssist.Hint="Assigned to" Grid.Row="3"  Margin="0 0 0 15" FontSize="13" Width="200"/>
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -103,8 +113,8 @@
 
         <!--   Data template for task  -->
         <DataTemplate x:Key="AddTaskTemplate">
-            <Border>
-                <Grid Width="150">
+            <Border HorizontalAlignment="Stretch">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="*"/>
@@ -151,7 +161,7 @@
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Row="0" Grid.Column="0" IsEnabled="False" Margin="0 0 2 0" Width="150" TextWrapping="Wrap" FontSize="16"  Name="TitleTxtBox" Text="{Binding Title}"/>
+                    <TextBox Grid.Row="0" Grid.Column="0" IsEnabled="False" Padding="2" Margin="0 0 2 0" Width="150" TextWrapping="Wrap" FontSize="16"  Name="TitleTxtBox" Text="{Binding Title}"/>
                     <Grid Grid.Row="0" Grid.Column="1" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -184,7 +194,7 @@
                             </Button.Triggers>
                         </Button>
                     </Grid>
-                    <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Column.Tasks}">
+                    <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Column.Tasks}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding .}" >
@@ -211,6 +221,9 @@
                 </Grid>
             </Border>
         </DataTemplate>
+        
+        
+        <DropShadowEffect x:Key="MyEffect" ShadowDepth="0.4" Color="Black" Opacity="0.4" BlurRadius="10" />
 
 
 
@@ -231,33 +244,38 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
-                    <RowDefinition Height="0.3*"/>
-                    <RowDefinition Height="0.3*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
                 <!--     HEADER    -->
                 <Grid Grid.Row="0">
                     <ContentControl Content="{Binding Header}"/>
                 </Grid>
 
                 <!--    Projects, tasks-->
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Projects" FontSize="23" VerticalAlignment="Stretch" HorizontalAlignment="Left" Foreground="Gray" FontWeight="Bold"/>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0.7*"/>
-                        <ColumnDefinition Width="5*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Command="{Binding CreateColumnCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="90" Height="30" Content="Create" Background="LightSeaGreen" FontSize="18" Foreground="White"  />
-                </Grid>
-                <Grid Grid.Row="3">
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Projects" FontSize="25" VerticalAlignment="Top" Margin="10 3 0 0" HorizontalAlignment="Left" Foreground="Gray" FontWeight="Bold"/>
+                <Button Grid.Row="1"  Command="{Binding CreateColumnCommand}" VerticalAlignment="Center" Margin="10 30 0 0" HorizontalAlignment="Left" Width="90" Height="30" Content="Create" FontSize="18" Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#00a09d"></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#008784"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Grid Margin="6" Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
@@ -278,11 +296,16 @@
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="VerticalAlignment" Value="Top"/>
-                                    <Setter Property="Margin" Value="5 0 10 0"/>
+                                    <Setter Property="Margin" Value="5 5 10 0"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                 <Border Background="{TemplateBinding Background}">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Effect" Value="{StaticResource MyEffect}" />
+                                                        </Style>
+                                                    </Border.Style>
                                                     <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                                 </Border>
                                             </ControlTemplate>
