@@ -217,7 +217,17 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Command="{Binding DataContext.CreateTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}" Content="{materialDesign:PackIcon Kind=Plus}"  Margin="0 0 2 0" Padding="0.2" Width="30" Height="30" />
-                        <Button Grid.Column="1"  Name="MainButton" Content="{materialDesign:PackIcon Kind=Settings}" Margin="2 0 0 0" Padding="0.2" Width="30" Height="30">
+                        <Menu Grid.Column="1">
+                            <MenuItem>
+                                <MenuItem.Header>
+                                    <materialDesign:PackIcon Kind="Settings" Margin="2 0 0 0" Padding="0.2" Width="30" Height="30"/>
+                                </MenuItem.Header>
+                                <MenuItem Header="Delete" Command="{Binding ElementName=Parent, Path=DataContext.DeleteColumnCommand}" CommandParameter="{Binding .}">
+                                </MenuItem>
+                                <MenuItem Header="Edit" />
+                            </MenuItem>
+                        </Menu>
+                        <!--<Button Grid.Column="1"  Name="MainButton" Content="{materialDesign:PackIcon Kind=Settings}" Margin="2 0 0 0" Padding="0.2" Width="30" Height="30">
                             <Button.ContextMenu>
                                 <ContextMenu x:Name="MainContextMenu" >
                                     <MenuItem Header="Delete" Command="{Binding ElementName=Parent, Path=DataContext.DeleteColumnCommand}" CommandParameter="{Binding .}">
@@ -241,7 +251,7 @@
                                     </BeginStoryboard>
                                 </EventTrigger>
                             </Button.Triggers>
-                        </Button>
+                        </Button>-->
                     </Grid>
                     <ListBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Column.Tasks}">
                         <ListBox.ItemTemplate>

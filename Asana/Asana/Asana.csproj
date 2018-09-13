@@ -200,6 +200,7 @@
     <Compile Include="ViewModel\ColumnItemViewModel.cs" />
     <Compile Include="ViewModel\ExtraWindowViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
+    <Compile Include="ViewModel\KanbanExamplesViewModel.cs" />
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ProjectAddViewModel.cs" />
@@ -239,6 +240,9 @@
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KanbanExamplesView.xaml.cs">
+      <DependentUpon>KanbanExamplesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ListChannelsView.xaml.cs">
       <DependentUpon>ListChannelsView.xaml</DependentUpon>
@@ -306,6 +310,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KanbanExamplesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
