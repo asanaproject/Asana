@@ -16,8 +16,42 @@ namespace Asana.ViewModel
 
         public ProjectAddViewModel()
         {
-            
+            deadline = DateTime.Now;
         }
+
+        private string projectName;
+
+        public string ProjectName
+        {
+            get { return projectName; }
+            set { Set(ref projectName, value); }
+        }
+
+
+        private string assignTo;
+
+        public string AssignTo
+        {
+            get { return assignTo; }
+            set { Set(ref assignTo, value); }
+        }
+
+        private string description;
+
+        public string Description
+        {
+            get { return description; }
+            set { Set(ref description, value); }
+        }
+
+        private DateTime deadline;
+
+        public DateTime Deadline
+        {
+            get { return deadline; }
+            set { Set(ref deadline, value); }
+        }
+
 
 
         private RelayCommand closewindow;
