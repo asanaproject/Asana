@@ -6,6 +6,7 @@ using Asana.Services;
 using Asana.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GongSolutions.Wpf.DragDrop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -128,10 +129,8 @@ namespace Asana.ViewModel
         public RelayCommand<Task> AddTaskCommand => addTaskCommand ?? (addTaskCommand = new RelayCommand<Task>(
         x =>
         {
-            MessageBox.Show(x.Title);
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
-                MessageBox.Show(x.Title);
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = true;
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).Title = x.Title;
             }
@@ -145,11 +144,29 @@ namespace Asana.ViewModel
         public RelayCommand<Task> DiscardTaskCommand => discardTaskCommand ?? (discardTaskCommand = new RelayCommand<Task>(
         x =>
         {
+            MessageBox.Show(x.Id.ToString());
             if (x!=null)
             {
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.Remove(Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id));
             }
 
         }));
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private RelayCommand<Task> editTaskCommand;
+        public RelayCommand<Task> EditTaskCommand => editTaskCommand ?? (editTaskCommand = new RelayCommand<Task>(
+        x =>
+        {
+            if (x != null)
+            {
+                Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = false;
+            }
+
+        }));
+
+     
     }
 }

@@ -11,13 +11,14 @@ namespace Asana.ViewModel
 {
     public class ColumnItemViewModel:ViewModelBase
     {
+       
         private Column column;
-
         public Column Column
         {
             get { return column; }
             set { Set(ref column,value); }
         }
+
         public ColumnItemViewModel()
         {
             Column = new Column();
@@ -39,7 +40,6 @@ namespace Asana.ViewModel
         }
       
         private Task task;
-
         public Task Task
         {
             get { return task; }
