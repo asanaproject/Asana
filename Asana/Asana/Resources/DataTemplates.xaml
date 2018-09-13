@@ -156,6 +156,9 @@
     <DataTemplate DataType="{x:Type vm:ChatRoomAddViewModel}">
         <v:ChatRoomAddView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:LodingViewModel}">
+        <v:LoadingView/>
+    </DataTemplate>
 
     <!--<DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
         <v:ProjectAddView/>

@@ -70,7 +70,7 @@ namespace Asana
                 navigationService.NavigateTo(ViewType.Home);
             }
             else
-                navigationService.NavigateTo(ViewType.CreateProject);
+                navigationService.NavigateTo(ViewType.LogIn);
 
         }
     }

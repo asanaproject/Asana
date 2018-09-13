@@ -19,7 +19,7 @@ namespace Asana.Model
         public virtual User User { get; set; }
 
         [ForeignKey(nameof(Project))]
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
         public virtual Project Project { get; set; }
     }
 }
