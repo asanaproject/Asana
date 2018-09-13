@@ -10,7 +10,6 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="450" d:DesignWidth="800" x:Name="Parent">
-
     <UserControl.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#c850c0" Offset="0"></GradientStop>
@@ -21,12 +20,11 @@
         </LinearGradientBrush>
     </UserControl.Background>
     <UserControl.Resources>
-
         <Style TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border Name="Bd"
+                        <Border Name="Bd" 
                                              
                                              Background="{TemplateBinding Background}" 
                                              SnapsToDevicePixels="true">
