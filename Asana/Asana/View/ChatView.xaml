@@ -759,7 +759,6 @@
                                     <DataTrigger Binding="{Binding Path=SelectedColumn}" Value="5">
                                         <Setter Property="ContentTemplate" Value="{StaticResource StarredList}" />
                                     </DataTrigger>
-
                                 </Style.Triggers>
                             </Style>
                         </ContentControl.Style>
