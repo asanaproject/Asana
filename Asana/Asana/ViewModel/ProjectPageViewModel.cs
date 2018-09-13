@@ -128,8 +128,10 @@ namespace Asana.ViewModel
         public RelayCommand<Task> AddTaskCommand => addTaskCommand ?? (addTaskCommand = new RelayCommand<Task>(
         x =>
         {
+            MessageBox.Show(x.Title);
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
+                MessageBox.Show(x.Title);
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = true;
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).Title = x.Title;
             }

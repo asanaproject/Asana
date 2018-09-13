@@ -43,7 +43,7 @@
         </Style>
 
         <!--  template for creating task   -->
-        <DataTemplate x:Key="Task">
+        <DataTemplate x:Key="AddTaskTemplate">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -52,21 +52,20 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="Title">
-                    <TextBox.Style>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="BorderThickness" Value="0 0 0 1"/>
-                            <Setter Property="BorderBrush" Value="Gray"/>
-                            <Setter Property="Width" Value="200"/>
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                            <Setter Property="Padding" Value="5"/>
-                            <Setter Property="Margin" Value="0 0 0 5"/>
-                            <Setter Property="FontSize" Value="13"/>
+                <TextBox Grid.Row="1" Grid.Column="0" Margin="0 0 0 15"  Width="200" Padding="2" Background="#F5F5F5"   FontSize="16" TextWrapping="Wrap" Name="TaskTitleTxtBox" Text="{Binding Title}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0"  Margin="0 0 0 15" HorizontalAlignment="Left" Padding="2" Background="#F5F5F5"  VerticalAlignment="Center"   FontSize="16" Text="Task title" IsHitTestVisible="False"  Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=TaskTitleTxtBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <ComboBox materialDesign:HintAssist.Hint="Assigned to" Grid.Row="3"  Margin="0 0 0 15" FontSize="13" Width="200"/>
+                    </TextBlock.Style>
+                </TextBlock>             
+                <ComboBox materialDesign:HintAssist.Hint="Assigned to" Grid.Row="3"  Margin="0 0 0 15" FontSize="16" Width="200"/>
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -79,10 +78,11 @@
         </DataTemplate>
 
 
-        <DataTemplate x:Key="AddColumnTemplate">
+        <DataTemplate x:Key="CreateColumnTemplate">
             <Border Padding="5" Background="WhiteSmoke">
                 <Grid >
                     <Grid.RowDefinitions>
+                        <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
@@ -106,13 +106,15 @@
                     </TextBlock>
                     <Button Grid.Row="0" Grid.Column="1" Content="{materialDesign:PackIcon Kind=Plus}" Command="{Binding DataContext.AddColumnCommand, ElementName=Parent}" Padding="0.2" CommandParameter="{Binding .}"  Margin="0 0 2 0" Width="30" Height="30" />
                     <Button Grid.Row="0" Grid.Column="2" Content="{materialDesign:PackIcon Kind=Delete}" Command="{Binding DataContext.DeleteColumnCommand, ElementName=Parent}" Padding="0.2"  CommandParameter="{Binding .}"  Margin="2 0 0 0" Width="30" Height="30" />
-
+                    <TextBlock Grid.ColumnSpan="3
+                               " Grid.Row="1" Width="250" Text="____________________________________________________________________________________________________________________________"/>
+                    <TextBlock Grid.Column="0" Height="25" Margin="0 5 0 2" Grid.Row="2" VerticalAlignment="Bottom" Width="150" FontWeight="Bold" Foreground="DodgerBlue" Text="Example"/>
                 </Grid>
             </Border>
         </DataTemplate>
 
         <!--   Data template for task  -->
-        <DataTemplate x:Key="AddTaskTemplate">
+        <DataTemplate x:Key="AddedTaskTemplate">
             <Border HorizontalAlignment="Stretch">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -126,14 +128,14 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Task titcfcbfhhhhhhhhmmmmmmmmmmmmmmvjrle" FontWeight="Bold" TextWrapping="Wrap"/>
-                    <TextBlock Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" Text="__________________________________________________" Foreground="Black"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Title}" FontWeight="Bold" Width="150" TextWrapping="Wrap"/>
+                    <TextBlock Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" Width="200" Text="____________________________________________________________________________________________" Foreground="Black"/>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Project title" />
                     <Button BorderBrush="Transparent" Foreground="DarkSlateGray" Background="Transparent" Padding="0.2" HorizontalContentAlignment="Right" Content="{materialDesign:PackIcon Kind=DotsVertical}" Width="30" Height="30" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                     <Grid Grid.ColumnSpan="2" Grid.Row="4">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
                             <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="0.5" Background="Transparent" Width="18" Height="18" BorderBrush="Transparent" Command="{Binding DataContext.StarTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}">
@@ -141,7 +143,7 @@
                                 <Image  Source="{Binding DataContext.StarPath, ElementName=Parent}"  Width="18" Height="18" />
                             </Button.Content>
                         </Button>
-                        <Button Grid.Column="1" Margin="0 2 0 0" Foreground="DarkGray" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Content="{materialDesign:PackIcon Kind=History}" Padding="0.5" Width="18" Height="18"/>
+                        <Button Grid.Column="1" Foreground="DarkGray" VerticalAlignment="Center" Margin="2 2 0 0" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Content="{materialDesign:PackIcon Kind=History}" Padding="0.5" Width="18" Height="18"/>
                         <Button Grid.Column="2" Width="18" Height="18" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="0.5" Content="{materialDesign:PackIcon Kind=Circle}" Background="Transparent" BorderBrush="Transparent" Foreground="DarkGray"/>
                     </Grid>
                 </Grid>
@@ -201,13 +203,13 @@
                                     <ContentControl.Style>
                                         <Style TargetType="ContentControl">
                                             <Setter Property="ContentTemplate"
-                                                            Value="{StaticResource Task}" />
+                                                            Value="{StaticResource AddTaskTemplate}" />
                                             <Style.Triggers>
 
 
                                                 <DataTrigger Binding="{Binding Path=IsTaskAdded}" Value="True">
                                                     <Setter Property="ContentTemplate"
-                                                                Value="{StaticResource AddTaskTemplate}" />
+                                                                Value="{StaticResource AddedTaskTemplate}" />
 
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -296,7 +298,7 @@
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="VerticalAlignment" Value="Top"/>
-                                    <Setter Property="Margin" Value="5 5 10 0"/>
+                                    <Setter Property="Margin" Value="10 5 20 0"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -320,7 +322,7 @@
                                         <ContentControl.Style>
                                             <Style TargetType="ContentControl">
                                                 <Setter Property="ContentTemplate"
-                                                            Value="{StaticResource AddColumnTemplate}" />
+                                                            Value="{StaticResource CreateColumnTemplate}" />
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=ColumnIsAdded}" Value="True">
                                                         <Setter Property="ContentTemplate" Value="{StaticResource CreateTaskTemplate}" />
