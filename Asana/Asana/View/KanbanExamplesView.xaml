@@ -17,6 +17,30 @@
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
             </Style>
+            <DataTemplate x:Key="RowTemp">
+                <Border Margin="5 0 5 0" Padding="0 0 0 2" BorderThickness="0.6" BorderBrush="LightGray">
+                    <Grid HorizontalAlignment="Stretch" Height="55">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Grid.ColumnSpan="2" Fill="#E5E5E5" Margin="5" />
+                        <Rectangle Grid.Row="1" Fill="#E5E5E5" Margin="5"/>
+                        <materialDesign:PackIcon Kind="Account" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Gray" Width="25" Height="25" Margin="0 0 5 3"/>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+            <Style x:Key="RowTitle" x:Name="RowTitle" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+                <Setter Property="Padding" Value="12 0 0 0"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="White">
@@ -27,55 +51,62 @@
         </Grid.RowDefinitions>
         <Border BorderThickness="0 0 0 1" BorderBrush="Gray">
             <Grid>
-                <TextBlock VerticalAlignment="Center" FontSize="23" FontFamily="Calibri" Margin="15 0 0 0" FontWeight="Medium" Foreground="#2f3136">KANBAN EXAMPLES</TextBlock>
-            <Button Background="Transparent" HorizontalAlignment="Right" BorderBrush="Transparent" Width="16" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0 0 20 0" Height="16" >
-                <materialDesign:PackIcon  Kind="Close" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            </Button>
+                <TextBlock VerticalAlignment="Center" FontSize="23" FontFamily="Calibri" Margin="15 0 0 0" FontWeight="Medium" Foreground="#2f3136">KANBAN EXAMPLE</TextBlock>
+                <Button Command="{Binding CloseWindowCommand}" Background="Transparent" HorizontalAlignment="Right" BorderBrush="Transparent" Width="16" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0 0 20 0" Height="16" >
+                    <materialDesign:PackIcon  Kind="Close" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
             </Grid>
         </Border>
-        <Grid Grid.Row="1" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid>
+        <Grid Grid.Row="1" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Padding="20" TextWrapping="Wrap" FontSize="17" VerticalAlignment="Center"><Run FontWeight="Bold">SoftwareDevelopment -</Run> Once a task is specified, set it  in the Specifications column, so that developers know they can pull it. If you work in sprints, use  to mark tasks of the current sprint.</TextBlock>
+            <Grid Grid.Row="1" Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Style="{StaticResource left_menu}"  >
-                    <TextBlock Text="Software Devolopment" Margin="15 0 0 0"/>
-                </Button>
-                <Button Grid.Row="1" Style="{StaticResource left_menu}">
-                    <TextBlock Text="Agile" Margin="15 0 0 0"/>
-                </Button>
-                <Button Grid.Row="2" Style="{StaticResource left_menu}">
-                    <TextBlock Text="Digital Marketing" Margin="15 0 0 0"/>
-                </Button>
-                <Button Grid.Row="3" Style="{StaticResource left_menu}">
-                    <TextBlock Text="Customer FeedBack" Margin="15 0 0 0"/>
-                </Button>
-                <Button Grid.Row="4" Style="{StaticResource left_menu}">
-                    <TextBlock Text="Getting Things Done (GTD)" Margin="15 0 0 0"/>
-                </Button>
-                <Button Grid.Row="5" Style="{StaticResource left_menu}">
-                    <TextBlock Text="Consulting" Margin="15 0 0 0"/>
-                </Button>
-                <Button Grid.Row="6" Style="{StaticResource left_menu}">
-                    <TextBlock Text="Research Project" Margin="15 0 0 0"/>
-                </Button>
-            </Grid>
-            <Grid Grid.Column="1" Background="White">
-                
+
+                <TextBlock Style="{DynamicResource RowTitle}">BackLog</TextBlock>
+                <StackPanel Grid.Row="1">
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" Style="{DynamicResource RowTitle}">Specifications</TextBlock>
+                <StackPanel Grid.Row="1" Grid.Column="1">
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                </StackPanel>
+                <TextBlock Grid.Column="2" Style="{DynamicResource RowTitle}">Development</TextBlock>
+                <StackPanel Grid.Row="1" Grid.Column="2">
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                </StackPanel>
+                <TextBlock Grid.Column="3" Style="{DynamicResource RowTitle}">Tests</TextBlock>
+                <StackPanel Grid.Row="1" Grid.Column="3">
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                </StackPanel>
+                <TextBlock Grid.Column="4" Style="{DynamicResource RowTitle}">Delivered</TextBlock>
+                <StackPanel Grid.Row="1" Grid.Column="4">
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                    <ContentControl ContentTemplate="{DynamicResource RowTemp}"/>
+                </StackPanel>
             </Grid>
         </Grid>
         <Border BorderThickness="0 0.6 0 0" BorderBrush="Gray" Grid.Row="2">
-            <Button Background="#00a09d" Foreground="White" Width="60" Height="30" Content="GOT IT" HorizontalAlignment="Right" Margin="0 0 20 0"/>
+            <Button Command="{Binding CloseWindowCommand}" Background="#00a09d" Foreground="White" Width="60" Height="30" Content="GOT IT" HorizontalAlignment="Right" Margin="0 0 20 0"/>
         </Border>
     </Grid>
 </UserControl>
