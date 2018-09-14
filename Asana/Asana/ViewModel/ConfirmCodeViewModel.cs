@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace Asana.ViewModel
 {
-   public class ConfirmCodeViewModel:ViewModelBase
+    public class ConfirmCodeViewModel : ViewModelBase
     {
         private readonly NavigationService navigation;
 
@@ -25,7 +25,7 @@ namespace Asana.ViewModel
         public RelayCommand BackCommand => _backCommand ?? (_backCommand = new RelayCommand(
             () => navigation.NavigateTo(ViewType.LogIn)
             ));
-         
+
 
         /// <summary>
         /// this property is for textbox which user enters confrimation code which is sent to user's email
@@ -50,7 +50,7 @@ namespace Asana.ViewModel
                     Task.Run(()
                       =>
                   {
-                      if (Randomizer.RandomKey.Equals(ConfirmationCode) && CurrentUser.Instance.User.Email != null && CurrentUser.Instance.User.Id == new Guid("9D2B0228-4D0D-8B49-01A698857709"))
+                      if (Randomizer.RandomKey.Equals(ConfirmationCode) && CurrentUser.Instance.User.Email != null && CurrentUser.Instance.User.Id == new Guid("9245fe4a-d402-451c-b9ed-9c1a04247482"))
                           navigation.NavigateTo(ViewType.ForgetPass);
                       else if (Randomizer.RandomKey.Equals(ConfirmationCode))
                           navigation.NavigateTo(ViewType.SignUp);
