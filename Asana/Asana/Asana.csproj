@@ -141,9 +141,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201809131656104_GUID.cs" />
-    <Compile Include="Migrations\201809131656104_GUID.Designer.cs">
-      <DependentUpon>201809131656104_GUID.cs</DependentUpon>
+    <Compile Include="Migrations\201809141236292_new Guid.cs" />
+    <Compile Include="Migrations\201809141236292_new Guid.Designer.cs">
+      <DependentUpon>201809141236292_new Guid.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -364,8 +364,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201809131656104_GUID.resx">
-      <DependentUpon>201809131656104_GUID.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809141236292_new Guid.resx">
+      <DependentUpon>201809141236292_new Guid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

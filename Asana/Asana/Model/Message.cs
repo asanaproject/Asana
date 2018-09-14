@@ -25,7 +25,7 @@ namespace Asana.Model
         public virtual User User { get; set; }
 
         [ForeignKey(nameof(ChatRoom))]
-        public int ChatRoomId { get; set; }
+        public Guid ChatRoomId { get; set; }
         public virtual ChatRoom ChatRoom { get; set; }
     }
 }

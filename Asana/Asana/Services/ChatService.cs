@@ -12,7 +12,7 @@ namespace Asana.Services
 {
     public class ChatService
     {
-        public bool SendMessagesChannel(int ChatRoomId, string body)
+        public bool SendMessagesChannel(Guid ChatRoomId, string body)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Asana.Services
             }
         }
 
-        public Task<List<dynamic>> GetSelectedChannelMessages(int ChatRoomId)
+        public Task<List<dynamic>> GetSelectedChannelMessages(Guid ChatRoomId)
         {
             return System.Threading.Tasks.Task.Run(() =>
             {

@@ -11,14 +11,19 @@ namespace Asana.Model
     public class ChatRoomUsers
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
 
         [ForeignKey(nameof(ChatRoom))]
-        public int ChatRoomId { get; set; }
+        public Guid ChatRoomId { get; set; }
         public virtual ChatRoom ChatRoom { get; set; }
+
+        public ChatRoomUsers()
+        {
+            Id = new Guid();
+        }
     }
 }
