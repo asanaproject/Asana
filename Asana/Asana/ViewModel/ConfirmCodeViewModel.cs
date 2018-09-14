@@ -50,8 +50,8 @@ namespace Asana.ViewModel
                     Task.Run(()
                       =>
                   {
-                      if (Randomizer.RandomKey.Equals(ConfirmationCode) && CurrentUser.Instance.User.Email != null && CurrentUser.Instance.User.Id == new Guid("9D2B0228-4D0D-8B49-01A698857709"))
-                          navigation.NavigateTo(ViewType.ForgetPass);
+                      if (Randomizer.RandomKey.Equals(ConfirmationCode) && CurrentUser.Instance.User.Email != null && CurrentUser.Instance.User.Id.Equals(CurrentUser.Id))
+                          navigation.NavigateTo(ViewType.SignUp);
                       else if (Randomizer.RandomKey.Equals(ConfirmationCode))
                           navigation.NavigateTo(ViewType.SignUp);
                       else

@@ -92,6 +92,7 @@ namespace Asana.ViewModel
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
                 Columns.First(y => y == x).ColumnIsAdded = true;
+                Columns.First(y => y == x).Column.CreatedAt = DateTime.Now;
             }
         }));
 
@@ -146,7 +147,6 @@ namespace Asana.ViewModel
         public RelayCommand<Task> DiscardTaskCommand => discardTaskCommand ?? (discardTaskCommand = new RelayCommand<Task>(
         x =>
         {
-            MessageBox.Show(x.Id.ToString());
             if (x!=null)
             {
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.Remove(Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id));
@@ -156,7 +156,7 @@ namespace Asana.ViewModel
 
 
         /// <summary>
-        /// 
+        /// editing selected task
         /// </summary>
         private RelayCommand<Task> editTaskCommand;
         public RelayCommand<Task> EditTaskCommand => editTaskCommand ?? (editTaskCommand = new RelayCommand<Task>(
@@ -182,6 +182,23 @@ namespace Asana.ViewModel
             WindowBluringCustom.Normal();
 
         }));
+
+
+        /// <summary>
+        /// editing properties of selected column
+        /// </summary>
+        private RelayCommand<ColumnItemViewModel> editColumnCommand;
+        public RelayCommand<ColumnItemViewModel> EditColumnCommand => editColumnCommand ?? (editColumnCommand = new RelayCommand<ColumnItemViewModel>(
+        x =>
+        {
+            CurrentColumn.Instance.Column = x;
+            WindowBluringCustom.Bluring();
+            ExtraWindow extraWindow = new ExtraWindow(new EditColumnViewModel(navigation), 400, 200);
+            extraWindow.ShowDialog();
+            WindowBluringCustom.Normal();
+
+        }));
+
 
         public void DragOver(IDropInfo dropInfo)
         {
