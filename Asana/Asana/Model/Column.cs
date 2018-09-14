@@ -18,6 +18,8 @@ namespace Asana.Objects
     [Table("Column")]
     public class Column : ViewModelBase
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid Id { get; set; }
         [StringLength(25), Required]
         public string Title { get; set; }

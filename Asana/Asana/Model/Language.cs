@@ -11,6 +11,8 @@ namespace Asana.Objects
     [Table("Language")]
     public class Language 
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid Id { get; set; }
 
         [StringLength(30),Required]
@@ -18,7 +20,7 @@ namespace Asana.Objects
 
         public Language()
         {
-            Id = new Guid();
+            Id =Guid.NewGuid();
         }
        
     }

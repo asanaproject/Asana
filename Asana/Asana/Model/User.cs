@@ -15,6 +15,8 @@ namespace Asana.Model
     [Table("User")]
     public class User
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid Id { get; set; }
 
 
@@ -43,7 +45,7 @@ namespace Asana.Model
 
         public User()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
     }
 }

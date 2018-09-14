@@ -13,7 +13,8 @@ namespace Asana.Objects
     [Table("UserRole")]
     public class UserRole
     {
-      
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid Id { get; set; }
 
         [Required,StringLength(25)]
@@ -23,7 +24,7 @@ namespace Asana.Objects
 
         public UserRole()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
     }
 }

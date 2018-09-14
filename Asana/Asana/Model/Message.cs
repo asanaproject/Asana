@@ -11,9 +11,13 @@ namespace Asana.Model
     [Table("Message")]
     public class Message
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public Guid ID { get; set; }
+        public Message()
+        {
+            ID = Guid.NewGuid();
+        }
         [Required, MaxLength(500)]
         public string Body { get; set; }
 

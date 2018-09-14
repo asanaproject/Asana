@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace Asana.Model
     [Table("ChatRoomUser")]
     public class ChatRoomUsers
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid Id { get; set; }
 
         [ForeignKey(nameof(User))]
@@ -23,7 +25,7 @@ namespace Asana.Model
 
         public ChatRoomUsers()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
     }
 }

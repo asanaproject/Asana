@@ -14,6 +14,8 @@ namespace Asana.Objects
     [Table("Project")]
     public class Project : ViewModelBase
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid Id { get; set; }
 
         [StringLength(50), Required]

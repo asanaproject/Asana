@@ -1,6 +1,7 @@
 ﻿using Asana.Objects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace Asana.Model
     [Table("UsersProject")]
     public class UsersProjects
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid  Id { get; set; }
 
         [ForeignKey(nameof(User))]
@@ -23,7 +26,7 @@ namespace Asana.Model
 
         public UsersProjects()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
     }
 }

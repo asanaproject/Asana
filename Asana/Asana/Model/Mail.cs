@@ -11,6 +11,8 @@ namespace Asana.Model
     [Table("Mail")]
     public class Mail
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid ID { get; set; }
 
         [Required, MaxLength(100)]
@@ -39,7 +41,7 @@ namespace Asana.Model
 
         public Mail()
         {
-            ID = new Guid();
+            ID = Guid.NewGuid();
         }
     }
 }

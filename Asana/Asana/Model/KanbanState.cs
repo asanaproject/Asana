@@ -11,6 +11,8 @@ namespace Asana.Objects
     [Table("KanbanState")]
     public class KanbanState
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid Id { get; set; }
 
         [StringLength(25),Required]
@@ -20,7 +22,7 @@ namespace Asana.Objects
 
         public KanbanState()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
     }
 }

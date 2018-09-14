@@ -11,6 +11,8 @@ namespace Asana.Objects
     [Table("Customer")]
     public class ExtraInfo
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public Guid Id { get; set; }
 
         [StringLength(20),Required]
@@ -24,7 +26,7 @@ namespace Asana.Objects
 
         public ExtraInfo()
         {
-            Id = new Guid();
+            Id =Guid.NewGuid();
         }
     }
 }
