@@ -15,8 +15,7 @@ namespace Asana.Model
     [Table("User")]
     public class User
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
 
         [Required]
@@ -40,5 +39,11 @@ namespace Asana.Model
 
         public virtual ICollection<UsersProjects> Projects { get; set; }
         //   public virtual ICollection<UserRole> UserRoles { get; set; }
+
+
+        public User()
+        {
+            Id = new Guid();
+        }
     }
 }

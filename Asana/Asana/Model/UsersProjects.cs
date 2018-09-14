@@ -11,8 +11,7 @@ namespace Asana.Model
     [Table("UsersProject")]
     public class UsersProjects
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid  Id { get; set; }
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
@@ -21,5 +20,10 @@ namespace Asana.Model
         [ForeignKey(nameof(Project))]
         public Guid ProjectId { get; set; }
         public virtual Project Project { get; set; }
+
+        public UsersProjects()
+        {
+            Id = new Guid();
+        }
     }
 }

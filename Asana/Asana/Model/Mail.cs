@@ -11,8 +11,7 @@ namespace Asana.Model
     [Table("Mail")]
     public class Mail
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public Guid ID { get; set; }
 
         [Required, MaxLength(100)]
         public string Title { get; set; }
@@ -35,7 +34,12 @@ namespace Asana.Model
         public byte[] BodyHtml { get; set; }
 
         [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public virtual User User { get; set; }
+
+        public Mail()
+        {
+            ID = new Guid();
+        }
     }
 }

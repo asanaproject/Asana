@@ -117,7 +117,7 @@ namespace Asana.Services
         }
 
 
-        public void SetMarked(int id)
+        public void SetMarked(Guid id)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace Asana.Services
         }
 
 
-        public void AddStarred(int id)
+        public void AddStarred(Guid id)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace Asana.Services
             }
         }
 
-        public void RemoveStarred(int id)
+        public void RemoveStarred(Guid id)
         {
             try
             {

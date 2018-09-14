@@ -26,7 +26,7 @@ namespace Asana.Objects
         public virtual Column Column { get; set; }
 
         [ForeignKey("KanbanState")]
-        public int KanbanStateId { get; set; }
+        public Guid KanbanStateId { get; set; }
         public virtual KanbanState KanbanState { get; set; }
 
         public DateTime Deadline { get; set; }
