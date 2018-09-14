@@ -18,7 +18,7 @@ using Task = Asana.Objects.Task;
 
 namespace Asana.ViewModel
 {
-    public class ProjectPageViewModel : ViewModelBase
+    public class ProjectPageViewModel : ViewModelBase,IDropTarget
     {
         private readonly NavigationService navigation;
         private readonly IColumnService columnService;
@@ -167,6 +167,14 @@ namespace Asana.ViewModel
 
         }));
 
-     
+        public void DragOver(IDropInfo dropInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

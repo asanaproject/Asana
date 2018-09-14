@@ -65,7 +65,7 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-                </TextBlock>             
+                </TextBlock>
                 <ComboBox materialDesign:HintAssist.Hint="Assigned to" Grid.Row="3"  Margin="0 0 0 15" FontSize="16" Width="200"/>
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
@@ -210,48 +210,23 @@
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Row="0" Grid.Column="0" IsEnabled="False" Padding="2" Margin="0 0 2 0" Width="150" TextWrapping="Wrap" FontSize="16"  Name="TitleTxtBox" Text="{Binding Title}"/>
+                    <TextBox Grid.Row="0" Grid.Column="0" IsEnabled="False" VerticalAlignment="Center" Padding="0.2" Margin="0 0 2 0" Width="150" TextWrapping="Wrap" FontSize="16"  Name="TitleTxtBox" Text="{Binding Title}"/>
                     <Grid Grid.Row="0" Grid.Column="1" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Command="{Binding DataContext.CreateTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}" Content="{materialDesign:PackIcon Kind=Plus}"  Margin="0 0 2 0" Padding="0.2" Width="30" Height="30" />
-                        <Menu Grid.Column="1">
-                            <MenuItem>
-                                <MenuItem.Header>
-                                    <materialDesign:PackIcon Kind="Settings" Margin="2 0 0 0" Padding="0.2" Width="30" Height="30"/>
-                                </MenuItem.Header>
-                                <MenuItem Header="Delete" Command="{Binding ElementName=Parent, Path=DataContext.DeleteColumnCommand}" CommandParameter="{Binding .}">
+                        <Menu  Grid.Column="1" >
+                            <MenuItem Padding="6 0 0 0" Background="#673BB7"  HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"  Width="30" Height="30">
+                                <MenuItem.Icon >
+                                    <materialDesign:PackIcon Kind="Settings" Foreground="White"  />
+                                </MenuItem.Icon>
+                                <MenuItem Header="{materialDesign:PackIcon Kind=Delete}" Command="{Binding ElementName=Parent, Path=DataContext.DeleteColumnCommand}" CommandParameter="{Binding .}">
                                 </MenuItem>
-                                <MenuItem Header="Edit" />
+                                <MenuItem Header="{materialDesign:PackIcon Kind=BorderColor}" />
                             </MenuItem>
                         </Menu>
-                        <!--<Button Grid.Column="1"  Name="MainButton" Content="{materialDesign:PackIcon Kind=Settings}" Margin="2 0 0 0" Padding="0.2" Width="30" Height="30">
-                            <Button.ContextMenu>
-                                <ContextMenu x:Name="MainContextMenu" >
-                                    <MenuItem Header="Delete" Command="{Binding ElementName=Parent, Path=DataContext.DeleteColumnCommand}" CommandParameter="{Binding .}">
-                                    </MenuItem>
-                                    <MenuItem Header="Edit" />
-                                </ContextMenu>
-                            </Button.ContextMenu>
-
-                            <Button.Triggers>
-                                <EventTrigger SourceName="MainButton" RoutedEvent="Button.Click">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainContextMenu" Storyboard.TargetProperty="(ContextMenu.IsOpen)">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <sys:Boolean>True</sys:Boolean>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Button.Triggers>
-                        </Button>-->
                     </Grid>
                     <ListBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Column.Tasks}">
                         <ListBox.ItemTemplate>
@@ -280,8 +255,8 @@
                 </Grid>
             </Border>
         </DataTemplate>
-        
-        
+
+
         <DropShadowEffect x:Key="MyEffect" ShadowDepth="0.4" Color="Black" Opacity="0.4" BlurRadius="10" />
 
 
