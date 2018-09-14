@@ -11,8 +11,9 @@ namespace Asana.Model
     [Table("ChatRoom")]
     public class ChatRoom
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public Guid ID { get; set; }
 
         [Required, MaxLength(100)]
         public string Name { get; set; }
@@ -23,5 +24,9 @@ namespace Asana.Model
         public ChatRoomType ChatRoomType { get; set; }
 
         public virtual ICollection<ChatRoomUsers> Users { get; set; }
+        public ChatRoom()
+        {
+            ID = Guid.NewGuid();
+        }
     }
 }

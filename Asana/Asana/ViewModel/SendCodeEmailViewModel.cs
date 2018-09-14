@@ -50,7 +50,7 @@ namespace Asana.ViewModel
                         {
                             emailHelper.SendForgotPasswordCode(Email);
                             CurrentUser.Instance.User.Email = Email;
-                            CurrentUser.Instance.User.Id = -1;
+                            CurrentUser.Instance.User.Id = new Guid("9D2B0228-4D0D-8B49-01A698857709");
                             navigation.NavigateTo(ViewType.ConfirmCode);
                         }
                         else

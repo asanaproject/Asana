@@ -46,6 +46,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="FSharp.Core, Version=4.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\FSharp.Core.4.5.2\lib\net45\FSharp.Core.dll</HintPath>
     </Reference>
@@ -141,9 +144,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201809081707082_Resolved_All_Problems.cs" />
-    <Compile Include="Migrations\201809081707082_Resolved_All_Problems.Designer.cs">
-      <DependentUpon>201809081707082_Resolved_All_Problems.cs</DependentUpon>
+    <Compile Include="Migrations\201809141407006_Initial_Model.cs" />
+    <Compile Include="Migrations\201809141407006_Initial_Model.Designer.cs">
+      <DependentUpon>201809141407006_Initial_Model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -202,6 +205,7 @@
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\KanbanExamplesViewModel.cs" />
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
+    <Compile Include="ViewModel\LodingViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ProjectAddViewModel.cs" />
     <Compile Include="View\ChatRoomAdd.xaml.cs">
@@ -246,6 +250,9 @@
     </Compile>
     <Compile Include="View\ListChannelsView.xaml.cs">
       <DependentUpon>ListChannelsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoadingView.xaml.cs">
+      <DependentUpon>LoadingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -321,6 +328,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\LoadingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -364,8 +375,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201809081707082_Resolved_All_Problems.resx">
-      <DependentUpon>201809081707082_Resolved_All_Problems.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809141407006_Initial_Model.resx">
+      <DependentUpon>201809141407006_Initial_Model.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

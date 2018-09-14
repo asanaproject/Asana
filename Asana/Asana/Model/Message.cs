@@ -11,9 +11,13 @@ namespace Asana.Model
     [Table("Message")]
     public class Message
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public Guid ID { get; set; }
+        public Message()
+        {
+            ID = Guid.NewGuid();
+        }
         [Required, MaxLength(500)]
         public string Body { get; set; }
 
@@ -21,11 +25,11 @@ namespace Asana.Model
         public DateTime SendTime { get; set; }
 
         [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public virtual User User { get; set; }
 
         [ForeignKey(nameof(ChatRoom))]
-        public int ChatRoomId { get; set; }
+        public Guid ChatRoomId { get; set; }
         public virtual ChatRoom ChatRoom { get; set; }
     }
 }

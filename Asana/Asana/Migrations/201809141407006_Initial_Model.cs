@@ -3,7 +3,7 @@ namespace Asana.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Resolved_All_Problems : DbMigration
+    public partial class Initial_Model : DbMigration
     {
         public override void Up()
         {
@@ -11,7 +11,7 @@ namespace Asana.Migrations
                 "dbo.ChatRoom",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        ID = c.Guid(nullable: false),
                         Name = c.String(nullable: false, maxLength: 100),
                         Desc = c.String(nullable: false, maxLength: 500),
                         ChatRoomType = c.Int(nullable: false),
@@ -22,9 +22,9 @@ namespace Asana.Migrations
                 "dbo.ChatRoomUser",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        UserId = c.Int(nullable: false),
-                        ChatRoomId = c.Int(nullable: false),
+                        Id = c.Guid(nullable: false),
+                        UserId = c.Guid(nullable: false),
+                        ChatRoomId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.ChatRoom", t => t.ChatRoomId, cascadeDelete: true)
@@ -36,13 +36,13 @@ namespace Asana.Migrations
                 "dbo.User",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         FullName = c.String(nullable: false),
                         Username = c.String(nullable: false),
                         Email = c.String(nullable: false),
                         Image = c.Binary(),
                         Password = c.String(nullable: false),
-                        UserRole_Id = c.Int(),
+                        UserRole_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.UserRole", t => t.UserRole_Id)
@@ -52,9 +52,9 @@ namespace Asana.Migrations
                 "dbo.UsersProject",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        UserId = c.Int(nullable: false),
-                        ProjectId = c.Int(nullable: false),
+                        Id = c.Guid(nullable: false, identity: true),
+                        UserId = c.Guid(nullable: false),
+                        ProjectId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Project", t => t.ProjectId, cascadeDelete: true)
@@ -66,10 +66,10 @@ namespace Asana.Migrations
                 "dbo.Project",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Name = c.String(nullable: false, maxLength: 50),
                         ProjectEmail = c.String(nullable: false, maxLength: 50),
-                        DashboardId = c.Int(nullable: false),
+                        DashboardId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Dashboard", t => t.DashboardId, cascadeDelete: true)
@@ -79,9 +79,10 @@ namespace Asana.Migrations
                 "dbo.Column",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Title = c.String(nullable: false, maxLength: 25),
-                        ProjectId = c.Int(nullable: false),
+                        ProjectId = c.Guid(nullable: false),
+                        IsColumnAdded = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Project", t => t.ProjectId, cascadeDelete: true)
@@ -91,11 +92,13 @@ namespace Asana.Migrations
                 "dbo.Task",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Title = c.String(nullable: false, maxLength: 25),
-                        ColumnId = c.Int(nullable: false),
-                        KanbanStateId = c.Int(nullable: false),
+                        ColumnId = c.Guid(nullable: false),
+                        KanbanStateId = c.Guid(nullable: false),
                         Deadline = c.DateTime(nullable: false),
+                        IsTaskAdded = c.Boolean(nullable: false),
+                        IsStarred = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Column", t => t.ColumnId, cascadeDelete: true)
@@ -107,7 +110,7 @@ namespace Asana.Migrations
                 "dbo.KanbanState",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Name = c.String(nullable: false, maxLength: 25),
                     })
                 .PrimaryKey(t => t.Id);
@@ -116,7 +119,7 @@ namespace Asana.Migrations
                 "dbo.Dashboard",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -124,7 +127,7 @@ namespace Asana.Migrations
                 "dbo.Customer",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Username = c.String(nullable: false, maxLength: 20),
                         Email = c.String(nullable: false, maxLength: 50),
                         Password = c.String(nullable: false, maxLength: 20),
@@ -135,7 +138,7 @@ namespace Asana.Migrations
                 "dbo.Language",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Name = c.String(nullable: false, maxLength: 30),
                     })
                 .PrimaryKey(t => t.Id);
@@ -144,7 +147,7 @@ namespace Asana.Migrations
                 "dbo.Mail",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        ID = c.Guid(nullable: false),
                         Title = c.String(nullable: false, maxLength: 100),
                         Body = c.String(nullable: false, maxLength: 500),
                         SenderEmail = c.String(nullable: false, maxLength: 100),
@@ -152,7 +155,7 @@ namespace Asana.Migrations
                         Marked = c.Boolean(nullable: false),
                         Favorite = c.Boolean(nullable: false),
                         BodyHtml = c.Binary(),
-                        UserId = c.Int(nullable: false),
+                        UserId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
@@ -162,11 +165,11 @@ namespace Asana.Migrations
                 "dbo.Message",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        ID = c.Guid(nullable: false),
                         Body = c.String(nullable: false, maxLength: 500),
                         SendTime = c.DateTime(nullable: false),
-                        UserId = c.Int(nullable: false),
-                        ChatRoomId = c.Int(nullable: false),
+                        UserId = c.Guid(nullable: false),
+                        ChatRoomId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.ChatRoom", t => t.ChatRoomId, cascadeDelete: true)
@@ -178,7 +181,7 @@ namespace Asana.Migrations
                 "dbo.UserRole",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Type = c.String(nullable: false, maxLength: 25),
                     })
                 .PrimaryKey(t => t.Id);

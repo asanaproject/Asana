@@ -62,7 +62,6 @@ namespace Asana
             navigationService.AddPage(chatViewModel, ViewType.ChatView);
             navigationService.AddPage(projectPageViewModel, ViewType.ProjectPage);
             navigationService.AddPage(listChannelsViewModel, ViewType.ListChannels);
-
             userService = new UserService();
             string user = CheckLoginLog.Load();
             if (user != "" && userService.Select(user) != null)
@@ -71,7 +70,7 @@ namespace Asana
                 navigationService.NavigateTo(ViewType.Home);
             }
             else
-                navigationService.NavigateTo(ViewType.ProjectPage);
+                navigationService.NavigateTo(ViewType.LogIn);
 
         }
     }

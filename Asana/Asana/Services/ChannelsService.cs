@@ -60,7 +60,7 @@ namespace Asana.Services
 
         }
 
-        public bool JoinRoom(int ChatId)
+        public bool JoinRoom(Guid ChatId)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace Asana.Services
             {
                 using (var dbContext = new AsanaDbContext())
                 {
-                    int ChatId = dbContext.ChatRooms.Single(x => x.Name == name).ID;
+                    Guid ChatId = dbContext.ChatRooms.Single(x => x.Name == name).ID;
                     dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { ChatRoomId = ChatId, UserId = CurrentUser.Instance.User.Id });
                     dbContext.SaveChanges();
                     return true;
@@ -155,7 +155,7 @@ namespace Asana.Services
                         if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).ChatRoomType == ChatRoomType.Direct && cru.UserId == CurrentUser.Instance.User.Id)
                         {
                             var xy = dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId);
-                            int id = dbContext.ChatRoomUsers.Single(x => x.ChatRoomId == xy.ID && x.UserId != CurrentUser.Id).UserId;
+                            Guid id = dbContext.ChatRoomUsers.Single(x => x.ChatRoomId == xy.ID && x.UserId != CurrentUser.Id).UserId;
                             string name = dbContext.Users.Single(y => y.Id == id).FullName;
                             listId.Add(new ChatRoom() { ID = xy.ID, Desc = xy.Desc, Name = name, ChatRoomType = xy.ChatRoomType });
                         }

@@ -13,12 +13,18 @@ namespace Asana.Objects
     [Table("UserRole")]
     public class UserRole
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public Guid Id { get; set; }
 
         [Required,StringLength(25)]
         public string Type { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
+
+        public UserRole()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }
