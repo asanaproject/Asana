@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Asana.View"
              xmlns:model="clr-namespace:Asana.Model"
              mc:Ignorable="d" 
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -109,7 +110,11 @@
                     <Button Grid.Row="0" Grid.Column="2" Content="{materialDesign:PackIcon Kind=Delete}" Command="{Binding DataContext.DeleteColumnCommand, ElementName=Parent}" Padding="0.2"  CommandParameter="{Binding .}" HorizontalAlignment="Left"  Margin="3 0 0 0" Width="30" Height="30" />
                     <TextBlock Grid.ColumnSpan="3
                                " Grid.Row="1" Width="250" Text="____________________________________________________________________________________________________________________________"/>
-                    <TextBlock Grid.Column="0"  Margin="0 2 0 2" Grid.Row="2" VerticalAlignment="Bottom" Width="150" FontWeight="Bold" Foreground="DodgerBlue" Text="Example"/>
+                    <Label Grid.Column="0"  Margin="0 2 0 2" Grid.Row="2" VerticalAlignment="Bottom" Width="150" FontWeight="Bold" Foreground="DodgerBlue" Content="Example">
+                        <Label.InputBindings>
+                            <MouseBinding Command="{Binding DataContext.ShowExampleCommand, ElementName=Parent}" CommandParameter="{Binding .}" MouseAction="LeftClick" />
+                        </Label.InputBindings>
+                    </Label>
                 </Grid>
             </Border>
         </DataTemplate>

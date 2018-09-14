@@ -4,6 +4,8 @@ using Asana.Navigation;
 using Asana.Objects;
 using Asana.Services;
 using Asana.Services.Interfaces;
+using Asana.Tools;
+using Asana.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GongSolutions.Wpf.DragDrop;
@@ -164,6 +166,20 @@ namespace Asana.ViewModel
             {
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = false;
             }
+
+        }));
+
+        /// <summary>
+        /// this command is for showing example column/task which user should create
+        /// </summary>
+        private RelayCommand<ColumnItemViewModel> showExampleCommand;
+        public RelayCommand<ColumnItemViewModel> ShowExampleCommand => showExampleCommand ?? (showExampleCommand = new RelayCommand<ColumnItemViewModel>(
+        x =>
+        {
+            WindowBluringCustom.Bluring();
+            ExtraWindow extraWindow = new ExtraWindow(new KanbanExamplesViewModel(navigation), 800, 450);
+            extraWindow.ShowDialog();
+            WindowBluringCustom.Normal();
 
         }));
 
