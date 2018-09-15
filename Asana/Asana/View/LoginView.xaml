@@ -127,7 +127,7 @@
                     </Border>
 
                     <Border VerticalAlignment="Top" Width="270" Height="40" BorderThickness="1" Background="#5AB742"  CornerRadius="20" Grid.Column="1" Grid.Row="4">
-                        <Button BorderBrush="Transparent" Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" >
+                        <Button BorderBrush="Transparent"  Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" >
                             LOGIN
                         </Button>
                     </Border>
