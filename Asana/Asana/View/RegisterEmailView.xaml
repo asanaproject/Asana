@@ -104,7 +104,7 @@
                 <TextBox  Name="EmailTxtBox"  Grid.Column="0" Width="350"
                  BorderThickness="1" Height="50" TextWrapping="Wrap"
                  Padding="5" TextAlignment="Center" FontSize="25"
-                 Text="{ Binding Email, UpdateSourceTrigger=PropertyChanged,
+                 Text="{ Binding Email, 
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}"  >
                 </TextBox>
                 <!--  Watermark effect for email textbox-->

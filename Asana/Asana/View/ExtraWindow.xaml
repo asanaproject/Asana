@@ -13,6 +13,6 @@
         <ResourceDictionary Source="pack://application:,,,/Asana;component/Resources/DataTemplates.xaml"/>
     </Window.Resources>
     <Grid>
-          <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Content="{Binding ContentWindow}"/>
+        <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Content="{Binding ContentWindow}"/>
     </Grid>
 </Window>

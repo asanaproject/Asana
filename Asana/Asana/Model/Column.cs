@@ -12,6 +12,7 @@ using Asana.Tools;
 using Asana.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Humanizer;
 
 namespace Asana.Objects
 {
@@ -27,7 +28,7 @@ namespace Asana.Objects
         [ForeignKey("Project")]
         public Guid ProjectId { get; set; }
         public Project Project { get; set; }
-
+        public DateTimeOffset CreatedAt { get; set; }
         private ICollection<Task> tasks;
         public virtual ICollection<Task> Tasks
         {
@@ -39,7 +40,7 @@ namespace Asana.Objects
         public Column()
         {
             Id = Guid.NewGuid();
-            Tasks = new ObservableCollection<Task>();
+            Tasks = new ObservableCollection<Task>();           
         }
     }
 }

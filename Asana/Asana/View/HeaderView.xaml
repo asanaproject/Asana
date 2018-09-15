@@ -85,7 +85,7 @@
         <Button Command="{Binding SettingsCommand}"  Content="Settings" VerticalAlignment="Center" Grid.Column="4"
                         HorizontalAlignment="Left" Margin="4 0 0 0" Style="{StaticResource m_nav_bar}" />
         <Menu Grid.Column="9" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
-            <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="WhiteSmoke"  FontSize="15" FontFamily="Calibri" >
+            <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="WhiteSmoke"  FontSize="15" FontFamily="Calibri">
                 <MenuItem Foreground="WhiteSmoke"  Header="Account"/>
                 <MenuItem Foreground="WhiteSmoke" Header="Language">
                     <MenuItem Foreground="WhiteSmoke" Header="Az"/>

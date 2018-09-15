@@ -51,7 +51,7 @@ namespace Asana.ViewModel
 
         private RelayCommand<ChatRoom> _joinCommand;
 
-        public RelayCommand<ChatRoom> JoinCommand => _joinCommand ?? (_joinCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom>(
+        public RelayCommand<ChatRoom> JoinCommand => _joinCommand ?? (_joinCommand = new RelayCommand<ChatRoom>(
         x =>
         {
             channelService.JoinRoom(x.ID);

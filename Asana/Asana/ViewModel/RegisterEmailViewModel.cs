@@ -89,6 +89,7 @@ namespace Asana.ViewModel
 
                                     navigation.NavigateTo(ViewType.ConfirmCode);
                                     CurrentUser.Instance.User = new User();
+                                    CurrentUser.Id = CurrentUser.Instance.User.Id;
                                     CurrentUser.Instance.User.Email = Email;
                                 }
                             }

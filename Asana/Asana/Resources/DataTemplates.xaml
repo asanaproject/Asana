@@ -130,11 +130,12 @@
     <DataTemplate DataType="{x:Type vm:HomeViewModel}">
         <v:HomeView/>
     </DataTemplate>
-
+    <DataTemplate DataType="{x:Type vm:KanbanExamplesViewModel}">
+        <v:KanbanExamples/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:CreateProjectViewModel}">
         <v:ProjectsView/>
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:ChatViewModel}">
         <v:ChatView/>
     </DataTemplate>
@@ -159,7 +160,9 @@
     <DataTemplate DataType="{x:Type vm:LodingViewModel}">
         <v:LoadingView/>
     </DataTemplate>
-
+    <DataTemplate DataType="{x:Type vm:EditColumnViewModel}">
+        <v:EditColumnView/>
+    </DataTemplate>
     <!--<DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
         <v:ProjectAddView/>
     </DataTemplate>-->

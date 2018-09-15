@@ -1,7 +1,5 @@
-﻿using Asana.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,16 +16,13 @@ using System.Windows.Shapes;
 namespace Asana.View
 {
     /// <summary>
-    /// Interaction logic for ProjectPageView.xaml
+    /// Interaction logic for KanbanExamples.xaml
     /// </summary>
-    public partial class ProjectPageView : UserControl
+    public partial class KanbanExamples : UserControl
     {
-        public ObservableCollection<Column> Columns=new ObservableCollection<Column>();
-        public ProjectPageView()
+        public KanbanExamples()
         {
             InitializeComponent();
-         
         }
-
     }
 }

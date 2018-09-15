@@ -64,6 +64,12 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    </Reference>
+    <Reference Include="Humanizer, Version=2.4.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.Core.2.4.2\lib\netstandard2.0\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -198,8 +204,10 @@
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\ChatRoomAddViewModel.cs" />
     <Compile Include="ViewModel\ColumnItemViewModel.cs" />
+    <Compile Include="ViewModel\EditColumnViewModel.cs" />
     <Compile Include="ViewModel\ExtraWindowViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
+    <Compile Include="ViewModel\KanbanExamplesViewModel.cs" />
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
     <Compile Include="ViewModel\LodingViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -229,6 +237,9 @@
     <Compile Include="View\ConfirmCodeView.xaml.cs">
       <DependentUpon>ConfirmCodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditColumnView.xaml.cs">
+      <DependentUpon>EditColumnView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ExtraWindow.xaml.cs">
       <DependentUpon>ExtraWindow.xaml</DependentUpon>
     </Compile>
@@ -240,6 +251,9 @@
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KanbanExamplesView.xaml.cs">
+      <DependentUpon>KanbanExamplesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ListChannelsView.xaml.cs">
       <DependentUpon>ListChannelsView.xaml</DependentUpon>
@@ -297,6 +311,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditColumnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ExtraWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -310,6 +328,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KanbanExamplesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
