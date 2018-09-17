@@ -85,6 +85,7 @@ namespace Asana.ViewModel
                                     CurrentUser.Instance.User.Email = Email;
                                 }
                             }
+                            else Errors.SendCodeErrorMsg();
                         });
 
                 }
