@@ -6,6 +6,7 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:local="clr-namespace:Asana.View"
              xmlns:tools="clr-namespace:Asana.Tools"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"  >
@@ -23,16 +24,16 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="0.1*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="650"/>
             <ColumnDefinition Width="0.1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
-            <RowDefinition/>
+            <RowDefinition Height="370"/>
             <RowDefinition  Height="0.1*"/>
         </Grid.RowDefinitions>
 
-        <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch"  Background="White" BorderBrush="White"  CornerRadius="8">
+        <Border HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Height="370" Width="650"  Background="White" BorderBrush="White"  CornerRadius="8">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -45,7 +46,7 @@
                         <RowDefinition Height="2.5*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                <Image Grid.Row="1" Source="../Resources/Images/mainlogo.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+                    <Image Grid.Row="1" Source="../Resources/Images/mainlogo.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -64,62 +65,69 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock FontSize="23" FontWeight="Bold" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontFamily="Calibri">Member Login</TextBlock>
-                    <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="60" Width="270"  Grid.Column="1" Grid.Row="2" BorderThickness="6" Background="#E6E6E6" CornerRadius="19">
+                    <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="53" Width="268"  Grid.Column="1" Grid.Row="2" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
                         <Grid HorizontalAlignment="Stretch"  >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.25*"/>
+                                <ColumnDefinition Width="45"/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition Width="25"/>
                             </Grid.ColumnDefinitions>
-                            <Image   Grid.Column="0"  Source="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Envelope_font_awesome.svg/1024px-Envelope_font_awesome.svg.png" Width="15" Height="15"></Image>
-                            <TextBox Grid.Column="1" Name="LogTxtbox" BorderBrush="Transparent" Text="{Binding Email}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
-                            <!-- Style For Textboxes-->
-                            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" IsHitTestVisible="False" Text="Login"  Foreground="DarkGray">
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=LogTxtbox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <materialDesign:PackIcon Kind="at" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"></materialDesign:PackIcon>
+                            <TextBox materialDesign:HintAssist.Hint="Login" Grid.Column="1" Name="LogTxtbox" BorderBrush="Transparent" Text="{Binding Email}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
                         </Grid>
                     </Border>
 
                     <Border  HorizontalAlignment="Center" Height="53" Width="268" VerticalAlignment="Top" Grid.Column="1" Grid.Row="3" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.25*"/>
+                                <ColumnDefinition Width="45"/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition Width="55"/>
                             </Grid.ColumnDefinitions>
-                            <Image   Grid.Column="0" Source="http://cdn.onlinewebfonts.com/svg/img_131108.png" Width="15" Height="15"></Image>
-                            <PasswordBox Grid.Column="1" BorderBrush="Transparent" Background="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                      
-                                         x:Name="PassTxtbox" tools:BoundPasswordBox.Attach="True" tools:BoundPasswordBox.Password="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                            <materialDesign:PackIcon  Kind="TextboxPassword"   Grid.Column="0"  Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                            <TextBox materialDesign:HintAssist.Hint="Password" Visibility="Hidden"  x:Name="PassTb" Text="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
+
+                            <PasswordBox materialDesign:HintAssist.Hint="Password" Background="Transparent" Grid.Column="1" BorderBrush="Transparent" FontSize="16"  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                         x:Name="PassBox"  tools:BoundPasswordBox.Attach="True" tools:BoundPasswordBox.Password="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
                                          >
-                                
                             </PasswordBox>
-                            <!--<TextBox Text="{Binding Password}" ></TextBox>-->
-                            <!-- Style For Textboxes-->
-                            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" IsHitTestVisible="False" Text="Password"  Foreground="DarkGray">
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
+
+                            <ToggleButton  Click="Button_Click" Background="Transparent"  BorderBrush="Transparent" Grid.Column="2">
+                                <ToggleButton.Style>
+                                    <Style TargetType="ToggleButton">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Setter Property="ToggleButton.Content" >
+                                            <Setter.Value>
+                                                <materialDesign:PackIcon Kind="Eye" Width="24" Height="24" />
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=PassTxtbox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
+                                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                                <Setter Property="ToggleButton.Content" >
+                                                    <Setter.Value>
+                                                        <materialDesign:PackIcon Kind="EyeOff" Width="24" Height="24" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
                                         </Style.Triggers>
                                     </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                                </ToggleButton.Style>
+                            </ToggleButton>
                         </Grid>
                     </Border>
 
                     <Border VerticalAlignment="Top" Width="270" Height="40" BorderThickness="1" Background="#5AB742"  CornerRadius="20" Grid.Column="1" Grid.Row="4">
-                        <Button BorderBrush="Transparent" Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" >
+                        <Button BorderBrush="Transparent"  Command="{Binding LogInBtnCommand}" Background="Transparent" Foreground="White" FontSize="15" >
                             LOGIN
                         </Button>
                     </Border>
@@ -146,7 +154,6 @@
                         <Label 
                         Name="CreateLabel"  Height="25" Width="150" 
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" Foreground="Gray" VerticalAlignment="Top" Content="Don't Have an Account?"/>
-
                         <Label Grid.Row="6"  Name="SignUpLabel" Content="Sign Up" HorizontalContentAlignment="Right" VerticalAlignment="Top"  Grid.ColumnSpan="2"  >
                             <Label.Style>
                                 <Style TargetType="Label">

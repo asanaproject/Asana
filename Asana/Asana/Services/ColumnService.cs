@@ -16,11 +16,11 @@ namespace Asana.Services
         {
             try
             {
-                if (column==null)
+                if (column == null)
                 {
                     throw new Exception("column is null");
                 }
-                using (var context=new AsanaDbContext())
+                using (var context = new AsanaDbContext())
                 {
                     //MessageBox.Show(column.Title);
                     //context.Users.First(x => x.Id == CurrentUser.Id)
@@ -29,6 +29,27 @@ namespace Asana.Services
                     context.Columns.Add(column);
                     await context.SaveChangesAsync();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public async System.Threading.Tasks.Task UpdateTitle(string title, Column column)
+        {
+            try
+            {
+                if (String.IsNullOrWhiteSpace(title) || column == null)
+                {
+                    throw new Exception("Column/title is null");
+                }
+                using (var context = new AsanaDbContext())
+                {
+                    context.Columns.First(x => x.Id == column.Id).Title = title;
+                    await context.SaveChangesAsync();
+                }
+
             }
             catch (Exception ex)
             {

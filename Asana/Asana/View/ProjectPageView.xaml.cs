@@ -29,6 +29,5 @@ namespace Asana.View
          
         }
 
-      
     }
 }

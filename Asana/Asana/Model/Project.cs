@@ -14,8 +14,9 @@ namespace Asana.Objects
     [Table("Project")]
     public class Project : ViewModelBase
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [StringLength(50), Required]
         public string Name { get; set; }
@@ -24,10 +25,9 @@ namespace Asana.Objects
         public string ProjectEmail { get; set; }
 
         [ForeignKey("Dashboard"), Required]
-        public int DashboardId { get; set; }
+        public Guid DashboardId { get; set; }
         public virtual Dashboard Dashboard { get; set; }
 
-        // public virtual ICollection<Column> Columns { get; set; }
         public virtual ICollection<UsersProjects> Users { get; set; }
         private ICollection<Column> column;
 
@@ -37,8 +37,10 @@ namespace Asana.Objects
             set { Set(ref column, value); }
         }
 
+        
         public Project()
         {
+            Id = Guid.NewGuid();
             Columns = new ObservableCollection<Column>();
         }
     }

@@ -11,11 +11,17 @@ namespace Asana.Objects
     [Table("Language")]
     public class Language 
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [StringLength(30),Required]
         public string Name { get; set; }
+
+        public Language()
+        {
+            Id =Guid.NewGuid();
+        }
        
     }
 }

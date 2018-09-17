@@ -20,11 +20,26 @@ namespace Asana.View
     /// </summary>
     public partial class LoginView : UserControl
     {
+        private Visibility showPassword = Visibility.Hidden;
         public LoginView()
         {
             InitializeComponent();
         }
 
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(showPassword == Visibility.Hidden)
+            {
+                showPassword = Visibility.Visible;
+                PassBox.Visibility = Visibility.Hidden;
+                PassTb.Visibility = showPassword;
+            }
+            else
+            {
+                showPassword = Visibility.Hidden;
+                PassBox.Visibility = Visibility.Visible;
+                PassTb.Visibility = showPassword;
+            }
+        }
     }
 }

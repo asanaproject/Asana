@@ -12,30 +12,35 @@ using Asana.Tools;
 using Asana.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Humanizer;
 
 namespace Asana.Objects
 {
     [Table("Column")]
-    public class Column:ViewModelBase
+    public class Column : ViewModelBase
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [StringLength(25), Required]
         public string Title { get; set; }
 
         [ForeignKey("Project")]
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
         public Project Project { get; set; }
-
+        public DateTimeOffset CreatedAt { get; set; }
         private ICollection<Task> tasks;
         public virtual ICollection<Task> Tasks
         {
             get { return tasks; }
             set { tasks = value; }
         }
+        public bool IsColumnAdded { get; set; }
+
         public Column()
         {
-            Tasks = new ObservableCollection<Task>();
+            Id = Guid.NewGuid();
+            Tasks = new ObservableCollection<Task>();           
         }
     }
 }

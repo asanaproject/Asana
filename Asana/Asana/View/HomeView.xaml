@@ -168,7 +168,6 @@
 
             <!--<Image VerticalAlignment="Bottom" MaxHeight="30" Grid.Row="1" Source="../Resources/Images/clouds.png" Stretch="Fill"></Image>-->
         </Grid>
-        <Rectangle Stretch="Fill" Fill="White" Grid.Row="1" Grid.RowSpan="2"></Rectangle>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.2*"/>

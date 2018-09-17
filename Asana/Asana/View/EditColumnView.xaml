@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Asana.View.EditColumnView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Asana.View"
+             xmlns:model="clr-namespace:Asana.Model"          
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="7,7,7,7" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="24" Foreground="#006064" Text="{Binding ProjectTitle}"   Margin="30 0 0 0" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+        <Button Grid.Column="2" Grid.Row="0"  BorderBrush="Transparent"  Width="30" Height="30" Padding="2"  VerticalAlignment="Center" Margin="0 0.6 -20 0"  HorizontalAlignment="Stretch"  Background="Transparent" Command="{Binding CloseWindowCommand}">
+            <Button.Content>
+                <materialDesign:PackIcon Kind="Close" Width="20" Height="20" Foreground="Gray"/>
+            </Button.Content>
+        </Button>
+        <TextBlock Grid.Column="0" Grid.Row="3" Foreground="Gray" Text="{Binding CreatedAt}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Column title" Foreground="Gray" FontSize="24" Height="35"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="10 0 0 0" Height="35" Width="150" HorizontalAlignment="Left"  Padding="0.03" FontSize="20" TextWrapping="Wrap"  Text="{Binding Title}"/>
+        <Border Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Width="80" Height="30" Padding="0" BorderThickness="1" Background="#006064"  CornerRadius="20" >
+            <Button  Content="Submit" Command="{Binding SubmitCommand}"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
+        </Border>
+
+    </Grid>
+</UserControl>

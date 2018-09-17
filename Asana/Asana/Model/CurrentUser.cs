@@ -10,7 +10,7 @@ namespace Asana.Model
     public class CurrentUser
     {
         public static string Username { get; set; } = "{{Username}}";
-        public static int Id { get; set; } = 0;
+        public static Guid Id { get; set; } 
 
         private User user = new User();
 

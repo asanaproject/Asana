@@ -1,8 +1,9 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
+using Asana.Objects;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,12 +30,18 @@ namespace Asana.ViewModel
                 {
                     if (!RegexChecker.CheckEmail(Email))
                         result = "Enter your email correctly!";
+                    else if (RegexChecker.CheckEmail(Email))
+                    {
+                        using (var db =new AsanaDbContext())
+                        {
+                            if(db.Users.ToList().Exists(user => user.Email == Email))
+                            {
+                                result = "This mail already exists!!!";
+                            }
+                        }
+                    }
                 }
-                // if (columnName == "LastName")
-                // {
-                //     if (string.IsNullOrEmpty(LastName))
-                //         result = "Please enter a Last Name";
-                // }
+               
 
                 return result;
             }
@@ -52,7 +59,7 @@ namespace Asana.ViewModel
         {
             get { return email; }
             set
-            {
+           {
                 Set(ref email, value);
             }
         }
@@ -68,7 +75,7 @@ namespace Asana.ViewModel
         public RelayCommand SendConfirmationCodeCommand => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
                 () =>
                 {
-                    Task.Run(
+                    System.Threading.Tasks.Task.Run(
                         () =>
                         {
 
@@ -82,6 +89,7 @@ namespace Asana.ViewModel
 
                                     navigation.NavigateTo(ViewType.ConfirmCode);
                                     CurrentUser.Instance.User = new User();
+                                    CurrentUser.Id = CurrentUser.Instance.User.Id;
                                     CurrentUser.Instance.User.Email = Email;
                                 }
                             }

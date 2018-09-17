@@ -3,6 +3,7 @@ using Asana.Navigation;
 using Asana.Objects;
 using Asana.Services;
 using Asana.Tools;
+using Asana.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,17 +37,29 @@ namespace Asana.ViewModel
         public string Email
         {
             get { return email; }
-            set { email = value; Set(ref email, value); }
+            set { Set(ref email, value); }
         }
 
-        private string pass;
+        private string pass ;
 
         public string Password
         {
             get { return pass; }
-            set { pass = value; Set(ref pass, value); }
+            set { Set(ref pass, value); }
         }
 
+
+        public void CloseWindow()
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.Title == "ExtraWindow")
+                        window.Close();
+                }
+            });
+        }
 
         private RelayCommand _logInBtnCommand;
 
@@ -54,14 +68,22 @@ namespace Asana.ViewModel
                    {
                        System.Threading.Tasks.Task.Run(() =>
                        {
+                          
                            if (accountService.LoginControl(Email, Password))
                            {
+                           CloseWindow();
                                CheckLoginLog.Save(Email);
                                navigation.NavigateTo(ViewType.Home);
                            }
                            else
                                Errors.LoginErrorMsg();
-                       });
+
+                       }
+                       );
+                       WindowBluringCustom.Bluring();
+                       ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 400, 400);
+                       extraWindow.ShowDialog();
+                       WindowBluringCustom.Normal();
                    }));
 
         private RelayCommand _forgotPassCommand;

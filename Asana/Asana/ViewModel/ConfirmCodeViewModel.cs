@@ -2,7 +2,7 @@
 using Asana.Navigation;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,8 +50,8 @@ namespace Asana.ViewModel
                     Task.Run(()
                       =>
                   {
-                      if (Randomizer.RandomKey.Equals(ConfirmationCode) && CurrentUser.Instance.User.Email != null && CurrentUser.Instance.User.Id == -1)
-                          navigation.NavigateTo(ViewType.ForgetPass);
+                      if (Randomizer.RandomKey.Equals(ConfirmationCode) && CurrentUser.Instance.User.Email != null && CurrentUser.Instance.User.Id.Equals(CurrentUser.Id))
+                          navigation.NavigateTo(ViewType.SignUp);
                       else if (Randomizer.RandomKey.Equals(ConfirmationCode))
                           navigation.NavigateTo(ViewType.SignUp);
                       else

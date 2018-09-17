@@ -51,7 +51,7 @@ namespace Asana.ViewModel
 
         private RelayCommand<ChatRoom> _joinCommand;
 
-        public RelayCommand<ChatRoom> JoinCommand => _joinCommand ?? (_joinCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ChatRoom>(
+        public RelayCommand<ChatRoom> JoinCommand => _joinCommand ?? (_joinCommand = new RelayCommand<ChatRoom>(
         x =>
         {
             channelService.JoinRoom(x.ID);
@@ -59,7 +59,13 @@ namespace Asana.ViewModel
             MessageBox.Show("Your joined " + x.Name + "!", "Channel", MessageBoxButton.OK, MessageBoxImage.Information);
         }));
 
-        public void UpdateSource() => channelService.GetListAllPublicChannelsNotJoined().ToList().ForEach(x => ChatRooms.Add(x));
-        
+        public async void UpdateSource()
+        {
+            var result = await channelService.GetListAllPublicChannelsNotJoined();
+            int changedChannels1 = result.Count - ChatRooms.Count;
+            result.Skip(ChatRooms.Count).Take(changedChannels1).ToList().ForEach(x => ChatRooms.Add(x));
+
+        }
+
     }
 }

@@ -18,14 +18,29 @@ namespace Asana.Model
             using (var db = new AsanaDbContext())
             {
                 Password = PasswordHasher.Hash(Password);
-
-                if (db.Users.Any(user => user.Email == Email && user.Password == Password))
+                if (RegexChecker.CheckEmail(Email))
                 {
-                    CurrentUser.Instance.User = db.Users.Single(user => user.Email == Email && user.Password == Password);
-                    return true;
+                    if (db.Users.Any(user => user.Email == Email && user.Password == Password))
+                    {
+                        CurrentUser.Instance.User = db.Users.Single(user => user.Email == Email && user.Password == Password);
+                        return true;
+                    }
+
+                    else
+                        return false;
                 }
-                else
-                    return false;
+                else if(RegexChecker.CheckUsername(Email))
+                {
+                    if (db.Users.Any(user => user.Username == Email && user.Password == Password))
+                    {
+                        CurrentUser.Instance.User = db.Users.Single(user => user.Username == Email && user.Password == Password);
+                        return true;
+                    }
+
+                    else
+                        return false;
+                }
+                return false;
             }
         }
         
