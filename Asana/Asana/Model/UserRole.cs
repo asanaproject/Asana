@@ -14,7 +14,7 @@ namespace Asana.Objects
     public class UserRole
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
         [Required,StringLength(25)]

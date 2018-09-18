@@ -151,6 +151,14 @@
     <Compile Include="Migrations\201809141546164_Resolve identity.Designer.cs">
       <DependentUpon>201809141546164_Resolve identity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809181715550_Guid.cs" />
+    <Compile Include="Migrations\201809181715550_Guid.Designer.cs">
+      <DependentUpon>201809181715550_Guid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809181723127_Guid resolve.cs" />
+    <Compile Include="Migrations\201809181723127_Guid resolve.Designer.cs">
+      <DependentUpon>201809181723127_Guid resolve.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -390,6 +398,12 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201809141546164_Resolve identity.resx">
       <DependentUpon>201809141546164_Resolve identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809181715550_Guid.resx">
+      <DependentUpon>201809181715550_Guid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809181723127_Guid resolve.resx">
+      <DependentUpon>201809181723127_Guid resolve.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -17,7 +17,7 @@ namespace Asana.Objects
             Id = Guid.NewGuid();
         }
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
         [StringLength(25),Required]

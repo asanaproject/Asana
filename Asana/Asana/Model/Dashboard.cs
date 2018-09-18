@@ -12,7 +12,7 @@ namespace Asana.Objects
     public class Dashboard
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
         public Dashboard()

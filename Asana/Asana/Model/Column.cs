@@ -20,7 +20,7 @@ namespace Asana.Objects
     public class Column : ViewModelBase
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
         [StringLength(25), Required]
         public string Title { get; set; }

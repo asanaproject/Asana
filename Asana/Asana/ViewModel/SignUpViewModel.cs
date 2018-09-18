@@ -92,7 +92,13 @@ namespace Asana.ViewModel
             {
                 try
                 {
-                    User user = new User() {Email = CurrentUser.Instance.User.Email, FullName = FullName, Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath)), Password = Password, Username = UserName };
+                    User user = new User();
+                    MessageBox.Show(user.Id.ToString());
+                    user.Email = CurrentUser.Instance.User.Email;
+                    user.FullName = FullName;
+                    user.Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath));
+                    user.Password = Password;
+                    user.Username = UserName ;
                     userService.Insert(user);
                     navigation.NavigateTo(ViewType.LogIn);
                 }

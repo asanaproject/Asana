@@ -13,7 +13,7 @@ namespace Asana.Model
     public class UsersProjects
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid  Id { get; set; }
 
         [ForeignKey(nameof(User))]

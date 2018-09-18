@@ -12,7 +12,7 @@ namespace Asana.Objects
     public class Language 
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
         [StringLength(30),Required]

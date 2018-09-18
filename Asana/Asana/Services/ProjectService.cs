@@ -26,9 +26,9 @@ namespace Asana.Services
 
                 using(context = new AsanaDbContext())
                 {
-                    context.Users.First(x => x.Id == CurrentUser.Id)
-                        .Projects.First(p => p.Project.Id == CurrentProject.Instance.Project.Id)
-                        .add
+                    //context.Users.First(x => x.Id == CurrentUser.Id)
+                    //    .Projects.First(p => p.Project.Id == CurrentProject.Instance.Project.Id)
+                    //    .add
                         
                     
                 }

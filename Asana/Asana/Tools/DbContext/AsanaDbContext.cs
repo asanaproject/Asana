@@ -13,7 +13,7 @@ namespace Asana.Objects
     {
         public AsanaDbContext() : base("AsanaDbContext")
         {
-            Database.SetInitializer<AsanaDbContext>(new CreateDatabaseIfNotExists<AsanaDbContext>());
+            Database.SetInitializer<AsanaDbContext>(null);
         }
 
 
