@@ -12,7 +12,7 @@ namespace Asana.Objects
     public class ExtraInfo
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [StringLength(20),Required]
@@ -20,9 +20,6 @@ namespace Asana.Objects
 
         [StringLength(50),Required]
         public string Email { get; set; }
-
-        [StringLength(20),Required]
-        public string Password { get; set; }
 
         public ExtraInfo()
         {

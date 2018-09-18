@@ -37,5 +37,33 @@ namespace Asana.Services
             }
            
         }
+
+        public async System.Threading.Tasks.Task Update(Objects.Task task)
+        {
+            if (task!=null)
+            {
+                try
+                {
+                    context.Tasks.First(x => x.Id == task.Id).Column = task.Column;
+                    context.Tasks.First(x => x.Id == task.Id).ColumnId = task.ColumnId;
+                    context.Tasks.First(x => x.Id == task.Id).CreatedAt = task.CreatedAt;
+                    context.Tasks.First(x => x.Id == task.Id).Deadline = task.Deadline;
+                    context.Tasks.First(x => x.Id == task.Id).Description = task.Description;
+                    context.Tasks.First(x => x.Id == task.Id).ExtraInfo = task.ExtraInfo;
+                    context.Tasks.First(x => x.Id == task.Id).ExtraInfoId = task.ExtraInfoId;
+                    context.Tasks.First(x => x.Id == task.Id).IsTaskAdded = task.IsTaskAdded;
+                    context.Tasks.First(x => x.Id == task.Id).KanbanState = task.KanbanState;
+                    context.Tasks.First(x => x.Id == task.Id).KanbanStateId = task.KanbanStateId;
+                    context.Tasks.First(x => x.Id == task.Id).Title = task.Title;
+                    context.Tasks.First(x => x.Id == task.Id).IsStarred = task.IsStarred;
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Asana.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201809141407006_Initial_Model"; }
+            get { return "201809172022507_Initial_Model"; }
         }
         
         string IMigrationMetadata.Source

@@ -12,7 +12,7 @@ namespace Asana.Model
     public class Mail
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID { get; set; }
 
         [Required, MaxLength(100)]

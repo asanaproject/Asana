@@ -17,7 +17,7 @@ namespace Asana.Objects
             Id = Guid.NewGuid();
         }
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [StringLength(25),Required]
@@ -30,6 +30,19 @@ namespace Asana.Objects
         [ForeignKey("KanbanState")]
         public Guid KanbanStateId { get; set; }
         public virtual KanbanState KanbanState { get; set; }
+
+        public string Description { get; set; }
+
+        [ForeignKey(nameof(ExtraInfo))]
+        public Guid? ExtraInfoId { get; set; }
+        public ExtraInfo ExtraInfo { get; set; }
+
+        private DateTimeOffset createdAt;
+        public DateTimeOffset CreatedAt
+        {
+            get { return createdAt; }
+            set { Set(ref createdAt, value); }
+        }
 
         public DateTime Deadline { get; set; }
 

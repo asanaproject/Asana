@@ -16,7 +16,7 @@ namespace Asana.Model
     public class User
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
 
@@ -39,9 +39,9 @@ namespace Asana.Model
 
         public virtual ICollection<ChatRoomUsers> Users { get; set; }
 
-        public virtual ICollection<UsersProjects> Projects { get; set; }
-        //   public virtual ICollection<UserRole> UserRoles { get; set; }
-
+        [Required,ForeignKey(nameof(UserRole))]
+        public Guid ?UserRoleId { get; set; }
+        public UserRole UserRole { get; set; }
 
         public User()
         {

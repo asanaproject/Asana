@@ -12,7 +12,7 @@ namespace Asana.Model
     public class Message
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID { get; set; }
         public Message()
         {

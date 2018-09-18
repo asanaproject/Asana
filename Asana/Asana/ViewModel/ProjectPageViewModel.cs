@@ -20,7 +20,7 @@ using Task = Asana.Objects.Task;
 
 namespace Asana.ViewModel
 {
-    public class ProjectPageViewModel : ViewModelBase,IDropTarget
+    public class ProjectPageViewModel : ViewModelBase, IDropTarget
     {
         private readonly NavigationService navigation;
         private readonly IColumnService columnService;
@@ -136,6 +136,7 @@ namespace Asana.ViewModel
             {
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = true;
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).Title = x.Title;
+                Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).CreatedAt = DateTime.Now;
             }
 
         }));
@@ -147,7 +148,7 @@ namespace Asana.ViewModel
         public RelayCommand<Task> DiscardTaskCommand => discardTaskCommand ?? (discardTaskCommand = new RelayCommand<Task>(
         x =>
         {
-            if (x!=null)
+            if (x != null)
             {
                 Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.Remove(Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id));
             }
@@ -162,10 +163,11 @@ namespace Asana.ViewModel
         public RelayCommand<Task> EditTaskCommand => editTaskCommand ?? (editTaskCommand = new RelayCommand<Task>(
         x =>
         {
-            if (x != null)
-            {
-                Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = false;
-            }
+            CurrentTask.Instance.Task = x;
+            WindowBluringCustom.Bluring();
+            ExtraWindow extraWindow = new ExtraWindow(new EditTaskViewModel(navigation), 800, 450);
+            extraWindow.ShowDialog();
+            WindowBluringCustom.Normal();
 
         }));
 
@@ -200,14 +202,20 @@ namespace Asana.ViewModel
         }));
 
 
+
+
         public void DragOver(IDropInfo dropInfo)
         {
-            throw new NotImplementedException();
+            ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
+            ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
+            MessageBox.Show(sourceItem.ToString());
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+            dropInfo.Effects = DragDropEffects.Copy;
         }
 
         public void Drop(IDropInfo dropInfo)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

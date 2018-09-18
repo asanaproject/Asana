@@ -30,6 +30,5 @@ namespace Asana.Objects
         public DbSet<Message> Messages { get; set; }
         public DbSet<ChatRoomUsers> ChatRoomUsers { get; set; }
         public DbSet<Mail> Mails { get; set; }
-        public DbSet<UsersProjects> UsersProjects { get; set; }
     }
 }

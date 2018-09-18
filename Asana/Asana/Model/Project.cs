@@ -15,7 +15,7 @@ namespace Asana.Objects
     public class Project : ViewModelBase
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [StringLength(50), Required]
@@ -28,7 +28,7 @@ namespace Asana.Objects
         public Guid DashboardId { get; set; }
         public virtual Dashboard Dashboard { get; set; }
 
-        public virtual ICollection<UsersProjects> Users { get; set; }
+        public virtual ICollection<User> Users { get; set; }
         private ICollection<Column> column;
 
         public virtual ICollection<Column> Columns

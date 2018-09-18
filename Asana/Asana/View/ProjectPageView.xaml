@@ -143,7 +143,7 @@
                             <MenuItem.Icon >
                                 <materialDesign:PackIcon Kind="DotsVertical" Foreground="Gray" Background="Transparent"/>
                             </MenuItem.Icon>
-                            <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" />
+                            <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditTaskCommand}" CommandParameter="{Binding .}"/>
                             <MenuItem Header="{materialDesign:PackIcon Kind=Delete}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.DiscardTaskCommand}" CommandParameter="{Binding .}"/>
                         </MenuItem>
                     </Menu>
@@ -313,7 +313,7 @@
                             <ColumnDefinition Width="74*"/>
                             <ColumnDefinition Width="593*"/>
                         </Grid.ColumnDefinitions>
-                        <ListBox ItemsSource="{Binding Columns}" AllowDrop="True" SelectedItem="{Binding Source={x:Static model:CurrentColumn.Instance},Path=Column}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+                        <ListBox ItemsSource="{Binding Columns}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True" SelectedItem="{Binding Source={x:Static model:CurrentColumn.Instance},Path=Column}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel IsItemsHost="True" Orientation="Horizontal" FlowDirection="LeftToRight"/>

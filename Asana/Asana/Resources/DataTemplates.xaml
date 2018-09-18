@@ -163,6 +163,10 @@
     <DataTemplate DataType="{x:Type vm:EditColumnViewModel}">
         <v:EditColumnView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:EditTaskViewModel}">
+        <v:EditTaskView/>
+    </DataTemplate>
+
     <!--<DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
         <v:ProjectAddView/>
     </DataTemplate>-->

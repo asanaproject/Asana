@@ -1,4 +1,5 @@
 ﻿using Asana.Objects;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +7,9 @@ using System.Text;
 
 namespace Asana.Model
 {
-    public class CurrentTask
+    public class CurrentTask:ViewModelBase
     {
-        private CurrentTask()
-        {
-            Task = new Task();
-        }
+        private CurrentTask(){}
         private static CurrentTask instance;
         public static CurrentTask Instance
         {
@@ -24,6 +22,12 @@ namespace Asana.Model
                 return instance;
             }
         }
-        public Task Task { get; set; }
+        private Task task;
+        public Task Task
+        {
+            get { return task; }
+            set { Set(ref task,value); }
+        }
+
     }
 }

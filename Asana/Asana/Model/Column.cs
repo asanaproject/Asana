@@ -16,11 +16,11 @@ using Humanizer;
 
 namespace Asana.Objects
 {
-    [Table("Column")]
+    [Table("Columns")]
     public class Column : ViewModelBase
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [StringLength(25), Required]
         public string Title { get; set; }
@@ -28,7 +28,12 @@ namespace Asana.Objects
         [ForeignKey("Project")]
         public Guid ProjectId { get; set; }
         public Project Project { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
+        private DateTimeOffset createdAt;
+        public DateTimeOffset CreatedAt
+        {
+            get { return createdAt; }
+            set { Set(ref createdAt, value); }
+        }
         private ICollection<Task> tasks;
         public virtual ICollection<Task> Tasks
         {

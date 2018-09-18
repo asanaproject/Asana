@@ -147,9 +147,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201809141407006_Initial_Model.cs" />
-    <Compile Include="Migrations\201809141407006_Initial_Model.Designer.cs">
-      <DependentUpon>201809141407006_Initial_Model.cs</DependentUpon>
+    <Compile Include="Migrations\201809172022507_Initial_Model.cs" />
+    <Compile Include="Migrations\201809172022507_Initial_Model.Designer.cs">
+      <DependentUpon>201809172022507_Initial_Model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -157,17 +157,19 @@
     <Compile Include="Model\ChatRoomUsers.cs" />
     <Compile Include="Model\CurrentColumn.cs" />
     <Compile Include="Model\CurrentProject.cs" />
+    <Compile Include="Model\CurrentTask.cs" />
     <Compile Include="Model\Mail.cs" />
     <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Model\Message.cs" />
-    <Compile Include="Model\UsersProjects.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
     <Compile Include="Services\ChannelsService.cs" />
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\ColumnService.cs" />
+    <Compile Include="Services\ExtraInfoService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IColumnService.cs" />
+    <Compile Include="Services\Interfaces\IExtraInfoService.cs" />
     <Compile Include="Services\Interfaces\ITaskService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\TaskService.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="ViewModel\ChatRoomAddViewModel.cs" />
     <Compile Include="ViewModel\ColumnItemViewModel.cs" />
     <Compile Include="ViewModel\EditColumnViewModel.cs" />
+    <Compile Include="ViewModel\EditTaskViewModel.cs" />
     <Compile Include="ViewModel\ExtraWindowViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\KanbanExamplesViewModel.cs" />
@@ -239,6 +242,9 @@
     </Compile>
     <Compile Include="View\EditColumnView.xaml.cs">
       <DependentUpon>EditColumnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditTaskView.xaml.cs">
+      <DependentUpon>EditTaskView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ExtraWindow.xaml.cs">
       <DependentUpon>ExtraWindow.xaml</DependentUpon>
@@ -315,6 +321,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditTaskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ExtraWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -386,8 +396,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201809141407006_Initial_Model.resx">
-      <DependentUpon>201809141407006_Initial_Model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809172022507_Initial_Model.resx">
+      <DependentUpon>201809172022507_Initial_Model.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
