@@ -16,6 +16,8 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigation;
 
+
+
         public CreateProjectViewModel(NavigationService navigation)
         {
             this.navigation = navigation;

@@ -12,7 +12,7 @@ namespace Asana.Model
     public class ChatRoom
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid ID { get; set; }
 
         [Required, MaxLength(100)]
