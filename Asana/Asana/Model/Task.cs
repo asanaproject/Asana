@@ -15,6 +15,7 @@ namespace Asana.Objects
         public Task()
         {
             Id = Guid.NewGuid();
+            StarPath = "../Resources/Images/grey_star.png";
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -43,6 +44,14 @@ namespace Asana.Objects
             get { return createdAt; }
             set { Set(ref createdAt, value); }
         }
+        private string starPath;
+
+        public string StarPath
+        {
+            get { return starPath; }
+            set { Set(ref starPath, value); }
+        }
+
 
         public DateTime Deadline { get; set; }
 
