@@ -33,6 +33,11 @@ namespace Asana.ViewModel
             Columns = new ObservableCollection<ColumnItemViewModel>();
             Header = new HeaderViewModel(navigation);
             StarPath = "../Resources/Images/grey_star.png";
+            //foreach (var item in columnService.GetAll(CurrentProject.Instance.Project.Id))
+            //{
+            //    Columns.Add(new ColumnItemViewModel { Column = item, ColumnIsAdded = true,Title=item.Title });
+            //}
+
         }
 
         private HeaderViewModel header;
@@ -206,16 +211,25 @@ namespace Asana.ViewModel
 
         public void DragOver(IDropInfo dropInfo)
         {
-            ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
-            ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
-            MessageBox.Show(sourceItem.ToString());
             dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-            dropInfo.Effects = DragDropEffects.Copy;
+            dropInfo.Effects =  DragDropEffects.Move;
         }
 
         public void Drop(IDropInfo dropInfo)
         {
-            //throw new NotImplementedException();
+            ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
+            ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
+            var sourceIndex = Columns.IndexOf(sourceItem);
+            var targetIndex = Columns.IndexOf(targetItem);
+
+            if (sourceIndex!=targetIndex)
+            {
+                Columns.RemoveAt(sourceIndex);
+                Columns.Insert(sourceIndex, targetItem);
+                Columns.RemoveAt(targetIndex);
+                Columns.Insert(targetIndex, sourceItem);
+            }
+          
         }
     }
 }

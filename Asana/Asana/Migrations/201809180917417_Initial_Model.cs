@@ -7,7 +7,7 @@ namespace Asana.Migrations
     {
         public override void Up()
         {
-            RenameTable(name: "dbo.Column", newName: "Columns");
+            RenameTable(name: "dbo.Column", newName: "ColumnOfTask");
             DropForeignKey("dbo.UsersProject", "UserId", "dbo.User");
             DropForeignKey("dbo.UsersProject", "ProjectId", "dbo.Project");
             DropForeignKey("dbo.User", "UserRole_Id", "dbo.UserRole");
@@ -28,7 +28,7 @@ namespace Asana.Migrations
             DropPrimaryKey("dbo.ChatRoom");
             DropPrimaryKey("dbo.User");
             DropPrimaryKey("dbo.Project");
-            DropPrimaryKey("dbo.Columns");
+            DropPrimaryKey("dbo.ColumnOfTask");
             DropPrimaryKey("dbo.Task");
             DropPrimaryKey("dbo.KanbanState");
             DropPrimaryKey("dbo.Dashboard");
@@ -44,7 +44,7 @@ namespace Asana.Migrations
             AlterColumn("dbo.User", "Id", c => c.Guid(nullable: false, identity: true));
             AlterColumn("dbo.User", "UserRoleId", c => c.Guid(nullable: false));
             AlterColumn("dbo.Project", "Id", c => c.Guid(nullable: false, identity: true));
-            AlterColumn("dbo.Columns", "Id", c => c.Guid(nullable: false, identity: true));
+            AlterColumn("dbo.ColumnOfTask", "Id", c => c.Guid(nullable: false, identity: true));
             AlterColumn("dbo.Task", "Id", c => c.Guid(nullable: false, identity: true));
             AlterColumn("dbo.KanbanState", "Id", c => c.Guid(nullable: false, identity: true));
             AlterColumn("dbo.Dashboard", "Id", c => c.Guid(nullable: false, identity: true));
@@ -56,7 +56,7 @@ namespace Asana.Migrations
             AddPrimaryKey("dbo.ChatRoom", "ID");
             AddPrimaryKey("dbo.User", "Id");
             AddPrimaryKey("dbo.Project", "Id");
-            AddPrimaryKey("dbo.Columns", "Id");
+            AddPrimaryKey("dbo.ColumnOfTask", "Id");
             AddPrimaryKey("dbo.Task", "Id");
             AddPrimaryKey("dbo.KanbanState", "Id");
             AddPrimaryKey("dbo.Dashboard", "Id");
@@ -76,8 +76,8 @@ namespace Asana.Migrations
             AddForeignKey("dbo.ChatRoomUser", "UserId", "dbo.User", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Mail", "UserId", "dbo.User", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Message", "UserId", "dbo.User", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.Columns", "ProjectId", "dbo.Project", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.Task", "ColumnId", "dbo.Columns", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.ColumnOfTask", "ProjectId", "dbo.Project", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Task", "ColumnId", "dbo.ColumnOfTask", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Task", "KanbanStateId", "dbo.KanbanState", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Project", "DashboardId", "dbo.Dashboard", "Id", cascadeDelete: true);
             DropColumn("dbo.Customer", "Password");
@@ -99,8 +99,8 @@ namespace Asana.Migrations
             AddColumn("dbo.Customer", "Password", c => c.String(nullable: false, maxLength: 20));
             DropForeignKey("dbo.Project", "DashboardId", "dbo.Dashboard");
             DropForeignKey("dbo.Task", "KanbanStateId", "dbo.KanbanState");
-            DropForeignKey("dbo.Task", "ColumnId", "dbo.Columns");
-            DropForeignKey("dbo.Columns", "ProjectId", "dbo.Project");
+            DropForeignKey("dbo.Task", "ColumnId", "dbo.ColumnOfTask");
+            DropForeignKey("dbo.ColumnOfTask", "ProjectId", "dbo.Project");
             DropForeignKey("dbo.Message", "UserId", "dbo.User");
             DropForeignKey("dbo.Mail", "UserId", "dbo.User");
             DropForeignKey("dbo.ChatRoomUser", "UserId", "dbo.User");
@@ -120,7 +120,7 @@ namespace Asana.Migrations
             DropPrimaryKey("dbo.Dashboard");
             DropPrimaryKey("dbo.KanbanState");
             DropPrimaryKey("dbo.Task");
-            DropPrimaryKey("dbo.Columns");
+            DropPrimaryKey("dbo.ColumnOfTask");
             DropPrimaryKey("dbo.Project");
             DropPrimaryKey("dbo.User");
             DropPrimaryKey("dbo.ChatRoom");
@@ -132,7 +132,7 @@ namespace Asana.Migrations
             AlterColumn("dbo.Dashboard", "Id", c => c.Guid(nullable: false));
             AlterColumn("dbo.KanbanState", "Id", c => c.Guid(nullable: false));
             AlterColumn("dbo.Task", "Id", c => c.Guid(nullable: false));
-            AlterColumn("dbo.Columns", "Id", c => c.Guid(nullable: false));
+            AlterColumn("dbo.ColumnOfTask", "Id", c => c.Guid(nullable: false));
             AlterColumn("dbo.Project", "Id", c => c.Guid(nullable: false));
             AlterColumn("dbo.User", "UserRoleId", c => c.Guid());
             AlterColumn("dbo.User", "Id", c => c.Guid(nullable: false));
@@ -148,7 +148,7 @@ namespace Asana.Migrations
             AddPrimaryKey("dbo.Dashboard", "Id");
             AddPrimaryKey("dbo.KanbanState", "Id");
             AddPrimaryKey("dbo.Task", "Id");
-            AddPrimaryKey("dbo.Columns", "Id");
+            AddPrimaryKey("dbo.ColumnOfTask", "Id");
             AddPrimaryKey("dbo.Project", "Id");
             AddPrimaryKey("dbo.User", "Id");
             AddPrimaryKey("dbo.ChatRoom", "ID");
@@ -169,7 +169,7 @@ namespace Asana.Migrations
             AddForeignKey("dbo.User", "UserRole_Id", "dbo.UserRole", "Id");
             AddForeignKey("dbo.UsersProject", "ProjectId", "dbo.Project", "Id", cascadeDelete: true);
             AddForeignKey("dbo.UsersProject", "UserId", "dbo.User", "Id", cascadeDelete: true);
-            RenameTable(name: "dbo.Columns", newName: "Column");
+            RenameTable(name: "dbo.ColumnOfTask", newName: "Column");
         }
     }
 }

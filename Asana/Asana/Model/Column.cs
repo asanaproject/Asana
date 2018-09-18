@@ -16,7 +16,7 @@ using Humanizer;
 
 namespace Asana.Objects
 {
-    [Table("Columns")]
+    [Table("ColumnOfTask")]
     public class Column : ViewModelBase
     {
         [Key]
