@@ -37,6 +37,7 @@ namespace Asana.Objects
             set { Set(ref column, value); }
         }
 
+        
         public Project()
         {
             Id = Guid.NewGuid();

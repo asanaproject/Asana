@@ -12,7 +12,7 @@ namespace Asana.Model
     public class ChatRoomUsers
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [ForeignKey(nameof(User))]
