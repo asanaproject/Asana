@@ -20,7 +20,7 @@ using Task = Asana.Objects.Task;
 
 namespace Asana.ViewModel
 {
-    public class ProjectPageViewModel : ViewModelBase, IDropTarget
+    public class ProjectPageViewModel : ViewModelBase
     {
         private readonly NavigationService navigation;
         private readonly IColumnService columnService;
@@ -210,26 +210,36 @@ namespace Asana.ViewModel
 
 
 
-        public void DragOver(IDropInfo dropInfo)
-        {
-            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-            dropInfo.Effects = DragDropEffects.Move | DragDropEffects.Copy;
+        //public void DragOver(IDropInfo dropInfo)
+        //{
+        //    dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+        //    dropInfo.Effects = DragDropEffects.Move | DragDropEffects.Copy;
 
-        }
+        //}
 
-        public void Drop(IDropInfo dropInfo)
-        {
-            ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
-            ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
-            var sourceIndex = Columns.IndexOf(sourceItem);
-            var targetIndex = Columns.IndexOf(targetItem);
-            if (sourceIndex != targetIndex)
-            {
-                Columns.RemoveAt(sourceIndex);
-                Columns.Insert(sourceIndex, targetItem);
-                Columns.RemoveAt(targetIndex);
-                Columns.Insert(targetIndex, sourceItem);
-            }
-        }
+        //public void Drop(IDropInfo dropInfo)
+        //{
+           
+        //    ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
+        //    ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
+        //    try
+        //    {
+        //        var sourceIndex = Columns.IndexOf(sourceItem);
+        //        var targetIndex = Columns.IndexOf(targetItem);
+        //        if (sourceIndex != targetIndex)
+        //        {
+        //            Columns.RemoveAt(sourceIndex);
+        //            Columns.Insert(sourceIndex, targetItem);
+        //            Columns.RemoveAt(targetIndex);
+        //            Columns.Insert(targetIndex, sourceItem);
+        //        }               
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        MessageBox.Show(ex.Message);
+        //    }
+         
+        //}
     }
 }

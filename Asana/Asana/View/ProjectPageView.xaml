@@ -220,7 +220,7 @@
                             </MenuItem>
                         </Menu>
                     </Grid>
-                    <ListBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Column.Tasks}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True">
+                    <ListBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  ItemsSource="{Binding Column.Tasks}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True"  AllowDrop="True">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding .}" >
@@ -312,7 +312,7 @@
                             <ColumnDefinition Width="74*"/>
                             <ColumnDefinition Width="593*"/>
                         </Grid.ColumnDefinitions>
-                        <ListBox ItemsSource="{Binding Columns}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True" SelectedItem="{Binding Source={x:Static model:CurrentColumn.Instance},Path=Column}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+                        <ListBox ItemsSource="{Binding Columns}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.EffectMoveAdornerTemplate="{Binding CreateColumnTemplate}"  SelectedItem="{Binding Source={x:Static model:CurrentColumn.Instance},Path=Column}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel IsItemsHost="True" Orientation="Horizontal" FlowDirection="LeftToRight"/>
