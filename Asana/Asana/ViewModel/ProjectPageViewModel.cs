@@ -221,14 +221,18 @@ namespace Asana.ViewModel
         {
             ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
             ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
-            var sourceIndex = Columns.IndexOf(sourceItem);
-            var targetIndex = Columns.IndexOf(targetItem);
-            if (sourceIndex != targetIndex)
+            if (sourceItem!=null&&targetItem!=null)
             {
-                Columns.RemoveAt(sourceIndex);
-                Columns.Insert(sourceIndex, targetItem);
-                Columns.RemoveAt(targetIndex);
-                Columns.Insert(targetIndex, sourceItem);
+
+                var sourceIndex = Columns.IndexOf(sourceItem);
+                var targetIndex = Columns.IndexOf(targetItem);
+                if (sourceIndex != targetIndex)
+                {
+                    Columns.RemoveAt(sourceIndex);
+                    Columns.Insert(sourceIndex, targetItem);
+                    Columns.RemoveAt(targetIndex);
+                    Columns.Insert(targetIndex, sourceItem);
+                }
             }
         }
     }
