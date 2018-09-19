@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace Asana.Objects
 {
     
-    [Table("UserRole")]
-    public class UserRole
+    [Table("Roles")]
+    public class Roles
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -20,9 +20,8 @@ namespace Asana.Objects
         [Required,StringLength(25)]
         public string Type { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
 
-        public UserRole()
+        public Roles()
         {
             Id = Guid.NewGuid();
         }

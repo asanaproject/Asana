@@ -18,7 +18,7 @@ namespace Asana.Objects
             StarPath = "../Resources/Images/grey_star.png";
         }
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
         [StringLength(25),Required]

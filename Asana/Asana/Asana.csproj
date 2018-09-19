@@ -67,8 +67,8 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
-    <Reference Include="Humanizer, Version=2.4.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Humanizer.Core.2.4.2\lib\netstandard2.0\Humanizer.dll</HintPath>
+    <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.Core.2.5.1\lib\netstandard2.0\Humanizer.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -147,17 +147,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201809141546164_Resolve identity.cs" />
-    <Compile Include="Migrations\201809141546164_Resolve identity.Designer.cs">
-      <DependentUpon>201809141546164_Resolve identity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809181715550_Guid.cs" />
-    <Compile Include="Migrations\201809181715550_Guid.Designer.cs">
-      <DependentUpon>201809181715550_Guid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809181723127_Guid resolve.cs" />
-    <Compile Include="Migrations\201809181723127_Guid resolve.Designer.cs">
-      <DependentUpon>201809181723127_Guid resolve.cs</DependentUpon>
+    <Compile Include="Migrations\201809190946216_Initial_Model.cs" />
+    <Compile Include="Migrations\201809190946216_Initial_Model.Designer.cs">
+      <DependentUpon>201809190946216_Initial_Model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -165,17 +157,21 @@
     <Compile Include="Model\ChatRoomUsers.cs" />
     <Compile Include="Model\CurrentColumn.cs" />
     <Compile Include="Model\CurrentProject.cs" />
+    <Compile Include="Model\CurrentTask.cs" />
     <Compile Include="Model\Mail.cs" />
     <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\UserRoles.cs" />
     <Compile Include="Model\UsersProjects.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
     <Compile Include="Services\ChannelsService.cs" />
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\ColumnService.cs" />
+    <Compile Include="Services\ExtraInfoService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IColumnService.cs" />
+    <Compile Include="Services\Interfaces\IExtraInfoService.cs" />
     <Compile Include="Services\Interfaces\IProjectService.cs" />
     <Compile Include="Services\Interfaces\ITaskService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
@@ -194,7 +190,7 @@
     <Compile Include="Model\Task.cs" />
     <Compile Include="Model\KanbanState.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="Model\UserRole.cs" />
+    <Compile Include="Model\Roles.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Navigation\ViewType.cs" />
     <Compile Include="Tools\DesktopNotifier.cs" />
@@ -215,6 +211,7 @@
     <Compile Include="ViewModel\ChatRoomAddViewModel.cs" />
     <Compile Include="ViewModel\ColumnItemViewModel.cs" />
     <Compile Include="ViewModel\EditColumnViewModel.cs" />
+    <Compile Include="ViewModel\EditTaskViewModel.cs" />
     <Compile Include="ViewModel\ExtraWindowViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\KanbanExamplesViewModel.cs" />
@@ -249,6 +246,9 @@
     </Compile>
     <Compile Include="View\EditColumnView.xaml.cs">
       <DependentUpon>EditColumnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditTaskView.xaml.cs">
+      <DependentUpon>EditTaskView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ExtraWindow.xaml.cs">
       <DependentUpon>ExtraWindow.xaml</DependentUpon>
@@ -325,6 +325,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditTaskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ExtraWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -396,14 +400,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201809141546164_Resolve identity.resx">
-      <DependentUpon>201809141546164_Resolve identity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809181715550_Guid.resx">
-      <DependentUpon>201809181715550_Guid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809181723127_Guid resolve.resx">
-      <DependentUpon>201809181723127_Guid resolve.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809190946216_Initial_Model.resx">
+      <DependentUpon>201809190946216_Initial_Model.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 namespace Asana.Model
 {
     public class CurrentTask:ViewModelBase
     {
-        private CurrentTask(){}
+        private CurrentTask()
+        {
+
+        }
         private static CurrentTask instance;
         public static CurrentTask Instance
         {
@@ -26,7 +28,7 @@ namespace Asana.Model
         public Task Task
         {
             get { return task; }
-            set { Set(ref task,value); }
+            set {Set(ref task,value); }
         }
 
     }

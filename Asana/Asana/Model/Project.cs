@@ -27,6 +27,7 @@ namespace Asana.Objects
         [ForeignKey("Dashboard"), Required]
         public Guid DashboardId { get; set; }
         public virtual Dashboard Dashboard { get; set; }
+        public virtual ICollection<UserRoles> UserRole { get; set; }
 
         public virtual ICollection<UsersProjects> Users { get; set; }
         private ICollection<Column> column;

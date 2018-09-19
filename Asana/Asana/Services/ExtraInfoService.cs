@@ -25,13 +25,15 @@ namespace Asana.Services
                     using (var context = new AsanaDbContext())
                     {
                         context.ExtraInfos.Add(extraInfo);
-                        await context.SaveChangesAsync();                        
+                        await context.SaveChangesAsync();
                     }
                 }
-                catch (Exception ex) {                 
+                catch (Exception ex)
+                {
 
                     MessageBox.Show(ex.Message);
-                }                         }
+                }
+            }
 
         }
 

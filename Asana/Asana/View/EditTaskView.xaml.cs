@@ -24,7 +24,5 @@ namespace Asana.View
         {
             InitializeComponent();
         }
-
-     
     }
 }
