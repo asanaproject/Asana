@@ -14,22 +14,32 @@ using System.Windows;
 
 namespace Asana.ViewModel
 {
-    public class EditColumnViewModel:ViewModelBase
+    public class EditColumnViewModel : ViewModelBase
     {
         private readonly NavigationService navigationService;
         private readonly IColumnService columnService;
+        System.Timers.Timer timer;
         public EditColumnViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
             columnService = new ColumnService();
             Title = CurrentColumn.Instance.Column.Title;
             ProjectTitle = CurrentProject.Instance.Project.Name;
-            CreatedAt = "Created at: "+ CurrentColumn.Instance.Column.Column.CreatedAt.Humanize();
-        }
+            CreatedAt = "Created at: " + CurrentColumn.Instance.Column.Column.CreatedAt.Humanize();
 
+            timer = new System.Timers.Timer(1000);
+            timer.Start();
+            timer.Elapsed += Timer_Elapsed;
+
+        }
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            CreatedAt = "Created at: " + CurrentColumn.Instance.Column.Column.CreatedAt.Humanize();
+
+        }
         public void Closewindow()
         {
-         
+
             App.Current.Dispatcher.Invoke(() =>
             {
                 foreach (Window window in Application.Current.Windows)
@@ -43,13 +53,13 @@ namespace Asana.ViewModel
         public string Title
         {
             get { return title; }
-            set{ Set(ref title ,value); }
+            set { Set(ref title, value); }
         }
         private string createdAt;
         public string CreatedAt
         {
             get { return createdAt; }
-            set { Set(ref createdAt,value); }
+            set { Set(ref createdAt, value); }
         }
 
 
@@ -71,7 +81,7 @@ namespace Asana.ViewModel
             {
                 Closewindow();
             });
-           
+
         }));
 
 
@@ -82,7 +92,7 @@ namespace Asana.ViewModel
         public RelayCommand SubmitCommand => submitCommand ?? (submitCommand = new RelayCommand(
         () =>
         {
-            columnService.UpdateTitle(Title,CurrentColumn.Instance.Column.Column);
+            columnService.UpdateTitle(Title, CurrentColumn.Instance.Column.Column);
             Task.Run(() =>
             {
                 Closewindow();

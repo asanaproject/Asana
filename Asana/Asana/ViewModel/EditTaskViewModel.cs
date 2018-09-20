@@ -20,6 +20,7 @@ namespace Asana.ViewModel
         private readonly NavigationService navigationService;
         private readonly ITaskService taskService;
         private readonly IExtraInfoService extraInfoService;
+        System.Timers.Timer timer;
         public EditTaskViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
@@ -27,10 +28,19 @@ namespace Asana.ViewModel
             Title = CurrentColumn.Instance.Column.Title;
             extraInfoService = new ExtraInfoService();
             ProjectTitle = CurrentProject.Instance.Project.Name;
-            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
-            // ProjectManager = CurrentProject.Instance.Project.Users.First(x => x.UserRole.Type.Equals("Project manager")).FullName;
             ProjectManager = "Nubar Khalidova";
+            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
+
+            timer = new System.Timers.Timer(1000);
+            timer.Start();
+            timer.Elapsed += Timer_Elapsed;
+            // ProjectManager = CurrentProject.Instance.Project.Users.First(x => x.UserRole.Type.Equals("Project manager")).FullName;
         }
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
+        }
+
         private string createdAt;
         public string CreatedAt
         {
@@ -104,6 +114,7 @@ namespace Asana.ViewModel
         {
             System.Threading.Tasks.Task.Run(() =>
             {
+                timer.Stop();
                 Closewindow();
             });
 
@@ -125,6 +136,7 @@ namespace Asana.ViewModel
             taskService.Update(task);
             System.Threading.Tasks.Task.Run(() =>
             {
+                timer.Stop();
                 Closewindow();
             });
         }));
