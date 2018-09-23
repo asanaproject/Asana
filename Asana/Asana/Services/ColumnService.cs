@@ -13,7 +13,7 @@ namespace Asana.Services
 {
     public class ColumnService : IColumnService
     {
-        public async System.Threading.Tasks.Task Add(Column column)
+        public async System.Threading.Tasks.Task CreateAsync(Column column)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Asana.Services
             }
         }
 
-        public async System.Threading.Tasks.Task UpdateTitle(string title, Column column)
+        public async System.Threading.Tasks.Task UpdateTitleAsync(string title, Column column)
         {
             try
             {

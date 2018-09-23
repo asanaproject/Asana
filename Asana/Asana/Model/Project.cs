@@ -27,11 +27,16 @@ namespace Asana.Objects
         [ForeignKey("Dashboard"), Required]
         public Guid DashboardId { get; set; }
         public virtual Dashboard Dashboard { get; set; }
-        public virtual ICollection<UserRoles> UserRole { get; set; }
 
-        public virtual ICollection<UsersProjects> Users { get; set; }
+
+        private ICollection<UserRoles> users;
+        public virtual ICollection<UserRoles> Users
+        {
+            get { return users; }
+            set { Set(ref users, value); }
+        }
+
         private ICollection<Column> column;
-
         public virtual ICollection<Column> Columns
         {
             get { return column; }
@@ -43,6 +48,7 @@ namespace Asana.Objects
         {
             Id = Guid.NewGuid();
             Columns = new ObservableCollection<Column>();
+            Users = new ObservableCollection<UserRoles>();
         }
     }
 }

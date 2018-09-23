@@ -9,13 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Task = System.Threading.Tasks.Task;
 
 namespace Asana.Services
 {
     public class UserService : IUserService
     {
 
-        public void Insert(User user)
+        public async Task CreateAsync(User user)
         {
             try
             {
@@ -30,7 +31,7 @@ namespace Asana.Services
                         }
                         user.Password = PasswordHasher.Hash(user.Password);
                         dbContext.Users.Add(user);
-                        dbContext.SaveChanges();
+                       await dbContext.SaveChangesAsync();
                     }
                 }
             }

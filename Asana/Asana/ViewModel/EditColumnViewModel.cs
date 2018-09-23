@@ -94,9 +94,9 @@ namespace Asana.ViewModel
         public RelayCommand SubmitCommand => submitCommand ?? (submitCommand = new RelayCommand(
         () =>
         {
-            columnService.UpdateTitle(Title, CurrentColumn.Instance.Column.Column);
             Task.Run(() =>
             {
+                columnService.UpdateTitleAsync(Title, CurrentColumn.Instance.Column.Column);
                 timer.Stop();
                 Closewindow();
             });

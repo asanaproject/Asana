@@ -155,6 +155,14 @@
     <Compile Include="Migrations\201809231726177_User_Roles.Designer.cs">
       <DependentUpon>201809231726177_User_Roles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809231840249_INotifyPropertyChanged_For_UserRoles.cs" />
+    <Compile Include="Migrations\201809231840249_INotifyPropertyChanged_For_UserRoles.Designer.cs">
+      <DependentUpon>201809231840249_INotifyPropertyChanged_For_UserRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809231856120_EmployeesOfProject.cs" />
+    <Compile Include="Migrations\201809231856120_EmployeesOfProject.Designer.cs">
+      <DependentUpon>201809231856120_EmployeesOfProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -209,6 +217,7 @@
     <Compile Include="Tools\ProfilePhoto.cs" />
     <Compile Include="Tools\Randomizer.cs" />
     <Compile Include="Tools\RegexChecker.cs" />
+    <Compile Include="Tools\SeedData.cs" />
     <Compile Include="Tools\Settings.cs" />
     <Compile Include="Tools\Errors.cs" />
     <Compile Include="Tools\WindowBluringCustom.cs" />
@@ -419,6 +428,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809231726177_User_Roles.resx">
       <DependentUpon>201809231726177_User_Roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809231840249_INotifyPropertyChanged_For_UserRoles.resx">
+      <DependentUpon>201809231840249_INotifyPropertyChanged_For_UserRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809231856120_EmployeesOfProject.resx">
+      <DependentUpon>201809231856120_EmployeesOfProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

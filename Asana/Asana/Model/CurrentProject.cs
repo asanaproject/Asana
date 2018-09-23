@@ -12,7 +12,7 @@ namespace Asana.Model
     public class CurrentProject:ViewModelBase
     {
         private CurrentProject(){
-            Project = new Project {ProjectEmail="nkh.nubarkhalid@gmail.com",Name="Asana" };
+            Project = new Project();
         }
         private static CurrentProject instance;
         public static CurrentProject Instance
@@ -26,8 +26,9 @@ namespace Asana.Model
                 return instance;
             }
         }
-        private Project project;
+         
 
+        private Project project;
         public Project Project
         {
             get { return project; }

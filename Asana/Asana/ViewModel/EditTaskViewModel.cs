@@ -130,10 +130,10 @@ namespace Asana.ViewModel
         {
             var task = CurrentTask.Instance.Task;
             var customer = new ExtraInfo { Email = Email, Username = Customer };
-            extraInfoService.Add(customer);
+            extraInfoService.CreateAsync(customer);
             task.ExtraInfo = customer;
             task.ExtraInfoId = customer.Id;
-            taskService.Update(task);
+            taskService.UpdateAsync(task);
             System.Threading.Tasks.Task.Run(() =>
             {
                 timer.Stop();

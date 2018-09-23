@@ -12,7 +12,7 @@ namespace Asana.Services
     public class ExtraInfoService : IExtraInfoService
     {
 
-        public async System.Threading.Tasks.Task Add(ExtraInfo extraInfo)
+        public async System.Threading.Tasks.Task CreateAsync(ExtraInfo extraInfo)
         {
             if (extraInfo != null)
             {

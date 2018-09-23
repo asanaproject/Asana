@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
 
 namespace Asana.Services.Interfaces
 {
     public interface IUserService
     {
-        void Insert(User user);
+        Task CreateAsync(User user);
         User Select(string email);
     }
 }

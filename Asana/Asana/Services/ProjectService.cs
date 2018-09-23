@@ -13,9 +13,8 @@ namespace Asana.Services
     public class ProjectService : IProjectService
     {
        
-        public async System.Threading.Tasks.Task Add(Project project)
+        public async System.Threading.Tasks.Task CreateAsync(Project project)
         {
-            AsanaDbContext context;
             try
             {
                 if(project == null)
@@ -24,13 +23,13 @@ namespace Asana.Services
                     throw new Exception("Project is Null");
                 }
 
-                using(context = new AsanaDbContext())
+                using(var context = new AsanaDbContext())
                 {
                     //context.Users.First(x => x.Id == CurrentUser.Id)
                     //    .Projects.First(p => p.Project.Id == CurrentProject.Instance.Project.Id)
                     //    .add
-                        
-                    
+
+                    await context.SaveChangesAsync();
                 }
 
             }

@@ -8,7 +8,7 @@ namespace Asana.Services.Interfaces
 {
      public interface IProjectService
     {
-       Task Add(Objects.Project project);
+       Task CreateAsync(Objects.Project project);
        
     }
 }

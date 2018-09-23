@@ -13,7 +13,7 @@ namespace Asana.Services
     public class TaskService : ITaskService
     {
         AsanaDbContext context = new AsanaDbContext();
-        public async System.Threading.Tasks.Task Add(Objects.Task task)
+        public async System.Threading.Tasks.Task CreateAsync(Objects.Task task)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Asana.Services
            
         }
 
-        public async System.Threading.Tasks.Task Update(Objects.Task task)
+        public async System.Threading.Tasks.Task UpdateAsync(Objects.Task task)
         {
             if (task!=null)
             {

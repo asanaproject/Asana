@@ -13,7 +13,7 @@ namespace Asana.Services
     public class UserRoleService : IUserRoleService
     {
         
-        public async System.Threading.Tasks.Task Add(UserRoles user)
+        public async System.Threading.Tasks.Task CreateAsync(UserRoles user)
         {
             if (user!=null)
             {
@@ -21,7 +21,7 @@ namespace Asana.Services
                 {
                     using (var asana=new AsanaDbContext())
                     {
-                        if (asana.Projects.First(x=>x.Id==user.ProjectId).UserRole.First(x=>x.Email==user.Email)!=null)
+                        if (asana.Projects.First(x=>x.Id==user.ProjectId).Users.First(x=>x.Email==user.Email)!=null)
                         {
                             throw new Exception("User with this email already exists.");
                         }

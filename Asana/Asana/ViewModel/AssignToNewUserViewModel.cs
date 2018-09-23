@@ -56,7 +56,10 @@ namespace Asana.ViewModel
         public RelayCommand CloseWindowCommand => _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(
         () =>
         {
-           
+            Task.Run(() =>
+            {
+                Closewindow();
+            });
 
         }));
 
@@ -76,7 +79,7 @@ namespace Asana.ViewModel
                     Project = CurrentProject.Instance.Project,
                     ProjectId = CurrentProject.Instance.Project.Id
                 };
-                userRoleService.Add(user);
+                userRoleService.CreateAsync(user);
                 Closewindow();
             });
            

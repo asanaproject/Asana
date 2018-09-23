@@ -9,7 +9,7 @@ namespace Asana.Services.Interfaces
 {
     public interface IExtraInfoService
     {
-        System.Threading.Tasks.Task Add(ExtraInfo extraInfo);
+        System.Threading.Tasks.Task CreateAsync(ExtraInfo extraInfo);
         bool FindByEmail(string email);
 
 

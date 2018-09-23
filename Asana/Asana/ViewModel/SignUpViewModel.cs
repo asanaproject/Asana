@@ -99,7 +99,7 @@ namespace Asana.ViewModel
                     user.Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath));
                     user.Password = Password;
                     user.Username = UserName ;
-                    userService.Insert(user);
+                    userService.CreateAsync(user);
                     navigation.NavigateTo(ViewType.LogIn);
                 }
                 catch (Exception ex)

@@ -25,12 +25,6 @@ namespace Asana.ViewModel
         {
             Messenger.Default.Register<ViewModelBase>(this,
             param => CurrentViewModel = param);
-            using (var asana = new AsanaDbContext())
-            {
-                asana.Roles.Add(new Roles { Type = "project manager" });
-                asana.Roles.Add(new Roles { Type = "employee" });
-                asana.SaveChanges();
-            }
         }
 
 
@@ -49,7 +43,8 @@ namespace Asana.ViewModel
             get => _maximizeCommand ?? (_maximizeCommand = new RelayCommand(
                 (() =>
                 {
-                    if (App.Current.MainWindow.WindowState == System.Windows.WindowState.Maximized) { 
+                    if (App.Current.MainWindow.WindowState == System.Windows.WindowState.Maximized)
+                    {
                         App.Current.MainWindow.ResizeMode = ResizeMode.CanResize;
                         App.Current.MainWindow.WindowState = WindowState.Normal;
                     }
