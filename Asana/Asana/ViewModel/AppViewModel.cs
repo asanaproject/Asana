@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Asana.Objects;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
@@ -20,8 +21,17 @@ namespace Asana.ViewModel
             set { Set(ref currentViewModel, value); }
         }
 
-        public AppViewModel() => Messenger.Default.Register<ViewModelBase>(this,
-                param => CurrentViewModel = param);
+        public AppViewModel()
+        {
+            Messenger.Default.Register<ViewModelBase>(this,
+            param => CurrentViewModel = param);
+            using (var asana = new AsanaDbContext())
+            {
+                asana.Roles.Add(new Roles { Type = "project manager" });
+                asana.Roles.Add(new Roles { Type = "employee" });
+                asana.SaveChanges();
+            }
+        }
 
 
         #region Commands

@@ -151,6 +151,10 @@
     <Compile Include="Migrations\201809190946216_Initial_Model.Designer.cs">
       <DependentUpon>201809190946216_Initial_Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809231726177_User_Roles.cs" />
+    <Compile Include="Migrations\201809231726177_User_Roles.Designer.cs">
+      <DependentUpon>201809231726177_User_Roles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -172,11 +176,13 @@
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IColumnService.cs" />
     <Compile Include="Services\Interfaces\IExtraInfoService.cs" />
+    <Compile Include="Services\Interfaces\IUserRoleService.cs" />
     <Compile Include="Services\Interfaces\IProjectService.cs" />
     <Compile Include="Services\Interfaces\ITaskService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\TaskService.cs" />
+    <Compile Include="Services\UserRoleService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Tools\BoundPasswordBox.cs" />
     <Compile Include="Tools\CheckLoginLog.cs" />
@@ -208,6 +214,7 @@
     <Compile Include="Tools\WindowBluringCustom.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
+    <Compile Include="ViewModel\AssignToNewUserViewModel.cs" />
     <Compile Include="ViewModel\ChatRoomAddViewModel.cs" />
     <Compile Include="ViewModel\ColumnItemViewModel.cs" />
     <Compile Include="ViewModel\EditColumnViewModel.cs" />
@@ -219,6 +226,9 @@
     <Compile Include="ViewModel\LodingViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ProjectAddViewModel.cs" />
+    <Compile Include="View\AssignToNewUserView.xaml.cs">
+      <DependentUpon>AssignToNewUserView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ChatRoomAdd.xaml.cs">
       <DependentUpon>ChatRoomAdd.xaml</DependentUpon>
     </Compile>
@@ -298,6 +308,10 @@
     </Compile>
     <Compile Include="Tools\WebBrowserBehavior.cs" />
     <Page Include="Resources\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AssignToNewUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -402,6 +416,9 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201809190946216_Initial_Model.resx">
       <DependentUpon>201809190946216_Initial_Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809231726177_User_Roles.resx">
+      <DependentUpon>201809231726177_User_Roles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -67,7 +67,12 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <ComboBox materialDesign:HintAssist.Hint="Assigned to" Grid.Row="3"  Margin="0 0 0 15" FontSize="16" Width="200"/>
+                <ComboBox materialDesign:HintAssist.Hint="Assigned to" Grid.Row="3" Margin="0 0 0 15" FontSize="16" Width="200">
+                    <ComboBoxItem >
+                        <Button BorderBrush="Transparent" Background="Gray" Command="{Binding DataContext.AssignToNewUserCommand, ElementName=Parent}" CommandParameter="{Binding .}" Height="25" Padding="2" Width="100" Content="Create new"/>
+                    </ComboBoxItem>
+                </ComboBox>
+
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

@@ -26,7 +26,7 @@ namespace Asana.Tools
             {
                 Log.Error(err.Message);
             }
-                return false;
+            return false;
         }
 
         public static bool CheckUsername(string username)
@@ -49,22 +49,19 @@ namespace Asana.Tools
         }
 
 
-        public static bool CheckMobileTelephone(string phonenumber)
+        public static bool CheckMobileTelephone(string phoneNumber)
         {
             try
             {
-                if (phonenumber == null)
+                if (phoneNumber == null)
                     return false;
-                Regex regex = new Regex(@"^ \+\d( ?\d){8,24}$"); //8-24 araliginda reqemler olmali +994772209966
-                Match match = regex.Match(phonenumber);
-                if (match.Success)
-                    return true;
+                return Regex.IsMatch(phoneNumber, @"^[0-9]{10}$");
             }
             catch (Exception err)
             {
                 Log.Error(err.Message);
             }
-                return false;
+            return false;
         }
 
         public static bool CheckPassword(string password)

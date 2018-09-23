@@ -15,10 +15,6 @@ namespace Asana.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
-        [ForeignKey(nameof(User))]
-        public Guid UserId { get; set; }
-        public User User { get; set; }
-
         [ForeignKey(nameof(Role))]
         public Guid RoleId { get; set; }
         public Roles Role { get; set; }
@@ -26,5 +22,9 @@ namespace Asana.Model
         [ForeignKey(nameof(Project))]
         public Guid ProjectId { get; set; }
         public Project Project { get; set; }
+
+        public string Email { get; set; }
+
+        public string Phone { get; set; }
     }
 }

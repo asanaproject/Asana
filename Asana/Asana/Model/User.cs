@@ -38,7 +38,6 @@ namespace Asana.Model
         public bool IsLogged { get; set; }
 
         public virtual ICollection<ChatRoomUsers> Users { get; set; }
-        public virtual ICollection<UserRoles> UserRoles { get; set; }
 
 
         public User()

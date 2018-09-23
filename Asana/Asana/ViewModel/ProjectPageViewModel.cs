@@ -32,7 +32,7 @@ namespace Asana.ViewModel
             taskService = new TaskService();
             Columns = new ObservableCollection<ColumnItemViewModel>();
             Header = new HeaderViewModel(navigation);
-       
+
             //foreach (var item in columnService.GetAll(CurrentProject.Instance.Project.Id))
             //{
             //    Columns.Add(new ColumnItemViewModel { Column = item, ColumnIsAdded = true,Title=item.Title });
@@ -83,7 +83,7 @@ namespace Asana.ViewModel
         public RelayCommand<Task> StarTaskCommand => starTaskCommand ?? (starTaskCommand = new RelayCommand<Task>(
         x =>
         {
-            
+
             x.IsStarred = x.IsStarred ? false : true;
             x.StarPath = x.IsStarred ? "../Resources/Images/star-icon.png" : "../Resources/Images/grey_star.png";
         }));
@@ -208,7 +208,18 @@ namespace Asana.ViewModel
         }));
 
 
+        private RelayCommand assignToNewUserCommand;
+        public RelayCommand AssignToNewUserCommand => assignToNewUserCommand ?? (assignToNewUserCommand = new RelayCommand(
+       () =>
+       {
+           WindowBluringCustom.Bluring();
+           ExtraWindow extraWindow = new ExtraWindow(new AssignToNewUserViewModel(navigation), 800, 350);
+           extraWindow.ShowDialog();
+           WindowBluringCustom.Normal();
 
+       }
+
+       ));
 
         public void DragOver(IDropInfo dropInfo)
         {
@@ -221,7 +232,7 @@ namespace Asana.ViewModel
         {
             ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
             ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
-            if (sourceItem!=null&&targetItem!=null)
+            if (sourceItem != null && targetItem != null)
             {
 
                 var sourceIndex = Columns.IndexOf(sourceItem);
@@ -235,6 +246,6 @@ namespace Asana.ViewModel
                 }
             }
         }
-     
+
     }
 }

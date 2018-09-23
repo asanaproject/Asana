@@ -19,6 +19,7 @@ namespace Asana.ViewModel
         private readonly NavigationService navigationService;
         private readonly IColumnService columnService;
         System.Timers.Timer timer;
+
         public EditColumnViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
@@ -79,6 +80,7 @@ namespace Asana.ViewModel
         {
             Task.Run(() =>
             {
+                timer.Stop();
                 Closewindow();
             });
 
@@ -95,6 +97,7 @@ namespace Asana.ViewModel
             columnService.UpdateTitle(Title, CurrentColumn.Instance.Column.Column);
             Task.Run(() =>
             {
+                timer.Stop();
                 Closewindow();
             });
         }));
