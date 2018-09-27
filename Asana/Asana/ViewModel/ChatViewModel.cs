@@ -225,7 +225,8 @@ namespace Asana.ViewModel
                      
                     if (SelectedItem != null && listed.Count != ChatItems.Count)
                     {
-                        listed.ToArray().Skip(ChatItems.Count).Take((listed.Count - ChatItems.Count)).ToList().ForEach(x => ChatItems.Add(x));
+                        ChatItems.Clear();
+                        listed.ToList().ForEach(x => ChatItems.Add(x));
                     }
                 });
             });

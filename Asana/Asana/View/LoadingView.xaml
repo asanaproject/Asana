@@ -8,6 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <fa:ImageAwesome Icon="Refresh"  VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" Height="250" SpinDuration="2"/>
+        <fa:ImageAwesome Icon="Refresh"  VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" Height="100" SpinDuration="2"/>
     </Grid>
 </UserControl>
