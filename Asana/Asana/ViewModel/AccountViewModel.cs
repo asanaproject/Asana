@@ -1,5 +1,6 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
+using Asana.Tools;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -8,14 +9,18 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Windows.Media.Imaging;
 
 namespace Asana.ViewModel
 {
-    public class ProfileViewModel : ViewModelBase
+    public class AccountViewModel : ViewModelBase
     {
         private readonly NavigationService navigationService;
 
-        public ProfileViewModel(NavigationService navigationService)
+        public AccountViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
             Projects = new ObservableCollection<dynamic>();
@@ -61,6 +66,14 @@ namespace Asana.ViewModel
             set { Set(ref projects, value); }
         }
 
+        private BitmapImage profileImage;
+
+        public BitmapImage ProfileImage
+        {
+            get { return profileImage; }
+            set { Set(ref profileImage, value); }
+        }
+
 
         private RelayCommand _loadedCommand;
 
@@ -70,6 +83,9 @@ namespace Asana.ViewModel
                 Username = CurrentUser.Instance.User.Username;
                 Email = CurrentUser.Instance.User.Email;
                 PhoneNumber = "0772209966";
+
+                ProfileImage = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
+
                 Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 16:58" });
                 Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 16:59" });
                 Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 17:00" });
