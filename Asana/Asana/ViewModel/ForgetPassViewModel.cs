@@ -65,8 +65,10 @@ namespace Asana.ViewModel
         public RelayCommand NewPassAplyCommand => _newPassAplyCommand ?? (_newPassAplyCommand = new RelayCommand(
             () =>
             {
-                if (RegexChecker.CheckPassword(NewPassword) && NewPassword==ReEnterPassword && accountService.ForgotControl(NewPassword))
+                if (RegexChecker.CheckPassword(NewPassword) && NewPassword == ReEnterPassword) {
+                    accountService.ForgotControl(NewPassword);
                     navigation.NavigateTo(ViewType.LogIn);
+                }
                 else
                     Errors.PasswordForgotErrorMsg();
             }));

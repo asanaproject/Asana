@@ -136,8 +136,8 @@
     <DataTemplate DataType="{x:Type vm:CreateProjectViewModel}">
         <v:ProjectsView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
-        <v:ProfileView/>
+    <DataTemplate DataType="{x:Type vm:AccountViewModel}">
+        <v:AccountView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:ChatViewModel}">
         <v:ChatView/>

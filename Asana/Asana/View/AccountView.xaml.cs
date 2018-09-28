@@ -18,9 +18,9 @@ namespace Asana.View
     /// <summary>
     /// Interaction logic for ProjectView.xaml
     /// </summary>
-    public partial class ProjectView : UserControl
+    public partial class AccountView : UserControl
     {
-        public ProjectView()
+        public AccountView()
         {
             InitializeComponent();
         }
