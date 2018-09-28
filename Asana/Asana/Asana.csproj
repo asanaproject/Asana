@@ -234,6 +234,7 @@
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
     <Compile Include="ViewModel\LodingViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ProjectAddViewModel.cs" />
     <Compile Include="View\AssignToNewUserView.xaml.cs">
       <DependentUpon>AssignToNewUserView.xaml</DependentUpon>
@@ -299,6 +300,9 @@
     </Compile>
     <Compile Include="View\CreateProjectView.xaml.cs">
       <DependentUpon>CreateProjectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ProjectAddView.xaml.cs">
       <DependentUpon>ProjectAddView.xaml</DependentUpon>
@@ -385,6 +389,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CreateProjectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -497,6 +505,7 @@
     <Resource Include="Resources\Images\yellow_star.jpg" />
     <Resource Include="Resources\Images\star-icon.png" />
     <Resource Include="Resources\Images\grey_star.png" />
+    <Resource Include="Resources\Images\proftest.jpg" />
     <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>

@@ -86,7 +86,7 @@
                         HorizontalAlignment="Left" Margin="4 0 0 0" Style="{StaticResource m_nav_bar}" />
         <Menu Grid.Column="9" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
             <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="WhiteSmoke"  FontSize="15" FontFamily="Calibri">
-                <MenuItem Foreground="WhiteSmoke"  Header="Account"/>
+                <MenuItem Command="{Binding ProfileCommand}" Foreground="WhiteSmoke"  Header="Account"/>
                 <MenuItem Foreground="WhiteSmoke" Header="Language">
                     <MenuItem Foreground="WhiteSmoke" Header="Az"/>
                     <MenuItem Foreground="WhiteSmoke" Header ="Ru"/>
