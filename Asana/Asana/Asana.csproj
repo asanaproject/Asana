@@ -231,6 +231,7 @@
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />
     <Compile Include="ViewModel\LodingViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ProjectAddViewModel.cs" />
     <Compile Include="ViewModel\TaskHistoryViewModel.cs" />
     <Compile Include="ViewModel\TaskPageViewModel.cs" />
@@ -304,6 +305,9 @@
     </Compile>
     <Compile Include="View\ProjectPageView.xaml.cs">
       <DependentUpon>ProjectPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegisterEmailView.xaml.cs">
       <DependentUpon>RegisterEmailView.xaml</DependentUpon>
@@ -398,6 +402,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ProjectPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProjectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,18 +1,17 @@
-﻿using Asana.Navigation;
+﻿using Asana.Model;
+using Asana.Navigation;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Asana.Model;
-using GalaSoft.MvvmLight.Command;
-using Asana.Objects;
-using System.Collections.ObjectModel;
 
 namespace Asana.ViewModel
 {
-    public class ProfileViewModel :ViewModelBase
+    public class ProfileViewModel : ViewModelBase
     {
         private readonly NavigationService navigationService;
 
@@ -51,7 +50,7 @@ namespace Asana.ViewModel
         public string PhoneNumber
         {
             get { return phonenumber; }
-            set { Set(ref phonenumber,value); }
+            set { Set(ref phonenumber, value); }
         }
 
         private ObservableCollection<dynamic> projects;
@@ -71,9 +70,9 @@ namespace Asana.ViewModel
                 Username = CurrentUser.Instance.User.Username;
                 Email = CurrentUser.Instance.User.Email;
                 PhoneNumber = "0772209966";
-                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)" , Created_Date="23.08.2001 16:58"});
-                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)" , Created_Date="23.08.2001 16:59"});
-                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)" , Created_Date="23.08.2001 17:00"});
+                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 16:58" });
+                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 16:59" });
+                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 17:00" });
 
                 //using (var db = new AsanaDbContext())
                 //    db.Projects.Where(x => x.Users.Any(y => y.Id == CurrentUser.Instance.User.Id)).ToList().ForEach(x => Projects.Add(x));
@@ -82,4 +81,11 @@ namespace Asana.ViewModel
 
 
     }
+
+
+
+
+
+
+
 }
