@@ -46,6 +46,7 @@ namespace Asana.Services
                             x.Body,
                             x.SendTime
                         }));
+                    messages = messages.OrderBy(x => x.SendTime).ToList();
                     return messages;
                 }
                 catch (Exception err)

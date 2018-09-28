@@ -58,6 +58,7 @@ namespace Asana.ViewModel
                     if (window.Title == "ExtraWindow")
                         window.Close();
                 }
+                WindowBluringCustom.Normal();
             });
         }
 
@@ -66,22 +67,22 @@ namespace Asana.ViewModel
         public RelayCommand LogInBtnCommand => _logInBtnCommand ?? (_logInBtnCommand = new RelayCommand(
                    () =>
                    {
+                       ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 200, 200);
                        System.Threading.Tasks.Task.Run(() =>
                        {
-                          
+
                            if (accountService.LoginControl(Email, Password))
                            {
-                           CloseWindow();
+                               CloseWindow();
                                CheckLoginLog.Save(Email);
                                navigation.NavigateTo(ViewType.Home);
                            }
                            else
                                Errors.LoginErrorMsg();
-
+                           CloseWindow();
                        }
                        );
                        WindowBluringCustom.Bluring();
-                       ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 400, 400);
                        extraWindow.ShowDialog();
                        WindowBluringCustom.Normal();
                    }));

@@ -9,6 +9,6 @@ namespace Asana.Navigation
     public enum ViewType
     {
         LogIn, SignUp,ForgetPass,ForgotEmailCode,RegisterEmail,Home,ConfirmCode,CreateProject,ChatView,ProjectPage,ListChannels,
-        ProjectAdd
+        ProjectAdd,Profile
     }
 }

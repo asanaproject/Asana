@@ -155,7 +155,7 @@ namespace Asana.Services
                         if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).ChatRoomType == ChatRoomType.Direct && cru.UserId == CurrentUser.Instance.User.Id)
                         {
                             var xy = dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId);
-                            Guid id = dbContext.ChatRoomUsers.Single(x => x.ChatRoomId == xy.ID && x.UserId != CurrentUser.Id).UserId;
+                            var id = dbContext.ChatRoomUsers.Single(x => x.ChatRoomId == xy.ID && x.UserId != CurrentUser.Id).UserId;
                             string name = dbContext.Users.Single(y => y.Id == id).FullName;
                             listId.Add(new ChatRoom() { ID = xy.ID, Desc = xy.Desc, Name = name, ChatRoomType = xy.ChatRoomType });
                         }

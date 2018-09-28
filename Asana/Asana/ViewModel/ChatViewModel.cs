@@ -114,8 +114,8 @@ namespace Asana.ViewModel
             set
             {
                 Set(ref selectedItem, value);
-                SelectedColumn = 3;
                 StopAllTimers();
+                SelectedColumn = 3;
                 if (value != null)
                     ColumnTitle = "#" + value.Name;
                 ChatItems.Clear();
@@ -222,7 +222,7 @@ namespace Asana.ViewModel
                 var listed = await ChatService.GetSelectedChannelMessages(SelectedItem.ID);
                 App.Current.Dispatcher.Invoke(() =>
                 {
-
+                     
                     if (SelectedItem != null && listed.Count != ChatItems.Count)
                     {
                         ChatItems.Clear();
@@ -317,6 +317,7 @@ namespace Asana.ViewModel
         async() =>
         {
             NullAllProperties();
+            SelectedColumn = 0;
             var result = await ChatService.GetAllUnFavoritesMails();
             if (result.Count != 0)
                 SelectedColumn = 1;
@@ -350,6 +351,7 @@ namespace Asana.ViewModel
         async() =>
         {
             NullAllProperties();
+            SelectedColumn = 2;
             var result = await ChatService.GetAllFavoritesMails();
             if (result.Count != 0)
                 SelectedColumn = 5;
@@ -422,7 +424,6 @@ namespace Asana.ViewModel
                 SelectedColumn = 1;
             else
                 SelectedColumn = 0;
-
         }
 
         public async void CheckStarred()
@@ -441,21 +442,35 @@ namespace Asana.ViewModel
             inboxtimer.Start();
         }
 
-        private async void ChatRoomDatas()
+        private void ChatRoomDatas()
         {
-            
-            var publiclist = await ChannelsService.GetListPublicChannelsId();
-            int changedChannels1 = publiclist.Count - PublicChannels.Count;
-            publiclist.Skip(PublicChannels.Count).Take(changedChannels1).ToList().ForEach(x => PublicChannels.Add(x));
-
-            var privatelist = await ChannelsService.GetListPrivateChannelsId();
-            int changedChannels2 = privatelist.Count - PrivateChannels.Count;
-            privatelist.Skip(PrivateChannels.Count).Take(changedChannels2).ToList().ForEach(x => PrivateChannels.Add(x));
-
-            var directlist = await ChannelsService.GetListDirectChannelsId();
-            int changedChannels3 = directlist.Count - DirectMessages.Count;
-            directlist.Skip(DirectMessages.Count).Take(changedChannels3).ToList().ForEach(x => DirectMessages.Add(x));
+            PublicChannelRoomRefresh();
+            PrivateChannelRoomRefresh();
+            DirectChannelRoomRefresh();
         }
+
+        private async void PublicChannelRoomRefresh()
+        {
+            PublicChannels.Clear();
+            var publiclist = await ChannelsService.GetListPublicChannelsId();
+            publiclist.ForEach(x => PublicChannels.Add(x));
+        }
+
+        private async void PrivateChannelRoomRefresh()
+        {
+            PrivateChannels.Clear();
+            var privatelist = await ChannelsService.GetListPrivateChannelsId();
+            privatelist.ForEach(x => PrivateChannels.Add(x));
+        }
+
+        private async void DirectChannelRoomRefresh()
+        {
+            DirectMessages.Clear();
+            var directlist = await ChannelsService.GetListDirectChannelsId();
+            directlist.ForEach(x => DirectMessages.Add(x));
+        }
+
+
 
 
 

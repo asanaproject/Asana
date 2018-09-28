@@ -55,6 +55,14 @@ namespace Asana.ViewModel
                 )));
         }
 
+        private RelayCommand _profileCommand;
+        public RelayCommand ProfileCommand
+        {
+            get => _profileCommand ?? (_profileCommand = new RelayCommand(
+                (() => navigationService.NavigateTo(ViewType.Profile)
+                )));
+        }
+
         private RelayCommand _logoutCommand;
         public RelayCommand LogoutCommand
         {

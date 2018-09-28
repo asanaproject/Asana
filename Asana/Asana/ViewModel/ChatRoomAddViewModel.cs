@@ -43,11 +43,18 @@ namespace Asana.ViewModel
         {
             Task.Run(() =>
             {
-            if (chatRoomType == ChatRoomType.Direct && !channelService.InsertDirectMessage(Name))
-                throw new Exception("Cannt Find This User");
-            else if (!channelService.InsertRoom(Name, chatRoomType))
-                throw new Exception("Cannt Add Channel Room");
-                Closewindow();
+                try
+                {
+                    if (chatRoomType == ChatRoomType.Direct)
+                        channelService.InsertDirectMessage(Name);
+                    else
+                        channelService.InsertRoom(Name, chatRoomType);
+                    Closewindow();
+                }
+                catch(Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             });
         }));
         private RelayCommand _closeCommand;
