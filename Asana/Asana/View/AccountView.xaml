@@ -67,7 +67,6 @@
                     </Grid.RowDefinitions>
                     <Image Stretch="UniformToFill" Source="{Binding ProfileImage}"></Image>
 
-                    <Rectangle Fill="DarkRed" Opacity="0.85" />
                     <Grid Grid.Row="1" VerticalAlignment="Stretch">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="15"/>
@@ -85,7 +84,7 @@
                         <materialDesign:PackIcon Grid.Row="2" Foreground="Gray" Kind="at" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="20" Height="20"></materialDesign:PackIcon>
                         <TextBlock Foreground="Gray" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Padding="5 0 0 0" VerticalAlignment="Center" Text="{Binding Email}"></TextBlock>
                         <materialDesign:PackIcon Grid.Row="3" Foreground="Gray" Kind="Phone" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="20" Height="20"></materialDesign:PackIcon>
-                        <TextBlock Foreground="Gray" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Padding="5 0 0 0" VerticalAlignment="Center" Text="{Binding PhoneNumber}"></TextBlock>
+                        <TextBlock Foreground="Gray" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Padding="5 0 0 0" VerticalAlignment="Center" Text="{Binding PhoneNumber}"> --- </TextBlock>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="1" Margin="0 0 40 29" >
