@@ -7,13 +7,13 @@ namespace Asana.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class INotifyPropertyChanged_For_UserRoles : IMigrationMetadata
+    public sealed partial class Description_Property_IsAdded_Project : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(INotifyPropertyChanged_For_UserRoles));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Description_Property_IsAdded_Project));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809231840249_INotifyPropertyChanged_For_UserRoles"; }
+            get { return "201809271523039_Description_Property_IsAdded_Project"; }
         }
         
         string IMigrationMetadata.Source

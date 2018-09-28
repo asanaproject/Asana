@@ -14,14 +14,15 @@ namespace Asana.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
+        public UserRoles()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        [ForeignKey(nameof(Role))]
-        public Guid RoleId { get; set; }
         public Roles Role { get; set; }
 
-        [ForeignKey(nameof(Project))]
         public Guid ProjectId { get; set; }
-        public Project Project { get; set; }
+        public string FullName { get; set; }
 
         public string Email { get; set; }
 

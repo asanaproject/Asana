@@ -49,7 +49,9 @@ namespace Asana.Services
                 using (var dbContext = new AsanaDbContext())
                 {
                     if ((email != "" || email != null) && dbContext.Users.Any(x => x.Email == email))
-                        return dbContext.Users.Single(x => x.Email == email);
+                        return dbContext.Users.Include("Projects")
+                                              .Include("Users")
+                                              .Single(x => x.Email == email);
                     throw new Exception("User with this email not founded");
                 }
             }

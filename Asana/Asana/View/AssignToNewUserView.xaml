@@ -67,7 +67,7 @@
             <TextBlock Text="You are inviting a new user." HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="20" />
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="53" Width="300" Margin="20 0 0 0" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
+        <Border Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="53" Width="250" Margin="20 0 0 0" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
             <Grid HorizontalAlignment="Stretch"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="45"/>
@@ -79,7 +79,7 @@
             </Grid>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="53" Width="300" Margin="20 0 0 0" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
+        <Border Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="53" Width="250" Margin="20 0 0 0" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
             <Grid HorizontalAlignment="Stretch"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="45"/>
@@ -91,7 +91,7 @@
             </Grid>
         </Border>
         
-        <Border Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="53" Width="300" Margin="20 0 0 0" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
+        <Border Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="53" Width="250" Margin="20 0 0 0" BorderThickness="4" Background="#E6E6E6" CornerRadius="19">
             <Grid HorizontalAlignment="Stretch"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="45"/>

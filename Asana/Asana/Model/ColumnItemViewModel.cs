@@ -9,16 +9,15 @@ using Task = Asana.Objects.Task;
 
 namespace Asana.ViewModel
 {
-    public class ColumnItemViewModel:ViewModelBase
+    public class ColumnItemViewModel : ViewModelBase
     {
-       
         private Column column;
+
         public Column Column
         {
             get { return column; }
-            set { Set(ref column,value); }
+            set { Set(ref column, value); }
         }
-
         public ColumnItemViewModel()
         {
             Column = new Column();
@@ -29,21 +28,22 @@ namespace Asana.ViewModel
         public string Title
         {
             get { return title; }
-            set { Set(ref title,value); }
+            set { Set(ref title, value); }
         }
         private bool columnIsAdded;
 
         public bool ColumnIsAdded
         {
             get { return columnIsAdded; }
-            set { Set(ref columnIsAdded,value); }
+            set { Set(ref columnIsAdded, value); }
         }
-      
+
         private Task task;
+
         public Task Task
         {
             get { return task; }
-            set {Set(ref task, value); }
+            set { Set(ref task, value); }
         }
 
     }

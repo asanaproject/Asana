@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Asana.Objects
+namespace Asana.Model
 {
     [Table("KanbanState")]
     public class KanbanState
@@ -15,11 +15,8 @@ namespace Asana.Objects
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
-        [StringLength(25),Required]
+        [Required]
         public string Name { get; set; }
-
-        public virtual ICollection<Task> Tasks { get; set; }
-
         public KanbanState()
         {
             Id = Guid.NewGuid();

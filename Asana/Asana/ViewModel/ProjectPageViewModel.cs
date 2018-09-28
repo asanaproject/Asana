@@ -30,9 +30,7 @@ namespace Asana.ViewModel
             this.navigation = navigation;
             columnService = new ColumnService();
             taskService = new TaskService();
-            Columns = new ObservableCollection<ColumnItemViewModel>();
             Header = new HeaderViewModel(navigation);
-
             //foreach (var item in columnService.GetAll(CurrentProject.Instance.Project.Id))
             //{
             //    Columns.Add(new ColumnItemViewModel { Column = item, ColumnIsAdded = true,Title=item.Title });
@@ -48,19 +46,13 @@ namespace Asana.ViewModel
         }
 
 
-        private ObservableCollection<ColumnItemViewModel> columns;
-        public ObservableCollection<ColumnItemViewModel> Columns
+        private ObservableCollection<KanbanState> kanbanStates;
+        public ObservableCollection<KanbanState> KanbanStates
         {
-            get { return columns; }
-            set { Set(ref columns, value); }
+            get { return kanbanStates; }
+            set { Set(ref kanbanStates, value); }
         }
 
-        private string starPath;
-        public string StarPath
-        {
-            get { return starPath; }
-            set { Set(ref starPath, value); }
-        }
 
 
         /// <summary>
@@ -70,9 +62,10 @@ namespace Asana.ViewModel
         public RelayCommand<ColumnItemViewModel> CreateColumnCommand => createColumnCommand ?? (createColumnCommand = new RelayCommand<ColumnItemViewModel>(
         x =>
         {
-            if (Columns.Count == 0 || !Columns.ToList().Exists(y => !y.ColumnIsAdded))
+            if (ColumnsOfProject.Instance.Columns.Count == 0 ||
+               !ColumnsOfProject.Instance.Columns.ToList().Exists(y => !y.ColumnIsAdded))
             {
-                Columns.Add(new ColumnItemViewModel());
+                ColumnsOfProject.Instance.Columns.Add(new ColumnItemViewModel());
             }
         }));
 
@@ -97,10 +90,19 @@ namespace Asana.ViewModel
         {
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
-                Columns.First(y => y == x).ColumnIsAdded = true;
-                Columns.First(y => y == x).Column.CreatedAt = DateTime.Now;
+                x.ColumnIsAdded = true;
+                x.Column.CreatedAt = DateTime.Now;
+                x.Column.ProjectId = CurrentProject.Instance.Project.Id;
+                x.Column.Title = x.Title;
+                x.Column.IsColumnAdded = true;
+                columnService.CreateAsync(x.Column);
+                ColumnsOfProject.Instance.Columns.First(y => y == x).ColumnIsAdded = true;
+                ColumnsOfProject.Instance.Columns.First(y => y == x).Column.CreatedAt = x.Column.CreatedAt; ;
             }
         }));
+
+
+
 
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace Asana.ViewModel
         {
             if (x != null)
             {
-                Columns.Remove(Columns.First(y => y == x));
+                ColumnsOfProject.Instance.Columns.Remove(ColumnsOfProject.Instance.Columns.First(y => y == x));
             }
         }));
 
@@ -123,11 +125,11 @@ namespace Asana.ViewModel
         public RelayCommand<ColumnItemViewModel> CreateTaskCommand => createTaskCommand ?? (createTaskCommand = new RelayCommand<ColumnItemViewModel>(
         x =>
         {
-            if (!Columns.First(z => z.Column.Id == x.Column.Id).Column.Tasks.ToList().Exists(k => !k.IsTaskAdded) ||
-                Columns.First(z => z.Column.Id == x.Column.Id).Column.Tasks.Count == 0)
+            if (!ColumnsOfProject.Instance.Columns.First(z => z.Column.Id == x.Column.Id).Column.Tasks.ToList().Exists(k => !k.IsTaskAdded) ||
+                ColumnsOfProject.Instance.Columns.First(z => z.Column.Id == x.Column.Id).Column.Tasks.Count == 0)
             {
                 x.Task = new Objects.Task { ColumnId = x.Column.Id };
-                Columns.ToList().First(y => y.Column.Id == x.Column.Id).Column.Tasks.Add(x.Task);
+                ColumnsOfProject.Instance.Columns.ToList().First(y => y.Column.Id == x.Column.Id).Column.Tasks.Add(x.Task);
             }
         }));
 
@@ -140,9 +142,12 @@ namespace Asana.ViewModel
         {
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
-                Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = true;
-                Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).Title = x.Title;
-                Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).CreatedAt = DateTime.Now;
+                // x.CurrentKanbanState =new KanbanState { Name= "In Progress" };
+                KanbanStates = new ObservableCollection<KanbanState>(taskService.GetKanbanStatesOfTask());
+                //  CurrentTask.Instance.Task = x;
+                ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = true;
+                ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).Title = x.Title;
+                ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).CreatedAt = DateTime.Now;
             }
 
         }));
@@ -156,7 +161,7 @@ namespace Asana.ViewModel
         {
             if (x != null)
             {
-                Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.Remove(Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id));
+                ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.Remove(ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id));
             }
 
         }));
@@ -213,13 +218,51 @@ namespace Asana.ViewModel
        () =>
        {
            WindowBluringCustom.Bluring();
-           ExtraWindow extraWindow = new ExtraWindow(new AssignToNewUserViewModel(navigation), 800, 350);
+           ExtraWindow extraWindow = new ExtraWindow(new AssignToNewUserViewModel(navigation), 600, 350);
            extraWindow.ShowDialog();
            WindowBluringCustom.Normal();
 
        }
 
        ));
+
+        private RelayCommand<Task> selectTaskCommand;
+        public RelayCommand<Task> SelectTaskCommand => selectTaskCommand ?? (selectTaskCommand = new RelayCommand<Task>(
+        x =>
+        {
+            if (x != null && x.IsTaskAdded)
+            {
+                CurrentTask.Instance.Task = x;
+                //CurrentTask.Instance.Task.Column = columnService.FindById(x.ColumnId);
+                WindowBluringCustom.Bluring();
+                ExtraWindow extraWindow = new ExtraWindow(new TaskPageViewModel(navigation), 700, 350);
+                extraWindow.ShowDialog();
+                WindowBluringCustom.Normal();
+            }
+        }));
+
+
+
+        private RelayCommand<KanbanState> selectionChangedCommand;
+        public RelayCommand<KanbanState> SelectionChangedCommand => selectionChangedCommand ?? (selectionChangedCommand = new RelayCommand<KanbanState>(
+        x =>
+        {
+            if (x == null)
+            {
+                var state = new TaskKanbanState
+                {
+                    KanbanState = x,
+                    KanbanStateId = x.Id,
+                    ChangedBy = CurrentUser.Instance.User.FullName,
+                    Date = DateTime.Now,
+                    Task = CurrentTask.Instance.Task,
+                    TaskId = CurrentTask.Instance.Task.Id
+                };
+                taskService.UpdateAsyncKanbanState(CurrentTask.Instance.Task, state);
+                CurrentTask.Instance.Task.CurrentKanbanState = x;
+            }
+        }));
+
 
         public void DragOver(IDropInfo dropInfo)
         {
@@ -235,14 +278,14 @@ namespace Asana.ViewModel
             if (sourceItem != null && targetItem != null)
             {
 
-                var sourceIndex = Columns.IndexOf(sourceItem);
-                var targetIndex = Columns.IndexOf(targetItem);
+                var sourceIndex = ColumnsOfProject.Instance.Columns.IndexOf(sourceItem);
+                var targetIndex = ColumnsOfProject.Instance.Columns.IndexOf(targetItem);
                 if (sourceIndex != targetIndex)
                 {
-                    Columns.RemoveAt(sourceIndex);
-                    Columns.Insert(sourceIndex, targetItem);
-                    Columns.RemoveAt(targetIndex);
-                    Columns.Insert(targetIndex, sourceItem);
+                    ColumnsOfProject.Instance.Columns.RemoveAt(sourceIndex);
+                    ColumnsOfProject.Instance.Columns.Insert(sourceIndex, targetItem);
+                    ColumnsOfProject.Instance.Columns.RemoveAt(targetIndex);
+                    ColumnsOfProject.Instance.Columns.Insert(targetIndex, sourceItem);
                 }
             }
         }

@@ -12,8 +12,8 @@ namespace Asana.Services.Interfaces
     {
         System.Threading.Tasks.Task CreateAsync(Column column);
         System.Threading.Tasks.Task UpdateTitleAsync(string title, Column column);
-       ObservableCollection<Column> GetAll(Guid projectId);
-
+        ObservableCollection<Column> GetAll(Guid projectId);
+        Column FindById(Guid columnId);
     }
-} 
+}
 

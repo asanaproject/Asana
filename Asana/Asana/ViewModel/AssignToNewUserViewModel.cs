@@ -74,15 +74,14 @@ namespace Asana.ViewModel
             {
                 var user = new UserRoles
                 {
+                    FullName=FullName,
                     Email = Email,
                     Phone = Mobile,
-                    Project = CurrentProject.Instance.Project,
                     ProjectId = CurrentProject.Instance.Project.Id
                 };
                 userRoleService.CreateAsync(user);
                 Closewindow();
             });
-           
 
         }));
 

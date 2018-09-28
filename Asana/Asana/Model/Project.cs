@@ -24,10 +24,13 @@ namespace Asana.Objects
         [StringLength(50), Required]
         public string ProjectEmail { get; set; }
 
-        [ForeignKey("Dashboard"), Required]
-        public Guid DashboardId { get; set; }
-        public virtual Dashboard Dashboard { get; set; }
+        [ForeignKey(nameof(User))]
+        public Guid UserId { get; set; }
+        public virtual User User { get; set; }
 
+        public string ProjectManager { get; set; }
+
+        public string Description { get; set; }
 
         private ICollection<UserRoles> users;
         public virtual ICollection<UserRoles> Users
@@ -35,15 +38,13 @@ namespace Asana.Objects
             get { return users; }
             set { Set(ref users, value); }
         }
-
         private ICollection<Column> column;
         public virtual ICollection<Column> Columns
         {
             get { return column; }
             set { Set(ref column, value); }
         }
-
-        
+      
         public Project()
         {
             Id = Guid.NewGuid();

@@ -1,4 +1,5 @@
 ﻿using Asana.Objects;
+using Asana.Tools;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -25,6 +26,7 @@ namespace Asana.ViewModel
         {
             Messenger.Default.Register<ViewModelBase>(this,
             param => CurrentViewModel = param);
+            SeedData.EnsurePopulated();
         }
 
 

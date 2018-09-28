@@ -17,7 +17,7 @@ namespace Asana.ViewModel
     /// <summary>
     /// This class is for registering user's email and sending confirmation code to this email
     /// </summary>
-    public class RegisterEmailViewModel : ViewModelBase,IDataErrorInfo
+    public class RegisterEmailViewModel : ViewModelBase, IDataErrorInfo
     {
         private readonly NavigationService navigation;
         EmailHelper GetEmail = new EmailHelper();
@@ -32,16 +32,16 @@ namespace Asana.ViewModel
                         result = "Enter your email correctly!";
                     else if (RegexChecker.CheckEmail(Email))
                     {
-                        using (var db =new AsanaDbContext())
+                        using (var db = new AsanaDbContext())
                         {
-                            if(db.Users.ToList().Exists(user => user.Email == Email))
+                            if (db.Users.ToList().Exists(user => user.Email == Email))
                             {
                                 result = "This mail already exists!!!";
                             }
                         }
                     }
                 }
-               
+
 
                 return result;
             }
@@ -50,7 +50,7 @@ namespace Asana.ViewModel
         public RegisterEmailViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            Email=String.Empty;
+            Email = String.Empty;
 
         }
 
@@ -59,12 +59,12 @@ namespace Asana.ViewModel
         {
             get { return email; }
             set
-           {
+            {
                 Set(ref email, value);
             }
         }
 
-    
+
 
 
         /// <summary>
@@ -82,11 +82,10 @@ namespace Asana.ViewModel
                             // ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
                             if (RegexChecker.CheckEmail(Email))
                             {
-                                GetEmail.SendRegisterActivationCode(Email);
                                 var result = MessageBox.Show($"Confirmation code is sent to {Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
                                 if (result == MessageBoxResult.OK)
                                 {
-
+                                    GetEmail.SendRegisterActivationCode(Email);
                                     navigation.NavigateTo(ViewType.ConfirmCode);
                                     CurrentUser.Instance.User = new User();
                                     CurrentUser.Id = CurrentUser.Instance.User.Id;
@@ -107,7 +106,7 @@ namespace Asana.ViewModel
         /// </summary>
         private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
-            ()=> navigation.NavigateTo(ViewType.LogIn)
+            () => navigation.NavigateTo(ViewType.LogIn)
             ));
     }
 }

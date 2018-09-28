@@ -1,5 +1,4 @@
-﻿using Asana.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Asana.View
 {
     /// <summary>
-    /// Interaction logic for ProjectAddView.xaml
+    /// Interaction logic for TaskHistoryView.xaml
     /// </summary>
-    public partial class ProjectAddView : UserControl
+    public partial class TaskHistoryView : UserControl
     {
-        public ProjectAddView()
+        public TaskHistoryView()
         {
             InitializeComponent();
         }

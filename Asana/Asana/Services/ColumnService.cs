@@ -15,55 +15,83 @@ namespace Asana.Services
     {
         public async System.Threading.Tasks.Task CreateAsync(Column column)
         {
-            try
+
+            if (column != null)
             {
-                if (column == null)
+                try
                 {
-                    throw new Exception("column is null");
+                    using (var context = new AsanaDbContext())
+                    {
+                       
+                        context.Columns.Add(column);
+                        await context.SaveChangesAsync();
+                    }
                 }
-                using (var context = new AsanaDbContext())
+                catch (Exception ex)
                 {
-                    //MessageBox.Show(column.Title);
-                    //context.Users.First(x => x.Id == CurrentUser.Id)
-                    //       .Projects.First(x => x.Id == CurrentProject.Instance.Project.Id)
-                    //       .Project.Columns.Add(column);
-                    context.Columns.Add(column);
-                    await context.SaveChangesAsync();
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
-            catch (Exception ex)
+        }
+
+        public Column FindById(Guid columnId)
+        {
+            if (!String.IsNullOrWhiteSpace(columnId.ToString()))
             {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    using (var context = new AsanaDbContext())
+                    {
+                        return context.Columns.First(x => x.Id == columnId);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
             }
+            return null;
         }
 
         public ObservableCollection<Column> GetAll(Guid projectId)
         {
-            using (var context = new AsanaDbContext())
+            try
             {
-                return  context.Projects.Select(x => x.Columns.Select(y => y.ProjectId == projectId)) as ObservableCollection<Column>;
+                using (var context = new AsanaDbContext())
+                {
+                    return context.Columns
+                                  .Include("Project")
+                                  .Include("Tasks")
+                                  .Where(x => x.Project.Id == projectId) as ObservableCollection<Column>;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                throw new Exception(ex.Message);
             }
         }
 
         public async System.Threading.Tasks.Task UpdateTitleAsync(string title, Column column)
         {
-            try
+            if (!String.IsNullOrWhiteSpace(title) || column == null)
             {
-                if (String.IsNullOrWhiteSpace(title) || column == null)
+                try
                 {
-                    throw new Exception("Column/title is null");
+                    using (var context = new AsanaDbContext())
+                    {
+                        context.Columns.First(x => x.Id == column.Id)
+                                     .Title = title;
+                        await context.SaveChangesAsync();
+                    }
                 }
-                using (var context = new AsanaDbContext())
+                catch (Exception ex)
                 {
-                    context.Columns.First(x => x.Id == column.Id).Title = title;
-                    await context.SaveChangesAsync();
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
     }
 }
+

@@ -3,6 +3,7 @@ using Asana.Objects;
 using Asana.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,51 +13,56 @@ namespace Asana.Services
 {
     public class TaskService : ITaskService
     {
-        AsanaDbContext context = new AsanaDbContext();
         public async System.Threading.Tasks.Task CreateAsync(Objects.Task task)
         {
-            try
+
+            if (task != null)
             {
-                if (task == null)
+                try
                 {
-                    throw new Exception("Task is null");
+                    using (var context = new AsanaDbContext())
+                    {
+                        context.Tasks.Add(task);
+                        await context.SaveChangesAsync();
+                    }
                 }
-                using (context=new AsanaDbContext())
+                catch (Exception ex)
                 {
-                    //context.Users.First(x => x.Id == CurrentUser.Id)
-                    //       .Projects.First(x => x.Id == CurrentProject.Instance.Project.Id)
-                    //       .Project.Columns.First(x => x.Id == task.ColumnId)
-                    //       .Tasks.Add(task);
-                   await context.SaveChangesAsync();
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
-            catch (Exception ex)
+        }
+
+        public ICollection<KanbanState> GetKanbanStatesOfTask()
+        {
+            using (var asana = new AsanaDbContext())
             {
-                MessageBox.Show(ex.Message);
-               
+                return new ObservableCollection<KanbanState>(asana.KanbanState);
             }
-           
+
         }
 
         public async System.Threading.Tasks.Task UpdateAsync(Objects.Task task)
         {
-            if (task!=null)
+            if (task != null)
             {
                 try
                 {
-                    context.Tasks.First(x => x.Id == task.Id).Column = task.Column;
-                    context.Tasks.First(x => x.Id == task.Id).ColumnId = task.ColumnId;
-                    context.Tasks.First(x => x.Id == task.Id).CreatedAt = task.CreatedAt;
-                    context.Tasks.First(x => x.Id == task.Id).Deadline = task.Deadline;
-                    context.Tasks.First(x => x.Id == task.Id).Description = task.Description;
-                    context.Tasks.First(x => x.Id == task.Id).ExtraInfo = task.ExtraInfo;
-                    context.Tasks.First(x => x.Id == task.Id).ExtraInfoId = task.ExtraInfoId;
-                    context.Tasks.First(x => x.Id == task.Id).IsTaskAdded = task.IsTaskAdded;
-                    context.Tasks.First(x => x.Id == task.Id).KanbanState = task.KanbanState;
-                    context.Tasks.First(x => x.Id == task.Id).KanbanStateId = task.KanbanStateId;
-                    context.Tasks.First(x => x.Id == task.Id).Title = task.Title;
-                    context.Tasks.First(x => x.Id == task.Id).IsStarred = task.IsStarred;
-                    await context.SaveChangesAsync();
+                    using (var context = new AsanaDbContext())
+                    {
+
+                        context.Tasks.First(x => x.Id == task.Id).IsStarred = task.IsStarred;
+                        context.Tasks.First(x => x.Id == task.Id).Column = task.Column;
+                        context.Tasks.First(x => x.Id == task.Id).ColumnId = task.ColumnId;
+                        context.Tasks.First(x => x.Id == task.Id).CreatedAt = task.CreatedAt;
+                        context.Tasks.First(x => x.Id == task.Id).Deadline = task.Deadline;
+                        context.Tasks.First(x => x.Id == task.Id).Description = task.Description;
+                        context.Tasks.First(x => x.Id == task.Id).ExtraInfo = task.ExtraInfo;
+                        context.Tasks.First(x => x.Id == task.Id).ExtraInfoId = task.ExtraInfoId;
+                        context.Tasks.First(x => x.Id == task.Id).IsTaskAdded = task.IsTaskAdded;
+                        context.Tasks.First(x => x.Id == task.Id).Title = task.Title;
+                        await context.SaveChangesAsync();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -64,6 +70,21 @@ namespace Asana.Services
                     MessageBox.Show(ex.Message);
                 }
             }
+
+        }
+
+        public async System.Threading.Tasks.Task UpdateAsyncKanbanState(Objects.Task task, TaskKanbanState s)
+        {
+            using (var asana = new AsanaDbContext())
+            {
+
+                asana.Tasks.First(x => x.Id == task.Column.Id)
+                           .CurrentKanbanState = s.KanbanState;
+                asana.Tasks.First(x => x.Id == task.Id)
+                           .TaskKanbanStates.Add(s);
+                await asana.SaveChangesAsync();
+            }
         }
     }
 }
+

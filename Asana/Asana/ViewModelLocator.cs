@@ -64,13 +64,14 @@ namespace Asana
             navigationService.AddPage(listChannelsViewModel, ViewType.ListChannels);
             userService = new UserService();
             string user = CheckLoginLog.Load();
+
             if (user != "" && userService.Select(user) != null)
             {
                 CurrentUser.Instance.User = userService.Select(user);
                 navigationService.NavigateTo(ViewType.Home);
             }
             else
-                navigationService.NavigateTo(ViewType.ProjectPage);
+                navigationService.NavigateTo(ViewType.LogIn);
 
         }
     }

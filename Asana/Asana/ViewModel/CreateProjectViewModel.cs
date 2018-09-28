@@ -39,7 +39,7 @@ namespace Asana.ViewModel
             () =>
             {
                 WindowBluringCustom.Bluring();
-                ExtraWindow extraWindow = new ExtraWindow(new ProjectAddViewModel(), 400, 400);
+                ExtraWindow extraWindow = new ExtraWindow(new ProjectAddViewModel(navigation), 450, 300);
                 extraWindow.ShowDialog();
                 WindowBluringCustom.Normal();
             }

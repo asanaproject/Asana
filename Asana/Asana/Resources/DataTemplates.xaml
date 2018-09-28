@@ -169,6 +169,10 @@
     <DataTemplate DataType="{x:Type vm:AssignToNewUserViewModel}">
         <v:AssignToNewUserView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TaskPageViewModel}">
+        <v:TaskPageView/>
+    </DataTemplate>
+
 
     <!--<DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
         <v:ProjectAddView/>

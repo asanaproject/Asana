@@ -10,30 +10,25 @@ using System.Windows;
 
 namespace Asana.Services
 {
-    public class ProjectService : IProjectService
+    public class TaskLogService : ITaskLogService
     {
-
-        public async System.Threading.Tasks.Task CreateAsync(Project project)
+        public async System.Threading.Tasks.Task CreateAsync(TaskLog log)
         {
-
-            if (project != null)
+            if (log != null)
             {
-
                 try
                 {
                     using (var context = new AsanaDbContext())
                     {
-                        context.Projects.Add(project);
+                        context.Columns.First(x => x.Id == log.Task.ColumnId).Tasks.First(x => x.Id == log.Task.Id).TaskLogs.Add(log);
                         await context.SaveChangesAsync();
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(ex.Message);
                 }
-
             }
-
         }
     }
 }

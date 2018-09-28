@@ -10,7 +10,7 @@ namespace Asana.Model
     {
         private CurrentTask()
         {
-
+            Task = new Task();
         }
         private static CurrentTask instance;
         public static CurrentTask Instance

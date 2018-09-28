@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Asana.Model
 {
-    public class CurrentProject:ViewModelBase
+    public class CurrentProject : ViewModelBase
     {
-        private CurrentProject(){
+        private CurrentProject()
+        {
             Project = new Project();
         }
         private static CurrentProject instance;
@@ -19,23 +20,23 @@ namespace Asana.Model
         {
             get
             {
-                if (instance==null)
+                if (instance == null)
                 {
                     instance = new CurrentProject();
                 }
                 return instance;
             }
         }
-         
+
 
         private Project project;
         public Project Project
         {
             get { return project; }
-            set { project = value;   }
+            set { Set(ref project, value); }
         }
 
-      
+
 
     }
 }

@@ -22,20 +22,24 @@ namespace Asana.Objects
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
+
         [StringLength(25), Required]
         public string Title { get; set; }
 
         [ForeignKey("Project")]
         public Guid ProjectId { get; set; }
         public Project Project { get; set; }
+
+        public bool IsColumnAdded { get; set; }
+
         public DateTimeOffset CreatedAt { get; set; }
+
         private ICollection<Task> tasks;
         public virtual ICollection<Task> Tasks
         {
             get { return tasks; }
             set { tasks = value; }
         }
-        public bool IsColumnAdded { get; set; }
 
         public Column()
         {

@@ -23,28 +23,7 @@
         </LinearGradientBrush>
     </UserControl.Background>
     <UserControl.Resources>
-
-        <Style TargetType="TextBox">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border Name="Bd"
-                                             Background="{TemplateBinding Background}" 
-                                             SnapsToDevicePixels="true">
-                            <ScrollViewer Name="PART_ContentHost" Background="{TemplateBinding Background}" 
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="PART_ContentHost" Property="Background" Value="#F5F5F5"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!--  template for creating task   -->
+                <!--  template for creating task   -->
         <DataTemplate x:Key="AddTaskTemplate">
             <Grid>
                 <Grid.RowDefinitions>
@@ -56,8 +35,8 @@
                     <RowDefinition/>
 
                 </Grid.RowDefinitions>
-                <TextBox Grid.Row="1" Grid.Column="0" Margin="0 0 0 15"  Width="200" Padding="2" Background="#F5F5F5"   FontSize="16" TextWrapping="Wrap" Name="TaskTitleTxtBox" Text="{Binding Title}"/>
-                <TextBlock Grid.Row="1" Grid.Column="0"  Margin="0 0 0 15" HorizontalAlignment="Left" Padding="2" Background="#F5F5F5"  VerticalAlignment="Center"   FontSize="16" Text="Task title" IsHitTestVisible="False"  Foreground="DarkGray">
+                <TextBox Grid.Row="1" Grid.Column="0" Margin="0 0 0 15"   Width="200" Padding="2" Background="#F5F5F5"   FontSize="16" TextWrapping="Wrap" Name="TaskTitleTxtBox" Text="{Binding Title}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0"  Margin="0 0 0 10"  Padding="2" Background="#F5F5F5"  VerticalAlignment="Center"   FontSize="16" Text="Task title" IsHitTestVisible="False"  Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -70,16 +49,15 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-                <ComboBox materialDesign:HintAssist.Hint="Assigned to" Grid.Row="3"  Margin="0 0 0 15" FontSize="16" Width="200">
-                    <!--<ComboBox.ItemTemplate>
+                <ComboBox  materialDesign:HintAssist.Hint="Assigned to" ItemsSource="{Binding Source={x:Static model:CurrentProject.Instance},Path=Project.Users}" Grid.Row="3"  Margin="0 0 0 15" FontSize="16" Width="200">
+                    <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Type}"></TextBlock>
-                            </StackPanel>
+                            <TextBlock Text="{Binding Path=FullName}"/>
                         </DataTemplate>
 
-                    </ComboBox.ItemTemplate>-->
-                s</ComboBox>
+                    </ComboBox.ItemTemplate>
+
+                </ComboBox>
                 <Button Grid.Row="4" Margin="0 0 0 10" Width="200" HorizontalAlignment="Center"  VerticalAlignment="Top" Content="Register a new employee" Command="{Binding DataContext.AssignToNewUserCommand, ElementName=Parent}" CommandParameter="{Binding .}"/>
                 <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
@@ -106,8 +84,10 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
+                    
+
                     <TextBox Grid.Row="0" Grid.Column="0" Margin="0 0 2 0" Width="150" Padding="2" Background="#F5F5F5"  FontSize="16" TextWrapping="Wrap" Name="ColumnTitleTxtBox" Text="{Binding Title}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" Padding="2"  VerticalAlignment="Center"  FontSize="16"  Width="150" Text="Column title" IsHitTestVisible="False"  Foreground="DarkGray">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="2 0 0 0"  HorizontalAlignment="Left" Padding="2"  VerticalAlignment="Center"  FontSize="16"  Width="150" Text="Column title" IsHitTestVisible="False"  Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -156,7 +136,9 @@
                             <MenuItem.Icon >
                                 <materialDesign:PackIcon Kind="DotsVertical" Foreground="Gray" Background="Transparent"/>
                             </MenuItem.Icon>
-                            <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditTaskCommand}" CommandParameter="{Binding .}"/>
+                            <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditTaskCommand}" CommandParameter="{Binding .}">
+                               
+                            </MenuItem> 
                             <MenuItem Header="{materialDesign:PackIcon Kind=Delete}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.DiscardTaskCommand}" CommandParameter="{Binding .}"/>
                         </MenuItem>
                     </Menu>
@@ -173,30 +155,21 @@
                             </Button.Content>
                         </Button>
                         <Button Grid.Column="1" Foreground="DarkGray" VerticalAlignment="Center" Margin="2 2 0 0" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Content="{materialDesign:PackIcon Kind=History}" Padding="0.5" Width="18" Height="18"/>
-                        <Button Name="KanbanStateBtn" Grid.Column="2" Width="18" Height="18" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="0.5" Content="{materialDesign:PackIcon Kind=Circle}" Background="Transparent" BorderBrush="Transparent" Foreground="DarkGray">
-                            <Button.ContextMenu>
-                                <ContextMenu x:Name="KanbanStateMenu" >
-                                    <MenuItem Header="Ready"  />
 
-                                    <MenuItem Header="In progress"/>
-                                </ContextMenu>
-                            </Button.ContextMenu>
-                            <Button.Triggers>
-                                <EventTrigger SourceName="KanbanStateBtn" RoutedEvent="Button.Click">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="KanbanStateMenu" Storyboard.TargetProperty="(ContextMenu.IsOpen)">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <sys:Boolean>True</sys:Boolean>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Button.Triggers>
-                        </Button>
+                        <ComboBox Grid.Column="2" Name="ItemCBox" materialDesign:HintAssist.Hint="{materialDesign:PackIcon Kind=Circle}"  ItemsSource="{Binding DataContext.KanbanStates,ElementName=Parent}" Margin="10 0 0 0" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction  Command="{Binding DataContext.SelectionChangedCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=ItemCBox}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                
+                            
+                        </ComboBox>                                            
                     </Grid>
                 </Grid>
             </Border>
@@ -233,7 +206,7 @@
                             </MenuItem>
                         </Menu>
                     </Grid>
-                    <ListBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="10" ItemsSource="{Binding Column.Tasks}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True">
+                    <ListBox Name="TasksList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="10" ItemsSource="{Binding Column.Tasks}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding .}" >
@@ -254,7 +227,14 @@
                                     </ContentControl.Style>
                                 </ContentControl>
                             </DataTemplate>
+                            
                         </ListBox.ItemTemplate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction  Command="{Binding DataContext.SelectTaskCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=TasksList}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
                     </ListBox>
                 </Grid>
             </Border>
@@ -325,7 +305,7 @@
                             <ColumnDefinition Width="74*"/>
                             <ColumnDefinition Width="593*"/>
                         </Grid.ColumnDefinitions>
-                        <ListBox ItemsSource="{Binding Columns}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True" SelectedItem="{Binding Source={x:Static model:CurrentColumn.Instance},Path=Column}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+                        <ListBox ItemsSource="{Binding Source={x:Static model:ColumnsOfProject.Instance},Path=Columns}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True" SelectedItem="{Binding Source={x:Static model:CurrentColumn.Instance},Path=Column}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel IsItemsHost="True" Orientation="Horizontal" FlowDirection="LeftToRight"/>
