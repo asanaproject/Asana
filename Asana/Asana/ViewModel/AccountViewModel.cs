@@ -50,14 +50,7 @@ namespace Asana.ViewModel
             set { Set(ref email, value); }
         }
 
-        private string phonenumber;
-
-        public string PhoneNumber
-        {
-            get { return phonenumber; }
-            set { Set(ref phonenumber, value); }
-        }
-
+      
         private ObservableCollection<dynamic> projects;
 
         public ObservableCollection<dynamic> Projects
@@ -75,6 +68,15 @@ namespace Asana.ViewModel
         }
 
 
+        private string phoneNumber;
+
+        public string PhoneNumber
+        {
+            get { return phoneNumber; }
+            set { Set(ref phoneNumber, value); }
+        }
+
+
         private RelayCommand _loadedCommand;
 
         public RelayCommand LoadedCommand
@@ -82,7 +84,8 @@ namespace Asana.ViewModel
             get => _loadedCommand ?? (_loadedCommand = new RelayCommand((() => {
                 Username = CurrentUser.Instance.User.Username;
                 Email = CurrentUser.Instance.User.Email;
-                PhoneNumber = "0772209966";
+                PhoneNumber = "---";
+                
 
                 ProfileImage = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
 
