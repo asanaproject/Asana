@@ -114,8 +114,8 @@ namespace Asana.ViewModel
             set
             {
                 Set(ref selectedItem, value);
-                SelectedColumn = 3;
                 StopAllTimers();
+                SelectedColumn = 3;
                 if (value != null)
                     ColumnTitle = "#" + value.Name;
                 ChatItems.Clear();
