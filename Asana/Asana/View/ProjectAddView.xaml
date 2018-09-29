@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
         xmlns:local="clr-namespace:Asana.View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"     
-        mc:Ignorable="d" Width="450" Height="300">
+        mc:Ignorable="d" Width="450" Height="300" Background="White">
     <UserControl.Resources>
         
         

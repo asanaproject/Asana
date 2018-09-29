@@ -46,7 +46,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Foreground="#8f8f8f" FontFamily="Calibri" FontSize="26" VerticalAlignment="Center" Margin="10 0 0 30">Projects</TextBlock>
+                <TextBlock Foreground="#8f8f8f" FontFamily="Calibri" FontSize="26" VerticalAlignment="Center" Margin="10 0 0 30">Channels</TextBlock>
                 <Button Cursor="Hand" Background="#00a09d" BorderBrush="Transparent" Margin="10 40 0 0" Height="30" Width="100" Content="CREATE" Foreground="White" FontSize="19.5" VerticalContentAlignment="Center" FontWeight="Light" FontFamily="calibri" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
                 <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" Margin="120 40 0 0" Height="30" Width="100" Content="IMPORT" Foreground="#00a09d" FontSize="19.5" VerticalContentAlignment="Center" FontWeight="Light" FontFamily="calibri" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
                 <!--<TextBox Grid.Column="1" Height="25" FontSize="16" Padding="7 0.3 0 0">Search..</TextBox>-->

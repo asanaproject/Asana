@@ -21,7 +21,7 @@ namespace Asana.ViewModel
         public CreateProjectViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            header = new HeaderViewModel(navigation);
+            header = new HeaderViewModel(navigation,"Project",HeaderType.CreateProject);
         }
 
         private object header;
