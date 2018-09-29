@@ -72,7 +72,7 @@ namespace Asana
             if (user != "" && userService.Select(user) != null)
             {
                 CurrentUser.Instance.User = userService.Select(user);
-                navigationService.NavigateTo(ViewType.Profile);
+                navigationService.NavigateTo(ViewType.Home);
             }
             else
                 navigationService.NavigateTo(ViewType.LogIn);

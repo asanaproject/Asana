@@ -33,7 +33,14 @@ namespace Asana.Services
                 }
 
             }
+        }
 
+        public List<Project> GetCurrentUserProjects()
+        {
+            List<Project> Projects = new List<Project>();
+            using (var db = new AsanaDbContext())
+                Projects = db.Projects.Where(x => x.UserId == CurrentUser.Id).ToList();
+            return Projects;
         }
     }
 }

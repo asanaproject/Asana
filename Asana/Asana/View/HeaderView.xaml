@@ -36,7 +36,7 @@
         <Image x:Key="home" Source="../Resources/Images/menu.png"/>
         <Image x:Key="home1" Source="../Resources/Images/star.png"/>
     </UserControl.Resources>
-    <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FF9D79B0" >
+    <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="{Binding Background}" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition Width="90"/>
@@ -50,48 +50,49 @@
         </Grid.ColumnDefinitions>
 
         <!--Header items-->
-        <materialDesign:PackIcon Foreground="WhiteSmoke" Kind="Clock"   Grid.Column="5" Grid.Row="0" ToolTip="Activities" 
+        <materialDesign:PackIcon Visibility="{Binding ViewVisible}" Foreground="WhiteSmoke" Kind="Clock"   Grid.Column="5" Grid.Row="0" ToolTip="Activities" 
                         VerticalAlignment="Center"
                          HorizontalAlignment="Right" Margin="0 0 20 0" Height="20"  Width="20"   ></materialDesign:PackIcon>
 
 
-        <materialDesign:PackIcon Foreground="WhiteSmoke" Kind="Wechat"  ToolTip="Chat" Grid.Column="6" Grid.Row="0" 
+        <materialDesign:PackIcon Visibility="{Binding ViewVisible}" Foreground="WhiteSmoke" Kind="Wechat"  ToolTip="Chat" Grid.Column="6" Grid.Row="0" 
                        VerticalAlignment="Stretch"
                          HorizontalAlignment="Center" Height="24"  Width="24"   ></materialDesign:PackIcon>
 
-        <materialDesign:PackIcon Foreground="WhiteSmoke" Kind="Settings"  Grid.Column="7" ToolTip="Settings" Grid.Row="0" 
+        <materialDesign:PackIcon Visibility="{Binding ViewVisible}" Foreground="WhiteSmoke" Kind="Settings"  Grid.Column="7" ToolTip="Settings" Grid.Row="0" 
                       VerticalAlignment="Stretch"
                          HorizontalAlignment="Left" Margin="20 0 0 0" Height="30"  Width="20"   ></materialDesign:PackIcon>
-        <Button Command="{Binding HomeCommand}" Padding="0 2 0 0" Background="Transparent"   BorderBrush="Transparent" Cursor="Hand" Grid.Column="0" >
+        <Button Visibility="{Binding ViewVisible}" Command="{Binding HomeCommand}" Padding="0 2 0 0" Background="Transparent"   BorderBrush="Transparent" Cursor="Hand" Grid.Column="0" >
             <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Menu" Foreground="WhiteSmoke" Width="36" Height="36"></materialDesign:PackIcon>
         </Button>
-        
-        <TextBlock Grid.Column="1" FontSize="27" FontWeight="Bold"  
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="WhiteSmoke"  FontFamily="Calibri" >Project</TextBlock>
+
+        <TextBlock Visibility="{Binding ViewVisible}" Grid.Column="1" FontSize="27" FontWeight="Bold"  
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="WhiteSmoke"  FontFamily="Calibri" Text="{Binding Header}" ></TextBlock>
 
 
 
-        <Button Command="{Binding DashBoardCommand}"  Content="Dashboard" Grid.Column="2" Grid.Row="0"
+        <Button Visibility="{Binding ViewVisible}" Command="{Binding DashBoardCommand}"  Content="Dashboard" Grid.Column="2" Grid.Row="0"
                        VerticalAlignment="Center"
                          HorizontalAlignment="Right" Style="{StaticResource m_nav_bar}"  ></Button>
 
 
 
-        <Button Command="{Binding SearchCommand}"  Content="Search" VerticalAlignment="Center" Grid.Column="3"
+        <Button Visibility="{Binding ViewVisible}" Command="{Binding SearchCommand}"  Content="Search" VerticalAlignment="Center" Grid.Column="3"
                         HorizontalAlignment="Center"  Style="{StaticResource m_nav_bar}">
         </Button>
 
 
-        <Button Command="{Binding SettingsCommand}"  Content="Settings" VerticalAlignment="Center" Grid.Column="4"
+        <Button Visibility="{Binding ViewVisible}" Command="{Binding SettingsCommand}"  Content="Settings" VerticalAlignment="Center" Grid.Column="4"
                         HorizontalAlignment="Left" Margin="4 0 0 0" Style="{StaticResource m_nav_bar}" />
         <Menu Grid.Column="9" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
-            <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="WhiteSmoke"  FontSize="15" FontFamily="Calibri">
-                <MenuItem Command="{Binding ProfileCommand}" Foreground="WhiteSmoke"  Header="Account"/>
-                <MenuItem Foreground="WhiteSmoke" Header="Language">
-                    <MenuItem Foreground="WhiteSmoke" Header="Az"/>
-                    <MenuItem Foreground="WhiteSmoke" Header ="Ru"/>
+            <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="{Binding MenuForeground}"  FontSize="15" FontFamily="Calibri">
+                <MenuItem Visibility="{Binding ViewVisible}" Command="{Binding ProjectCommand}" Foreground="{Binding MenuForeground}"  Header="Projects"/>
+                <MenuItem Visibility="{Binding ViewVisible}" Command="{Binding ProfileCommand}" Foreground="{Binding MenuForeground}"  Header="Account"/>
+                <MenuItem Foreground="{Binding MenuForeground}" Header="Language">
+                    <MenuItem Foreground="{Binding MenuForeground}" Header="Az"/>
+                    <MenuItem Foreground="{Binding MenuForeground}" Header ="Ru"/>
                 </MenuItem>
-                <MenuItem Command="{Binding LogoutCommand}" Header="Log Off"/>
+                <MenuItem Foreground="{Binding MenuForeground}" Command="{Binding LogoutCommand}" Header="Log Off"/>
             </MenuItem>
 
         </Menu>

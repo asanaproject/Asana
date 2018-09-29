@@ -40,7 +40,7 @@ namespace Asana.ViewModel
         public RelayCommand ProjectCommand
         {
             get => _projectCommand ?? (_projectCommand = new RelayCommand(
-                (() => navigation.NavigateTo(ViewType.CreateProject)
+                (() => navigation.NavigateTo(ViewType.ProjectPage)
                 )));
         }
 

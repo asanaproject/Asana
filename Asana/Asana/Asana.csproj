@@ -226,6 +226,7 @@
     <Compile Include="ViewModel\EditColumnViewModel.cs" />
     <Compile Include="ViewModel\EditTaskViewModel.cs" />
     <Compile Include="ViewModel\ExtraWindowViewModel.cs" />
+    <Compile Include="ViewModel\HeaderType.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\KanbanExamplesViewModel.cs" />
     <Compile Include="ViewModel\ListChannelsViewModel.cs" />

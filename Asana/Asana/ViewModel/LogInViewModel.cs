@@ -75,7 +75,7 @@ namespace Asana.ViewModel
                            {
                                CloseWindow();
                                CheckLoginLog.Save(Email);
-                               navigation.NavigateTo(ViewType.Home);
+                               navigation.NavigateTo(ViewType.CreateProject);
                            }
                            else
                                Errors.LoginErrorMsg();

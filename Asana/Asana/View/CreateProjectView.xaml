@@ -232,14 +232,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
             <RowDefinition/>
-            <RowDefinition  Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
 
         <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch"  Background="White" BorderBrush="White"  CornerRadius="8">
             <Grid>
                 <Grid.RowDefinitions >
-                    <RowDefinition Height="45"/>
-                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="80"/>
                     <RowDefinition Height="106*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -247,24 +246,14 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox  Grid.Row="1" Grid.Column="1" Name="SearchtxtBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="330"></TextBox>
-                <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15" FontStyle="Italic" IsHitTestVisible="False" Text="Search.."  Foreground="DarkGray">
-                    <TextBlock.Style>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=SearchtxtBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <TextBox materialDesign:HintAssist.Hint="Search..."  Grid.Row="1" Grid.Column="1" Name="SearchtxtBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="330"></TextBox>
 
-                <TextBlock Grid.Row="1" Text="Projects" Foreground="DarkGray" Margin="5" 
-                           FontWeight="Bold" VerticalAlignment="Top" FontSize="15" Height="30" HorizontalAlignment="Left"></TextBlock>
-                <Button Grid.Row="1" ToolTip="Create New Project" Command="{Binding CreateProject}" VerticalAlignment="Center" Content="Create" Height="25" Width="70"
-                        Background="#FF36C1E4" FontSize="10" HorizontalAlignment="Left" Margin="5,0,0,0" ></Button>
+
+
+                <ContentControl Content="{Binding Header}" Height="45" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" />
+                <TextBlock Grid.Row="0"  Foreground="#8f8f8f" FontFamily="Calibri" FontSize="26" VerticalAlignment="Center" Margin="15 0 0 30">Projects</TextBlock>
+                <Button  Command="{Binding CreateProject}"  Grid.Row="0"   Cursor="Hand" Background="#00a09d" BorderBrush="Transparent" Margin="15 37 0 0" Height="32" Width="100" Content="CREATE" Foreground="White" FontSize="19.5" VerticalContentAlignment="Center" FontWeight="Light" FontFamily="calibri" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
+
 
 
                 <ListBox ItemsSource="{Binding Columns}" AllowDrop="True" Grid.Row="2"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
@@ -316,9 +305,6 @@
 
 
                 <!--     HEADER    -->
-                <Grid Grid.Row="0" Grid.ColumnSpan="2" >
-                    <ContentControl Content="{Binding Header}" Grid.Row="0" Grid.ColumnSpan="2" />
-                </Grid>
             </Grid>
 
         </Border>

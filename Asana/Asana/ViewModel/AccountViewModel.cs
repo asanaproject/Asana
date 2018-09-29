@@ -13,18 +13,21 @@ using System.Drawing;
 using System.IO;
 using System.Drawing.Imaging;
 using System.Windows.Media.Imaging;
+using Asana.Objects;
+using Asana.Services;
 
 namespace Asana.ViewModel
 {
     public class AccountViewModel : ViewModelBase
     {
         private readonly NavigationService navigationService;
-
+        private readonly ProjectService projectService;
         public AccountViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
             Projects = new ObservableCollection<dynamic>();
             Header = new HeaderViewModel(navigationService);
+            projectService = new ProjectService();
         }
         private object header;
 
@@ -84,17 +87,11 @@ namespace Asana.ViewModel
             get => _loadedCommand ?? (_loadedCommand = new RelayCommand((() => {
                 Username = CurrentUser.Instance.User.Username;
                 Email = CurrentUser.Instance.User.Email;
-                PhoneNumber = "---";
-                
+                PhoneNumber = "0772209966";
 
                 ProfileImage = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
+                projectService.GetCurrentUserProjects().ForEach(x => Projects.Add(new { Title = x.Name, x.Description }));
 
-                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 16:58" });
-                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 16:59" });
-                Projects.Add(new { Title = "ItSolution", Description = "Very Very Big Company! :)", Created_Date = "23.08.2001 17:00" });
-
-                //using (var db = new AsanaDbContext())
-                //    db.Projects.Where(x => x.Users.Any(y => y.Id == CurrentUser.Instance.User.Id)).ToList().ForEach(x => Projects.Add(x));
             })));
         }
 

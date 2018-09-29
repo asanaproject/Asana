@@ -496,7 +496,7 @@ namespace Asana.ViewModel
             StarredList = new ObservableCollection<dynamic>();
             ChannelsService = new ChannelsService();
             ChatService = new ChatService();
-            Header = new HeaderViewModel(navigationService);
+            Header = new HeaderViewModel(navigationService,"Discuss");
             inboxtimer = new Timer(1);
             chattimer = new Timer(1);
             starredTimer = new Timer(1);
