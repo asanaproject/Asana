@@ -175,7 +175,9 @@
     <DataTemplate DataType="{x:Type vm:TaskPageViewModel}">
         <v:TaskPageView/>
     </DataTemplate>
-
+    <DataTemplate DataType="{x:Type vm:ProjectViewModel}">
+        <v:ProjectView/>
+    </DataTemplate>
 
     <!--<DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
         <v:ProjectAddView/>

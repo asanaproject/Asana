@@ -90,7 +90,7 @@ namespace Asana.ViewModel
                 PhoneNumber = "0772209966";
 
                 ProfileImage = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
-                projectService.GetCurrentUserProjects().ForEach(x => Projects.Add(new { Title = x.Name, x.Description }));
+              //  projectService.GetCurrentUserProjects().ForEach(x => Projects.Add(new { Title = x.Name, x.Description }));
 
             })));
         }

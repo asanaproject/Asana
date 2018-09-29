@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -46,26 +47,20 @@ namespace Asana.ViewModel
         {
             System.Threading.Tasks.Task.Run(() =>
             {
-                //Project project = new Project
-                //{
-                //    Name = ProjectName,
-                //    ProjectEmail = ProjectEmail,
-                //    UserId = CurrentUser.Instance.User.Id,
-                //    Description = Description,
-                //    ProjectManager = ProjectManager
-                //};
-                //projectService.CreateAsync(project);
-
-                using (var db = new AsanaDbContext())
+                Project project = new Project
                 {
-                    CurrentProject.Instance.Project = db.Projects
-                                                        .Include("User")
-                                                        .Include("Users")
-                                                        .Include("Columns")
-                                                        .First(x=>x.UserId==CurrentUser.Instance.User.Id);
-
-                }
-                navigation.NavigateTo(ViewType.ProjectPage);
+                    Name = ProjectName,
+                    ProjectEmail = ProjectEmail,
+                    UserId = CurrentUser.Instance.User.Id,
+                    Description = Description,
+                    ProjectManager = ProjectManager
+                };
+                projectService.CreateAsync(project);
+                var projects = projectService.GetAll(CurrentUser.Instance.User.Id);
+                if (projects != null)
+                {
+                    ProjectsOfUser.Instance.Projects = projects as ObservableCollection<Project>;
+                }                
                 Closewindow();
             });
 

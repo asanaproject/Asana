@@ -3,6 +3,7 @@ using Asana.Services;
 using Asana.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace Asana.Model
         private CurrentUser()
         {
             projectService = new ProjectService();
+           // ProjectsOfUser.Instance.Projects = projectService.GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
            // ColumnsOfProject.Instance.Columns;
 
         }
