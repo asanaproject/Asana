@@ -53,7 +53,8 @@ namespace Asana.ViewModel
                     ProjectEmail = ProjectEmail,
                     UserId = CurrentUser.Instance.User.Id,
                     Description = Description,
-                    ProjectManager = ProjectManager
+                    ProjectManager = ProjectManager,
+                    CreatedAt=DateTime.Now
                 };
                 projectService.CreateAsync(project);
                 var projects = projectService.GetAll(CurrentUser.Instance.User.Id);

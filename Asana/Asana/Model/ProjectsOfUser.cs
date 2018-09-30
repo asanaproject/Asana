@@ -1,4 +1,6 @@
 ﻿using Asana.Objects;
+using Asana.Services;
+using Asana.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -11,8 +13,12 @@ namespace Asana.Model
 {
     public class ProjectsOfUser:ViewModelBase
     {
+        private readonly IProjectService projectService;
+
         private ProjectsOfUser()
         {
+            projectService = new ProjectService();
+            Projects = projectService.GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
 
         }
         private static ProjectsOfUser instance;

@@ -1,10 +1,14 @@
-﻿using Asana.Navigation;
+﻿using Asana.Model;
+using Asana.Navigation;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using Humanizer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Asana.ViewModel
 {
@@ -14,6 +18,102 @@ namespace Asana.ViewModel
         public ProjectViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+            ProjectTitle = CurrentProject.Instance.Project.Name;
+            ProjectEmail = CurrentProject.Instance.Project.ProjectEmail;
+            ProjectManager = CurrentProject.Instance.Project.ProjectManager;
+            CountOfColumns = CurrentProject.Instance.Project.Columns.Count().ToString();
+            int count = 0;
+            CurrentProject.Instance.Project.Columns.ToList().ForEach(z=> count++);
+            CountOfTasks = count.ToString();
+
+            timer = new System.Timers.Timer(1000);
+            timer.Start();
+            timer.Elapsed += Timer_Elapsed;
+
         }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            CreatedAt = "Created at: " + CurrentProject.Instance.Project.CreatedAt.Humanize();
+
+        }
+        System.Timers.Timer timer;
+
+
+        private string createdAt;
+        public string CreatedAt
+        {
+            get { return createdAt; }
+            set { Set(ref createdAt, value); }
+        }
+
+        private string deadline;
+        public string Deadline
+        {
+            get { return deadline; }
+            set { Set(ref deadline, value); }
+        }
+
+        private string projectTitle;
+        public string ProjectTitle
+        {
+            get { return projectTitle; }
+            set {Set(ref projectTitle,value); }
+        }
+
+
+        private string projectManager;
+        public string ProjectManager
+        {
+            get { return projectManager; }
+            set { Set(ref projectManager, value); }
+        }
+
+        private string countOfColumns;
+        public string CountOfColumns
+        {
+            get { return countOfColumns; }
+            set { Set(ref countOfColumns, value); }
+        }
+
+        private string countOfTasks;
+        public string CountOfTasks
+        {
+            get { return countOfTasks; }
+            set { Set(ref countOfTasks, value); }
+        }
+
+        private string projectEmail;
+        public string ProjectEmail
+        {
+            get { return projectEmail; }
+            set { Set(ref projectEmail, value); }
+        }
+
+
+
+        public void Closewindow()
+        {
+
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.Title.Equals("ExtraWindow"))
+                        window.Close();
+                }
+            });
+        }
+        private RelayCommand closeWindowCommand;
+        public RelayCommand CloseWindowCommand => closeWindowCommand ?? (closeWindowCommand = new RelayCommand(
+        () =>
+        {
+            System.Threading.Tasks.Task.Run(() =>
+            {
+                Closewindow();
+            });
+
+        }));
+
     }
 }

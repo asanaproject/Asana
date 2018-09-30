@@ -34,13 +34,14 @@ namespace Asana.ViewModel
             set { Set(ref header, value); }
         }
 
+      
         private RelayCommand<Project> selectProjectCommand;
         public RelayCommand<Project> SelectProjectCommand => selectProjectCommand ?? (selectProjectCommand = new RelayCommand<Project>(
         x =>
         {
             CurrentProject.Instance.Project = x;
             WindowBluringCustom.Bluring();
-            ExtraWindow extraWindow = new ExtraWindow(new ProjectViewModel(navigation), 450, 300);
+            ExtraWindow extraWindow = new ExtraWindow(new ProjectViewModel(navigation), 700, 410);
             extraWindow.ShowDialog();
             WindowBluringCustom.Normal();
 

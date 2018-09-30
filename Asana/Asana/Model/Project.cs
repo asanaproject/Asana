@@ -28,6 +28,10 @@ namespace Asana.Objects
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
 
+        public DateTime? Deadline { get; set; }
+
+        public DateTimeOffset CreatedAt { get; set; }
+
         public string ProjectManager { get; set; }
 
         public string Description { get; set; }

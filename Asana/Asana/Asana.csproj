@@ -147,13 +147,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201809271100266_Initial_model.cs" />
-    <Compile Include="Migrations\201809271100266_Initial_model.Designer.cs">
-      <DependentUpon>201809271100266_Initial_model.cs</DependentUpon>
+    <Compile Include="Migrations\201809292347301_Deadline_CreatedAt_PropertyForProject.cs" />
+    <Compile Include="Migrations\201809292347301_Deadline_CreatedAt_PropertyForProject.Designer.cs">
+      <DependentUpon>201809292347301_Deadline_CreatedAt_PropertyForProject.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809271523039_Description_Property_IsAdded_Project.cs" />
-    <Compile Include="Migrations\201809271523039_Description_Property_IsAdded_Project.Designer.cs">
-      <DependentUpon>201809271523039_Description_Property_IsAdded_Project.cs</DependentUpon>
+    <Compile Include="Migrations\201809292353488_Deadline_ForProject.cs" />
+    <Compile Include="Migrations\201809292353488_Deadline_ForProject.Designer.cs">
+      <DependentUpon>201809292353488_Deadline_ForProject.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -453,11 +453,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201809271100266_Initial_model.resx">
-      <DependentUpon>201809271100266_Initial_model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809292347301_Deadline_CreatedAt_PropertyForProject.resx">
+      <DependentUpon>201809292347301_Deadline_CreatedAt_PropertyForProject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809271523039_Description_Property_IsAdded_Project.resx">
-      <DependentUpon>201809271523039_Description_Property_IsAdded_Project.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809292353488_Deadline_ForProject.resx">
+      <DependentUpon>201809292353488_Deadline_ForProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -14,7 +14,6 @@ namespace Asana.Model
     {
         public static string Username { get; set; } = "{{Username}}";
         public static Guid Id { get; set; }
-        private readonly IProjectService projectService;
         private User user = new User();
 
         public User User
@@ -25,9 +24,6 @@ namespace Asana.Model
 
         private CurrentUser()
         {
-            projectService = new ProjectService();
-           // ProjectsOfUser.Instance.Projects = projectService.GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
-           // ColumnsOfProject.Instance.Columns;
 
         }
         private static CurrentUser instance;

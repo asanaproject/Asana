@@ -9,28 +9,26 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"            
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-            <Style TargetType="TextBox">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="TextBox">
-                            <Border Name="Bd"
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Name="Bd"
                                              Background="{TemplateBinding Background}" 
                                              SnapsToDevicePixels="true">
-                                <ScrollViewer Name="PART_ContentHost" Background="{TemplateBinding Background}" 
+                            <ScrollViewer Name="PART_ContentHost" Background="{TemplateBinding Background}" 
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="PART_ContentHost" Property="Background" Value="#F5F5F5"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-
-        </UserControl.Resources>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="PART_ContentHost" Property="Background" Value="#F5F5F5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     
     <Grid>
         <Grid.ColumnDefinitions>

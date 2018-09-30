@@ -3,16 +3,16 @@ namespace Asana.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Description_Property_IsAdded_Project : DbMigration
+    public partial class Deadline_ForProject : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Project", "Description", c => c.String());
+            AlterColumn("dbo.Project", "Deadline", c => c.DateTime());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Project", "Description");
+            AlterColumn("dbo.Project", "Deadline", c => c.DateTime(nullable: false));
         }
     }
 }
