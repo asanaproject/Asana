@@ -13,6 +13,6 @@ namespace Asana.Services.Interfaces
         System.Threading.Tasks.Task RemoveAsync(Project project);
         System.Threading.Tasks.Task UpdateAsync(Project project);
         ICollection<Project> GetAll(Guid userId );
-
+        System.Threading.Tasks.Task LoadProjects(Guid userId);
     }
 }

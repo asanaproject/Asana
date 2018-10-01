@@ -84,6 +84,6 @@
             <Button  Content="Submit" Command="{Binding CloseWindowCommand}"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
         </Border>
 
-        <TextBlock Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Center"/>
+        <TextBlock Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Bottom" Text="{Binding CreatedAt}"/>
     </Grid>
 </UserControl>

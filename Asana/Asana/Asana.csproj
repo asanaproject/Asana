@@ -155,6 +155,10 @@
     <Compile Include="Migrations\201809292353488_Deadline_ForProject.Designer.cs">
       <DependentUpon>201809292353488_Deadline_ForProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810010844232_MaxStringLength_For_Title_IsChanged.cs" />
+    <Compile Include="Migrations\201810010844232_MaxStringLength_For_Title_IsChanged.Designer.cs">
+      <DependentUpon>201810010844232_MaxStringLength_For_Title_IsChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -458,6 +462,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809292353488_Deadline_ForProject.resx">
       <DependentUpon>201809292353488_Deadline_ForProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810010844232_MaxStringLength_For_Title_IsChanged.resx">
+      <DependentUpon>201810010844232_MaxStringLength_For_Title_IsChanged.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

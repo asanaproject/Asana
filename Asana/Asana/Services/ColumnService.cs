@@ -1,6 +1,7 @@
 ﻿using Asana.Model;
 using Asana.Objects;
 using Asana.Services.Interfaces;
+using Asana.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +23,7 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
-                       
+
                         context.Columns.Add(column);
                         await context.SaveChangesAsync();
                     }
@@ -54,22 +55,93 @@ namespace Asana.Services
             return null;
         }
 
-        public ObservableCollection<Column> GetAll(Guid projectId)
+        public ICollection<Column> GetAll(Guid projectId)
         {
             try
             {
                 using (var context = new AsanaDbContext())
                 {
-                    return context.Columns
+                    return new ObservableCollection<Column>(context.Columns
                                   .Include("Project")
                                   .Include("Tasks")
-                                  .Where(x => x.Project.Id == projectId) as ObservableCollection<Column>;
+                                  .Where(x => x.Project.Id == projectId));
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public async System.Threading.Tasks.Task LoadColumns(Guid projectId)
+        {
+            await System.Threading.Tasks.Task.Run(
+               () =>
+               {
+                   if (projectId != null)
+                   {
+                       try
+                       {
+                           using (var context = new AsanaDbContext())
+                           {
+                               var columns = GetAll(CurrentProject.Instance.Project.Id) as ObservableCollection<Column>;
+                               if (columns != null)
+                               {
+                                   ColumnsOfProject.Instance.Columns.Clear();
+                                   foreach (var item in columns)
+                                   {
+                                       ColumnsOfProject.Instance.Columns.Add(new ColumnItemViewModel { ColumnIsAdded = true, Column = item, Title = item.Title });
+                                   }
+                               }
+                           }
+                       }
+                       catch (Exception ex)
+                       {
+                           MessageBox.Show(ex.Message);
+                       }
+                   }
+               }
+            );
+
+        }
+
+        public async System.Threading.Tasks.Task RemoveAsync(Column column)
+        {
+            if (column != null)
+            {
+                try
+                {
+                    using (var context=new AsanaDbContext())
+                    {
+                        context.Columns.Remove(column);
+                        await context.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        public async System.Threading.Tasks.Task UpdateAsync(int sourceIndex, int targetIndex, Column column)
+        {
+            if (column != null)
+            {
+                try
+                {
+                    using (var db = new AsanaDbContext())
+                    {
+                        db.Columns.ToList().RemoveAt(sourceIndex);
+                        db.Columns.ToList().Insert(targetIndex, column);
+                        await db.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 

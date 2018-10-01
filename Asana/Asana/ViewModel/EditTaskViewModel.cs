@@ -133,7 +133,9 @@ namespace Asana.ViewModel
             extraInfoService.CreateAsync(customer);
             task.ExtraInfo = customer;
             task.ExtraInfoId = customer.Id;
+
             taskService.UpdateAsync(task);
+
             System.Threading.Tasks.Task.Run(() =>
             {
                 timer.Stop();

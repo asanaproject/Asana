@@ -1,9 +1,14 @@
-﻿using Asana.Navigation;
+﻿using Asana.Model;
+using Asana.Navigation;
+using Asana.Objects;
+using Asana.Services;
+using Asana.Services.Interfaces;
 using Asana.Tools;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,36 +20,53 @@ namespace Asana.ViewModel
     public class HomeViewModel : ViewModelBase
     {
         private readonly NavigationService navigation;
-
+        private readonly IProjectService projectService;
 
         public HomeViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+            projectService = new ProjectService();
+
             timer = new System.Timers.Timer(2000);
             timer.Elapsed += Timer_Elapsed;
         }
+        
 
+        /// <summary>
+        /// command changes the view to chatpage which is designed for employees of project
+        /// </summary>
         private RelayCommand _discussCommand;
         public RelayCommand DiscussCommand
         {
             get => _discussCommand ?? (_discussCommand = new RelayCommand(
-                (() => {
+                (() =>
+                {
                     timer.Stop();
                     navigation.NavigateTo(ViewType.ChatView);
                 }
                 )));
         }
 
-
+        /// <summary>
+        /// command changes the view to list of projects which current user are created or part of them
+        /// </summary>
         private RelayCommand _projectCommand;
         public RelayCommand ProjectCommand
         {
+
             get => _projectCommand ?? (_projectCommand = new RelayCommand(
-                (() => navigation.NavigateTo(ViewType.ProjectPage)
+                (() =>
+                {
+                    projectService.LoadProjects(CurrentUser.Instance.User.Id);
+                    navigation.NavigateTo(ViewType.ProjectPage);
+                }
                 )));
         }
 
-
+        
+        /// <summary>
+        /// command changes the view to setting page 
+        /// </summary>
         private RelayCommand _settingsCommand;
         public RelayCommand SettingsCommand
         {
@@ -110,8 +132,10 @@ namespace Asana.ViewModel
                 SelectedColumn = 1;
         }
 
+        /// <summary>
+        /// command closes the project
+        /// </summary>
         private RelayCommand _closedCommand;
-
         public RelayCommand ClosedCommand
         {
             get => _closedCommand ?? (_closedCommand = new RelayCommand((() => { SelectedColumn = 0; timer.Stop(); })));

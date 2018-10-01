@@ -20,10 +20,12 @@ namespace Asana.ViewModel
         private readonly NavigationService navigation;
         private readonly ITaskService taskService;
         private readonly IUserRoleService userRoleService;
+        private readonly IColumnService columnService;
         public AssignToNewUserViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
             taskService = new TaskService();
+            columnService = new ColumnService();
             userRoleService = new UserRoleService();
         }
 
@@ -80,6 +82,7 @@ namespace Asana.ViewModel
                     ProjectId = CurrentProject.Instance.Project.Id
                 };
                 userRoleService.CreateAsync(user);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 Closewindow();
             });
 

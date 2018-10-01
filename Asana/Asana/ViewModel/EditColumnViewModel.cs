@@ -97,6 +97,7 @@ namespace Asana.ViewModel
             Task.Run(() =>
             {
                 columnService.UpdateTitleAsync(Title, CurrentColumn.Instance.Column.Column);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 timer.Stop();
                 Closewindow();
             });

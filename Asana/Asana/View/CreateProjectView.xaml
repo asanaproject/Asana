@@ -104,22 +104,20 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
-                                    
+
                                 </Grid.RowDefinitions>
                                 <Menu  Grid.Column="1" Grid.Row="0" Margin="10 0 0 0" Background="Transparent" HorizontalAlignment="Right">
                                     <MenuItem Padding="0" Width="20" Background="Transparent"  HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"   Height="20">
                                         <MenuItem.Icon >
                                             <materialDesign:PackIcon Kind="DotsVertical" Foreground="Gray" Background="Transparent"/>
                                         </MenuItem.Icon>
-                                        <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditProjectCommand}" CommandParameter="{Binding .}">
-
-                                        </MenuItem>
+                                        <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditProjectCommand}" CommandParameter="{Binding .}"/>
                                         <MenuItem Header="{materialDesign:PackIcon Kind=Delete}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.DeleteProjectCommand}" CommandParameter="{Binding .}"/>
+                                        <MenuItem Header="{materialDesign:PackIcon Kind=Information}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.ProjectInfoCommand}" CommandParameter="{Binding .}"/>
                                     </MenuItem>
                                 </Menu>
 
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Name}" FontWeight="DemiBold" FontSize="18" HorizontalAlignment="Left"  Margin="3 0 0 0"/>
-                                
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding ProjectEmail}" FontSize="16" HorizontalAlignment="Left" Margin="3 0 0 0"/>
                             </Grid>
                         </DataTemplate>
@@ -130,9 +128,6 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ListBox>
-
-
-
             </Grid>
         </Border>
     </Grid>

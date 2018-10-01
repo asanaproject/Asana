@@ -21,10 +21,12 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigation;
         private readonly IProjectService projectService;
+        private readonly IColumnService columnService;
         public CreateProjectViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
             projectService = new ProjectService();
+            columnService = new ColumnService();
             header = new HeaderViewModel(navigation, "Project", HeaderType.CreateProject);
         }
         private object header;
@@ -35,8 +37,8 @@ namespace Asana.ViewModel
         }
 
       
-        private RelayCommand<Project> selectProjectCommand;
-        public RelayCommand<Project> SelectProjectCommand => selectProjectCommand ?? (selectProjectCommand = new RelayCommand<Project>(
+        private RelayCommand<Project> projectInfoCommand;
+        public RelayCommand<Project> ProjectInfoCommand => projectInfoCommand ?? (projectInfoCommand = new RelayCommand<Project>(
         x =>
         {
             CurrentProject.Instance.Project = x;
@@ -47,6 +49,26 @@ namespace Asana.ViewModel
 
         }));
 
+
+
+        private RelayCommand<Project> selectProjectCommand;
+        public RelayCommand<Project> SelectProjectCommand => selectProjectCommand ?? (selectProjectCommand = new RelayCommand<Project>(
+        x =>
+        {
+            CurrentProject.Instance.Project = x;
+            var columns = columnService.GetAll(x.Id) as ObservableCollection<Column>;
+            if (columns!=null)
+            {
+                ColumnsOfProject.Instance.Columns.Clear();
+
+                foreach (var item in columns)
+                {
+                    ColumnsOfProject.Instance.Columns.Add(new ColumnItemViewModel { ColumnIsAdded = true, Column = item, Title = item.Title });
+                }
+            }
+            navigation.NavigateTo(ViewType.ProjectPage);
+
+        }));
 
 
         private RelayCommand<Project> editProjectCommand;

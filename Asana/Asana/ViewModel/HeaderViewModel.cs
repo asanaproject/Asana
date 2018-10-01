@@ -16,6 +16,7 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigationService;
         private readonly AccountService accountService;
+
         private string header;
 
         public string Header

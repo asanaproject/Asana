@@ -31,11 +31,6 @@ namespace Asana.ViewModel
             columnService = new ColumnService();
             taskService = new TaskService();
             Header = new HeaderViewModel(navigation);
-            //foreach (var item in columnService.GetAll(CurrentProject.Instance.Project.Id))
-            //{
-            //    Columns.Add(new ColumnItemViewModel { Column = item, ColumnIsAdded = true,Title=item.Title });
-            //}
-
         }
 
         private HeaderViewModel header;
@@ -79,6 +74,7 @@ namespace Asana.ViewModel
 
             x.IsStarred = x.IsStarred ? false : true;
             x.StarPath = x.IsStarred ? "../Resources/Images/star-icon.png" : "../Resources/Images/grey_star.png";
+            taskService.UpdateAsync(x);
         }));
 
         /// <summary>
@@ -96,13 +92,11 @@ namespace Asana.ViewModel
                 x.Column.Title = x.Title;
                 x.Column.IsColumnAdded = true;
                 columnService.CreateAsync(x.Column);
-                ColumnsOfProject.Instance.Columns.First(y => y == x).ColumnIsAdded = true;
-                ColumnsOfProject.Instance.Columns.First(y => y == x).Column.CreatedAt = x.Column.CreatedAt; ;
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
         }));
 
-
-
+        
 
 
         /// <summary>
@@ -114,7 +108,12 @@ namespace Asana.ViewModel
         {
             if (x != null)
             {
-                ColumnsOfProject.Instance.Columns.Remove(ColumnsOfProject.Instance.Columns.First(y => y == x));
+                if (x.Column.IsColumnAdded)
+                {
+                    columnService.RemoveAsync(x.Column);
+                }
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+
             }
         }));
 
@@ -142,12 +141,12 @@ namespace Asana.ViewModel
         {
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
-                // x.CurrentKanbanState =new KanbanState { Name= "In Progress" };
                 KanbanStates = new ObservableCollection<KanbanState>(taskService.GetKanbanStatesOfTask());
-                //  CurrentTask.Instance.Task = x;
-                ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).IsTaskAdded = true;
-                ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).Title = x.Title;
-                ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id).CreatedAt = DateTime.Now;
+
+                x.IsTaskAdded = true;
+                x.CreatedAt = DateTime.Now;
+                taskService.CreateAsync(x);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
 
         }));
@@ -161,7 +160,11 @@ namespace Asana.ViewModel
         {
             if (x != null)
             {
-                ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.Remove(ColumnsOfProject.Instance.Columns.First(y => y.Column.Id == x.ColumnId).Column.Tasks.First(z => z.Id == x.Id));
+                if (x.IsTaskAdded)
+                {
+                    taskService.RemoveAsync(x);
+                }
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
 
         }));
@@ -233,7 +236,7 @@ namespace Asana.ViewModel
             if (x != null && x.IsTaskAdded)
             {
                 CurrentTask.Instance.Task = x;
-                //CurrentTask.Instance.Task.Column = columnService.FindById(x.ColumnId);
+
                 WindowBluringCustom.Bluring();
                 ExtraWindow extraWindow = new ExtraWindow(new TaskPageViewModel(navigation), 700, 350);
                 extraWindow.ShowDialog();
@@ -259,7 +262,7 @@ namespace Asana.ViewModel
                     TaskId = CurrentTask.Instance.Task.Id
                 };
                 taskService.UpdateAsyncKanbanState(CurrentTask.Instance.Task, state);
-                CurrentTask.Instance.Task.CurrentKanbanState = x;
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
         }));
 
@@ -282,10 +285,14 @@ namespace Asana.ViewModel
                 var targetIndex = ColumnsOfProject.Instance.Columns.IndexOf(targetItem);
                 if (sourceIndex != targetIndex)
                 {
-                    ColumnsOfProject.Instance.Columns.RemoveAt(sourceIndex);
-                    ColumnsOfProject.Instance.Columns.Insert(sourceIndex, targetItem);
-                    ColumnsOfProject.Instance.Columns.RemoveAt(targetIndex);
-                    ColumnsOfProject.Instance.Columns.Insert(targetIndex, sourceItem);
+                    columnService.UpdateAsync(targetIndex,sourceIndex,targetItem.Column);
+                    columnService.UpdateAsync(sourceIndex, targetIndex, sourceItem.Column);
+                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                    //ColumnsOfProject.Instance.Columns.RemoveAt(sourceIndex);
+                    //ColumnsOfProject.Instance.Columns.Insert(sourceIndex, targetItem);
+                    //ColumnsOfProject.Instance.Columns.RemoveAt(targetIndex);
+                    //ColumnsOfProject.Instance.Columns.Insert(targetIndex, sourceItem);
+
                 }
             }
         }

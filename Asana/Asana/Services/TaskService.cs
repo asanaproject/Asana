@@ -42,6 +42,25 @@ namespace Asana.Services
 
         }
 
+        public async System.Threading.Tasks.Task RemoveAsync(Objects.Task task)
+        {
+            if (task != null)
+            {
+                try
+                {
+                    using (var context=new AsanaDbContext())
+                    {
+                        context.Tasks.Remove(task);
+                        await context.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
+            }
+        }
         public async System.Threading.Tasks.Task UpdateAsync(Objects.Task task)
         {
             if (task != null)

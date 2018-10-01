@@ -13,6 +13,47 @@ namespace Asana.Services
 {
     public class ProjectService : IProjectService
     {
+        public async System.Threading.Tasks.Task LoadProjects(Guid userId)
+        {
+            if (userId != null)
+            {
+                try
+                {
+                    var projects = GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
+                    using (var context=new AsanaDbContext())
+                    {
+                        var partOfProject = context.Projects.Select(x => x.Users.Where(y => y.Id == CurrentUser.Instance.User.Id)) as ObservableCollection<Project>;
+                        
+                        if (partOfProject != null)
+                        {
+                            if (projects == null)
+                            {
+                                projects = new ObservableCollection<Project>();
+                            }
+                            foreach (var item in partOfProject)
+                            {
+                                projects.Add(item);
+                            }
+                        }
+                        if (projects != null)
+                        {
+                            
+                            ProjectsOfUser.Instance.Projects.Clear();
+                            foreach (var item in projects)
+                            {
+                                ProjectsOfUser.Instance.Projects.Add(item);
+                            }
+                        }
+                    }                    
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+            }
+        }
 
         public async System.Threading.Tasks.Task CreateAsync(Project project)
         {
@@ -24,6 +65,10 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
+                        if (context.Projects.First(x=>x.ProjectEmail.Equals(project.ProjectEmail))!=null)
+                        {
+                            throw new Exception("Project with this email already exists. TRY another email!");
+                        }
                         context.Projects.Add(project);
                         await context.SaveChangesAsync();
                     }

@@ -11,9 +11,9 @@ namespace Asana.Services.Interfaces
     public interface ITaskService
     {
         Task CreateAsync(Objects.Task task);
+        Task RemoveAsync(Objects.Task task);
         Task UpdateAsync(Objects.Task task);
         ICollection<KanbanState> GetKanbanStatesOfTask();
         Task UpdateAsyncKanbanState(Objects.Task task, TaskKanbanState s);
-
     }
 }
