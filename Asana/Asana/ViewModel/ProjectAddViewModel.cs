@@ -54,14 +54,11 @@ namespace Asana.ViewModel
                     UserId = CurrentUser.Instance.User.Id,
                     Description = Description,
                     ProjectManager = ProjectManager,
-                    CreatedAt=DateTime.Now
+                    CreatedAt = DateTime.Now
                 };
                 projectService.CreateAsync(project);
-                var projects = projectService.GetAll(CurrentUser.Instance.User.Id);
-                if (projects != null)
-                {
-                    ProjectsOfUser.Instance.Projects = projects as ObservableCollection<Project>;
-                }                
+                projectService.LoadProjects(CurrentUser.Instance.User.Id);
+
                 Closewindow();
             });
 

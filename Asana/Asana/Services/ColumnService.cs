@@ -88,7 +88,6 @@ namespace Asana.Services
                                var columns = GetAll(CurrentProject.Instance.Project.Id) as ObservableCollection<Column>;
                                if (columns != null)
                                {
-                                   ColumnsOfProject.Instance.Columns.Clear();
                                    foreach (var item in columns)
                                    {
                                        ColumnsOfProject.Instance.Columns.Add(new ColumnItemViewModel { ColumnIsAdded = true, Column = item, Title = item.Title });
@@ -112,7 +111,7 @@ namespace Asana.Services
             {
                 try
                 {
-                    using (var context=new AsanaDbContext())
+                    using (var context = new AsanaDbContext())
                     {
                         context.Columns.Remove(column);
                         await context.SaveChangesAsync();

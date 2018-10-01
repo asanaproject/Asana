@@ -36,7 +36,7 @@ namespace Asana.ViewModel
             set { Set(ref header, value); }
         }
 
-      
+
         private RelayCommand<Project> projectInfoCommand;
         public RelayCommand<Project> ProjectInfoCommand => projectInfoCommand ?? (projectInfoCommand = new RelayCommand<Project>(
         x =>
@@ -56,16 +56,7 @@ namespace Asana.ViewModel
         x =>
         {
             CurrentProject.Instance.Project = x;
-            var columns = columnService.GetAll(x.Id) as ObservableCollection<Column>;
-            if (columns!=null)
-            {
-                ColumnsOfProject.Instance.Columns.Clear();
-
-                foreach (var item in columns)
-                {
-                    ColumnsOfProject.Instance.Columns.Add(new ColumnItemViewModel { ColumnIsAdded = true, Column = item, Title = item.Title });
-                }
-            }
+            columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             navigation.NavigateTo(ViewType.ProjectPage);
 
         }));
@@ -89,11 +80,8 @@ namespace Asana.ViewModel
         x =>
         {
             projectService.RemoveAsync(x);
-            var projects = projectService.GetAll(CurrentUser.Instance.User.Id);
-            if (projects!=null)
-            {
-                ProjectsOfUser.Instance.Projects = projects as ObservableCollection<Project>;
-            }
+            projectService.LoadProjects(CurrentUser.Instance.User.Id);
+            projectService.LoadProjects(CurrentUser.Instance.User.Id);
         }));
 
 

@@ -4,6 +4,7 @@ using Asana.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,44 +16,43 @@ namespace Asana.Services
     {
         public async System.Threading.Tasks.Task LoadProjects(Guid userId)
         {
-            if (userId != null)
-            {
-                try
+            await System.Threading.Tasks.Task.Run(
+                () =>
                 {
-                    var projects = GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
-                    using (var context=new AsanaDbContext())
+                    if (userId != null)
                     {
-                        var partOfProject = context.Projects.Select(x => x.Users.Where(y => y.Id == CurrentUser.Instance.User.Id)) as ObservableCollection<Project>;
-                        
-                        if (partOfProject != null)
+                        try
                         {
-                            if (projects == null)
+                            var projects = GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
+                            using (var context = new AsanaDbContext())
                             {
-                                projects = new ObservableCollection<Project>();
-                            }
-                            foreach (var item in partOfProject)
-                            {
-                                projects.Add(item);
-                            }
-                        }
-                        if (projects != null)
-                        {
-                            
-                            ProjectsOfUser.Instance.Projects.Clear();
-                            foreach (var item in projects)
-                            {
-                                ProjectsOfUser.Instance.Projects.Add(item);
-                            }
-                        }
-                    }                    
-                    
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                                var partOfProject = context.Projects.Select(x => x.Users.Where(y => y.Id == CurrentUser.Instance.User.Id)) as ObservableCollection<Project>;
 
-                }
-            }
+                                if (partOfProject != null)
+                                {
+                                    if (projects == null)
+                                    {
+                                        projects = new ObservableCollection<Project>();
+                                    }
+                                    foreach (var item in partOfProject)
+                                    {
+                                        projects.Add(item);
+                                    }
+                                }
+                                if (projects != null)
+                                {
+                                    ProjectsOfUser.Instance.Projects = projects;
+                                }
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        }
+                    }
+                });
         }
 
         public async System.Threading.Tasks.Task CreateAsync(Project project)
@@ -65,12 +65,16 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
-                        if (context.Projects.First(x=>x.ProjectEmail.Equals(project.ProjectEmail))!=null)
+                        if (context.Projects.ToList().Exists(x => x.ProjectEmail.Equals(project.ProjectEmail)))
                         {
                             throw new Exception("Project with this email already exists. TRY another email!");
                         }
-                        context.Projects.Add(project);
-                        await context.SaveChangesAsync();
+                        else
+                        {
+                            context.Projects.Add(project);
+                            await context.SaveChangesAsync();
+
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -89,8 +93,14 @@ namespace Asana.Services
                 {
                     using (var db = new AsanaDbContext())
                     {
-                        db.Projects.Remove(project);
+                        var p = db.Projects.FirstOrDefault(x=>x.Id==project.Id);
+                        if (p!=null)
+                        {
+                            db.Projects.Remove(p);
+
+                        }
                         await db.SaveChangesAsync();
+
                     }
                 }
                 catch (Exception ex)
