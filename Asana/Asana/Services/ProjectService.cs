@@ -14,11 +14,9 @@ namespace Asana.Services
 {
     public class ProjectService : IProjectService
     {
-        public async System.Threading.Tasks.Task LoadProjects(Guid userId)
+        public void LoadProjects(Guid userId)
         {
-            await System.Threading.Tasks.Task.Run(
-                () =>
-                {
+            
                     if (userId != null)
                     {
                         try
@@ -52,7 +50,7 @@ namespace Asana.Services
 
                         }
                     }
-                });
+                
         }
 
         public async System.Threading.Tasks.Task CreateAsync(Project project)

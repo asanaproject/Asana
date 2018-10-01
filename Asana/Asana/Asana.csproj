@@ -159,6 +159,10 @@
     <Compile Include="Migrations\201810010844232_MaxStringLength_For_Title_IsChanged.Designer.cs">
       <DependentUpon>201810010844232_MaxStringLength_For_Title_IsChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810011812068_Nullable_Deadline_ForTask.cs" />
+    <Compile Include="Migrations\201810011812068_Nullable_Deadline_ForTask.Designer.cs">
+      <DependentUpon>201810011812068_Nullable_Deadline_ForTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -465,6 +469,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810010844232_MaxStringLength_For_Title_IsChanged.resx">
       <DependentUpon>201810010844232_MaxStringLength_For_Title_IsChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810011812068_Nullable_Deadline_ForTask.resx">
+      <DependentUpon>201810011812068_Nullable_Deadline_ForTask.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

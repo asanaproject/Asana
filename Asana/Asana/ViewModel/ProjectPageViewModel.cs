@@ -92,6 +92,7 @@ namespace Asana.ViewModel
                 x.Column.Title = x.Title;
                 x.Column.IsColumnAdded = true;
                 columnService.CreateAsync(x.Column);
+
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
         }));
@@ -146,7 +147,7 @@ namespace Asana.ViewModel
                 x.IsTaskAdded = true;
                 x.CreatedAt = DateTime.Now;
                 taskService.CreateAsync(x);
-                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                //columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
 
         }));

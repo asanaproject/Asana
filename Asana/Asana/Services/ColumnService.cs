@@ -70,8 +70,8 @@ namespace Asana.Services
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                throw new Exception(ex.Message);
             }
+            return null;
         }
 
         public async System.Threading.Tasks.Task LoadColumns(Guid projectId)
@@ -85,13 +85,16 @@ namespace Asana.Services
                        {
                            using (var context = new AsanaDbContext())
                            {
+                               ObservableCollection<ColumnItemViewModel> columnsOfProject=new ObservableCollection<ColumnItemViewModel>();
                                var columns = GetAll(CurrentProject.Instance.Project.Id) as ObservableCollection<Column>;
+                               
                                if (columns != null)
                                {
                                    foreach (var item in columns)
                                    {
-                                       ColumnsOfProject.Instance.Columns.Add(new ColumnItemViewModel { ColumnIsAdded = true, Column = item, Title = item.Title });
+                                       columnsOfProject.Add(new ColumnItemViewModel { ColumnIsAdded = true, Column = item, Title = item.Title });
                                    }
+                                   ColumnsOfProject.Instance.Columns = columnsOfProject;
                                }
                            }
                        }

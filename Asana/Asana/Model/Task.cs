@@ -40,7 +40,7 @@ namespace Asana.Objects
 
         public string Description { get; set; }
 
-        public DateTime Deadline { get; set; }
+        public DateTime? Deadline { get; set; }
 
         [NotMapped]
         private ICollection<KanbanState> kanbanStates;
