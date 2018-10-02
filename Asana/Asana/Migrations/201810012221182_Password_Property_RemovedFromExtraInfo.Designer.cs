@@ -7,13 +7,13 @@ namespace Asana.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Nullable_Deadline_ForTask : IMigrationMetadata
+    public sealed partial class Password_Property_RemovedFromExtraInfo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Nullable_Deadline_ForTask));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Password_Property_RemovedFromExtraInfo));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810011812068_Nullable_Deadline_ForTask"; }
+            get { return "201810012221182_Password_Property_RemovedFromExtraInfo"; }
         }
         
         string IMigrationMetadata.Source

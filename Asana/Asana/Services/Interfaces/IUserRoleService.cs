@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Asana.Services.Interfaces
 {
-    public interface IUserRoleService 
+    public interface IUserRoleService
     {
         Task CreateAsync(UserRoles user);
     }
+   
 }

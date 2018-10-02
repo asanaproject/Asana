@@ -116,7 +116,11 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
-                        context.Columns.Remove(column);
+                        var c = context.Columns.FirstOrDefault(x=>x.Id==column.Id);
+                        if (c!=null)
+                        {
+                            context.Columns.Remove(c);
+                        }
                         await context.SaveChangesAsync();
                     }
                 }

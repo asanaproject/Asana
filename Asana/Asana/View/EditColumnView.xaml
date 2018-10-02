@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Asana.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="400">
+             d:DesignHeight="250" d:DesignWidth="400"
+             Background="WhiteSmoke">
     <UserControl.Resources>
         <Style TargetType="TextBox">
 

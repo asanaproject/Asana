@@ -2,6 +2,7 @@
 using Asana.Navigation;
 using Asana.Objects;
 using Asana.Services;
+using Asana.Services.Interfaces;
 using Asana.Tools;
 using Asana.View;
 using GalaSoft.MvvmLight;
@@ -23,12 +24,14 @@ namespace Asana.ViewModel
     {
         public readonly AccountService accountService;
         public readonly UserService userService;
+        public readonly IProjectService projectService;
 
         private readonly NavigationService navigation;
         public LogInViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
             accountService = new AccountService();
+            projectService = new ProjectService();
         }
 
 
@@ -75,6 +78,7 @@ namespace Asana.ViewModel
                            {
                                CloseWindow();
                                CheckLoginLog.Save(Email);
+                               projectService.LoadProjects(CurrentUser.Instance.User.Id);
                                navigation.NavigateTo(ViewType.CreateProject);
                            }
                            else

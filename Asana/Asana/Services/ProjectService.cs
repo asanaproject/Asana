@@ -16,41 +16,41 @@ namespace Asana.Services
     {
         public void LoadProjects(Guid userId)
         {
-            
-                    if (userId != null)
+
+            if (userId != null)
+            {
+                try
+                {
+                    var projects = GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
+                    using (var context = new AsanaDbContext())
                     {
-                        try
+                        var partOfProject =new  ObservableCollection<Project>(context.UserRoles.Include("Project")
+                                             .Where(x => x.Email.Equals(CurrentUser.Instance.User.Email)).Select(z => z.Project).ToList());
+                        if (partOfProject != null)
                         {
-                            var projects = GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
-                            using (var context = new AsanaDbContext())
+                            if (projects == null)
                             {
-                                var partOfProject = context.Projects.Select(x => x.Users.Where(y => y.Id == CurrentUser.Instance.User.Id)) as ObservableCollection<Project>;
-
-                                if (partOfProject != null)
-                                {
-                                    if (projects == null)
-                                    {
-                                        projects = new ObservableCollection<Project>();
-                                    }
-                                    foreach (var item in partOfProject)
-                                    {
-                                        projects.Add(item);
-                                    }
-                                }
-                                if (projects != null)
-                                {
-                                    ProjectsOfUser.Instance.Projects = projects;
-                                }
+                                projects = new ObservableCollection<Project>();
                             }
-
+                            foreach (var item in new ObservableCollection<Project>(partOfProject))
+                            {
+                                projects.Add(item);
+                            }
                         }
-                        catch (Exception ex)
+                        if (projects != null)
                         {
-                            MessageBox.Show(ex.Message, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                            ProjectsOfUser.Instance.Projects = projects;
                         }
                     }
-                
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+            }
+
         }
 
         public async System.Threading.Tasks.Task CreateAsync(Project project)
@@ -85,14 +85,14 @@ namespace Asana.Services
 
         public async System.Threading.Tasks.Task RemoveAsync(Project project)
         {
-            if (project!=null)
+            if (project != null)
             {
                 try
                 {
                     using (var db = new AsanaDbContext())
                     {
-                        var p = db.Projects.FirstOrDefault(x=>x.Id==project.Id);
-                        if (p!=null)
+                        var p = db.Projects.FirstOrDefault(x => x.Id == project.Id);
+                        if (p != null)
                         {
                             db.Projects.Remove(p);
 
@@ -104,14 +104,14 @@ namespace Asana.Services
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }               
+                }
 
             }
         }
 
         public ICollection<Project> GetAll(Guid userId)
         {
-            if (userId!=null)
+            if (userId != null)
             {
                 try
                 {
@@ -124,12 +124,12 @@ namespace Asana.Services
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message,"Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
             }
             return null;
-           
+
         }
 
         public async System.Threading.Tasks.Task UpdateAsync(Project project)
@@ -146,7 +146,7 @@ namespace Asana.Services
                         db.Projects.First(x => x.Id == project.Id).UserId = project.UserId;
                         db.Projects.First(x => x.Id == project.Id).Columns = project.Columns;
                         db.Projects.First(x => x.Id == project.Id).Description = project.Description;
-                        db.Projects.First(x => x.Id == project.Id).Users = project.Users;                                                                                          
+                        db.Projects.First(x => x.Id == project.Id).Users = project.Users;
                         await db.SaveChangesAsync();
                     }
                 }

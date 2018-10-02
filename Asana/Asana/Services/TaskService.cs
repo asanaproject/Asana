@@ -20,11 +20,19 @@ namespace Asana.Services
             {
                 try
                 {
-                    using (var context = new AsanaDbContext())
+                    if (String.IsNullOrEmpty(task.AssignedTo))
                     {
-                        context.Tasks.Add(task);
-                        await context.SaveChangesAsync();
+                        throw new Exception("You must assign the task to someone.");
                     }
+                    else
+                    {
+                        using (var context = new AsanaDbContext())
+                        {
+                            context.Tasks.Add(task);
+                            await context.SaveChangesAsync();
+                        }
+                    }
+                    
                 }
                 catch (Exception ex)
                 {

@@ -25,11 +25,14 @@ namespace Asana.ViewModel
         private readonly NavigationService navigation;
         private readonly IColumnService columnService;
         private readonly ITaskService taskService;
+        private readonly IProjectService projectService;
+
         public ProjectPageViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
             columnService = new ColumnService();
             taskService = new TaskService();
+            projectService = new ProjectService();
             Header = new HeaderViewModel(navigation);
         }
 
@@ -46,6 +49,13 @@ namespace Asana.ViewModel
         {
             get { return kanbanStates; }
             set { Set(ref kanbanStates, value); }
+        }
+        private UserRoles assignedTo;
+
+        public UserRoles AssignedTo
+        {
+            get { return assignedTo; }
+            set { Set(ref assignedTo, value); }
         }
 
 
@@ -92,12 +102,12 @@ namespace Asana.ViewModel
                 x.Column.Title = x.Title;
                 x.Column.IsColumnAdded = true;
                 columnService.CreateAsync(x.Column);
-
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
         }));
 
-        
+
 
 
         /// <summary>
@@ -114,6 +124,8 @@ namespace Asana.ViewModel
                     columnService.RemoveAsync(x.Column);
                 }
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+
 
             }
         }));
@@ -143,11 +155,16 @@ namespace Asana.ViewModel
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
                 KanbanStates = new ObservableCollection<KanbanState>(taskService.GetKanbanStatesOfTask());
+                MessageBox.Show(x.AssignedTo);
 
-                x.IsTaskAdded = true;
-                x.CreatedAt = DateTime.Now;
-                taskService.CreateAsync(x);
-                //columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                if (AssignedTo != null)
+                {
+                    x.IsTaskAdded = true;
+                    x.CreatedAt = DateTime.Now;
+                    x.AssignedTo = AssignedTo.FullName;
+                    MessageBox.Show(x.AssignedTo);
+                    taskService.CreateAsync(x);
+                }
             }
 
         }));
@@ -245,6 +262,17 @@ namespace Asana.ViewModel
             }
         }));
 
+        private RelayCommand<UserRoles> assignTaskCommand;
+        public RelayCommand<UserRoles> AssignTaskCommand => assignTaskCommand ?? (assignTaskCommand = new RelayCommand<UserRoles>(
+        x =>
+        {
+            MessageBox.Show("rfr");
+            if (x != null)
+            {
+                AssignedTo = x;
+            }
+
+        }));
 
 
         private RelayCommand<KanbanState> selectionChangedCommand;
@@ -286,7 +314,7 @@ namespace Asana.ViewModel
                 var targetIndex = ColumnsOfProject.Instance.Columns.IndexOf(targetItem);
                 if (sourceIndex != targetIndex)
                 {
-                    columnService.UpdateAsync(targetIndex,sourceIndex,targetItem.Column);
+                    columnService.UpdateAsync(targetIndex, sourceIndex, targetItem.Column);
                     columnService.UpdateAsync(sourceIndex, targetIndex, sourceItem.Column);
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                     //ColumnsOfProject.Instance.Columns.RemoveAt(sourceIndex);

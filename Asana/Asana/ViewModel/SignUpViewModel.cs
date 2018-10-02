@@ -90,10 +90,8 @@ namespace Asana.ViewModel
         public RelayCommand RegisterCommand => _registerCommand ?? (_registerCommand = new RelayCommand(
             () =>
             {
-                try
-                {
+                
                     User user = new User();
-                    MessageBox.Show(user.Id.ToString());
                     user.Email = CurrentUser.Instance.User.Email;
                     user.FullName = FullName;
                     user.Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath));
@@ -101,11 +99,7 @@ namespace Asana.ViewModel
                     user.Username = UserName ;
                     userService.CreateAsync(user);
                     navigation.NavigateTo(ViewType.LogIn);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+               
             }
             ));
         public string Error => throw new NotImplementedException();

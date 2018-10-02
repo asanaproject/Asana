@@ -20,9 +20,7 @@ namespace Asana.Objects
 
         [StringLength(50),Required]
         public string Email { get; set; }
-
-        [StringLength(20),Required]
-        public string Password { get; set; }
+        
 
         public ExtraInfo()
         {

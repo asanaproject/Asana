@@ -147,21 +147,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201809292347301_Deadline_CreatedAt_PropertyForProject.cs" />
-    <Compile Include="Migrations\201809292347301_Deadline_CreatedAt_PropertyForProject.Designer.cs">
-      <DependentUpon>201809292347301_Deadline_CreatedAt_PropertyForProject.cs</DependentUpon>
+    <Compile Include="Migrations\201810012138327_InitialModel.cs" />
+    <Compile Include="Migrations\201810012138327_InitialModel.Designer.cs">
+      <DependentUpon>201810012138327_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809292353488_Deadline_ForProject.cs" />
-    <Compile Include="Migrations\201809292353488_Deadline_ForProject.Designer.cs">
-      <DependentUpon>201809292353488_Deadline_ForProject.cs</DependentUpon>
+    <Compile Include="Migrations\201810012221182_Password_Property_RemovedFromExtraInfo.cs" />
+    <Compile Include="Migrations\201810012221182_Password_Property_RemovedFromExtraInfo.Designer.cs">
+      <DependentUpon>201810012221182_Password_Property_RemovedFromExtraInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810010844232_MaxStringLength_For_Title_IsChanged.cs" />
-    <Compile Include="Migrations\201810010844232_MaxStringLength_For_Title_IsChanged.Designer.cs">
-      <DependentUpon>201810010844232_MaxStringLength_For_Title_IsChanged.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810011812068_Nullable_Deadline_ForTask.cs" />
-    <Compile Include="Migrations\201810011812068_Nullable_Deadline_ForTask.Designer.cs">
-      <DependentUpon>201810011812068_Nullable_Deadline_ForTask.cs</DependentUpon>
+    <Compile Include="Migrations\201810021003546_UserRoles.cs" />
+    <Compile Include="Migrations\201810021003546_UserRoles.Designer.cs">
+      <DependentUpon>201810021003546_UserRoles.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -190,14 +186,14 @@
     <Compile Include="Services\Interfaces\IColumnService.cs" />
     <Compile Include="Services\Interfaces\IExtraInfoService.cs" />
     <Compile Include="Services\Interfaces\ITaskLogService.cs" />
-    <Compile Include="Services\Interfaces\IUserRoleService.cs" />
     <Compile Include="Services\Interfaces\IProjectService.cs" />
     <Compile Include="Services\Interfaces\ITaskService.cs" />
+    <Compile Include="Services\Interfaces\IUserRoleService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\TaskLogService.cs" />
     <Compile Include="Services\TaskService.cs" />
-    <Compile Include="Services\UserRoleService.cs" />
+    <Compile Include="Services\UserRolesService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Tools\BoundPasswordBox.cs" />
     <Compile Include="Tools\CheckLoginLog.cs" />
@@ -461,17 +457,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201809292347301_Deadline_CreatedAt_PropertyForProject.resx">
-      <DependentUpon>201809292347301_Deadline_CreatedAt_PropertyForProject.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810012138327_InitialModel.resx">
+      <DependentUpon>201810012138327_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809292353488_Deadline_ForProject.resx">
-      <DependentUpon>201809292353488_Deadline_ForProject.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810012221182_Password_Property_RemovedFromExtraInfo.resx">
+      <DependentUpon>201810012221182_Password_Property_RemovedFromExtraInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810010844232_MaxStringLength_For_Title_IsChanged.resx">
-      <DependentUpon>201810010844232_MaxStringLength_For_Title_IsChanged.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810011812068_Nullable_Deadline_ForTask.resx">
-      <DependentUpon>201810011812068_Nullable_Deadline_ForTask.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810021003546_UserRoles.resx">
+      <DependentUpon>201810021003546_UserRoles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -22,13 +22,64 @@ namespace Asana.ViewModel
         {
             this.navigation = navigation;
             TaskImgPath = CurrentTask.Instance.Task.Image==null ? "../Resources/Images/empty_task_img.png" : CurrentTask.Instance.Task.ImagePath;
+            columnTitle = CurrentColumn.Instance.Column.Title;
+            TaskTitle = CurrentTask.Instance.Task.Title;
+            Deadline = CurrentTask.Instance.Task.Deadline.ToString();
+            AssignedTo = CurrentTask.Instance.Task.AssignedTo;
+            CustomerEmail = CurrentTask.Instance.Task.ExtraInfo.Email;
+            CustomerFullName = CurrentTask.Instance.Task.ExtraInfo.Username;
+
             timer = new System.Timers.Timer(1000);
             timer.Start();
             timer.Elapsed += Timer_Elapsed;
 
         }
-      
+        private string columnTitle;
+        public string ColumnTitle
+        {
+            get { return columnTitle; }
+            set { Set(ref columnTitle,value); }
+        }
 
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set { Set(ref description, value); }
+        }
+
+        private string assignedTo;
+        public string AssignedTo
+        {
+            get { return assignedTo; }
+            set { Set(ref assignedTo, value); }
+        }
+
+        private string deadline;
+        public string Deadline
+        {
+            get { return deadline; }
+            set { Set(ref deadline, value); }
+        }
+
+        private string taskTitle;
+        public string TaskTitle
+        {
+            get { return taskTitle; }
+            set { Set(ref taskTitle, value); }
+        }
+        private string customerFullName;
+        public string CustomerFullName
+        {
+            get { return customerFullName; }
+            set { Set(ref customerFullName, value); }
+        }
+        private string customerEmail;
+        public string CustomerEmail
+        {
+            get { return customerEmail; }
+            set { Set(ref customerEmail, value); }
+        }
         private RelayCommand _loadImageCommand;
         public RelayCommand LoadImageCommand => _loadImageCommand ?? (_loadImageCommand = new RelayCommand(
             () =>

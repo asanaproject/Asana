@@ -19,13 +19,15 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigation;
         private readonly ITaskService taskService;
-        private readonly IUserRoleService userRoleService;
         private readonly IColumnService columnService;
+        private readonly IProjectService projectService;
+        private readonly IUserRoleService userRoleService;
         public AssignToNewUserViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
             taskService = new TaskService();
             columnService = new ColumnService();
+            projectService = new ProjectService();
             userRoleService = new UserRoleService();
         }
 
@@ -72,19 +74,17 @@ namespace Asana.ViewModel
         public RelayCommand SaveCommand => saveCommand ?? (saveCommand = new RelayCommand(
         () =>
         {
-            Task.Run(() =>
+
+            var user = new UserRoles
             {
-                var user = new UserRoles
-                {
-                    FullName=FullName,
-                    Email = Email,
-                    Phone = Mobile,
-                    ProjectId = CurrentProject.Instance.Project.Id
-                };
-                userRoleService.CreateAsync(user);
-                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                Closewindow();
-            });
+                ProjectId = CurrentProject.Instance.Project.Id,
+                FullName = FullName,
+                Email = Email,
+                Phone = Mobile,
+            };
+            userRoleService.CreateAsync(user);
+            Closewindow();
+
 
         }));
 

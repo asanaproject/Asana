@@ -5,6 +5,7 @@ using Asana.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,10 @@ namespace Asana.Services
                         if (dbContext.Users.ToList().Exists(x => x.Username == user.Username))
                         {
                             throw new Exception("User with this username already exists.");
+                        }
+                        if (user.Image==null)
+                        {
+                            user.Image = ProfilePhoto.ImageToByteArray(new Bitmap("../Resources/Images/profile.png"));
                         }
                         user.Password = PasswordHasher.Hash(user.Password);
                         dbContext.Users.Add(user);

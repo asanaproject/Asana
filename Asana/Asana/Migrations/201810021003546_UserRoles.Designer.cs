@@ -7,13 +7,13 @@ namespace Asana.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class MaxStringLength_For_Title_IsChanged : IMigrationMetadata
+    public sealed partial class UserRoles : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MaxStringLength_For_Title_IsChanged));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UserRoles));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810010844232_MaxStringLength_For_Title_IsChanged"; }
+            get { return "201810021003546_UserRoles"; }
         }
         
         string IMigrationMetadata.Source

@@ -21,11 +21,11 @@ namespace Asana.Model
 
         public Roles Role { get; set; }
 
+        [ForeignKey(nameof(Project))]
         public Guid ProjectId { get; set; }
+        public Project Project { get; set; }
         public string FullName { get; set; }
-
         public string Email { get; set; }
-
         public string Phone { get; set; }
     }
 }
