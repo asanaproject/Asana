@@ -7,7 +7,7 @@
              xmlns:model="clr-namespace:Asana.Model"            
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"            
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Background="WhiteSmoke">
     <UserControl.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Template">
@@ -68,7 +68,7 @@
 
 
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Assigned to: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" FontWeight="DemiBold" />
-        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding AssingedTo}" HorizontalAlignment="Left" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
+        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding AssignedTo}" Foreground="Red" HorizontalAlignment="Left" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
 
         <TabControl Grid.Row="5" Grid.ColumnSpan="4">
             <TabItem Header="Description" Width="80" Height="25" >

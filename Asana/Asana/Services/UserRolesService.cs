@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,18 @@ namespace Asana.Services
                 }
             }
 
+        }
+
+        public void LoadRoles(Guid projectId)
+        {
+            if (!String.IsNullOrEmpty(projectId.ToString()))
+            {
+                using (var context=new AsanaDbContext())
+                {
+                    var c = context.UserRoles.Include("Project").Where(x => x.ProjectId == projectId).ToList();
+                    CurrentUserRoles.Instance.Employees =new ObservableCollection<UserRoles>(c);
+                }
+            }
         }
     }
 }

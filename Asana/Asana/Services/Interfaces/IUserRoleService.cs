@@ -10,6 +10,7 @@ namespace Asana.Services.Interfaces
     public interface IUserRoleService
     {
         Task CreateAsync(UserRoles user);
+        void LoadRoles(Guid projectId);
     }
    
 }

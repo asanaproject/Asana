@@ -181,6 +181,7 @@
     <Compile Include="Services\ChannelsService.cs" />
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\ColumnService.cs" />
+    <Compile Include="Model\CurrentUserRoles.cs" />
     <Compile Include="Services\ExtraInfoService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IColumnService.cs" />

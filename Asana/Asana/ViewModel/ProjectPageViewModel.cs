@@ -26,13 +26,14 @@ namespace Asana.ViewModel
         private readonly IColumnService columnService;
         private readonly ITaskService taskService;
         private readonly IProjectService projectService;
-
+        private readonly IUserRoleService userRoleService;
         public ProjectPageViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
             columnService = new ColumnService();
             taskService = new TaskService();
             projectService = new ProjectService();
+            userRoleService = new UserRoleService();
             Header = new HeaderViewModel(navigation);
         }
 
@@ -141,6 +142,7 @@ namespace Asana.ViewModel
                 ColumnsOfProject.Instance.Columns.First(z => z.Column.Id == x.Column.Id).Column.Tasks.Count == 0)
             {
                 x.Task = new Objects.Task { ColumnId = x.Column.Id };
+                userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
                 ColumnsOfProject.Instance.Columns.ToList().First(y => y.Column.Id == x.Column.Id).Column.Tasks.Add(x.Task);
             }
         }));
@@ -155,14 +157,11 @@ namespace Asana.ViewModel
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
                 KanbanStates = new ObservableCollection<KanbanState>(taskService.GetKanbanStatesOfTask());
-                MessageBox.Show(x.AssignedTo);
-
                 if (AssignedTo != null)
                 {
                     x.IsTaskAdded = true;
                     x.CreatedAt = DateTime.Now;
                     x.AssignedTo = AssignedTo.FullName;
-                    MessageBox.Show(x.AssignedTo);
                     taskService.CreateAsync(x);
                 }
             }
@@ -254,7 +253,8 @@ namespace Asana.ViewModel
             if (x != null && x.IsTaskAdded)
             {
                 CurrentTask.Instance.Task = x;
-
+                CurrentColumn.Instance.Column.Column = x.Column;
+                CurrentColumn.Instance.Column.Title = x.Column.Title;
                 WindowBluringCustom.Bluring();
                 ExtraWindow extraWindow = new ExtraWindow(new TaskPageViewModel(navigation), 700, 350);
                 extraWindow.ShowDialog();

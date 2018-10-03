@@ -22,12 +22,15 @@ namespace Asana.ViewModel
         {
             this.navigation = navigation;
             TaskImgPath = CurrentTask.Instance.Task.Image==null ? "../Resources/Images/empty_task_img.png" : CurrentTask.Instance.Task.ImagePath;
-            columnTitle = CurrentColumn.Instance.Column.Title;
+            ColumnTitle = CurrentColumn.Instance.Column.Title;
             TaskTitle = CurrentTask.Instance.Task.Title;
             Deadline = CurrentTask.Instance.Task.Deadline.ToString();
             AssignedTo = CurrentTask.Instance.Task.AssignedTo;
-            CustomerEmail = CurrentTask.Instance.Task.ExtraInfo.Email;
-            CustomerFullName = CurrentTask.Instance.Task.ExtraInfo.Username;
+            if (CurrentTask.Instance.Task.ExtraInfo!=null)
+            {
+                CustomerEmail = CurrentTask.Instance.Task.ExtraInfo.Email;
+                CustomerFullName = CurrentTask.Instance.Task.ExtraInfo.Username;
+            }
 
             timer = new System.Timers.Timer(1000);
             timer.Start();
