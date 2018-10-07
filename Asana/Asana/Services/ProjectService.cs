@@ -21,22 +21,15 @@ namespace Asana.Services
             {
                 try
                 {
-                    var projects = GetAll(CurrentUser.Instance.User.Id) as ObservableCollection<Project>;
                     using (var context = new AsanaDbContext())
                     {
-                        var partOfProject =new  ObservableCollection<Project>(context.UserRoles.Include("Project")
-                                             .Where(x => x.Email.Equals(CurrentUser.Instance.User.Email)).Select(z => z.Project).ToList());
-                        if (partOfProject != null)
-                        {
-                            if (projects == null)
-                            {
-                                projects = new ObservableCollection<Project>();
-                            }
-                            foreach (var item in new ObservableCollection<Project>(partOfProject))
-                            {
-                                projects.Add(item);
-                            }
-                        }
+                        var user = context.Users.FirstOrDefault(x => x.Id == userId);
+                        var projects = (context.Projects.Include("Users")
+                                                       .Include("Columns").Select(x => x.Users.Where(z => z.Email.Equals(user.Email)))) as ObservableCollection<Project>;
+                                        
+                                                 
+                                                 
+                        
                         if (projects != null)
                         {
                             ProjectsOfUser.Instance.Projects = projects;
@@ -63,15 +56,27 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
-                        if (context.Projects.ToList().Exists(x => x.ProjectEmail.Equals(project.ProjectEmail)))
+                        var p = context.Projects.FirstOrDefault(x => x.ProjectEmail.Equals(project.ProjectEmail));
+                        if (p != null)
                         {
                             throw new Exception("Project with this email already exists. TRY another email!");
                         }
                         else
                         {
+                            int maxPosition = 0;
+                            if (context.Projects.Count()>0)
+                            {
+                                maxPosition = context.Projects.Max(x => x.Position);
+                            }
+                            project.Position = (maxPosition == 0) ? 0 : ++maxPosition;
                             context.Projects.Add(project);
+                            context.UserRoles.Add(new UserRoles
+                            {
+                                Email = CurrentUser.Instance.User.Email,
+                                ProjectId = project.Id,
+                                FullName = project.ProjectManager
+                            });
                             await context.SaveChangesAsync();
-
                         }
                     }
                 }
@@ -143,10 +148,9 @@ namespace Asana.Services
                         db.Projects.First(x => x.Id == project.Id).Name = project.Name;
                         db.Projects.First(x => x.Id == project.Id).ProjectEmail = project.ProjectEmail;
                         db.Projects.First(x => x.Id == project.Id).ProjectManager = project.ProjectManager;
-                        db.Projects.First(x => x.Id == project.Id).UserId = project.UserId;
-                        db.Projects.First(x => x.Id == project.Id).Columns = project.Columns;
                         db.Projects.First(x => x.Id == project.Id).Description = project.Description;
-                        db.Projects.First(x => x.Id == project.Id).Users = project.Users;
+                        db.Projects.First(x => x.Id == project.Id).Deadline = project.Deadline;
+
                         await db.SaveChangesAsync();
                     }
                 }
@@ -155,6 +159,30 @@ namespace Asana.Services
                     MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
+            }
+        }
+
+        public async System.Threading.Tasks.Task UpdatePositionAsync(int index, Project project)
+        {
+            if (project != null)
+            {
+                try
+                {
+                    using (var db = new AsanaDbContext())
+                    {
+
+                        var item = db.Projects.FirstOrDefault(x => x.Id == project.Id);
+                        if (item != null)
+                        {
+                            db.Projects.First(x => x.Id == item.Id).Position = index;
+                        }
+                        await db.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 

@@ -14,14 +14,7 @@ namespace Asana.Tools
         public static async void EnsurePopulated()
         {
             using (var context = new AsanaDbContext())
-            {
-              
-                if (context.Roles.Count() == 0)
-                {
-                    context.Roles.Add(new Roles { Type = "customer" });
-                    context.Roles.Add(new Roles { Type = "employee" });
-                    context.Roles.Add(new Roles { Type = "project manager" });
-                }
+            {            
 
                 if (context.KanbanState.Count() == 0)
                 {

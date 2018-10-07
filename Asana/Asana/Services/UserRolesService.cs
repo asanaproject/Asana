@@ -31,11 +31,8 @@ namespace Asana.Services
                             throw new Exception($"This employee has not registered yet. Invitation message is sent to {user.Email}.");
                         }
                         var userRole = asana.UserRoles.FirstOrDefault(x => x.Email.Equals(user.Email) && x.ProjectId == user.ProjectId);
-                        if (userRole==null)
+                        if (userRole == null)
                         {
-
-                            var role = asana.Roles.First(x => x.Type.Equals("employee"));
-                            user.Role = role;
                             asana.UserRoles.Add(user);
                             await asana.SaveChangesAsync();
                         }
@@ -53,10 +50,10 @@ namespace Asana.Services
         {
             if (!String.IsNullOrEmpty(projectId.ToString()))
             {
-                using (var context=new AsanaDbContext())
+                using (var context = new AsanaDbContext())
                 {
                     var c = context.UserRoles.Include("Project").Where(x => x.ProjectId == projectId).ToList();
-                    CurrentUserRoles.Instance.Employees =new ObservableCollection<UserRoles>(c);
+                    CurrentUserRoles.Instance.Employees = new ObservableCollection<UserRoles>(c);
                 }
             }
         }

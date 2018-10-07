@@ -35,7 +35,7 @@ namespace Asana.Objects
         public string ProjectManager { get; set; }
 
         public string Description { get; set; }
-
+        public int Position { get; set; }
         private ICollection<UserRoles> users;
         public virtual ICollection<UserRoles> Users
         {

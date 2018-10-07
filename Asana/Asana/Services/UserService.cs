@@ -29,11 +29,7 @@ namespace Asana.Services
                         if (dbContext.Users.ToList().Exists(x => x.Username == user.Username))
                         {
                             throw new Exception("User with this username already exists.");
-                        }
-                        if (user.Image==null)
-                        {
-                            user.Image = ProfilePhoto.ImageToByteArray(new Bitmap("../Resources/Images/profile.png"));
-                        }
+                        }                        
                         user.Password = PasswordHasher.Hash(user.Password);
                         dbContext.Users.Add(user);
                        await dbContext.SaveChangesAsync();

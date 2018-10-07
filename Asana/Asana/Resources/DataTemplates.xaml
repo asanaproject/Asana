@@ -178,10 +178,10 @@
     <DataTemplate DataType="{x:Type vm:ProjectViewModel}">
         <v:ProjectView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:EditProjectViewModel}">
+        <v:EditProjectView/>
+    </DataTemplate>
 
-    <!--<DataTemplate DataType="{x:Type vm:ProjectAddViewModel}">
-        <v:ProjectAddView/>
-    </DataTemplate>-->
     
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />

@@ -19,22 +19,23 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigationService;
         private readonly ITaskService taskService;
-        private readonly IExtraInfoService extraInfoService;
         System.Timers.Timer timer;
         public EditTaskViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
             taskService = new TaskService();
             Title = CurrentColumn.Instance.Column.Title;
-            extraInfoService = new ExtraInfoService();
             ProjectTitle = CurrentProject.Instance.Project.Name;
-            ProjectManager = "Nubar Khalidova";
+            ProjectManager = CurrentProject.Instance.Project.ProjectManager;
             CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
+            Deadline = CurrentTask.Instance.Task.Deadline;
+            SelectedEmployee = CurrentProject.Instance.Project.Users.
+                               FirstOrDefault(x=>x.FullName.Equals(CurrentTask.Instance.Task.AssignedTo));
+            Description = CurrentTask.Instance.Task.Description;
 
             timer = new System.Timers.Timer(1000);
             timer.Start();
             timer.Elapsed += Timer_Elapsed;
-            // ProjectManager = CurrentProject.Instance.Project.Users.First(x => x.UserRole.Type.Equals("Project manager")).FullName;
         }
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -62,21 +63,20 @@ namespace Asana.ViewModel
             set { Set(ref description, value); }
         }
 
-        private string email;
-        public string Email
+
+        private UserRoles selectedEmployee;
+        public UserRoles SelectedEmployee
         {
-            get { return email; }
-            set { Set(ref email, value); }
+            get { return selectedEmployee; }
+            set { Set(ref selectedEmployee, value); }
         }
 
-        private string customer;
-        public string Customer
+        private DateTime? deadline;
+        public DateTime? Deadline
         {
-            get { return customer; }
-            set { Set(ref customer, value); }
+            get { return deadline; }
+            set { Set(ref deadline, value); }
         }
-
-
         public void Closewindow()
         {
 
@@ -129,11 +129,6 @@ namespace Asana.ViewModel
         () =>
         {
             var task = CurrentTask.Instance.Task;
-            var customer = new ExtraInfo { Email = Email, Username = Customer };
-            extraInfoService.CreateAsync(customer);
-            task.ExtraInfo = customer;
-            task.ExtraInfoId = customer.Id;
-
             taskService.UpdateAsync(task);
 
             System.Threading.Tasks.Task.Run(() =>

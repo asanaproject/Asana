@@ -32,7 +32,7 @@ namespace Asana.Services
                             await context.SaveChangesAsync();
                         }
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -56,7 +56,7 @@ namespace Asana.Services
             {
                 try
                 {
-                    using (var context=new AsanaDbContext())
+                    using (var context = new AsanaDbContext())
                     {
                         context.Tasks.Remove(task);
                         await context.SaveChangesAsync();
@@ -79,14 +79,10 @@ namespace Asana.Services
                     {
 
                         context.Tasks.First(x => x.Id == task.Id).IsStarred = task.IsStarred;
-                        context.Tasks.First(x => x.Id == task.Id).Column = task.Column;
+                        context.Tasks.First(x => x.Id == task.Id).StarPath = task.StarPath;
                         context.Tasks.First(x => x.Id == task.Id).ColumnId = task.ColumnId;
-                        context.Tasks.First(x => x.Id == task.Id).CreatedAt = task.CreatedAt;
                         context.Tasks.First(x => x.Id == task.Id).Deadline = task.Deadline;
                         context.Tasks.First(x => x.Id == task.Id).Description = task.Description;
-                        context.Tasks.First(x => x.Id == task.Id).ExtraInfo = task.ExtraInfo;
-                        context.Tasks.First(x => x.Id == task.Id).ExtraInfoId = task.ExtraInfoId;
-                        context.Tasks.First(x => x.Id == task.Id).IsTaskAdded = task.IsTaskAdded;
                         context.Tasks.First(x => x.Id == task.Id).Title = task.Title;
                         await context.SaveChangesAsync();
                     }
@@ -102,15 +98,23 @@ namespace Asana.Services
 
         public async System.Threading.Tasks.Task UpdateAsyncKanbanState(Objects.Task task, TaskKanbanState s)
         {
-            using (var asana = new AsanaDbContext())
+            try
             {
+                using (var asana = new AsanaDbContext())
+                {
 
-                asana.Tasks.First(x => x.Id == task.Column.Id)
-                           .CurrentKanbanState = s.KanbanState;
-                asana.Tasks.First(x => x.Id == task.Id)
-                           .TaskKanbanStates.Add(s);
-                await asana.SaveChangesAsync();
+                    var y = asana.Tasks.First(x => x.Id == task.Id);
+
+                    MessageBox.Show(y.Id.ToString());
+                    asana.TaskKanbanState.Add(s);
+                    await asana.SaveChangesAsync();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

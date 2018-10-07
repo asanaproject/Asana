@@ -147,17 +147,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201810012138327_InitialModel.cs" />
-    <Compile Include="Migrations\201810012138327_InitialModel.Designer.cs">
-      <DependentUpon>201810012138327_InitialModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810012221182_Password_Property_RemovedFromExtraInfo.cs" />
-    <Compile Include="Migrations\201810012221182_Password_Property_RemovedFromExtraInfo.Designer.cs">
-      <DependentUpon>201810012221182_Password_Property_RemovedFromExtraInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810021003546_UserRoles.cs" />
-    <Compile Include="Migrations\201810021003546_UserRoles.Designer.cs">
-      <DependentUpon>201810021003546_UserRoles.cs</DependentUpon>
+    <Compile Include="Migrations\201810072218347_Initial_Model.cs" />
+    <Compile Include="Migrations\201810072218347_Initial_Model.Designer.cs">
+      <DependentUpon>201810072218347_Initial_Model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -182,10 +174,8 @@
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\ColumnService.cs" />
     <Compile Include="Model\CurrentUserRoles.cs" />
-    <Compile Include="Services\ExtraInfoService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IColumnService.cs" />
-    <Compile Include="Services\Interfaces\IExtraInfoService.cs" />
     <Compile Include="Services\Interfaces\ITaskLogService.cs" />
     <Compile Include="Services\Interfaces\IProjectService.cs" />
     <Compile Include="Services\Interfaces\ITaskService.cs" />
@@ -201,12 +191,10 @@
     <Compile Include="Tools\DbContext\AsanaDbContext.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\CurrentUser.cs" />
-    <Compile Include="Model\ExtraInfo.cs" />
     <Compile Include="Model\Language.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\Task.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="Model\Roles.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Navigation\ViewType.cs" />
     <Compile Include="Tools\DesktopNotifier.cs" />
@@ -229,6 +217,7 @@
     <Compile Include="ViewModel\AssignToNewUserViewModel.cs" />
     <Compile Include="ViewModel\ChatRoomAddViewModel.cs" />
     <Compile Include="ViewModel\EditColumnViewModel.cs" />
+    <Compile Include="ViewModel\EditProjectViewModel.cs" />
     <Compile Include="ViewModel\EditTaskViewModel.cs" />
     <Compile Include="ViewModel\ExtraWindowViewModel.cs" />
     <Compile Include="ViewModel\HeaderType.cs" />
@@ -272,6 +261,9 @@
     </Compile>
     <Compile Include="View\EditColumnView.xaml.cs">
       <DependentUpon>EditColumnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditProjectView.xaml.cs">
+      <DependentUpon>EditProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditTaskView.xaml.cs">
       <DependentUpon>EditTaskView.xaml</DependentUpon>
@@ -367,6 +359,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditProjectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditTaskView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -458,14 +454,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201810012138327_InitialModel.resx">
-      <DependentUpon>201810012138327_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810012221182_Password_Property_RemovedFromExtraInfo.resx">
-      <DependentUpon>201810012221182_Password_Property_RemovedFromExtraInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810021003546_UserRoles.resx">
-      <DependentUpon>201810021003546_UserRoles.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810072218347_Initial_Model.resx">
+      <DependentUpon>201810072218347_Initial_Model.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -531,6 +521,7 @@
     <Resource Include="Resources\Images\grey_star.png" />
     <Resource Include="Resources\Images\empty_task_img.png" />
     <Resource Include="Resources\Images\log.png" />
+    <Content Include="Resources\invitation.html" />
     <Content Include="Resources\mail.html" />
     <Content Include="Resources\verify.html" />
   </ItemGroup>

@@ -7,6 +7,7 @@ using Asana.Tools;
 using Asana.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GongSolutions.Wpf.DragDrop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,8 +26,10 @@ namespace Asana.ViewModel
         public CreateProjectViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+
             projectService = new ProjectService();
             columnService = new ColumnService();
+
             header = new HeaderViewModel(navigation, "Project", HeaderType.CreateProject);
         }
         private object header;
@@ -51,6 +54,8 @@ namespace Asana.ViewModel
 
 
 
+
+
         private RelayCommand<Project> selectProjectCommand;
         public RelayCommand<Project> SelectProjectCommand => selectProjectCommand ?? (selectProjectCommand = new RelayCommand<Project>(
         x =>
@@ -66,12 +71,13 @@ namespace Asana.ViewModel
         public RelayCommand<Project> EditProjectCommand => editProjectCommand ?? (editProjectCommand = new RelayCommand<Project>(
         x =>
         {
-            projectService.UpdateAsync(x);
-            var projects = projectService.GetAll(CurrentUser.Instance.User.Id);
-            if (projects != null)
-            {
-                ProjectsOfUser.Instance.Projects = projects as ObservableCollection<Project>;
-            }
+            CurrentProject.Instance.Project = x;
+
+            WindowBluringCustom.Bluring();
+            ExtraWindow extraWindow = new ExtraWindow(new EditProjectViewModel(navigation), 750, 370);
+            extraWindow.ShowDialog();
+            WindowBluringCustom.Normal();
+
         }));
 
 
@@ -95,5 +101,30 @@ namespace Asana.ViewModel
                 WindowBluringCustom.Normal();
             }
             ));
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+            dropInfo.Effects = DragDropEffects.Move | DragDropEffects.Copy;
+
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            Project sourceItem = dropInfo.Data as Project;
+            Project targetItem = dropInfo.TargetItem as Project;
+            if (sourceItem != null && targetItem != null)
+            {
+                projectService.LoadProjects(CurrentUser.Instance.User.Id);
+                var sourceIndex = ProjectsOfUser.Instance.Projects.First(x => x.Id == sourceItem.Id).Position;
+                var targetIndex = ProjectsOfUser.Instance.Projects.First(x => x.Id == targetItem.Id).Position;
+                if (sourceIndex != targetIndex)
+                {
+                    projectService.UpdatePositionAsync(sourceIndex, targetItem);
+                    projectService.UpdatePositionAsync(targetIndex, sourceItem);
+                    projectService.LoadProjects(CurrentUser.Instance.User.Id);
+                }
+            }
+        }
     }
 }

@@ -68,7 +68,7 @@ namespace Asana.Model
             try
             {
                 CheckLoginLog.Remove();
-                CurrentUser.Instance.User = null;
+                CurrentUser.Instance.User = new User();
                 return true;
             }
             catch(Exception err)

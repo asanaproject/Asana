@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Asana.Tools
 {
@@ -44,7 +45,8 @@ namespace Asana.Tools
         {
             try
             {
-                MailMessage mailMessage = new MailMessage(sender, receiver, "Register Activation Code!", HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//verify.html")));
+                MailMessage mailMessage = new MailMessage(sender, receiver, "Register Activation Code!",HtmlParser.InsertInto('^',FileHelper.FindFile("//Resources//verify.html")));
+
                 mailMessage.IsBodyHtml = true;
                 client.Send(mailMessage);
             }
@@ -58,7 +60,7 @@ namespace Asana.Tools
         {
             try
             {
-                MailMessage mailMessage = new MailMessage(sender, receiver, $"You are invited to the project {CurrentProject.Instance.Project.Name}. Register now!", HtmlParser.InsertInto('^', FileHelper.FindFile("//Resources//verify.html")));
+                MailMessage mailMessage = new MailMessage(sender, receiver, $"Invitation", HtmlParser.HtmlString('^', FileHelper.FindFile("//Resources//invitation.html")));
                 mailMessage.IsBodyHtml = true;
                 client.Send(mailMessage);
             }

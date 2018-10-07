@@ -56,12 +56,12 @@ namespace Asana.ViewModel
         }
 
 
-        public HeaderViewModel(NavigationService navigationService,string header = "Project",HeaderType headerType = HeaderType.DefaultType)
+        public HeaderViewModel(NavigationService navigationService, string header = "Project", HeaderType headerType = HeaderType.DefaultType)
         {
             this.navigationService = navigationService;
             accountService = new AccountService();
             Header = header;
-        
+
             switch (headerType)
             {
                 case HeaderType.CreateProject:
@@ -129,12 +129,16 @@ namespace Asana.ViewModel
         public RelayCommand LogoutCommand
         {
             get => _logoutCommand ?? (_logoutCommand = new RelayCommand(
-                (() =>
+                () =>
                 {
-                    accountService.Logout();
-                    navigationService.NavigateTo(ViewType.LogIn);
-                }
-                )));
+
+                    System.Threading.Tasks.Task.Run(() =>
+                    {
+                        accountService.Logout();
+                        navigationService.NavigateTo(ViewType.LogIn);
+                    });
+
+                }));
         }
 
 

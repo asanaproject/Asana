@@ -86,7 +86,7 @@ namespace Asana.Services
                            using (var context = new AsanaDbContext())
                            {
                                ObservableCollection<ColumnItemViewModel> columnsOfProject=new ObservableCollection<ColumnItemViewModel>();
-                               var columns = GetAll(CurrentProject.Instance.Project.Id) as ObservableCollection<Column>;
+                               var columns = (GetAll(CurrentProject.Instance.Project.Id) as ObservableCollection<Column>).OrderBy(x=>x.Position);
                                
                                if (columns != null)
                                {
@@ -131,7 +131,7 @@ namespace Asana.Services
             }
         }
 
-        public async System.Threading.Tasks.Task UpdateAsync(int sourceIndex, int targetIndex, Column column)
+        public async System.Threading.Tasks.Task UpdateAsync(int index, Column column)
         {
             if (column != null)
             {
@@ -139,9 +139,14 @@ namespace Asana.Services
                 {
                     using (var db = new AsanaDbContext())
                     {
-                        db.Columns.ToList().RemoveAt(sourceIndex);
-                        db.Columns.ToList().Insert(targetIndex, column);
+                   
+                        var item = db.Columns.FirstOrDefault(x => x.Id == column.Id);
+                        if (item != null)
+                        {
+                            db.Columns.First(x=>x.Id==item.Id).Position = index;
+                        }
                         await db.SaveChangesAsync();
+
                     }
                 }
                 catch (Exception ex)

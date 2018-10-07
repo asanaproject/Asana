@@ -23,7 +23,7 @@
     <!-- Usercontrol Resource   -->
     <UserControl.Resources>
 
-    
+
 
 
         <!-- Style For Textboxes-->
@@ -51,28 +51,13 @@
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                         </Border>
                     </ControlTemplate>
-                    
+
                 </Setter.Value>
             </Setter>
         </Style>
 
         <!-- Image resource for BACK button  -->
         <Image x:Key="MyImage" Source="../Resources/Images/CancelIcon.png"/>
-
-        <!-- Style for Buttons -->
-        <Style TargetType="Button" >
-            <Setter Property="Background" Value="DarkViolet" />
-            <Setter Property="TextBlock.TextAlignment" Value="Center" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="7,7,7,7" Background="DarkViolet"    BorderBrush="DarkViolet" BorderThickness="1,1,1,1" >
-                            <ContentPresenter x:Name="contentPresenter"   ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding  Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding  VerticalContentAlignment}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </UserControl.Resources>
 
 
@@ -192,7 +177,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-             
+
 
 
                 <!-- Password  -->
@@ -235,19 +220,22 @@
                 </TextBlock>
 
                 <!-- SUBMIT-->
-                <Button Grid.ColumnSpan="2" Grid.Row="4" Command="{Binding RegisterCommand}" Height="40" Width="250" Content="Continue" FontSize="23" FontWeight="Bold" Foreground="White"/>
+                <Border Grid.ColumnSpan="2" Grid.Row="4"  Width="120" Height="35"   VerticalAlignment="Center"  Padding="0" BorderThickness="1" Background="#673BB7"  CornerRadius="20" >
+                    <Button  Content="Continue" Command="{Binding RegisterCommand}" Foreground="White" Padding="2"   FontWeight="Bold"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"  BorderBrush="Transparent"/>
+                </Border>
 
-                <!-- Profile Image-->               
+                <!-- Profile Image-->
                 <Ellipse Grid.Column="1" Grid.RowSpan="2" Width="110" Height="110">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding ProfileImgPath}"  />
                     </Ellipse.Fill>
                 </Ellipse>
-                
-                
-                <!--  Load profile image  -->
-                <Button Grid.Column="1" Grid.Row="2" Width="100" Height="40" FontSize="15" Foreground="White" FontWeight="Bold" Content="Load Image" Command="{Binding LoadImageCommand}"/>
 
+
+                <!--  Load profile image  -->
+                <Border Grid.Column="1" Grid.Row="2"  Width="120" Height="35" Background="#673BB7"  VerticalAlignment="Center"  Padding="0" BorderThickness="1"   CornerRadius="20" >
+                    <Button  Content="Load Image" Command="{Binding LoadImageCommand}" Foreground="White" Padding="2"   FontWeight="Bold"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"  BorderBrush="Transparent"/>
+                </Border>
             </Grid>
         </Grid>
     </Border>

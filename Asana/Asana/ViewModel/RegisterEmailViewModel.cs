@@ -2,6 +2,7 @@
 using Asana.Navigation;
 using Asana.Objects;
 using Asana.Tools;
+using Asana.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -21,6 +22,27 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigation;
         EmailHelper GetEmail = new EmailHelper();
+        public RegisterEmailViewModel(NavigationService navigation)
+        {
+            this.navigation = navigation;
+            Email = String.Empty;
+        }
+
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                Set(ref email, value);
+            }
+        }
+
+        /// <summary>
+        /// validation for email
+        /// </summary>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
         public string this[string columnName]
         {
             get
@@ -47,24 +69,23 @@ namespace Asana.ViewModel
             }
         }
         public string Error => throw new NotImplementedException();
-        public RegisterEmailViewModel(NavigationService navigation)
-        {
-            this.navigation = navigation;
-            Email = String.Empty;
 
-        }
 
-        private string email;
-        public string Email
+        /// <summary>
+        /// method closes the loading window
+        /// </summary>
+        public void CloseWindow()
         {
-            get { return email; }
-            set
+            App.Current.Dispatcher.Invoke(() =>
             {
-                Set(ref email, value);
-            }
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.Title == "ExtraWindow")
+                        window.Close();
+                }
+                WindowBluringCustom.Normal();
+            });
         }
-
-
 
 
         /// <summary>
@@ -75,38 +96,57 @@ namespace Asana.ViewModel
         public RelayCommand SendConfirmationCodeCommand => sendConfirmationCodeCommand ?? (sendConfirmationCodeCommand = new RelayCommand(
                 () =>
                 {
+                    ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 200, 200);
+                    extraWindow.ShowInTaskbar = false;
+
                     System.Threading.Tasks.Task.Run(
                         () =>
                         {
 
-                            // ConfirmCodeViewModel.ViewType = ViewType.RegisterEmail;
                             if (RegexChecker.CheckEmail(Email))
                             {
-                                var result = MessageBox.Show($"Confirmation code is sent to {Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
-                                if (result == MessageBoxResult.OK)
-                                {
-                                    GetEmail.SendRegisterActivationCode(Email);
-                                    navigation.NavigateTo(ViewType.ConfirmCode);
-                                    CurrentUser.Instance.User = new User();
-                                    CurrentUser.Id = CurrentUser.Instance.User.Id;
-                                    CurrentUser.Instance.User.Email = Email;
-                                }
+
+                                GetEmail.SendRegisterActivationCode(Email);
+                                CloseWindow();
+                                navigation.NavigateTo(ViewType.ConfirmCode);
+                                MessageBox.Show($"Confirmation code is sent to {Email}, please, check your email and enter it to box.", "Email", MessageBoxButton.OK, MessageBoxImage.Information);
+                                CurrentUser.Instance.User = new User();
+                                CurrentUser.Id = CurrentUser.Instance.User.Id;
+                                CurrentUser.Instance.User.Email = Email;
+                                Email = String.Empty;
                             }
                             else Errors.SendCodeErrorMsg();
+                            CloseWindow();
                         });
+                    WindowBluringCustom.Bluring();
+                    extraWindow.ShowDialog();
+                    WindowBluringCustom.Normal();
 
                 }
             ));
 
 
-
-
         /// <summary>
-        /// When arrow key is pressed current view is replaced with LogIn view
+        /// When arrow key is pressed current view is replaced with LogIn view, email that is entered user will be resetted
         /// </summary>
         private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(
-            () => navigation.NavigateTo(ViewType.LogIn)
+            () =>
+            {
+                ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 200, 200);
+                extraWindow.ShowInTaskbar = false;
+
+                System.Threading.Tasks.Task.Run(() =>
+              {
+                  Email = String.Empty;
+                  navigation.NavigateTo(ViewType.LogIn);
+                  CloseWindow();
+
+              });
+                WindowBluringCustom.Bluring();
+                extraWindow.ShowDialog();
+                WindowBluringCustom.Normal();
+            }
             ));
     }
 }

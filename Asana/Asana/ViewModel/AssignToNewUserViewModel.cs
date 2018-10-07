@@ -83,9 +83,8 @@ namespace Asana.ViewModel
                 Phone = Mobile,
             };
             userRoleService.CreateAsync(user);
+            userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
             Closewindow();
-
-
         }));
 
         public string Error => throw new NotImplementedException();

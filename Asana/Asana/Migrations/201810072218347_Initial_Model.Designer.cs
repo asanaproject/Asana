@@ -7,13 +7,13 @@ namespace Asana.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialModel : IMigrationMetadata
+    public sealed partial class Initial_Model : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial_Model));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810012138327_InitialModel"; }
+            get { return "201810072218347_Initial_Model"; }
         }
         
         string IMigrationMetadata.Source

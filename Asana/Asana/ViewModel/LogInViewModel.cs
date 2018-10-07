@@ -36,22 +36,22 @@ namespace Asana.ViewModel
 
 
         private string email;
-
         public string Email
         {
             get { return email; }
             set { Set(ref email, value); }
         }
 
-        private string pass ;
-
+        private string pass;
         public string Password
         {
             get { return pass; }
             set { Set(ref pass, value); }
         }
 
-
+        /// <summary>
+        /// command closes the loading window
+        /// </summary>
         public void CloseWindow()
         {
             App.Current.Dispatcher.Invoke(() =>
@@ -64,13 +64,15 @@ namespace Asana.ViewModel
                 WindowBluringCustom.Normal();
             });
         }
-
+        /// <summary>
+        /// if email and password of user are entered correctly and user already registered, command leads the user to List of projects page
+        /// </summary>
         private RelayCommand _logInBtnCommand;
-
         public RelayCommand LogInBtnCommand => _logInBtnCommand ?? (_logInBtnCommand = new RelayCommand(
                    () =>
                    {
                        ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 200, 200);
+                       extraWindow.ShowInTaskbar = false;
                        System.Threading.Tasks.Task.Run(() =>
                        {
 
@@ -79,6 +81,8 @@ namespace Asana.ViewModel
                                CloseWindow();
                                CheckLoginLog.Save(Email);
                                projectService.LoadProjects(CurrentUser.Instance.User.Id);
+                               Email = String.Empty;
+                               Password = String.Empty;
                                navigation.NavigateTo(ViewType.CreateProject);
                            }
                            else
@@ -91,20 +95,35 @@ namespace Asana.ViewModel
                        WindowBluringCustom.Normal();
                    }));
 
+        /// <summary>
+        /// command leads you to the page for resetting the your password 
+        /// </summary>
         private RelayCommand _forgotPassCommand;
         public RelayCommand ForgotPassCommand
         {
             get => _forgotPassCommand ?? (_forgotPassCommand = new RelayCommand(
-                (() => navigation.NavigateTo(ViewType.ForgotEmailCode)
+                (() =>
+                {
+                    Email = String.Empty;
+                    Password = String.Empty;
+                    navigation.NavigateTo(ViewType.ForgotEmailCode);
+                }
                 )));
         }
 
-
+        /// <summary>
+        /// command leads you to Registration page
+        /// </summary>
         private RelayCommand goToLogInView;
         public RelayCommand GoToLogInView
         {
             get => goToLogInView ?? (goToLogInView = new RelayCommand(
-                (() => navigation.NavigateTo(ViewType.RegisterEmail)
+                (() =>
+                {
+                    Email = String.Empty;
+                    Password = String.Empty;
+                    navigation.NavigateTo(ViewType.RegisterEmail);
+                }
                 )));
         }
 

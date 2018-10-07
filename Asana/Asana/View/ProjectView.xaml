@@ -35,7 +35,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.2*"/>
             <ColumnDefinition Width="*"/>
 
         </Grid.ColumnDefinitions>
@@ -51,37 +51,37 @@
 
 
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="ASANA" HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Center" FontSize="22"/>
         <Button Grid.Column="3" Grid.Row="0"  BorderBrush="Transparent"  Width="30" Height="30" Padding="2"  VerticalAlignment="Center" Margin="0 -10 -130 0"  HorizontalAlignment="Stretch"  Background="Transparent" Command="{Binding CloseWindowCommand}">
             <Button.Content>
                 <materialDesign:PackIcon Kind="Close" Width="20" Height="20" Foreground="Gray"/>
             </Button.Content>
         </Button>
 
-        <TextBlock  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="20" Text="Project title:  "/>
+        <TextBlock  Grid.Column="0" Grid.Row="1" FontWeight="DemiBold" HorizontalAlignment="Right" VerticalAlignment="Bottom"  FontSize="20" Text="Project title:  "/>
         <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20" Text="{Binding ProjectTitle}"/>
 
-        <TextBlock  Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Text="Project email:  "/>
+        <TextBlock  Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" FontWeight="DemiBold" VerticalAlignment="Center" FontSize="20" Text="Project email:  "/>
         <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="{Binding ProjectEmail}"/>
 
-        <TextBlock  Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Text="Project manager:  "/>
+        <TextBlock  Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" FontWeight="DemiBold" VerticalAlignment="Top" FontSize="20" Text="Project manager:  "/>
         <TextBlock Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Text="{Binding ProjectManager}"/>
+       
 
-        <TextBlock  Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="20" Text="Count of Columns:  "/>
-        <TextBlock Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20" Text="{Binding ColumnsCount}"/>
+        <TextBlock  Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" FontWeight="DemiBold" VerticalAlignment="Bottom" FontSize="20" Text="Count of Columns:  "/>
+        <TextBlock Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20" Text="{Binding CountOfColumns}"/>
 
-        <TextBlock  Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Text="Count of Tasks:  "/>
-        <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="{Binding TaskCount}"/>
+        <TextBlock  Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" FontWeight="DemiBold" VerticalAlignment="Center" FontSize="20" Text="Count of Tasks:  "/>
+        <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="{Binding CountOfTasks}"/>
 
-        <TextBlock  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Text="Deadline:  "/>
+        <TextBlock  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" FontWeight="DemiBold" VerticalAlignment="Top" FontSize="20" Text="Deadline:  "/>
         <DatePicker FontSize="20" IsEnabled="False" Grid.Column="3" Width="100"  Height="40" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Deadline}"/>
 
 
-        <TextBlock  Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Text="Description:  "/>
-        <TextBox Grid.ColumnSpan="4" Grid.Row="5" FontSize="20" Text="{Binding Description}"/>
+        <TextBlock  Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" FontWeight="DemiBold" VerticalAlignment="Top" FontSize="20" Text="Description:  "/>
+        <TextBlock Grid.ColumnSpan="4" Grid.Row="5" FontSize="20" Text="{Binding Description}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5 0 0 0"/>
 
-        <Border Grid.Column="2" Grid.Row="6" VerticalAlignment="Top" Width="100" Height="40" Padding="0" BorderThickness="1" Background="#006064"  CornerRadius="20" >
-            <Button  Content="Submit" Command="{Binding CloseWindowCommand}"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
+        <Border Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" Width="100" Height="40" Padding="0" BorderThickness="1" Background="#006064"  CornerRadius="20" >
+            <Button  Content="OK" Command="{Binding CloseWindowCommand}"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
         </Border>
 
         <TextBlock Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Bottom" Text="{Binding CreatedAt}"/>

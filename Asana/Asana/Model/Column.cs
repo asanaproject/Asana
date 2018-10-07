@@ -33,7 +33,7 @@ namespace Asana.Objects
         public bool IsColumnAdded { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
-
+        public int Position { get; set; }
         private ICollection<Task> tasks;
         public virtual ICollection<Task> Tasks
         {

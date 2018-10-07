@@ -4,6 +4,7 @@ using Asana.Objects;
 using Asana.Services;
 using Asana.Services.Interfaces;
 using Asana.Tools;
+using Asana.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -45,6 +46,7 @@ namespace Asana.ViewModel
         public RelayCommand CreateCommand => createCommand ?? (createCommand = new RelayCommand(
         () =>
         {
+            ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 200, 200);
             System.Threading.Tasks.Task.Run(() =>
             {
                 Project project = new Project
@@ -58,10 +60,13 @@ namespace Asana.ViewModel
                 };
                 projectService.CreateAsync(project);
                 projectService.LoadProjects(CurrentUser.Instance.User.Id);
+                projectService.LoadProjects(CurrentUser.Instance.User.Id);
 
                 Closewindow();
             });
-
+            WindowBluringCustom.Bluring();
+            extraWindow.ShowDialog();
+            WindowBluringCustom.Normal();
         }));
 
         private RelayCommand closeWindowCommand;
@@ -70,6 +75,11 @@ namespace Asana.ViewModel
         {
             System.Threading.Tasks.Task.Run(() =>
             {
+
+                ProjectEmail = String.Empty;
+                ProjectName = String.Empty;
+                ProjectManager = String.Empty;
+                Description = String.Empty;
                 Closewindow();
             });
 

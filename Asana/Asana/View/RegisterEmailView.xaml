@@ -24,8 +24,8 @@
     <UserControl.Resources>
 
 
-        <Image x:Key="MyImage" Source="../Resources/Images/CancelIcon.png"/>
-        
+        <Image x:Key="MyImage"  Source="../Resources/Images/CancelIcon.png"/>
+
 
         <!-- Style For Textboxes-->
         <Style TargetType="TextBox">
@@ -58,22 +58,6 @@
 
             </Setter>
         </Style>
-
-        <!-- Style for Buttons -->
-        <Style TargetType="Button" >
-            <Setter Property="Background" Value="DarkViolet" />
-            <Setter Property="TextBlock.TextAlignment" Value="Center" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="7,7,7,7" Background="DarkViolet"    BorderBrush="DarkViolet" BorderThickness="1,1,1,1" >
-                            <ContentPresenter x:Name="contentPresenter"   ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding  Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding  VerticalContentAlignment}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
     </UserControl.Resources>
 
 
@@ -90,6 +74,7 @@
 
             <!--   decription -->
             <Label Grid.Row="1" Content="Please use your work email address, so we can connect you with your team in Asana." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray" />
+
             <Button Grid.Column="0" ToolTip="Previous Page" BorderBrush="Transparent" Content="{StaticResource MyImage}"
                         Command="{Binding CancelCommand}" Background="Transparent" Foreground="White"
                            FontSize="15" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -107,6 +92,7 @@
                  Text="{ Binding Email, 
                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}"  >
                 </TextBox>
+
                 <!--  Watermark effect for email textbox-->
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" IsHitTestVisible="False" Text="example@gmail.com"  Foreground="DarkGray">
                     <TextBlock.Style>
@@ -122,11 +108,13 @@
                 </TextBlock>
 
                 <!--  sign up button -->
-                <Button Grid.Column="1"   Content="Sign Up" Command="{Binding SendConfirmationCodeCommand}"  FontSize="25" Foreground="White" FontWeight="Bold" Background="DarkViolet" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50">
-                    <ToolTipService.ToolTip >
-                        <ToolTip Content="Sign Up"  Placement="Mouse" />
-                    </ToolTipService.ToolTip >
-                </Button>
+                <Border  Grid.Column="1"   VerticalAlignment="Top" Width="120" Height="45" Padding="0" BorderThickness="1" Margin="0 15 0 0" Background="#673BB7"  CornerRadius="20" >
+                    <Button  Content="Sign Up" Command="{Binding SendConfirmationCodeCommand}" Padding="2" FontSize="20"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent">
+                        <ToolTipService.ToolTip >
+                            <ToolTip Content="Sign Up"  Placement="Mouse" />
+                        </ToolTipService.ToolTip >
+                    </Button>
+                </Border>
             </Grid>
 
         </Grid>

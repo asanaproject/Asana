@@ -17,7 +17,7 @@ namespace Asana.Objects
         public Task()
         {
             Id = Guid.NewGuid();
-            StarPath = "../Resources/Images/grey_star.png";
+            StarPath =IsStarred? "../Resources/Images/star-icon.png": "../Resources/Images/grey_star.png";
             KanbanStates = new ObservableCollection<KanbanState>();
             TaskLogs = new ObservableCollection<TaskLog>();
         }
@@ -27,11 +27,11 @@ namespace Asana.Objects
 
         [Required]
         public string Title { get; set; }
-
+        public bool CurrentKanbanStateChanged { get; set; }
         [ForeignKey("Column"),Required]
         public Guid ColumnId { get; set; }
         public virtual Column Column { get; set; }
-
+        public int Position { get; set; }
         public byte[] Image { get; set; }
         [NotMapped]
         public string ImagePath { get; set; }
@@ -63,12 +63,7 @@ namespace Asana.Objects
         {
             get { return currentKanbanState; }
             set {Set(ref currentKanbanState,value); }
-        }
-
-
-        [ForeignKey(nameof(ExtraInfo))]
-        public Guid? ExtraInfoId { get; set; }
-        public ExtraInfo ExtraInfo { get; set; }
+        }     
 
         private DateTimeOffset createdAt;
         public DateTimeOffset CreatedAt

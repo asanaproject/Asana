@@ -25,5 +25,10 @@ namespace Asana.Model
         public Guid TaskId { get; set; }
         public Task Task { get; set; }
         public DateTimeOffset Date { get; set; }
+
+        public TaskKanbanState()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

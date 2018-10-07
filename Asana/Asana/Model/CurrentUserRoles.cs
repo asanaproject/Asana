@@ -13,7 +13,7 @@ namespace Asana.Model
     {
         private CurrentUserRoles()
         {
-
+            Employees = CurrentProject.Instance.Project.Users as ObservableCollection<UserRoles>;
         }
         private static CurrentUserRoles instance;
         public static CurrentUserRoles Instance

@@ -45,12 +45,7 @@ namespace Asana.ViewModel
         }
 
 
-        private ObservableCollection<KanbanState> kanbanStates;
-        public ObservableCollection<KanbanState> KanbanStates
-        {
-            get { return kanbanStates; }
-            set { Set(ref kanbanStates, value); }
-        }
+
         private UserRoles assignedTo;
 
         public UserRoles AssignedTo
@@ -102,9 +97,13 @@ namespace Asana.ViewModel
                 x.Column.ProjectId = CurrentProject.Instance.Project.Id;
                 x.Column.Title = x.Title;
                 x.Column.IsColumnAdded = true;
+                var index = ColumnsOfProject.Instance.Columns.IndexOf(ColumnsOfProject.Instance.Columns.Last()) + 1;
+                x.Column.Position = (index == 0) ? 0 : index + 1;
                 columnService.CreateAsync(x.Column);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+
             }
         }));
 
@@ -154,19 +153,31 @@ namespace Asana.ViewModel
         public RelayCommand<Task> AddTaskCommand => addTaskCommand ?? (addTaskCommand = new RelayCommand<Task>(
         x =>
         {
+
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
-                KanbanStates = new ObservableCollection<KanbanState>(taskService.GetKanbanStatesOfTask());
                 if (AssignedTo != null)
                 {
                     x.IsTaskAdded = true;
                     x.CreatedAt = DateTime.Now;
                     x.AssignedTo = AssignedTo.FullName;
+                    var index = ((CurrentColumn.Instance.Column.Column.Tasks) as ObservableCollection<Task>)
+                             .IndexOf(((CurrentColumn.Instance.Column.Column.Tasks) as ObservableCollection<Task>).Last());
+                    x.Position = (index == 0) ? 0 : index + 1;
                     taskService.CreateAsync(x);
                 }
             }
 
         }));
+
+
+        private RelayCommand<Task> mouseEnterTaskCommand;
+        public RelayCommand<Task> MouseEnterTaskCommand => mouseEnterTaskCommand ?? (mouseEnterTaskCommand = new RelayCommand<Task>(
+        x =>
+        {
+            CurrentTask.Instance.Task = x;
+        }));
+
 
         /// <summary>
         /// removing task from task list of column
@@ -266,7 +277,6 @@ namespace Asana.ViewModel
         public RelayCommand<UserRoles> AssignTaskCommand => assignTaskCommand ?? (assignTaskCommand = new RelayCommand<UserRoles>(
         x =>
         {
-            MessageBox.Show("rfr");
             if (x != null)
             {
                 AssignedTo = x;
@@ -279,7 +289,7 @@ namespace Asana.ViewModel
         public RelayCommand<KanbanState> SelectionChangedCommand => selectionChangedCommand ?? (selectionChangedCommand = new RelayCommand<KanbanState>(
         x =>
         {
-            if (x == null)
+            if (x != null)
             {
                 var state = new TaskKanbanState
                 {
@@ -287,11 +297,10 @@ namespace Asana.ViewModel
                     KanbanStateId = x.Id,
                     ChangedBy = CurrentUser.Instance.User.FullName,
                     Date = DateTime.Now,
-                    Task = CurrentTask.Instance.Task,
                     TaskId = CurrentTask.Instance.Task.Id
                 };
+                CurrentTask.Instance.Task.CurrentKanbanStateChanged = true;
                 taskService.UpdateAsyncKanbanState(CurrentTask.Instance.Task, state);
-                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
         }));
 
@@ -310,18 +319,15 @@ namespace Asana.ViewModel
             if (sourceItem != null && targetItem != null)
             {
 
-                var sourceIndex = ColumnsOfProject.Instance.Columns.IndexOf(sourceItem);
-                var targetIndex = ColumnsOfProject.Instance.Columns.IndexOf(targetItem);
+                var sourceIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == sourceItem.Column.Id).Column.Position;
+                var targetIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == targetItem.Column.Id).Column.Position;
                 if (sourceIndex != targetIndex)
                 {
-                    columnService.UpdateAsync(targetIndex, sourceIndex, targetItem.Column);
-                    columnService.UpdateAsync(sourceIndex, targetIndex, sourceItem.Column);
+                    columnService.UpdateAsync(sourceIndex, targetItem.Column);
+                    columnService.UpdateAsync(targetIndex, sourceItem.Column);
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                    //ColumnsOfProject.Instance.Columns.RemoveAt(sourceIndex);
-                    //ColumnsOfProject.Instance.Columns.Insert(sourceIndex, targetItem);
-                    //ColumnsOfProject.Instance.Columns.RemoveAt(targetIndex);
-                    //ColumnsOfProject.Instance.Columns.Insert(targetIndex, sourceItem);
-
+                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 }
             }
         }

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Asana.View"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"             
              xmlns:model="clr-namespace:Asana.Model"          
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" x:Name="Parent">
@@ -68,7 +69,7 @@
                 <TextBlock Grid.Row="0"  Foreground="#8f8f8f" FontFamily="Calibri" FontSize="26" VerticalAlignment="Center" Margin="15 0 0 30" Text="Projets"/>
                 <Button  Command="{Binding CreateProject}"  Grid.Row="0"   Cursor="Hand" Background="#00a09d" BorderBrush="Transparent" Margin="15 37 0 0" Height="32" Width="100" Content="CREATE" Foreground="White" FontSize="19.5" VerticalContentAlignment="Center" FontWeight="Light" FontFamily="calibri" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <ListBox Name="ProjectList" ItemsSource="{Binding Source={x:Static model:ProjectsOfUser.Instance},Path=Projects}" AllowDrop="True" Grid.Row="2"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+                <ListBox Name="ProjectsList" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True" ItemsSource="{Binding Source={x:Static model:ProjectsOfUser.Instance},Path=Projects}"  Grid.Row="2"    ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel IsItemsHost="True" Orientation="Horizontal" FlowDirection="LeftToRight"/>
@@ -104,29 +105,23 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
-
                                 </Grid.RowDefinitions>
                                 <Menu  Grid.Column="1" Grid.Row="0" Margin="10 0 0 0" Background="Transparent" HorizontalAlignment="Right">
                                     <MenuItem Padding="0" Width="20" Background="Transparent"  HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"   Height="20">
                                         <MenuItem.Icon >
                                             <materialDesign:PackIcon Kind="DotsVertical" Foreground="Gray" Background="Transparent"/>
                                         </MenuItem.Icon>
-                                        <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditProjectCommand}" CommandParameter="{Binding .}"/>
-                                        <MenuItem Header="{materialDesign:PackIcon Kind=Delete}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.DeleteProjectCommand}" CommandParameter="{Binding .}"/>
-                                        <MenuItem Header="{materialDesign:PackIcon Kind=Information}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.ProjectInfoCommand}" CommandParameter="{Binding .}"/>
+                                        <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditProjectCommand}" CommandParameter="{Binding .}" ToolTip="Edit project" ToolTipService.Placement="MousePoint"/>
+                                        <MenuItem Header="{materialDesign:PackIcon Kind=Delete}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.DeleteProjectCommand}" CommandParameter="{Binding .}" ToolTip="Delete project" ToolTipService.Placement="MousePoint"/>
+                                        <MenuItem Header="{materialDesign:PackIcon Kind=Information}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.ProjectInfoCommand}" CommandParameter="{Binding .}" ToolTip="Project info" ToolTipService.Placement="MousePoint"/>
+                                        <MenuItem Header="{materialDesign:PackIcon Kind=Login}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.SelectProjectCommand}" CommandParameter="{Binding .}" ToolTip="Project page" ToolTipService.Placement="MousePoint"/>
                                     </MenuItem>
                                 </Menu>
-
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Name}" FontWeight="DemiBold" FontSize="18" HorizontalAlignment="Left"  Margin="3 0 0 0"/>
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding ProjectEmail}" FontSize="16" HorizontalAlignment="Left" Margin="3 0 0 0"/>
                             </Grid>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction  Command="{Binding DataContext.SelectProjectCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=ProjectList}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                    </ListBox.ItemTemplate>                                    
                 </ListBox>
             </Grid>
         </Border>

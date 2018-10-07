@@ -3,6 +3,7 @@ using Asana.Navigation;
 using Asana.Services;
 using Asana.Services.Interfaces;
 using Asana.Tools;
+using Asana.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -23,10 +24,11 @@ namespace Asana.ViewModel
         public SignUpViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            this.userService = new UserService() ;
+            this.userService = new UserService();
+            ProfileImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
         }
 
-        private string profieImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
+        private string profieImgPath;
         public string ProfileImgPath
         {
             get { return profieImgPath; }
@@ -70,7 +72,17 @@ namespace Asana.ViewModel
         /// </summary>
         private RelayCommand _goToLogInCommand;
         public RelayCommand GoToLogInViewCommand => _goToLogInCommand ?? (_goToLogInCommand = new RelayCommand(
-            () => navigation.NavigateTo(ViewType.LogIn)
+            () =>
+            {
+                FullName = String.Empty;
+                UserName = String.Empty;
+                Password = String.Empty;
+                RePassword = String.Empty;
+                CurrentUser.Instance.User = new User();
+                ProfileImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
+
+                navigation.NavigateTo(ViewType.LogIn);
+            }
             ));
 
 
@@ -86,20 +98,57 @@ namespace Asana.ViewModel
             }
             ));
 
+        /// <summary>
+        /// method closes the loading window
+        /// </summary>
+        public void CloseWindow()
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.Title == "ExtraWindow")
+                        window.Close();
+                }
+                WindowBluringCustom.Normal();
+            });
+        }
+
         private RelayCommand _registerCommand;
         public RelayCommand RegisterCommand => _registerCommand ?? (_registerCommand = new RelayCommand(
             () =>
             {
-                
+
+                ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 200, 200);
+                extraWindow.ShowInTaskbar = false;
+
+                Task.Run(()
+                  =>
+                {
                     User user = new User();
                     user.Email = CurrentUser.Instance.User.Email;
                     user.FullName = FullName;
+                    if (ProfileImgPath.Equals("pack://application:,,,/Asana;component/Resources/Images/user.png"))
+                    {
+                        ProfileImgPath = Environment.CurrentDirectory + "\\user.png";
+                    }
                     user.Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath));
                     user.Password = Password;
-                    user.Username = UserName ;
+                    user.Username = UserName;
                     userService.CreateAsync(user);
+                    FullName = String.Empty;
+                    UserName = String.Empty;
+                    Password = String.Empty;
+                    RePassword = String.Empty;
+                    CurrentUser.Instance.User = new User();
+                    ProfileImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
                     navigation.NavigateTo(ViewType.LogIn);
-               
+                    CloseWindow();
+
+                });
+                WindowBluringCustom.Bluring();
+                extraWindow.ShowDialog();
+                WindowBluringCustom.Normal();
             }
             ));
         public string Error => throw new NotImplementedException();

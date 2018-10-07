@@ -21,10 +21,12 @@ namespace Asana.ViewModel
             ProjectTitle = CurrentProject.Instance.Project.Name;
             ProjectEmail = CurrentProject.Instance.Project.ProjectEmail;
             ProjectManager = CurrentProject.Instance.Project.ProjectManager;
-            CountOfColumns = CurrentProject.Instance.Project.Columns.Count().ToString();
+            var columns = CurrentProject.Instance.Project.Columns.Count();
+            CountOfColumns = (columns == 0) ? "0" : columns.ToString();
             int count = 0;
             CurrentProject.Instance.Project.Columns.ToList().ForEach(z=> count++);
-            CountOfTasks = count.ToString();
+            CountOfTasks =(count==0)?"0": count.ToString();
+            Description = CurrentProject.Instance.Project.Description;
 
             timer = new System.Timers.Timer(1000);
             timer.Start();
@@ -38,6 +40,13 @@ namespace Asana.ViewModel
 
         }
         System.Timers.Timer timer;
+
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set { Set(ref description, value); }
+        }
 
 
         private string createdAt;

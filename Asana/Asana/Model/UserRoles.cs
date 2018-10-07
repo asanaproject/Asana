@@ -18,9 +18,6 @@ namespace Asana.Model
         {
             Id = Guid.NewGuid();
         }
-
-        public Roles Role { get; set; }
-
         [ForeignKey(nameof(Project))]
         public Guid ProjectId { get; set; }
         public Project Project { get; set; }

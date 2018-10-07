@@ -1,4 +1,6 @@
 ﻿using Asana.Objects;
+using Asana.Services;
+using Asana.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,12 @@ namespace Asana.Model
 {
     public class CurrentProject : ViewModelBase
     {
+        private readonly ITaskService taskService;
         private CurrentProject()
         {
+            taskService = new TaskService();
             Project = new Project();
+            KanbanStates = new ObservableCollection<KanbanState>(taskService.GetKanbanStatesOfTask());
         }
         private static CurrentProject instance;
         public static CurrentProject Instance
@@ -28,6 +33,12 @@ namespace Asana.Model
             }
         }
 
+        private ObservableCollection<KanbanState> kanbanStates;
+        public ObservableCollection<KanbanState> KanbanStates
+        {
+            get { return kanbanStates; }
+            set { Set(ref kanbanStates, value); }
+        }
 
         private Project project;
         public Project Project

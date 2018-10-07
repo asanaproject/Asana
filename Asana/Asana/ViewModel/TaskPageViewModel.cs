@@ -26,11 +26,7 @@ namespace Asana.ViewModel
             TaskTitle = CurrentTask.Instance.Task.Title;
             Deadline = CurrentTask.Instance.Task.Deadline.ToString();
             AssignedTo = CurrentTask.Instance.Task.AssignedTo;
-            if (CurrentTask.Instance.Task.ExtraInfo!=null)
-            {
-                CustomerEmail = CurrentTask.Instance.Task.ExtraInfo.Email;
-                CustomerFullName = CurrentTask.Instance.Task.ExtraInfo.Username;
-            }
+           
 
             timer = new System.Timers.Timer(1000);
             timer.Start();
@@ -71,18 +67,7 @@ namespace Asana.ViewModel
             get { return taskTitle; }
             set { Set(ref taskTitle, value); }
         }
-        private string customerFullName;
-        public string CustomerFullName
-        {
-            get { return customerFullName; }
-            set { Set(ref customerFullName, value); }
-        }
-        private string customerEmail;
-        public string CustomerEmail
-        {
-            get { return customerEmail; }
-            set { Set(ref customerEmail, value); }
-        }
+   
         private RelayCommand _loadImageCommand;
         public RelayCommand LoadImageCommand => _loadImageCommand ?? (_loadImageCommand = new RelayCommand(
             () =>

@@ -39,10 +39,5 @@ namespace Asana.Model
 
             }
         }
-
-        //public void SetProps(User info)
-        //{
-        //    currenUser = info;
-        //}
     }
 }
