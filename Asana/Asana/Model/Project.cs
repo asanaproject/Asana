@@ -48,7 +48,9 @@ namespace Asana.Objects
             get { return column; }
             set { Set(ref column, value); }
         }
-      
+
+        public virtual ICollection<ChatRoom> ChatRooms{ get; set; }
+
         public Project()
         {
             Id = Guid.NewGuid();
