@@ -20,7 +20,7 @@ namespace Asana.Services
             {
                 using (var dbContext = new AsanaDbContext())
                 {
-                    ChatRoom chat = new ChatRoom() { Name = name, ChatRoomType = chatRoomType, Desc = "Don't have description." };
+                    ChatRoom chat = new ChatRoom() { Name = name, ProjectId = CurrentProject.Instance.Project.Id,ChatRoomType = chatRoomType, Desc = "Don't have description." };
                     dbContext.ChatRooms.Add(chat);
                     dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = CurrentUser.Instance.User.Id, ChatRoomId = chat.ID });
                     dbContext.SaveChanges();
@@ -44,7 +44,7 @@ namespace Asana.Services
                     var friendUser = dbContext.Users.Single(x => x.Email == email);
                     if (friendUser == null || dbContext.ChatRooms.Any(x => x.Name == email + " - " + CurrentUser.Instance.User.Email))
                         throw new Exception();
-                    ChatRoom chat = new ChatRoom() { Name = email + " - " + CurrentUser.Instance.User.Email, ChatRoomType = chatRoomType, Desc = "Don't have description." };
+                    ChatRoom chat = new ChatRoom() { Name = email + " - " + CurrentUser.Instance.User.Email, ProjectId = CurrentProject.Instance.Project.Id, ChatRoomType = chatRoomType, Desc = "Don't have description." };
                     dbContext.ChatRooms.Add(chat);
                     dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = CurrentUser.Instance.User.Id, ChatRoomId = chat.ID });
                     dbContext.ChatRoomUsers.Add(new ChatRoomUsers() { UserId = friendUser.Id, ChatRoomId = chat.ID });
@@ -108,8 +108,9 @@ namespace Asana.Services
                     List<ChatRoom> listId = new List<ChatRoom>();
                     foreach (var cru in dbContext.ChatRoomUsers.ToList())
                     {
-                        if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).ChatRoomType == ChatRoomType.Public && cru.UserId == CurrentUser.Instance.User.Id)
-                            listId.Add(dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId));
+                        var ch = dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId && x.ProjectId == CurrentProject.Instance.Project.Id);
+                        if (ch.ChatRoomType == ChatRoomType.Public && cru.UserId == CurrentUser.Instance.User.Id)
+                            listId.Add(ch);
                     }
                     return listId;
 
@@ -135,8 +136,9 @@ namespace Asana.Services
                     List<ChatRoom> listId = new List<ChatRoom>();
                     foreach (var cru in dbContext.ChatRoomUsers.ToList())
                     {
-                        if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).ChatRoomType == ChatRoomType.Private && cru.UserId == CurrentUser.Instance.User.Id)
-                            listId.Add(dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId));
+                        var ch = dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId && CurrentProject.Instance.Project.Id == x.ProjectId);
+                        if (ch.ChatRoomType == ChatRoomType.Private && cru.UserId == CurrentUser.Instance.User.Id)
+                            listId.Add(ch);
                     }
                     return listId;
                 }
@@ -152,12 +154,12 @@ namespace Asana.Services
                     List<ChatRoom> listId = new List<ChatRoom>();
                     foreach (var cru in dbContext.ChatRoomUsers.ToList())
                     {
+                            var ch = dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId && x.ProjectId == CurrentProject.Instance.Project.Id);
                         if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).ChatRoomType == ChatRoomType.Direct && cru.UserId == CurrentUser.Instance.User.Id)
                         {
-                            var xy = dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId);
-                            var id = dbContext.ChatRoomUsers.Single(x => x.ChatRoomId == xy.ID && x.UserId != CurrentUser.Id).UserId;
+                            var id = dbContext.ChatRoomUsers.Single(x => x.ChatRoomId == ch.ID && x.UserId != CurrentUser.Id).UserId;
                             string name = dbContext.Users.Single(y => y.Id == id).FullName;
-                            listId.Add(new ChatRoom() { ID = xy.ID, Desc = xy.Desc, Name = name, ChatRoomType = xy.ChatRoomType });
+                            listId.Add(new ChatRoom() { ID = ch.ID,ProjectId = CurrentProject.Instance.Project.Id, Desc = ch.Desc, Name = name, ChatRoomType = ch.ChatRoomType });
                         }
                     }
                     return listId;
@@ -172,14 +174,9 @@ namespace Asana.Services
                 using (var dbContext = new AsanaDbContext())
                 {
                     List<ChatRoom> listId = new List<ChatRoom>();
-                    //foreach (var cru in dbContext.ChatRoomUsers.ToList())
-                    //{
-                    //    if (dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId).ChatRoomType == ChatRoomType.Public && cru.UserId != CurrentUser.Instance.User.Id)
-                    //        listId.Add(dbContext.ChatRooms.Single(x => x.ID == cru.ChatRoomId));
-                    //}
                     foreach (var cr in dbContext.ChatRooms.ToList())
                     {
-                        if (cr.ChatRoomType == ChatRoomType.Public && !dbContext.ChatRoomUsers.ToList().Any(x => x.ChatRoomId == cr.ID && x.UserId == CurrentUser.Id))
+                        if (cr.ProjectId == CurrentProject.Instance.Project.Id && cr.ChatRoomType == ChatRoomType.Public && !dbContext.ChatRoomUsers.ToList().Any(x => x.ChatRoomId == cr.ID && x.UserId == CurrentUser.Id))
                             listId.Add(cr);
                     }
                     return listId;

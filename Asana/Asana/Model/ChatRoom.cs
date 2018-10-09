@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Asana.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,6 +23,10 @@ namespace Asana.Model
         public string Desc { get; set; }
 
         public ChatRoomType ChatRoomType { get; set; }
+
+        [ForeignKey(nameof(Project))]
+        public Guid ProjectId { get; set; }
+        public virtual Project Project { get; set; }
 
         public virtual ICollection<ChatRoomUsers> Users { get; set; }
         public ChatRoom()
