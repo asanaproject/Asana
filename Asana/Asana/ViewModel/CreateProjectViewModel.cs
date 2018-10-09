@@ -18,7 +18,7 @@ using System.Windows;
 
 namespace Asana.ViewModel
 {
-    public class CreateProjectViewModel : ViewModelBase
+    public class CreateProjectViewModel : ViewModelBase, IDropTarget
     {
         private readonly NavigationService navigation;
         private readonly IProjectService projectService;
@@ -29,7 +29,6 @@ namespace Asana.ViewModel
 
             projectService = new ProjectService();
             columnService = new ColumnService();
-
             header = new HeaderViewModel(navigation, "Project", HeaderType.CreateProject);
         }
         private object header;
@@ -61,6 +60,7 @@ namespace Asana.ViewModel
         x =>
         {
             CurrentProject.Instance.Project = x;
+           
             columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             navigation.NavigateTo(ViewType.ProjectPage);
 
@@ -88,6 +88,8 @@ namespace Asana.ViewModel
             projectService.RemoveAsync(x);
             projectService.LoadProjects(CurrentUser.Instance.User.Id);
             projectService.LoadProjects(CurrentUser.Instance.User.Id);
+            projectService.LoadProjects(CurrentUser.Instance.User.Id);
+            projectService.LoadProjects(CurrentUser.Instance.User.Id);
         }));
 
 
@@ -111,6 +113,7 @@ namespace Asana.ViewModel
 
         public void Drop(IDropInfo dropInfo)
         {
+
             Project sourceItem = dropInfo.Data as Project;
             Project targetItem = dropInfo.TargetItem as Project;
             if (sourceItem != null && targetItem != null)

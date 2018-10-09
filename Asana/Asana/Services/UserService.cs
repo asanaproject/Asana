@@ -26,7 +26,8 @@ namespace Asana.Services
                     using (var dbContext = new AsanaDbContext())
                     {
 
-                        if (dbContext.Users.ToList().Exists(x => x.Username == user.Username))
+                        if (dbContext.Users.ToList().Exists(x => x.Username == user.Username)&&
+                            dbContext.Users.ToList().Exists(x => x.Email == user.Email))
                         {
                             throw new Exception("User with this username already exists.");
                         }                        

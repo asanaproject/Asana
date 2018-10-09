@@ -1,4 +1,6 @@
 ﻿using Asana.Model;
+using Asana.Services;
+using Asana.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ namespace Asana.Model
     {
         private CurrentUserRoles()
         {
-            Employees = CurrentProject.Instance.Project.Users as ObservableCollection<UserRoles>;
+           
         }
         private static CurrentUserRoles instance;
         public static CurrentUserRoles Instance

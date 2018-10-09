@@ -23,16 +23,13 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
+
                         var user = context.Users.FirstOrDefault(x => x.Id == userId);
-                        var projects = (context.Projects.Include("Users")
-                                                       .Include("Columns").Select(x => x.Users.Where(z => z.Email.Equals(user.Email)))) as ObservableCollection<Project>;
-                                        
-                                                 
-                                                 
-                        
-                        if (projects != null)
+                        var p = context.UserRoles.Where(x=>x.Email.Equals(user.Email)).Select(x => x.Project).ToList();
+
+                        if (p != null)
                         {
-                            ProjectsOfUser.Instance.Projects = projects;
+                            ProjectsOfUser.Instance.Projects = new ObservableCollection<Project>(p.OrderBy(x=>x.Position));
                         }
                     }
 
@@ -64,11 +61,11 @@ namespace Asana.Services
                         else
                         {
                             int maxPosition = 0;
-                            if (context.Projects.Count()>0)
+                            if (context.Projects.Count() > 0)
                             {
-                                maxPosition = context.Projects.Max(x => x.Position);
+                                maxPosition = context.Projects.Max(x => x.Position) + 1;
                             }
-                            project.Position = (maxPosition == 0) ? 0 : ++maxPosition;
+                            project.Position = maxPosition;
                             context.Projects.Add(project);
                             context.UserRoles.Add(new UserRoles
                             {
@@ -94,6 +91,10 @@ namespace Asana.Services
             {
                 try
                 {
+                    if (!project.ProjectManager.Equals(CurrentUser.Instance.User.FullName))
+                    {
+                        throw new Exception("You are not permitted to delete this project.");
+                    }
                     using (var db = new AsanaDbContext())
                     {
                         var p = db.Projects.FirstOrDefault(x => x.Id == project.Id);
@@ -134,7 +135,6 @@ namespace Asana.Services
 
             }
             return null;
-
         }
 
         public async System.Threading.Tasks.Task UpdateAsync(Project project)
@@ -143,22 +143,28 @@ namespace Asana.Services
             {
                 try
                 {
-                    using (var db = new AsanaDbContext())
+                    if (project.ProjectManager.Equals(CurrentUser.Instance.User.FullName))
                     {
-                        db.Projects.First(x => x.Id == project.Id).Name = project.Name;
-                        db.Projects.First(x => x.Id == project.Id).ProjectEmail = project.ProjectEmail;
-                        db.Projects.First(x => x.Id == project.Id).ProjectManager = project.ProjectManager;
-                        db.Projects.First(x => x.Id == project.Id).Description = project.Description;
-                        db.Projects.First(x => x.Id == project.Id).Deadline = project.Deadline;
+                        using (var db = new AsanaDbContext())
+                        {
+                            db.Projects.First(x => x.Id == project.Id).Name = project.Name;
+                            db.Projects.First(x => x.Id == project.Id).ProjectEmail = project.ProjectEmail;
+                            db.Projects.First(x => x.Id == project.Id).ProjectManager = project.ProjectManager;
+                            db.Projects.First(x => x.Id == project.Id).Description = project.Description;
+                            db.Projects.First(x => x.Id == project.Id).Deadline = project.Deadline;
 
-                        await db.SaveChangesAsync();
+                            await db.SaveChangesAsync();
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("You are not permitted to edit this project.");
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-
             }
         }
 
@@ -168,7 +174,9 @@ namespace Asana.Services
             {
                 try
                 {
-                    using (var db = new AsanaDbContext())
+                    if (project.ProjectManager.Equals(CurrentUser.Instance.User.FullName))
+                    {
+                        using (var db = new AsanaDbContext())
                     {
 
                         var item = db.Projects.FirstOrDefault(x => x.Id == project.Id);
@@ -177,6 +185,11 @@ namespace Asana.Services
                             db.Projects.First(x => x.Id == item.Id).Position = index;
                         }
                         await db.SaveChangesAsync();
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("You are not permitted to edit this project.");
                     }
                 }
                 catch (Exception ex)
@@ -186,12 +199,6 @@ namespace Asana.Services
             }
         }
 
-        //public List<Prsoject> GetCurrentUserProjects()
-        //{
-        //    List<Project> Projects = new List<Project>();
-        //    using (var db = new AsanaDbContext())
-        //        Projects = db.Projects.Where(x => x.UserId == CurrentUser.Id).ToList();
-        //    return Projects;
-        //}
+
     }
 }

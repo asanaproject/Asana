@@ -46,7 +46,6 @@ namespace Asana.ViewModel
         public RelayCommand CreateCommand => createCommand ?? (createCommand = new RelayCommand(
         () =>
         {
-            ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 200, 200);
             System.Threading.Tasks.Task.Run(() =>
             {
                 Project project = new Project
@@ -61,12 +60,9 @@ namespace Asana.ViewModel
                 projectService.CreateAsync(project);
                 projectService.LoadProjects(CurrentUser.Instance.User.Id);
                 projectService.LoadProjects(CurrentUser.Instance.User.Id);
-
-                Closewindow();
+                projectService.LoadProjects(CurrentUser.Instance.User.Id);
             });
-            WindowBluringCustom.Bluring();
-            extraWindow.ShowDialog();
-            WindowBluringCustom.Normal();
+      
         }));
 
         private RelayCommand closeWindowCommand;

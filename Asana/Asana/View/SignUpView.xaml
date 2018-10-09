@@ -220,8 +220,8 @@
                 </TextBlock>
 
                 <!-- SUBMIT-->
-                <Border Grid.ColumnSpan="2" Grid.Row="4"  Width="120" Height="35"   VerticalAlignment="Center"  Padding="0" BorderThickness="1" Background="#673BB7"  CornerRadius="20" >
-                    <Button  Content="Continue" Command="{Binding RegisterCommand}" Foreground="White" Padding="2"   FontWeight="Bold"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"  BorderBrush="Transparent"/>
+                <Border Grid.ColumnSpan="2" Grid.Row="4"  Width="120" Height="38"   VerticalAlignment="Center"  Padding="0" BorderThickness="1" Background="#673BB7"  CornerRadius="20" >
+                    <Button  Content="Continue" Command="{Binding RegisterCommand}" Foreground="White" Padding="2"   FontWeight="Bold"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Transparent"/>
                 </Border>
 
                 <!-- Profile Image-->
@@ -234,7 +234,7 @@
 
                 <!--  Load profile image  -->
                 <Border Grid.Column="1" Grid.Row="2"  Width="120" Height="35" Background="#673BB7"  VerticalAlignment="Center"  Padding="0" BorderThickness="1"   CornerRadius="20" >
-                    <Button  Content="Load Image" Command="{Binding LoadImageCommand}" Foreground="White" Padding="2"   FontWeight="Bold"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"  BorderBrush="Transparent"/>
+                    <Button  Content="Load Image" Command="{Binding LoadImageCommand}" Foreground="White" Padding="2"   FontWeight="Bold"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Transparent"/>
                 </Border>
             </Grid>
         </Grid>

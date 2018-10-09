@@ -26,7 +26,8 @@ namespace Asana.ViewModel
             TaskTitle = CurrentTask.Instance.Task.Title;
             Deadline = CurrentTask.Instance.Task.Deadline.ToString();
             AssignedTo = CurrentTask.Instance.Task.AssignedTo;
-           
+            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
+
 
             timer = new System.Timers.Timer(1000);
             timer.Start();

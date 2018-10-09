@@ -94,13 +94,22 @@ namespace Asana.ViewModel
         public RelayCommand SubmitCommand => submitCommand ?? (submitCommand = new RelayCommand(
         () =>
         {
-            Task.Run(() =>
+            if (CurrentProject.Instance.Project.ProjectManager.Equals(CurrentUser.Instance.User.FullName))
             {
-                columnService.UpdateTitleAsync(Title, CurrentColumn.Instance.Column.Column);
-                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                timer.Stop();
-                Closewindow();
-            });
+                Task.Run(() =>
+                {
+                    columnService.UpdateTitleAsync(Title, CurrentColumn.Instance.Column.Column);
+                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                    timer.Stop();
+                    Closewindow();
+                });
+            }
+            else
+            {
+                MessageBox.Show($"You aren't permitted to changed the information about the column: {CurrentColumn.Instance.Column.Title}",
+                  "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            
         }));
     }
 }

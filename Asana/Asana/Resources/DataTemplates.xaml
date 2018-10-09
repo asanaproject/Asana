@@ -181,8 +181,10 @@
     <DataTemplate DataType="{x:Type vm:EditProjectViewModel}">
         <v:EditProjectView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TaskHistoryViewModel}">
+        <v:TaskHistoryView/>
+    </DataTemplate>
 
-    
     <Style TargetType="{x:Type Border}">
         <Setter Property="CornerRadius" Value="15" />
     </Style>

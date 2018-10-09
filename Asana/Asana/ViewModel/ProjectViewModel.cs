@@ -23,6 +23,9 @@ namespace Asana.ViewModel
             ProjectManager = CurrentProject.Instance.Project.ProjectManager;
             var columns = CurrentProject.Instance.Project.Columns.Count();
             CountOfColumns = (columns == 0) ? "0" : columns.ToString();
+            CreatedAt = "Created at: " + CurrentProject.Instance.Project.CreatedAt.Humanize();
+
+
             int count = 0;
             CurrentProject.Instance.Project.Columns.ToList().ForEach(z=> count++);
             CountOfTasks =(count==0)?"0": count.ToString();

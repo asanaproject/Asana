@@ -89,6 +89,7 @@ namespace Asana.ViewModel
                 }
             });
         }
+
         private string title;
         public string Title
         {
@@ -128,14 +129,24 @@ namespace Asana.ViewModel
         public RelayCommand SubmitCommand => submitCommand ?? (submitCommand = new RelayCommand(
         () =>
         {
-            var task = CurrentTask.Instance.Task;
-            taskService.UpdateAsync(task);
-
-            System.Threading.Tasks.Task.Run(() =>
+            if (CurrentProject.Instance.Project.ProjectManager.Equals(CurrentUser.Instance.User.Username)||
+                CurrentTask.Instance.Task.AssignedTo.Equals(CurrentUser.Instance.User.Username))
             {
-                timer.Stop();
-                Closewindow();
-            });
+                var task = CurrentTask.Instance.Task;
+                taskService.UpdateAsync(task);
+
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    timer.Stop();
+                    Closewindow();
+                });
+            }
+            else
+            {
+                MessageBox.Show($"You aren't permitted to changed the information about the task: {CurrentTask.Instance.Task.Title}",
+                  "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
         }));
     }
 }

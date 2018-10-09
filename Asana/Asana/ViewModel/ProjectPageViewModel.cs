@@ -26,12 +26,14 @@ namespace Asana.ViewModel
         private readonly IColumnService columnService;
         private readonly ITaskService taskService;
         private readonly IProjectService projectService;
+        private readonly ITaskLogService taskLogService;
         private readonly IUserRoleService userRoleService;
         public ProjectPageViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
             columnService = new ColumnService();
             taskService = new TaskService();
+            taskLogService = new TaskLogService();
             projectService = new ProjectService();
             userRoleService = new UserRoleService();
             Header = new HeaderViewModel(navigation);
@@ -77,10 +79,36 @@ namespace Asana.ViewModel
         public RelayCommand<Task> StarTaskCommand => starTaskCommand ?? (starTaskCommand = new RelayCommand<Task>(
         x =>
         {
-
             x.IsStarred = x.IsStarred ? false : true;
             x.StarPath = x.IsStarred ? "../Resources/Images/star-icon.png" : "../Resources/Images/grey_star.png";
             taskService.UpdateAsync(x);
+        }));
+
+        /// <summary>
+        /// command closes the loading window
+        /// </summary>
+        public void CloseWindow()
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.Title == "ExtraWindow")
+                        window.Close();
+                }
+                WindowBluringCustom.Normal();
+            });
+        }
+
+        private RelayCommand<Task> taskLogCommand;
+        public RelayCommand<Task> TaskLogCommand => taskLogCommand ?? (taskLogCommand = new RelayCommand<Task>(
+        x =>
+        {
+            CurrentTask.Instance.Task = taskService.FindById(x.Id);
+            WindowBluringCustom.Bluring();
+            ExtraWindow extraWindowTaskLog = new ExtraWindow(new TaskHistoryViewModel(navigation), 700, 350);
+            extraWindowTaskLog.ShowDialog();
+            WindowBluringCustom.Normal();
         }));
 
         /// <summary>
@@ -97,8 +125,7 @@ namespace Asana.ViewModel
                 x.Column.ProjectId = CurrentProject.Instance.Project.Id;
                 x.Column.Title = x.Title;
                 x.Column.IsColumnAdded = true;
-                var index = ColumnsOfProject.Instance.Columns.IndexOf(ColumnsOfProject.Instance.Columns.Last()) + 1;
-                x.Column.Position = (index == 0) ? 0 : index + 1;
+
                 columnService.CreateAsync(x.Column);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
@@ -137,11 +164,11 @@ namespace Asana.ViewModel
         public RelayCommand<ColumnItemViewModel> CreateTaskCommand => createTaskCommand ?? (createTaskCommand = new RelayCommand<ColumnItemViewModel>(
         x =>
         {
+            userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
             if (!ColumnsOfProject.Instance.Columns.First(z => z.Column.Id == x.Column.Id).Column.Tasks.ToList().Exists(k => !k.IsTaskAdded) ||
                 ColumnsOfProject.Instance.Columns.First(z => z.Column.Id == x.Column.Id).Column.Tasks.Count == 0)
             {
                 x.Task = new Objects.Task { ColumnId = x.Column.Id };
-                userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
                 ColumnsOfProject.Instance.Columns.ToList().First(y => y.Column.Id == x.Column.Id).Column.Tasks.Add(x.Task);
             }
         }));
@@ -161,22 +188,22 @@ namespace Asana.ViewModel
                     x.IsTaskAdded = true;
                     x.CreatedAt = DateTime.Now;
                     x.AssignedTo = AssignedTo.FullName;
-                    var index = ((CurrentColumn.Instance.Column.Column.Tasks) as ObservableCollection<Task>)
-                             .IndexOf(((CurrentColumn.Instance.Column.Column.Tasks) as ObservableCollection<Task>).Last());
-                    x.Position = (index == 0) ? 0 : index + 1;
                     taskService.CreateAsync(x);
+                    x.Column = columnService.FindById(x.ColumnId);
+                    var log = new TaskLog
+                    {
+                        TaskId = x.Id,                        
+                        ChangedBy=CurrentUser.Instance.User.FullName,
+                        Message = TaskLogMessages.TaskCreatedMessage(x)
+                    };
+
+                    taskLogService.CreateAsync(log);
                 }
             }
 
         }));
 
 
-        private RelayCommand<Task> mouseEnterTaskCommand;
-        public RelayCommand<Task> MouseEnterTaskCommand => mouseEnterTaskCommand ?? (mouseEnterTaskCommand = new RelayCommand<Task>(
-        x =>
-        {
-            CurrentTask.Instance.Task = x;
-        }));
 
 
         /// <summary>
@@ -299,7 +326,7 @@ namespace Asana.ViewModel
                     Date = DateTime.Now,
                     TaskId = CurrentTask.Instance.Task.Id
                 };
-                CurrentTask.Instance.Task.CurrentKanbanStateChanged = true;
+
                 taskService.UpdateAsyncKanbanState(CurrentTask.Instance.Task, state);
             }
         }));
@@ -314,23 +341,41 @@ namespace Asana.ViewModel
 
         public void Drop(IDropInfo dropInfo)
         {
-            ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
-            ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
-            if (sourceItem != null && targetItem != null)
+            if (dropInfo.Data is Task)
             {
+                Task sourceItem = dropInfo.Data as Task;
+                dynamic targetItem;
+                Guid targetId;
 
-                var sourceIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == sourceItem.Column.Id).Column.Position;
-                var targetIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == targetItem.Column.Id).Column.Position;
-                if (sourceIndex != targetIndex)
+                if (dropInfo.TargetItem is ColumnItemViewModel)
                 {
-                    columnService.UpdateAsync(sourceIndex, targetItem.Column);
-                    columnService.UpdateAsync(targetIndex, sourceItem.Column);
+                    targetItem = dropInfo.TargetItem as ColumnItemViewModel;
+                    targetId = targetItem.Column.Id;
+                    taskService.UpdateColumnId(targetId, sourceItem);
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 }
             }
-        }
+            else
+            {
+                ColumnItemViewModel sourceItem = dropInfo.Data as ColumnItemViewModel;
+                ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
+                if (sourceItem != null && targetItem != null)
+                {
 
+                    var sourceIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == sourceItem.Column.Id).Column.Position;
+                    var targetIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == targetItem.Column.Id).Column.Position;
+                    if (sourceIndex != targetIndex)
+                    {
+                        columnService.UpdateAsync(sourceIndex, targetItem.Column);
+                        columnService.UpdateAsync(targetIndex, sourceItem.Column);
+                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                    }
+                }
+            }
+        }
     }
 }

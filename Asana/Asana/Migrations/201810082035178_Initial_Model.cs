@@ -84,7 +84,6 @@ namespace Asana.Migrations
                     {
                         Id = c.Guid(nullable: false),
                         Title = c.String(nullable: false),
-                        CurrentKanbanStateChanged = c.Boolean(nullable: false),
                         ColumnId = c.Guid(nullable: false),
                         Position = c.Int(nullable: false),
                         Image = c.Binary(),

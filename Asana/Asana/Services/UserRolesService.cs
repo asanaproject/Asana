@@ -30,12 +30,16 @@ namespace Asana.Services
                             sendEmail.SendInvitation(user.Email);
                             throw new Exception($"This employee has not registered yet. Invitation message is sent to {user.Email}.");
                         }
-                        var userRole = asana.UserRoles.FirstOrDefault(x => x.Email.Equals(user.Email) && x.ProjectId == user.ProjectId);
-                        if (userRole == null)
+                        var userRole = asana.UserRoles.FirstOrDefault(x => x.Email.Equals(user.Email) 
+                                                                        && x.ProjectId == user.ProjectId
+                                                                        && x.FullName.Equals(x.FullName));
+                        if (userRole != null)
                         {
-                            asana.UserRoles.Add(user);
-                            await asana.SaveChangesAsync();
+                            throw new Exception("User with this username already exists.");
                         }
+                        asana.UserRoles.Add(user);
+                        await asana.SaveChangesAsync();
+
                     }
                 }
                 catch (Exception ex)

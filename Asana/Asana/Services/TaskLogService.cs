@@ -20,7 +20,9 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
-                        context.Columns.First(x => x.Id == log.Task.ColumnId).Tasks.First(x => x.Id == log.Task.Id).TaskLogs.Add(log);
+                        log.CreatedAt = DateTime.Now;
+
+                        context.TaskLogs.Add(log);
                         await context.SaveChangesAsync();
                     }
                 }

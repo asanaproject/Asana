@@ -16,13 +16,13 @@ namespace Asana.Tools
             using (var context = new AsanaDbContext())
             {            
 
-                if (context.KanbanState.Count() == 0)
-                {
-                    context.KanbanState.Add(new KanbanState { Name = "Ready for Next Stage" });
-                    context.KanbanState.Add(new KanbanState { Name = "In Progress" });
-                    context.KanbanState.Add(new KanbanState { Name = "Blocked" });
-                }
-                await context.SaveChangesAsync();
+                //if (context.KanbanState.Count() == 0)
+                //{
+                //    context.KanbanState.Add(new KanbanState { Name = "Ready for Next Stage" });
+                //    context.KanbanState.Add(new KanbanState { Name = "In Progress" });
+                //    context.KanbanState.Add(new KanbanState { Name = "Blocked" });
+                //}
+               // await context.SaveChangesAsync();
             }
         }
     }

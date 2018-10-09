@@ -12,7 +12,6 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="450" d:DesignWidth="800" x:Name="Parent">
-
     <UserControl.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#c850c0" Offset="0"></GradientStop>
@@ -43,26 +42,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-
-        <DataTemplate x:Key="KanbanStateSelected">
-            <ComboBox  SelectedItem="{Binding CurrentKanbanState.Name}" Grid.Column="2" Name="ItemCBox" materialDesign:HintAssist.Hint="{materialDesign:PackIcon Kind=Circle}"  ItemsSource="{Binding Source={x:Static model:CurrentProject.Instance},Path=KanbanStates}" Margin="10 0 0 0" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Right">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction  Command="{Binding DataContext.SelectionChangedCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=ItemCBox}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ComboBox>
-        </DataTemplate>
-
-        <DataTemplate x:Key="ListOfKanbanState">
-            <TextBlock Grid.Column="2" Text="{Binding CurrentKanbanState.Name}"/>
-        </DataTemplate>
 
         <!--  template for creating task   -->
         <DataTemplate x:Key="AddTaskTemplate">
@@ -113,9 +92,9 @@
                     <Button Grid.Column="1" Width="100" VerticalAlignment="Center" Margin="10 0 10 0" Height="25" FontSize="11" Content="DISCARD" Command="{Binding DataContext.DiscardTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}" Background="White"  Foreground="Purple" />
                 </Grid>
             </Grid>
-        </DataTemplate>        
-        
-        
+        </DataTemplate>
+
+
         <DataTemplate x:Key="CreateColumnTemplate">
             <Border Padding="5" Background="WhiteSmoke">
                 <Grid >
@@ -178,43 +157,38 @@
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="DotsVertical" Foreground="Gray" Background="Transparent"/>
                             </MenuItem.Icon>
-                            <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditTaskCommand}" CommandParameter="{Binding .}">
+                            <MenuItem Header="{materialDesign:PackIcon Kind=Pen}" Background="#EDEDED" Command="{Binding ElementName=Parent,Path=DataContext.EditTaskCommand}" CommandParameter="{Binding .}" ToolTip="Edit task" ToolTipService.Placement="MousePoint">
                             </MenuItem>
-                            <MenuItem Header="{materialDesign:PackIcon Kind=Delete}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.DiscardTaskCommand}" CommandParameter="{Binding .}"/>
+                            <MenuItem Header="{materialDesign:PackIcon Kind=Delete}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.DiscardTaskCommand}" CommandParameter="{Binding .}" ToolTip="Delete task" ToolTipService.Placement="MousePoint"/>
+                            <MenuItem Header="{materialDesign:PackIcon Kind=Login}" Background="#EDEDED" Command="{Binding ElementName=Parent, Path=DataContext.SelectTaskCommand}" CommandParameter="{Binding .}" ToolTip="Select task" ToolTipService.Placement="MousePoint"/>
+
                         </MenuItem>
                     </Menu>
 
                     <Grid Grid.ColumnSpan="2" Grid.Row="4">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0*"/>
                             <ColumnDefinition Width="0.5*"/>
                             <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="0.5" Background="Transparent" Width="18" Height="18" BorderBrush="Transparent" Command="{Binding DataContext.StarTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}">
+                        <Button Grid.Column="1" Foreground="DarkGray" VerticalAlignment="Center" Command="{Binding Path= DataContext.StarTaskCommand, ElementName=Parent}" CommandParameter="{Binding .}" Margin="-5 3 0 0" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"  Padding="0.5" Width="18" Height="18">
                             <Button.Content>
-                                <Image  Source="{Binding StarPath}"  Width="18" Height="18" />
+                                <Image  Source="{Binding StarPath}"  IsHitTestVisible="False"/>
                             </Button.Content>
                         </Button>
-                        <Button Grid.Column="1" Foreground="DarkGray" VerticalAlignment="Center" Margin="2 2 0 0" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Content="{materialDesign:PackIcon Kind=History}" Padding="0.5" Width="18" Height="18"/>
-                        <ContentControl Content="{Binding .}" >
-                            <ContentControl.Style>
-                                <Style TargetType="ContentControl">
-                                    <Setter Property="ContentTemplate"
-                                                            Value="{StaticResource ListOfKanbanState}" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=CurrentKanbanStateChanged}" Value="True">
-                                            <Setter Property="ContentTemplate" Value="{StaticResource KanbanStateSelected}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
-
-
-
-                        
-
-
+                        <ComboBox Name="KanbanStatesCBox"  SelectedItem="{Binding CurrentKanbanState}" Grid.Column="2"  materialDesign:HintAssist.Hint="{materialDesign:PackIcon Kind=Circle}"  ItemsSource="{Binding Source={x:Static model:CurrentProject.Instance},Path=KanbanStates}" Margin="10 0 0 0" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction  Command="{Binding DataContext.SelectionChangedCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=KanbanStatesCBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                        <Button Grid.Column="2" Foreground="DarkGray" VerticalAlignment="Center" Command="{Binding Path= DataContext.TaskLogCommand, ElementName=Parent}" CommandParameter="{Binding .}" Margin="-8 5 0 0" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"  Padding="0.5" Width="18" Height="18" Content="{materialDesign:PackIcon Kind=History}"/>
 
                     </Grid>
                 </Grid>
@@ -254,16 +228,15 @@
                     </Grid>
 
 
-                    <ListBox Name="TasksList"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="10" ItemsSource="{Binding Column.Tasks}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True">
+                    <ListBox Name="TasksList"  SelectedItem="{Binding Source={x:Static model:CurrentTask.Instance},Path=Task}"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="10" ItemsSource="{Binding Column.Tasks}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding .}" >
                                     <ContentControl.Style>
                                         <Style TargetType="ContentControl">
-                                            <Setter Property="ContentTemplate"
+                                            <Setter Property="ContentTemplate" 
                                                             Value="{StaticResource AddTaskTemplate}" />
                                             <Style.Triggers>
-
 
                                                 <DataTrigger Binding="{Binding Path=IsTaskAdded}" Value="True">
                                                     <Setter Property="ContentTemplate"
@@ -274,17 +247,10 @@
                                         </Style>
                                     </ContentControl.Style>
                                 </ContentControl>
+                              
                             </DataTemplate>
-
                         </ListBox.ItemTemplate>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction  Command="{Binding DataContext.SelectTaskCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=TasksList}" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="MouseEnter">
-                                <i:InvokeCommandAction  Command="{Binding DataContext.MouseEnterTaskCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=TasksList}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                      
 
                     </ListBox>
                 </Grid>

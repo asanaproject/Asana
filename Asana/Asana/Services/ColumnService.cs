@@ -21,9 +21,18 @@ namespace Asana.Services
             {
                 try
                 {
+                    if (!CurrentUser.Instance.User.FullName.Equals(CurrentProject.Instance.Project.ProjectManager))
+                    {
+                        throw new Exception("You are not permited to add new column.");
+                    }
                     using (var context = new AsanaDbContext())
                     {
-
+                        int maxPosition = 0;
+                        if (context.Columns.Count() > 0)
+                        {
+                            maxPosition = context.Columns.Max(x => x.Position)+1;
+                        }
+                        column.Position = maxPosition;
                         context.Columns.Add(column);
                         await context.SaveChangesAsync();
                     }
@@ -43,7 +52,9 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
-                        return context.Columns.First(x => x.Id == columnId);
+                        return context.Columns.Include("Tasks")
+                                              .Include("Project")
+                                              .First(x => x.Id == columnId);
                     }
                 }
                 catch (Exception ex)
@@ -85,9 +96,9 @@ namespace Asana.Services
                        {
                            using (var context = new AsanaDbContext())
                            {
-                               ObservableCollection<ColumnItemViewModel> columnsOfProject=new ObservableCollection<ColumnItemViewModel>();
-                               var columns = (GetAll(CurrentProject.Instance.Project.Id) as ObservableCollection<Column>).OrderBy(x=>x.Position);
-                               
+                               ObservableCollection<ColumnItemViewModel> columnsOfProject = new ObservableCollection<ColumnItemViewModel>();
+                               var columns = (GetAll(CurrentProject.Instance.Project.Id) as ObservableCollection<Column>).OrderBy(x => x.Position);
+
                                if (columns != null)
                                {
                                    foreach (var item in columns)
@@ -114,10 +125,14 @@ namespace Asana.Services
             {
                 try
                 {
+                    if (!CurrentUser.Instance.User.FullName.Equals(CurrentProject.Instance.Project.ProjectManager))
+                    {
+                        throw new Exception("You are not permited to remove the column.");
+                    }
                     using (var context = new AsanaDbContext())
                     {
-                        var c = context.Columns.FirstOrDefault(x=>x.Id==column.Id);
-                        if (c!=null)
+                        var c = context.Columns.FirstOrDefault(x => x.Id == column.Id);
+                        if (c != null)
                         {
                             context.Columns.Remove(c);
                         }
@@ -137,13 +152,17 @@ namespace Asana.Services
             {
                 try
                 {
+                    if (!CurrentUser.Instance.User.FullName.Equals(CurrentProject.Instance.Project.ProjectManager))
+                    {
+                        throw new Exception("You are not permited to edit the column.");
+                    }
                     using (var db = new AsanaDbContext())
                     {
-                   
+
                         var item = db.Columns.FirstOrDefault(x => x.Id == column.Id);
                         if (item != null)
                         {
-                            db.Columns.First(x=>x.Id==item.Id).Position = index;
+                            db.Columns.First(x => x.Id == item.Id).Position = index;
                         }
                         await db.SaveChangesAsync();
 
@@ -162,6 +181,10 @@ namespace Asana.Services
             {
                 try
                 {
+                    if (!CurrentUser.Instance.User.FullName.Equals(CurrentProject.Instance.Project.ProjectManager))
+                    {
+                        throw new Exception("You are not permited to edit the column.");
+                    }
                     using (var context = new AsanaDbContext())
                     {
                         context.Columns.First(x => x.Id == column.Id)

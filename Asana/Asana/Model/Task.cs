@@ -27,12 +27,15 @@ namespace Asana.Objects
 
         [Required]
         public string Title { get; set; }
-        public bool CurrentKanbanStateChanged { get; set; }
+
         [ForeignKey("Column"),Required]
         public Guid ColumnId { get; set; }
         public virtual Column Column { get; set; }
+
         public int Position { get; set; }
+
         public byte[] Image { get; set; }
+
         [NotMapped]
         public string ImagePath { get; set; }
 
@@ -51,7 +54,7 @@ namespace Asana.Objects
         }
 
         private  ICollection<TaskKanbanState> taskKanbanStates;
-        public ICollection<TaskKanbanState> TaskKanbanStates
+        public virtual ICollection<TaskKanbanState> TaskKanbanStates
         {
             get { return taskKanbanStates; }
             set { Set(ref taskKanbanStates, value); }
