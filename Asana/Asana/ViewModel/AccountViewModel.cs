@@ -89,7 +89,7 @@ namespace Asana.ViewModel
                 Email = CurrentUser.Instance.User.Email;
                 PhoneNumber = "0772209966";
 
-                ProfileImage = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
+          //      ProfileImage = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
               //  projectService.GetCurrentUserProjects().ForEach(x => Projects.Add(new { Title = x.Name, x.Description }));
 
             })));

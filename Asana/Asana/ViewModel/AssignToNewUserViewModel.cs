@@ -84,6 +84,7 @@ namespace Asana.ViewModel
             };
             userRoleService.CreateAsync(user);
             userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
+            userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
             Closewindow();
         }));
 

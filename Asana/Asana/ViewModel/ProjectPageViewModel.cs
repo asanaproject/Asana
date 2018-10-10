@@ -36,7 +36,9 @@ namespace Asana.ViewModel
             taskLogService = new TaskLogService();
             projectService = new ProjectService();
             userRoleService = new UserRoleService();
+
             Header = new HeaderViewModel(navigation);
+
         }
 
         private HeaderViewModel header;
@@ -185,22 +187,24 @@ namespace Asana.ViewModel
             {
                 if (AssignedTo != null)
                 {
-                    x.IsTaskAdded = true;
-                    x.CreatedAt = DateTime.Now;
+                  
                     x.AssignedTo = AssignedTo.FullName;
                     taskService.CreateAsync(x);
-                    x.Column = columnService.FindById(x.ColumnId);
-                    var log = new TaskLog
+                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                    var task = taskService.FindById(x.Id);
+                    if (task != null)
                     {
-                        TaskId = x.Id,                        
-                        ChangedBy=CurrentUser.Instance.User.FullName,
-                        Message = TaskLogMessages.TaskCreatedMessage(x)
-                    };
-
-                    taskLogService.CreateAsync(log);
+                        x.Column = columnService.FindById(x.ColumnId);
+                        var log = new TaskLog
+                        {
+                            TaskId = x.Id,
+                            ChangedBy = CurrentUser.Instance.User.FullName,
+                            Message = TaskLogMessages.TaskCreatedMessage(x)
+                        };
+                        taskLogService.CreateAsync(log);
+                    }
                 }
             }
-
         }));
 
 
@@ -233,8 +237,11 @@ namespace Asana.ViewModel
         x =>
         {
             CurrentTask.Instance.Task = x;
+
+
+
             WindowBluringCustom.Bluring();
-            ExtraWindow extraWindow = new ExtraWindow(new EditTaskViewModel(navigation), 800, 450);
+            ExtraWindow extraWindow = new ExtraWindow(new EditTaskViewModel(navigation), 750, 350);
             extraWindow.ShowDialog();
             WindowBluringCustom.Normal();
 
@@ -352,6 +359,17 @@ namespace Asana.ViewModel
                     targetItem = dropInfo.TargetItem as ColumnItemViewModel;
                     targetId = targetItem.Column.Id;
                     taskService.UpdateColumnId(targetId, sourceItem);
+
+                    var log = new TaskLog
+                    {
+                        ChangedBy = CurrentUser.Instance.User.FullName,
+                        TaskId = sourceItem.Id
+                    };
+                    var colLast = columnService.FindById(sourceItem.Column.Id);
+                    var colNew = columnService.FindById(targetId);
+                    log.Message = TaskLogMessages.ColumnChangedMessage(colLast.Title, colNew.Title);
+                    taskLogService.CreateAsync(log);
+
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);

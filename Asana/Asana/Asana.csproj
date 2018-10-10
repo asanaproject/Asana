@@ -120,6 +120,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -147,13 +148,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddMessage.cs" />
-    <Compile Include="Migrations\201810082035178_Initial_Model.cs" />
-    <Compile Include="Migrations\201810082035178_Initial_Model.Designer.cs">
-      <DependentUpon>201810082035178_Initial_Model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810091249439_VirtualTaskProperty_IsAdded_ToTaskLog.cs" />
-    <Compile Include="Migrations\201810091249439_VirtualTaskProperty_IsAdded_ToTaskLog.Designer.cs">
-      <DependentUpon>201810091249439_VirtualTaskProperty_IsAdded_ToTaskLog.cs</DependentUpon>
+    <Compile Include="Migrations\201810091304067_Initial_Model.cs" />
+    <Compile Include="Migrations\201810091304067_Initial_Model.Designer.cs">
+      <DependentUpon>201810091304067_Initial_Model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
@@ -458,11 +455,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201810082035178_Initial_Model.resx">
-      <DependentUpon>201810082035178_Initial_Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810091249439_VirtualTaskProperty_IsAdded_ToTaskLog.resx">
-      <DependentUpon>201810091249439_VirtualTaskProperty_IsAdded_ToTaskLog.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810091304067_Initial_Model.resx">
+      <DependentUpon>201810091304067_Initial_Model.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

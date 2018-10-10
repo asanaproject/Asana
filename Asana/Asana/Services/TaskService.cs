@@ -20,19 +20,19 @@ namespace Asana.Services
             {
                 try
                 {
-                    if (!CurrentUser.Instance.User.FullName.Equals(CurrentProject.Instance.Project.ProjectManager))
-                    {
-                        throw new Exception("You are not permitted to create task");
-                    }
+                   
                     if (String.IsNullOrEmpty(task.AssignedTo))
                     {
                         throw new Exception("You must assign the task to someone.");
                     }
-                    else
+                    if (CurrentUser.Instance.User.FullName.Equals(CurrentProject.Instance.Project.ProjectManager))
                     {
+
                         using (var context = new AsanaDbContext())
                         {
                             int maxPosition = 0;
+                            task.IsTaskAdded = true;
+                            task.CreatedAt = DateTime.Now;
                             if (context.Tasks.Count() > 0)
                             {
                                 maxPosition = context.Tasks.Max(x => x.Position) + 1;
@@ -41,6 +41,11 @@ namespace Asana.Services
                             context.Tasks.Add(task);
                             await context.SaveChangesAsync();
                         }
+                    }
+                    else
+                    {
+                        throw new Exception("You are not permitted to create task");
+
                     }
 
                 }
@@ -74,7 +79,7 @@ namespace Asana.Services
                 {
                     MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-                throw new Exception("Task with this id doesn't exist.");
+                return null;
             }
             throw new Exception("id is null");
 
@@ -102,7 +107,12 @@ namespace Asana.Services
 
                         using (var context = new AsanaDbContext())
                         {
-                            context.Tasks.Remove(task);
+                            var t = context.Tasks.FirstOrDefault(x=>x.Id==task.Id);
+                            if (t != null)
+                            {
+                                context.Tasks.Remove(t);
+
+                            }
                             await context.SaveChangesAsync();
                         }
                     }
@@ -135,6 +145,7 @@ namespace Asana.Services
                             context.Tasks.First(x => x.Id == task.Id).StarPath = task.StarPath;
                             context.Tasks.First(x => x.Id == task.Id).ColumnId = task.ColumnId;
                             context.Tasks.First(x => x.Id == task.Id).Deadline = task.Deadline;
+                            context.Tasks.First(x=>x.Id==task.Id).Image=task.Image;
                             context.Tasks.First(x => x.Id == task.Id).Description = task.Description;
                             context.Tasks.First(x => x.Id == task.Id).Title = task.Title;
                             await context.SaveChangesAsync();

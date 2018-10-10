@@ -41,7 +41,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <DropShadowEffect x:Key="MyEffect" ShadowDepth="0.4" Color="Black" Opacity="0.4" BlurRadius="10" />
+        <DropShadowEffect x:Key="MyEffect" ShadowDepth="0.2" Color="Black" Opacity="0.4" BlurRadius="10" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -74,11 +74,12 @@
                         <ItemsPanelTemplate>
                             <WrapPanel IsItemsHost="True" Orientation="Horizontal" FlowDirection="LeftToRight"/>
                         </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
+                    </ListBox.ItemsPanel>                  
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="VerticalAlignment" Value="Top"/>
                             <Setter Property="Margin" Value="10 5 20 0"/>
+                            <Setter Property="Background" Value="WhiteSmoke"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -121,7 +122,7 @@
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding ProjectEmail}" FontSize="16" HorizontalAlignment="Left" Margin="3 0 0 0"/>
                             </Grid>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>                                    
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
         </Border>

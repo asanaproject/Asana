@@ -6,10 +6,14 @@ using GalaSoft.MvvmLight.CommandWpf;
 using Humanizer;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Asana.ViewModel
 {
@@ -21,13 +25,22 @@ namespace Asana.ViewModel
         public TaskPageViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
-            TaskImgPath = CurrentTask.Instance.Task.Image==null ? "../Resources/Images/empty_task_img.png" : CurrentTask.Instance.Task.ImagePath;
+
+            if (CurrentTask.Instance.Task.Image == null)
+            {
+                TaskImgPath =new BitmapImage(new Uri(Path.Combine(Environment.CurrentDirectory + "\\empty_task_img.png")));
+            }
+            else
+            {
+                TaskImgPath= ProfilePhoto.ByteArrayToImage(CurrentTask.Instance.Task.Image);
+            }
+
             ColumnTitle = CurrentColumn.Instance.Column.Title;
             TaskTitle = CurrentTask.Instance.Task.Title;
             Deadline = CurrentTask.Instance.Task.Deadline.ToString();
             AssignedTo = CurrentTask.Instance.Task.AssignedTo;
             CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
-
+          
 
             timer = new System.Timers.Timer(1000);
             timer.Start();
@@ -69,17 +82,7 @@ namespace Asana.ViewModel
             set { Set(ref taskTitle, value); }
         }
    
-        private RelayCommand _loadImageCommand;
-        public RelayCommand LoadImageCommand => _loadImageCommand ?? (_loadImageCommand = new RelayCommand(
-            () =>
-            {
-                var path = ProfilePhoto.LoadImage();
-                if (!String.IsNullOrEmpty(path))
-                {
-                    TaskImgPath= path;
-                }
-            }
-            ));
+     
         private RelayCommand _closeWindowCommand;
         public RelayCommand CloseWindowCommand => _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(
         () =>
@@ -111,8 +114,8 @@ namespace Asana.ViewModel
             });
         }
 
-        private string taskImgPath;
-        public string TaskImgPath
+        private BitmapImage taskImgPath;
+        public BitmapImage TaskImgPath
         {
             get { return taskImgPath; }
             set {Set(ref taskImgPath,value); }

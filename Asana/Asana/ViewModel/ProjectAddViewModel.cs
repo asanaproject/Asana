@@ -61,8 +61,9 @@ namespace Asana.ViewModel
                 projectService.LoadProjects(CurrentUser.Instance.User.Id);
                 projectService.LoadProjects(CurrentUser.Instance.User.Id);
                 projectService.LoadProjects(CurrentUser.Instance.User.Id);
+                Closewindow();
+
             });
-      
         }));
 
         private RelayCommand closeWindowCommand;

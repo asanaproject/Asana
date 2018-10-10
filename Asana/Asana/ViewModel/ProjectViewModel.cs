@@ -1,5 +1,7 @@
 ﻿using Asana.Model;
 using Asana.Navigation;
+using Asana.Services;
+using Asana.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Humanizer;
@@ -12,24 +14,33 @@ using System.Windows;
 
 namespace Asana.ViewModel
 {
-    public class ProjectViewModel:ViewModelBase
+    public class ProjectViewModel : ViewModelBase
     {
         private readonly NavigationService navigation;
+        private readonly IColumnService columnService;
         public ProjectViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+            columnService = new ColumnService();
+
+            columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+
             ProjectTitle = CurrentProject.Instance.Project.Name;
             ProjectEmail = CurrentProject.Instance.Project.ProjectEmail;
             ProjectManager = CurrentProject.Instance.Project.ProjectManager;
-            var columns = CurrentProject.Instance.Project.Columns.Count();
-            CountOfColumns = (columns == 0) ? "0" : columns.ToString();
-            CreatedAt = "Created at: " + CurrentProject.Instance.Project.CreatedAt.Humanize();
-
-
-            int count = 0;
-            CurrentProject.Instance.Project.Columns.ToList().ForEach(z=> count++);
-            CountOfTasks =(count==0)?"0": count.ToString();
             Description = CurrentProject.Instance.Project.Description;
+
+            int columns = 0;
+            int count = 0;
+            if (ColumnsOfProject.Instance.Columns != null)
+            {
+                columns = ColumnsOfProject.Instance.Columns.Count();
+                var c = ColumnsOfProject.Instance.Columns;
+                c.ToList().ForEach(z => count++);
+            }
+            CountOfColumns = columns.ToString();
+            CountOfTasks = count.ToString();
+            CreatedAt = "Created at: " + CurrentProject.Instance.Project.CreatedAt.Humanize();
 
             timer = new System.Timers.Timer(1000);
             timer.Start();
@@ -70,7 +81,7 @@ namespace Asana.ViewModel
         public string ProjectTitle
         {
             get { return projectTitle; }
-            set {Set(ref projectTitle,value); }
+            set { Set(ref projectTitle, value); }
         }
 
 
@@ -106,7 +117,6 @@ namespace Asana.ViewModel
 
         public void Closewindow()
         {
-
             App.Current.Dispatcher.Invoke(() =>
             {
                 foreach (Window window in Application.Current.Windows)
@@ -116,6 +126,8 @@ namespace Asana.ViewModel
                 }
             });
         }
+
+
         private RelayCommand closeWindowCommand;
         public RelayCommand CloseWindowCommand => closeWindowCommand ?? (closeWindowCommand = new RelayCommand(
         () =>

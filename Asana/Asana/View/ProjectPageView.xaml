@@ -22,7 +22,6 @@
         </LinearGradientBrush>
     </UserControl.Background>
     <UserControl.Resources>
-
         <Style TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>

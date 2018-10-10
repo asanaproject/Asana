@@ -63,7 +63,13 @@
         <DatePicker Grid.Column="1" Grid.Row="3" IsEnabled="False" Text="{Binding Deadline}"  HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0" VerticalAlignment="Center" Width="100" />
 
         <Image Grid.Column="3" Grid.RowSpan="5            
-" Margin="0 0 0 10" VerticalAlignment="Bottom" Source="{Binding TaskImgPath}" Width="160" Height="110"/>
+" Margin="0 0 0 10" VerticalAlignment="Bottom" Source="{Binding TaskImgPath}" ToolTipService.Placement="MousePoint" Width="160" Height="110">
+            <Image.ToolTip>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding TaskImgPath}" Width="400" Height="300"/>
+                </StackPanel>
+            </Image.ToolTip>
+        </Image>
 
 
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Assigned to: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" FontWeight="DemiBold" />

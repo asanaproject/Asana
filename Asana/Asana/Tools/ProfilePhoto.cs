@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Asana.Tools
@@ -16,8 +17,8 @@ namespace Asana.Tools
         public static string LoadImage()
         {
             OpenFileDialog img = new OpenFileDialog();
-            img.Filter = "Image jpeg(*.jpg)|*.jpg|Image png(*.png)|*.png";
-            img.DefaultExt = ".jpeg";
+            img.Filter = "Image png(*.png)|*.png";
+            img.DefaultExt = ".png";
             var result = img.ShowDialog();
 
 
@@ -34,35 +35,56 @@ namespace Asana.Tools
 
         public static byte[] ImageToByteArray(System.Drawing.Image imageIn)
         {
-            MemoryStream ms = new MemoryStream();
-            if (ImageFormat.Jpeg.Equals(imageIn.RawFormat))
+            using (var ms = new MemoryStream())
             {
-                imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-            }
-            else if (ImageFormat.Png.Equals(imageIn.RawFormat))
-            {
-                imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 
-            }
-            else if (ImageFormat.Bmp.Equals(imageIn.RawFormat))
-            {
                 imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
 
+                return ms.ToArray();
+            }         
+           
+           
+        }
+       
+
+        public static Bitmap BitmapImageToBitmap(BitmapImage image)
+        {
+            if (image == null)
+            {
+                return null;
             }
-            return ms.ToArray();
+            Bitmap bitmap;
+            using (var ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new BmpBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                encoder.Save(ms);
+                bitmap = new Bitmap(ms);
+
+            }
+            return bitmap;
         }
 
         public static BitmapImage ByteArrayToImage(byte[] byteArrayIn)
         {
-            using (var ms = new System.IO.MemoryStream(byteArrayIn))
+            if (byteArrayIn.Length == 0 || byteArrayIn == null)
             {
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-                return image;
+                return null;
             }
+            var btm = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(byteArrayIn))
+            {
+
+                btm.BeginInit();
+                btm.StreamSource = ms;
+                // Below code for caching is crucial.
+                btm.CacheOption = BitmapCacheOption.OnLoad;
+                btm.EndInit();
+                btm.Freeze();
+            }
+            return btm;
         }
+
+
     }
 }

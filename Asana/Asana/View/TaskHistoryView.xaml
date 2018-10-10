@@ -23,8 +23,8 @@
                 <materialDesign:PackIcon Kind="Close" Width="20" Height="20" Foreground="Gray"/>
             </Button.Content>
         </Button>
-        
-        <ListBox ItemsSource="{Binding Source={x:Static model:CurrentTask.Instance},Path=Task.TaskLogs}">
+
+        <ListBox  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Source={x:Static model:CurrentTask.Instance},Path=Task.TaskLogs}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" Orientation="Vertical"/>

@@ -22,14 +22,19 @@ namespace Asana.ViewModel
         private readonly NavigationService navigation;
         private System.Timers.Timer timer;
         private readonly IProjectService projectService;
+        private readonly IUserRoleService userRoleService;
+
         public EditProjectViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
             projectService = new ProjectService();
+            userRoleService = new UserRoleService();
+
+            userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
 
             ProjectTitle = CurrentProject.Instance.Project.Name;
             Deadline = CurrentProject.Instance.Project.Deadline;
-            SelectedProjectManager = CurrentProject.Instance.Project.Users.FirstOrDefault(x => x.FullName.Equals(CurrentProject.Instance.Project.ProjectManager));
+            SelectedProjectManager = CurrentUserRoles.Instance.Employees.FirstOrDefault(x => x.FullName.Equals(CurrentProject.Instance.Project.ProjectManager));
             ProjectEmail = CurrentProject.Instance.Project.ProjectEmail;
             Description = CurrentProject.Instance.Project.Description;
             CreatedAt = "Created at: " + CurrentProject.Instance.Project.CreatedAt.Humanize();
@@ -140,8 +145,7 @@ namespace Asana.ViewModel
         {
             if (CurrentProject.Instance.Project.ProjectManager.Equals(CurrentUser.Instance.User.FullName))
             {
-                ExtraWindow extraWindow = new ExtraWindow(new LodingViewModel(), 200, 200);
-                extraWindow.ShowInTaskbar = false;
+               
                 System.Threading.Tasks.Task.Run(() =>
                 {
                     CurrentProject.Instance.Project.Description = Description;
@@ -151,14 +155,11 @@ namespace Asana.ViewModel
                     CurrentProject.Instance.Project.ProjectEmail = ProjectEmail;
 
                     projectService.UpdateAsync(CurrentProject.Instance.Project);
-                    projectService.LoadProjects(CurrentUser.Instance.User.Id);
                     timer.Stop();
                     Closewindow();
-                    Closewindow();
+                    projectService.LoadProjects(CurrentUser.Instance.User.Id);
                 });
-                WindowBluringCustom.Bluring();
-                extraWindow.ShowDialog();
-                WindowBluringCustom.Normal();
+              
             }
             else
             {
