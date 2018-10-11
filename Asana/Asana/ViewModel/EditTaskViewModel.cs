@@ -171,8 +171,7 @@ namespace Asana.ViewModel
                 var path = ProfilePhoto.LoadImage();
                 if (File.Exists(path))
                 {
-                    var img = new BitmapImage(new Uri(path));
-                    TaskImgPath = img;
+                    TaskImgPath = new BitmapImage(new Uri(path));
                 }
             }
             ));

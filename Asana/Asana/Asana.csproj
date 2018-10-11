@@ -152,6 +152,10 @@
     <Compile Include="Migrations\201810091304067_Initial_Model.Designer.cs">
       <DependentUpon>201810091304067_Initial_Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810110928447_TaskLog_Class_IsEdited.cs" />
+    <Compile Include="Migrations\201810110928447_TaskLog_Class_IsEdited.Designer.cs">
+      <DependentUpon>201810110928447_TaskLog_Class_IsEdited.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -457,6 +461,9 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201810091304067_Initial_Model.resx">
       <DependentUpon>201810091304067_Initial_Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810110928447_TaskLog_Class_IsEdited.resx">
+      <DependentUpon>201810110928447_TaskLog_Class_IsEdited.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

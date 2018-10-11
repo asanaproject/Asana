@@ -27,14 +27,6 @@ namespace Asana.Model
         public string Message { get; set; }
         public string ChangedBy { get; set; }
         public DateTimeOffset CreatedAt { get; set; }    
-        public bool TitleIsChanged { get; set; }
-        public bool ImageIsChanged { get; set; }
-        public bool CurrentKanbanStateIsChanged { get; set; }
-        public bool DescriptionIsChanged { get; set; }
-        public bool ExtraInfoIsChanged { get; set; }
-        public bool IsAdded { get; set; }
-        public bool DeadlineIsChanged { get; set; }
-        public bool StarredIsChanged { get; set; }
 
         public TaskLog()
         {

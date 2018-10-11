@@ -38,6 +38,15 @@ namespace Asana.Tools
             return String.Format($"Column: {initial} -> {last}");
         }
 
+        public static string TaskStarChangedMessage(bool starred)
+        {
+            if (starred)
+            {
+                return String.Format($"Task starred");
+            }
+            return String.Format("Task unstarred.");
+        }
+
       
     }
 }

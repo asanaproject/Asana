@@ -38,7 +38,6 @@ namespace Asana.ViewModel
             userRoleService = new UserRoleService();
 
             Header = new HeaderViewModel(navigation);
-
         }
 
         private HeaderViewModel header;
@@ -81,9 +80,17 @@ namespace Asana.ViewModel
         public RelayCommand<Task> StarTaskCommand => starTaskCommand ?? (starTaskCommand = new RelayCommand<Task>(
         x =>
         {
-            x.IsStarred = x.IsStarred ? false : true;
+            x.IsStarred = !x.IsStarred ? true : false;
             x.StarPath = x.IsStarred ? "../Resources/Images/star-icon.png" : "../Resources/Images/grey_star.png";
             taskService.UpdateAsync(x);
+            var log = new TaskLog
+            {
+                ChangedBy = CurrentUser.Instance.User.FullName,
+                TaskId = x.Id
+            };
+            var task = taskService.FindById(x.Id);
+            log.Message = TaskLogMessages.TaskStarChangedMessage(task.IsStarred);
+            taskLogService.CreateAsync(log);
         }));
 
         /// <summary>
@@ -132,7 +139,6 @@ namespace Asana.ViewModel
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-
             }
         }));
 
@@ -187,7 +193,7 @@ namespace Asana.ViewModel
             {
                 if (AssignedTo != null)
                 {
-                  
+
                     x.AssignedTo = AssignedTo.FullName;
                     taskService.CreateAsync(x);
                     columnService.LoadColumns(CurrentProject.Instance.Project.Id);
@@ -203,6 +209,9 @@ namespace Asana.ViewModel
                         };
                         taskLogService.CreateAsync(log);
                     }
+                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 }
             }
         }));
@@ -358,21 +367,24 @@ namespace Asana.ViewModel
                 {
                     targetItem = dropInfo.TargetItem as ColumnItemViewModel;
                     targetId = targetItem.Column.Id;
-                    taskService.UpdateColumnId(targetId, sourceItem);
-
-                    var log = new TaskLog
+                    if (taskService.FindById(sourceItem.Id)!=null&&columnService.FindById(targetItem.Column.Id)!=null)
                     {
-                        ChangedBy = CurrentUser.Instance.User.FullName,
-                        TaskId = sourceItem.Id
-                    };
-                    var colLast = columnService.FindById(sourceItem.Column.Id);
-                    var colNew = columnService.FindById(targetId);
-                    log.Message = TaskLogMessages.ColumnChangedMessage(colLast.Title, colNew.Title);
-                    taskLogService.CreateAsync(log);
+                        taskService.UpdateColumnId(targetId, sourceItem);
 
-                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                        var log = new TaskLog
+                        {
+                            ChangedBy = CurrentUser.Instance.User.FullName,
+                            TaskId = sourceItem.Id
+                        };
+                        var colLast = columnService.FindById(sourceItem.Column.Id);
+                        var colNew = columnService.FindById(targetId);
+                        log.Message = TaskLogMessages.ColumnChangedMessage(colLast.Title, colNew.Title);
+                        taskLogService.CreateAsync(log);
+
+                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                    }                    
                 }
             }
             else
@@ -381,17 +393,20 @@ namespace Asana.ViewModel
                 ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
                 if (sourceItem != null && targetItem != null)
                 {
-
-                    var sourceIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == sourceItem.Column.Id).Column.Position;
-                    var targetIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == targetItem.Column.Id).Column.Position;
-                    if (sourceIndex != targetIndex)
+                    if (columnService.FindById(sourceItem.Column.Id)!=null&&columnService.FindById(targetItem.Column.Id)!=null)
                     {
-                        columnService.UpdateAsync(sourceIndex, targetItem.Column);
-                        columnService.UpdateAsync(targetIndex, sourceItem.Column);
-                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                        columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                        var sourceIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == sourceItem.Column.Id).Column.Position;
+                        var targetIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == targetItem.Column.Id).Column.Position;
+                        if (sourceIndex != targetIndex)
+                        {
+                            columnService.UpdateAsync(sourceIndex, targetItem.Column);
+                            columnService.UpdateAsync(targetIndex, sourceItem.Column);
+                            columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                            columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                            columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                        }
                     }
+                   
                 }
             }
         }

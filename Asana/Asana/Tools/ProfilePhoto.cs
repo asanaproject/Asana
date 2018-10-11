@@ -37,15 +37,14 @@ namespace Asana.Tools
         {
             using (var ms = new MemoryStream())
             {
-
-                imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+                imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 
                 return ms.ToArray();
-            }         
-           
-           
+            }
+
+
         }
-       
+
 
         public static Bitmap BitmapImageToBitmap(BitmapImage image)
         {
@@ -56,11 +55,10 @@ namespace Asana.Tools
             Bitmap bitmap;
             using (var ms = new MemoryStream())
             {
-                BitmapEncoder encoder = new BmpBitmapEncoder();
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(image));
                 encoder.Save(ms);
                 bitmap = new Bitmap(ms);
-
             }
             return bitmap;
         }

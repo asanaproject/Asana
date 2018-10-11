@@ -10,10 +10,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Asana.ViewModel
 {
@@ -25,11 +27,18 @@ namespace Asana.ViewModel
         {
             this.navigation = navigation;
             this.userService = new UserService();
-            ProfileImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
+            if (CurrentUser.Instance.User.Image == null)
+            {
+                ProfileImgPath = new BitmapImage(new Uri(Path.Combine(Environment.CurrentDirectory + "\\user.png")));
+            }
+            else
+            {
+                ProfileImgPath = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
+            }
         }
 
-        private string profieImgPath;
-        public string ProfileImgPath
+        private BitmapImage profieImgPath;
+        public BitmapImage ProfileImgPath
         {
             get { return profieImgPath; }
             set
@@ -79,7 +88,6 @@ namespace Asana.ViewModel
                 Password = String.Empty;
                 RePassword = String.Empty;
                 CurrentUser.Instance.User = new User();
-                ProfileImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
 
                 navigation.NavigateTo(ViewType.LogIn);
             }
@@ -93,7 +101,7 @@ namespace Asana.ViewModel
                 var path = ProfilePhoto.LoadImage();
                 if (!String.IsNullOrEmpty(path))
                 {
-                    ProfileImgPath = path;
+                    ProfileImgPath = new BitmapImage(new Uri(path));
                 }
             }
             ));
@@ -128,11 +136,7 @@ namespace Asana.ViewModel
                     User user = new User();
                     user.Email = CurrentUser.Instance.User.Email;
                     user.FullName = FullName;
-                    if (ProfileImgPath.Equals("pack://application:,,,/Asana;component/Resources/Images/user.png"))
-                    {
-                        ProfileImgPath = Environment.CurrentDirectory + "\\user.png";
-                    }
-                    user.Image = ProfilePhoto.ImageToByteArray(new Bitmap(ProfileImgPath));
+                    user.Image = ProfilePhoto.ImageToByteArray(ProfilePhoto.BitmapImageToBitmap(ProfileImgPath));
                     user.Password = Password;
                     user.Username = UserName;
                     userService.CreateAsync(user);
@@ -141,7 +145,6 @@ namespace Asana.ViewModel
                     Password = String.Empty;
                     RePassword = String.Empty;
                     CurrentUser.Instance.User = new User();
-                    ProfileImgPath = "pack://application:,,,/Asana;component/Resources/Images/user.png";
                     navigation.NavigateTo(ViewType.LogIn);
                     CloseWindow();
 

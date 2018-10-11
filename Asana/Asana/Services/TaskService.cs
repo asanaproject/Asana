@@ -211,7 +211,7 @@ namespace Asana.Services
                                 if (c != null)
                                 {
                                     context.Tasks.Remove(t);
-                                    await context.SaveChangesAsync();
+                                    context.SaveChanges();
                                     t.ColumnId = columnId;
                                     context.Tasks.Add(t);
                                 }
