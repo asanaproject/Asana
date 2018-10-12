@@ -30,9 +30,9 @@
             <ColumnDefinition Width="0.02*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="0.07*"/>
             <RowDefinition/>
-            <RowDefinition  Height="0.02*"/>
+            <RowDefinition  Height="0.07*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="1" Grid.Column="1" Background="WhiteSmoke">
             <Grid.RowDefinitions>
@@ -40,7 +40,7 @@
                 <RowDefinition Height="80"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <local:HeaderView></local:HeaderView>
+            <ContentControl Content="{Binding Header}" />
             <Grid Background="White" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

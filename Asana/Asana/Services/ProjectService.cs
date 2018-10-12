@@ -199,6 +199,18 @@ namespace Asana.Services
             }
         }
 
+        public System.Threading.Tasks.Task<List<Project>> GetCurrentUserProjects()
+        {
+            return System.Threading.Tasks.Task.Run(() =>
+            {
+                using (var db = new AsanaDbContext())
+                {
+                    var projects = db.Projects.Where(x => x.UserId == CurrentUser.Id).ToList();
+                    return projects;
+                }
+            });
+        }
+
 
     }
 }
