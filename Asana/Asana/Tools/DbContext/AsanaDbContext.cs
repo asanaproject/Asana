@@ -28,7 +28,6 @@ namespace Asana.Objects
         public DbSet<ChatRoomUsers> ChatRoomUsers { get; set; }
         public DbSet<Mail> Mails { get; set; }
         public DbSet<KanbanState> KanbanState { get; set; }
-        public DbSet<TaskKanbanState> TaskKanbanState { get; set; }
         public DbSet<TaskLog> TaskLogs { get; set; }
 
 

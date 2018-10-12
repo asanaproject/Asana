@@ -40,13 +40,8 @@ namespace Asana.ViewModel
             Deadline = CurrentTask.Instance.Task.Deadline;
             AssignedTo = CurrentTask.Instance.Task.AssignedTo;
             Description = CurrentTask.Instance.Task.Description;
-
             CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
-
-            if (CurrentTask.Instance.Task.CurrentKanbanState != null)
-            {
-                CurrentKanbanState = CurrentTask.Instance.Task.CurrentKanbanState.Name;
-            }
+            CurrentKanbanState =  CurrentProject.Instance.KanbanStates.FirstOrDefault(x=>x.Name.Equals(CurrentTask.Instance.Task.CurrentKanbanState)).Name;
 
 
             timer = new System.Timers.Timer(1000);

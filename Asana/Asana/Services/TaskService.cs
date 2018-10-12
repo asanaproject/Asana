@@ -33,6 +33,7 @@ namespace Asana.Services
                                 maxPosition = context.Tasks.Max(x => x.Position) + 1;
                             }
                             task.Position = maxPosition;
+                            task.CurrentKanbanState = context.KanbanState.FirstOrDefault(z => z.Name.Equals("In Progress")).Name;
                             context.Tasks.Add(task);
                             await context.SaveChangesAsync();
                         }
@@ -59,9 +60,7 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
-                        var task = context.Tasks.Include("Column")
-                                                .Include("TaskKanbanStates")
-                                                .Include("CurrentKanbanState")
+                        var task = context.Tasks.Include("Column")                                                
                                                 .Include("TaskLogs")
                                                 .FirstOrDefault(x => x.Id == taskId);
                         if (task != null)
@@ -138,6 +137,10 @@ namespace Asana.Services
 
                             context.Tasks.First(x => x.Id == task.Id).IsStarred = task.IsStarred;
                             context.Tasks.First(x => x.Id == task.Id).StarPath = task.StarPath;
+                              context.Tasks.First(x => x.Id == task.Id).CurrentKanbanState = task.CurrentKanbanState;
+                            
+                            context.Tasks.First(x => x.Id == task.Id).AssignedTo = task.AssignedTo;
+
                             context.Tasks.First(x => x.Id == task.Id).ColumnId = task.ColumnId;
                             context.Tasks.First(x => x.Id == task.Id).Deadline = task.Deadline;
                             context.Tasks.First(x => x.Id == task.Id).Image = task.Image;
@@ -160,32 +163,6 @@ namespace Asana.Services
 
         }
 
-        public async System.Threading.Tasks.Task UpdateAsyncKanbanState(Objects.Task task, TaskKanbanState s)
-        {
-            try
-            {
-                if (CurrentUser.Instance.User.FullName.Equals(CurrentProject.Instance.Project.ProjectManager)
-                       || CurrentUser.Instance.User.FullName.Equals(task.AssignedTo))
-                {
-                    using (var asana = new AsanaDbContext())
-                    {
-                        var y = asana.Tasks.First(x => x.Id == task.Id);
-                        MessageBox.Show(y.Id.ToString());
-                        asana.TaskKanbanState.Add(s);
-                        await asana.SaveChangesAsync();
-                    }
-                }
-                else
-                {
-                    throw new Exception("You are not permitted to edit the task.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
 
         public async System.Threading.Tasks.Task UpdateColumnId(Guid columnId, Objects.Task task)
         {
@@ -200,7 +177,6 @@ namespace Asana.Services
                         {
 
                             var t = context.Tasks.Include("Column")
-                                                .Include("TaskKanbanStates")
                                                 .Include("CurrentKanbanState")
                                                 .Include("TaskLogs").FirstOrDefault(x => x.Id == task.Id);
 

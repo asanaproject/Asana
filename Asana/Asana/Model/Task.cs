@@ -44,12 +44,11 @@ namespace Asana.Objects
 
         public DateTime? Deadline { get; set; }
 
-    
 
 
-
-        private KanbanState currentKanbanState;
-        public KanbanState CurrentKanbanState
+      
+        private string currentKanbanState;
+        public  string CurrentKanbanState
         {
             get { return currentKanbanState; }
             set {Set(ref currentKanbanState,value); }

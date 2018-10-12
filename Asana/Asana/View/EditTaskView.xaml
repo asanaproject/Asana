@@ -9,7 +9,7 @@
              xmlns:model="clr-namespace:Asana.Model"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="750" 
+             d:DesignHeight="370" d:DesignWidth="750" 
              Background="WhiteSmoke">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,14 +19,15 @@
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*"/>
-            <RowDefinition Height="1.8*"/>
-            <RowDefinition Height="4.2*"/>
-            <RowDefinition Height="2.5*"/>
-            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="2.2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4.8*"/>
+            <RowDefinition Height="2.6*"/>
+            <RowDefinition Height="2.3*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="2.7*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+
         </Grid.RowDefinitions>
         <Button Grid.Column="4" Grid.Row="0"  BorderBrush="Transparent"  Width="30" Height="30" Padding="2"  VerticalAlignment="Center" Margin="0 -3 -1 0"  HorizontalAlignment="Stretch"  Background="Transparent" Command="{Binding CloseWindowCommand}">
             <Button.Content>
@@ -76,13 +77,19 @@
         <DatePicker Grid.Column="1" Grid.Row="4" DisplayDateStart="{x:Static sys:DateTime.Now}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" HorizontalContentAlignment="Center" SelectedDate="{Binding Deadline}" VerticalContentAlignment="Center" Margin="3 0 0 5" Width="180" Height="35"/>
 
 
-        <TabControl Grid.Row="5" Grid.ColumnSpan="5">
+        <TabControl Grid.Row="5" Grid.ColumnSpan="5" >
             <TabItem Header="Description" Width="80" Height="25" >
                 <TextBox Text="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15 0 0 0"/>
             </TabItem> 
         </TabControl>
 
-        <Image Grid.Column="2" Grid.RowSpan="3" Margin="0 0 0 10" VerticalAlignment="Bottom" Source="{Binding TaskImgPath}" Width="160" Height="110"/>
+        <Image Grid.Column="2" Grid.RowSpan="4" Margin="0 0 0 10" VerticalAlignment="Bottom" Source="{Binding TaskImgPath}" Width="170" Height="120">
+            <Image.ToolTip>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding TaskImgPath}" Width="400" Height="300"/>
+                </StackPanel>
+            </Image.ToolTip>
+        </Image>
         <Border Grid.Column="2" Grid.Row="4"  Width="120" Height="35" Background="#673BB7"  VerticalAlignment="Center"  Padding="0" BorderThickness="1"   CornerRadius="20" >
             <Button  Content="Load Image" Command="{Binding LoadImageCommand}" Foreground="White" Padding="2"   FontWeight="Bold"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Transparent"/>
         </Border>
@@ -90,7 +97,7 @@
         <Border Grid.Column="2" Grid.Row="6" VerticalAlignment="Top" Width="120" Height="40" Padding="0" BorderThickness="1" Margin="0 5 0 0" Background="#673BB7"  CornerRadius="20" >
             <Button  Content="Submit" Command="{Binding SubmitCommand}" FontSize="18"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
         </Border>
+        <TextBlock Grid.Column="0" Grid.Row="7" Foreground="Gray" Text="{Binding CreatedAt}" HorizontalAlignment="Left" Margin="15 0 0 0" VerticalAlignment="Center"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding CreatedAt}" Margin="20 0 0 0" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

@@ -27,7 +27,8 @@ namespace Asana.ViewModel
         private readonly ITaskLogService taskLogService;
         private readonly IColumnService columnService;
         private readonly IUserRoleService userRoleService;
-        System.Timers.Timer timer;
+        private System.Timers.Timer timer;
+
         public EditTaskViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
@@ -42,10 +43,10 @@ namespace Asana.ViewModel
 
             Title = CurrentTask.Instance.Task.Title;
             ProjectTitle = CurrentProject.Instance.Project.Name;
-            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
             SelectedEmployee = CurrentUserRoles.Instance.Employees.FirstOrDefault(x => x.FullName.Equals(CurrentTask.Instance.Task.AssignedTo));
             Deadline = CurrentTask.Instance.Task.Deadline;
-            CurrentKanbanState = CurrentTask.Instance.Task.CurrentKanbanState;
+            CurrentKanbanState = CurrentProject.Instance.KanbanStates.FirstOrDefault(x => x.Name.Equals(CurrentTask.Instance.Task.CurrentKanbanState));
+
             Description = CurrentTask.Instance.Task.Description;
 
             if (CurrentTask.Instance.Task.Image == null)
@@ -58,22 +59,26 @@ namespace Asana.ViewModel
             }
             userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
             SelectedEmployee = CurrentUserRoles.Instance.Employees.FirstOrDefault(x => x.FullName.Equals(CurrentTask.Instance.Task.AssignedTo));
+            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
 
             timer = new System.Timers.Timer(1000);
             timer.Start();
             timer.Elapsed += Timer_Elapsed;
-        }
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
+
         }
 
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            CreatedAt = "Created at: " + CurrentColumn.Instance.Column.Column.CreatedAt.Humanize();
+
+        }
         private string createdAt;
         public string CreatedAt
         {
             get { return createdAt; }
             set { Set(ref createdAt, value); }
         }
+
 
 
         private string description;
@@ -150,7 +155,6 @@ namespace Asana.ViewModel
         {
             System.Threading.Tasks.Task.Run(() =>
             {
-                timer.Stop();
                 Closewindow();
             });
 
@@ -211,8 +215,9 @@ namespace Asana.ViewModel
         public RelayCommand SubmitCommand => submitCommand ?? (submitCommand = new RelayCommand(
         () =>
         {
+
             if (CurrentProject.Instance.Project.ProjectManager.Equals(CurrentUser.Instance.User.FullName) ||
-                CurrentTask.Instance.Task.AssignedTo.Equals(CurrentUser.Instance.User.FullName))
+                    CurrentTask.Instance.Task.AssignedTo.Equals(CurrentUser.Instance.User.FullName))
             {
                 var lastTask = taskService.FindById(CurrentTask.Instance.Task.Id);
 
@@ -222,7 +227,7 @@ namespace Asana.ViewModel
                 CurrentTask.Instance.Task.AssignedTo = SelectedEmployee.FullName;
                 CurrentTask.Instance.Task.Deadline = Deadline;
                 CurrentTask.Instance.Task.Description = Description;
-                CurrentTask.Instance.Task.CurrentKanbanState = CurrentKanbanState;
+                CurrentTask.Instance.Task.CurrentKanbanState = CurrentKanbanState.Name;
 
                 taskService.UpdateAsync(CurrentTask.Instance.Task);
 
@@ -237,15 +242,15 @@ namespace Asana.ViewModel
                 {
                     log.Message += TaskLogMessages.TitleChangeMessage(lastTask.Title, CurrentTask.Instance.Task.Title);
                 }
-                if (CurrentTask.Instance.Task.CurrentKanbanState != null&&
-                    !CurrentTask.Instance.Task.CurrentKanbanState.Name.Equals(lastTask.CurrentKanbanState.Name))
+                if (lastTask.CurrentKanbanState != null &&
+                    !CurrentTask.Instance.Task.CurrentKanbanState.Equals(lastTask.CurrentKanbanState))
                 {
-                    log.Message = TaskLogMessages.KanbanStateChangedMessage(lastTask.CurrentKanbanState.Name, CurrentTask.Instance.Task.CurrentKanbanState.Name);
+                    log.Message = TaskLogMessages.KanbanStateChangedMessage(lastTask.CurrentKanbanState, CurrentTask.Instance.Task.CurrentKanbanState);
 
                 }
-                else 
+                else
                 {
-                    log.Message = TaskLogMessages.KanbanStateChangedMessage("", CurrentTask.Instance.Task.CurrentKanbanState.Name);
+                    log.Message = TaskLogMessages.KanbanStateChangedMessage("", CurrentTask.Instance.Task.CurrentKanbanState);
                 }
 
                 if (CurrentTask.Instance.Task.Deadline != (lastTask.Deadline))
@@ -261,6 +266,7 @@ namespace Asana.ViewModel
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 Closewindow();
             }
             else
@@ -269,6 +275,8 @@ namespace Asana.ViewModel
                 MessageBox.Show($"You aren't permitted to changed the information about the task: {CurrentTask.Instance.Task.Title}",
                   "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
+
 
         }));
     }

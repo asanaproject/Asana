@@ -16,6 +16,5 @@ namespace Asana.Services.Interfaces
         Task UpdateColumnId(Guid columnId, Objects.Task task);
         Objects.Task FindById(Guid taskId);
         ICollection<KanbanState> GetKanbanStatesOfTask();
-        Task UpdateAsyncKanbanState(Objects.Task task, TaskKanbanState s);
     }
 }

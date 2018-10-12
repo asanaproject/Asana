@@ -48,7 +48,7 @@ namespace Asana.ViewModel
             get { return header; }
             set { Set(ref header, value); }
         }
-               
+
         private UserRoles assignedTo;
         public UserRoles AssignedTo
         {
@@ -93,7 +93,7 @@ namespace Asana.ViewModel
             taskLogService.CreateAsync(log);
         }));
 
-        
+
         /// <summary>
         /// command closes the loading window
         /// </summary>
@@ -166,6 +166,7 @@ namespace Asana.ViewModel
                 }
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
 
 
             }
@@ -199,6 +200,7 @@ namespace Asana.ViewModel
             {
 
                 taskService.CreateAsync(x);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 var task = taskService.FindById(x.Id);
                 if (task != null)
@@ -252,7 +254,8 @@ namespace Asana.ViewModel
             CurrentTask.Instance.Task = x;
 
             WindowBluringCustom.Bluring();
-            ExtraWindow extraWindow = new ExtraWindow(new EditTaskViewModel(navigation), 750, 350);
+            ExtraWindow extraWindow = new ExtraWindow(new EditTaskViewModel(navigation), 750, 370);
+         
             extraWindow.ShowDialog();
             WindowBluringCustom.Normal();
 
@@ -318,36 +321,8 @@ namespace Asana.ViewModel
             }
         }));
 
-        //private RelayCommand<UserRoles> assignTaskCommand;
-        //public RelayCommand<UserRoles> AssignTaskCommand => assignTaskCommand ?? (assignTaskCommand = new RelayCommand<UserRoles>(
-        //x =>
-        //{
-        //    if (x != null)
-        //    {
-        //        AssignedTo = x;
-        //    }
-
-        //}));
 
 
-        //private RelayCommand<KanbanState> selectionChangedCommand;
-        //public RelayCommand<KanbanState> SelectionChangedCommand => selectionChangedCommand ?? (selectionChangedCommand = new RelayCommand<KanbanState>(
-        //x =>
-        //{
-        //    if (x != null)
-        //    {
-        //        var state = new TaskKanbanState
-        //        {
-        //            KanbanState = x,
-        //            KanbanStateId = x.Id,
-        //            ChangedBy = CurrentUser.Instance.User.FullName,
-        //            Date = DateTime.Now,
-        //            TaskId = CurrentTask.Instance.Task.Id
-        //        };
-
-        //        taskService.UpdateAsyncKanbanState(CurrentTask.Instance.Task, state);
-        //    }
-        //}));
 
 
         public void DragOver(IDropInfo dropInfo)
@@ -372,7 +347,7 @@ namespace Asana.ViewModel
                     if (taskService.FindById(sourceItem.Id) != null && columnService.FindById(targetItem.Column.Id) != null)
                     {
                         var colLast = columnService.FindById(sourceItem.Column.Id);
-                        var colNew = columnService.FindById(targetId); 
+                        var colNew = columnService.FindById(targetId);
                         taskService.UpdateColumnId(targetId, sourceItem);
 
                         var log = new TaskLog
@@ -380,7 +355,7 @@ namespace Asana.ViewModel
                             ChangedBy = CurrentUser.Instance.User.FullName,
                             TaskId = sourceItem.Id
                         };
-                     
+
                         log.Message = TaskLogMessages.ColumnChangedMessage(colLast.Title, colNew.Title);
                         taskLogService.CreateAsync(log);
 

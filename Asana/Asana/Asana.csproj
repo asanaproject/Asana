@@ -164,6 +164,18 @@
     <Compile Include="Migrations\201810122014534_Task.Designer.cs">
       <DependentUpon>201810122014534_Task.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810122035509_Task_Properties_Updated.cs" />
+    <Compile Include="Migrations\201810122035509_Task_Properties_Updated.Designer.cs">
+      <DependentUpon>201810122035509_Task_Properties_Updated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810122144000_Task_Properties.cs" />
+    <Compile Include="Migrations\201810122144000_Task_Properties.Designer.cs">
+      <DependentUpon>201810122144000_Task_Properties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810122159162_Task_Property.cs" />
+    <Compile Include="Migrations\201810122159162_Task_Property.Designer.cs">
+      <DependentUpon>201810122159162_Task_Property.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -178,7 +190,6 @@
     <Compile Include="Model\MessageItem.cs" />
     <Compile Include="Model\Message.cs" />
     <Compile Include="Model\ProjectsOfUser.cs" />
-    <Compile Include="Model\TaskKanbanState.cs" />
     <Compile Include="Model\TaskLog.cs" />
     <Compile Include="Model\UserRoles.cs" />
     <Compile Include="Services\AccountService.cs" />
@@ -478,6 +489,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810122014534_Task.resx">
       <DependentUpon>201810122014534_Task.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810122035509_Task_Properties_Updated.resx">
+      <DependentUpon>201810122035509_Task_Properties_Updated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810122144000_Task_Properties.resx">
+      <DependentUpon>201810122144000_Task_Properties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810122159162_Task_Property.resx">
+      <DependentUpon>201810122159162_Task_Property.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -17,7 +17,7 @@ namespace Asana.Tools
                 string body = PasswordHasher.Decrypt(hashed);
                 string[] parts = body.Split(new string[] { "::ExpireDate::" },
                              StringSplitOptions.RemoveEmptyEntries);
-                if (DateTime.Parse(parts[0]) > DateTime.Now)
+                if (DateTime.Parse(parts[1]) > DateTime.Now)
                     return parts[0];
             }
             return "";
