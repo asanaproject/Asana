@@ -18,12 +18,13 @@ namespace Asana.ViewModel
     {
         private readonly NavigationService navigationService;
         private readonly IColumnService columnService;
-        System.Timers.Timer timer;
+        private System.Timers.Timer timer;
 
         public EditColumnViewModel(NavigationService navigationService)
         {
             this.navigationService = navigationService;
             columnService = new ColumnService();
+
             Title = CurrentColumn.Instance.Column.Title;
             ProjectTitle = CurrentProject.Instance.Project.Name;
             CreatedAt = "Created at: " + CurrentColumn.Instance.Column.Column.CreatedAt.Humanize();
@@ -46,7 +47,10 @@ namespace Asana.ViewModel
                 foreach (Window window in Application.Current.Windows)
                 {
                     if (window.Title.Equals("ExtraWindow"))
+                    {
+                        timer.Stop();
                         window.Close();
+                    }
                 }
             });
         }
@@ -78,12 +82,7 @@ namespace Asana.ViewModel
         public RelayCommand CloseWindowCommand => _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(
         () =>
         {
-            Task.Run(() =>
-            {
-                timer.Stop();
-                Closewindow();
-            });
-
+            Closewindow();
         }));
 
 
@@ -96,20 +95,19 @@ namespace Asana.ViewModel
         {
             if (CurrentProject.Instance.Project.ProjectManager.Equals(CurrentUser.Instance.User.FullName))
             {
-                Task.Run(() =>
-                {
-                    columnService.UpdateTitleAsync(Title, CurrentColumn.Instance.Column.Column);
-                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                    timer.Stop();
-                    Closewindow();
-                });
+                columnService.UpdateTitleAsync(Title, CurrentColumn.Instance.Column.Column);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                timer.Stop();
+                Closewindow();
             }
             else
             {
+                Closewindow();
                 MessageBox.Show($"You aren't permitted to changed the information about the column: {CurrentColumn.Instance.Column.Title}",
                   "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            
+
         }));
     }
 }

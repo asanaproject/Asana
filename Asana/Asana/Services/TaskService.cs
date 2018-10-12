@@ -20,11 +20,6 @@ namespace Asana.Services
             {
                 try
                 {
-                   
-                    if (String.IsNullOrEmpty(task.AssignedTo))
-                    {
-                        throw new Exception("You must assign the task to someone.");
-                    }
                     if (CurrentUser.Instance.User.FullName.Equals(CurrentProject.Instance.Project.ProjectManager))
                     {
 
@@ -107,7 +102,7 @@ namespace Asana.Services
 
                         using (var context = new AsanaDbContext())
                         {
-                            var t = context.Tasks.FirstOrDefault(x=>x.Id==task.Id);
+                            var t = context.Tasks.FirstOrDefault(x => x.Id == task.Id);
                             if (t != null)
                             {
                                 context.Tasks.Remove(t);
@@ -145,7 +140,7 @@ namespace Asana.Services
                             context.Tasks.First(x => x.Id == task.Id).StarPath = task.StarPath;
                             context.Tasks.First(x => x.Id == task.Id).ColumnId = task.ColumnId;
                             context.Tasks.First(x => x.Id == task.Id).Deadline = task.Deadline;
-                            context.Tasks.First(x=>x.Id==task.Id).Image=task.Image;
+                            context.Tasks.First(x => x.Id == task.Id).Image = task.Image;
                             context.Tasks.First(x => x.Id == task.Id).Description = task.Description;
                             context.Tasks.First(x => x.Id == task.Id).Title = task.Title;
                             await context.SaveChangesAsync();
@@ -204,16 +199,17 @@ namespace Asana.Services
                         using (var context = new AsanaDbContext())
                         {
 
-                            var t = context.Tasks.FirstOrDefault(x => x.Id == task.Id);
+                            var t = context.Tasks.Include("Column")
+                                                .Include("TaskKanbanStates")
+                                                .Include("CurrentKanbanState")
+                                                .Include("TaskLogs").FirstOrDefault(x => x.Id == task.Id);
+
                             if (t != null)
                             {
                                 var c = context.Columns.FirstOrDefault(x => x.Id == task.ColumnId);
                                 if (c != null)
                                 {
-                                    context.Tasks.Remove(t);
-                                    context.SaveChanges();
-                                    t.ColumnId = columnId;
-                                    context.Tasks.Add(t);
+                                    context.Tasks.FirstOrDefault(x => x.Id == t.Id).ColumnId = columnId;
                                 }
                                 await context.SaveChangesAsync();
                             }

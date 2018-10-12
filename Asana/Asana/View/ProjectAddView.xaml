@@ -7,8 +7,7 @@
         xmlns:local="clr-namespace:Asana.View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"     
         mc:Ignorable="d" Width="450" Height="300" Background="White">
-    <UserControl.Resources>
-        
+    <UserControl.Resources>       
         
         <Style TargetType="TextBox">
             <Setter Property="Validation.ErrorTemplate">
@@ -70,7 +69,7 @@
                     <ColumnDefinition Width="25"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PackIcon Kind="FolderMultiple" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
-                <TextBox materialDesign:HintAssist.Hint="Project title" Grid.Column="1"  TextWrapping="Wrap" BorderBrush="Transparent" Text="{Binding ProjectName,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                <TextBox materialDesign:HintAssist.Hint="Project title" Grid.Column="1"  TextWrapping="Wrap" BorderBrush="Transparent" Text="{Binding ProjectName,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" ToolTip="Project title" ToolTipService.Placement="MousePoint"  Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             </Grid>
         </Border>
 
@@ -82,7 +81,7 @@
                     <ColumnDefinition Width="25"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PackIcon Kind="Human" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
-                <TextBlock Grid.Column="1"  Text="{Binding ProjectManager}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1"  Text="{Binding ProjectManager}" ToolTip="Project manager" ToolTipService.Placement="MousePoint" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             </Grid>
         </Border>
 
@@ -94,7 +93,7 @@
                     <ColumnDefinition Width="25"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PackIcon Kind="Gmail" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
-                <TextBox materialDesign:HintAssist.Hint="Project email" Grid.Column="1"  TextWrapping="Wrap" BorderBrush="Transparent" Text="{Binding ProjectEmail,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                <TextBox materialDesign:HintAssist.Hint="Project email" ToolTip="Project email" ToolTipService.Placement="MousePoint" Grid.Column="1"  TextWrapping="Wrap" BorderBrush="Transparent" Text="{Binding ProjectEmail,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             </Grid>
         </Border>
 
@@ -106,7 +105,7 @@
                     <ColumnDefinition Width="25"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PackIcon Kind="Timer" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
-                <DatePicker materialDesign:HintAssist.Hint="Deadline"  DisplayDate="{Binding Deadline}" Grid.Column="1"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Transparent" Text="{Binding Deadline,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                <DatePicker materialDesign:HintAssist.Hint="Deadline" ToolTip="Deadline" ToolTipService.Placement="MousePoint" DisplayDateStart="{x:Static sys:DateTime.Now}"  Grid.Column="1"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Transparent" Text="{Binding Deadline,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             </Grid>
         </Border>
 
@@ -119,7 +118,7 @@
                     <ColumnDefinition Width="25"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PackIcon Kind="FileDocument" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
-                <TextBox materialDesign:HintAssist.Hint="Description" Grid.Column="1"  TextWrapping="Wrap" BorderBrush="Transparent" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                <TextBox materialDesign:HintAssist.Hint="Description" ToolTip="Description" ToolTipService.Placement="MousePoint" Grid.Column="1"  TextWrapping="Wrap" BorderBrush="Transparent" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Background="Transparent" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             </Grid>
         </Border>
         

@@ -22,7 +22,6 @@ namespace Asana.View
     /// </summary>
     public partial class ProjectPageView : UserControl
     {
-        public ObservableCollection<Column> Columns=new ObservableCollection<Column>();
         public ProjectPageView()
         {
             InitializeComponent();

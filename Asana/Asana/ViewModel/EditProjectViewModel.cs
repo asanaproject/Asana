@@ -98,7 +98,10 @@ namespace Asana.ViewModel
                 foreach (Window window in Application.Current.Windows)
                 {
                     if (window.Title.Equals("ExtraWindow"))
+                    {
+                        timer.Stop();
                         window.Close();
+                    }
                 }
             });
         }
@@ -145,7 +148,7 @@ namespace Asana.ViewModel
         {
             if (CurrentProject.Instance.Project.ProjectManager.Equals(CurrentUser.Instance.User.FullName))
             {
-               
+
                 System.Threading.Tasks.Task.Run(() =>
                 {
                     CurrentProject.Instance.Project.Description = Description;
@@ -155,18 +158,18 @@ namespace Asana.ViewModel
                     CurrentProject.Instance.Project.ProjectEmail = ProjectEmail;
 
                     projectService.UpdateAsync(CurrentProject.Instance.Project);
-                    timer.Stop();
-                    Closewindow();
                     projectService.LoadProjects(CurrentUser.Instance.User.Id);
+
+                    Closewindow();
                 });
-              
+
             }
             else
             {
                 MessageBox.Show($"You aren't permitted to changed the information about the project: {CurrentProject.Instance.Project.Name}",
-                    "Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                    "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-           
+
         }));
     }
 }

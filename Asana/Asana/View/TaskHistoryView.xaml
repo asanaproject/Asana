@@ -41,14 +41,14 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="3*"/>
                         </Grid.RowDefinitions>
-                        <Image Grid.Column="0" Grid.Row="0" Source="../Resources/log.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
+                        <Image Grid.Column="0" Grid.Row="0" Source="../Resources/Images/log.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
                         <Grid Grid.Column="1" Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding ChangedBy}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding CreationDate}"/>
+                            <TextBlock Grid.Column="0" FontSize="18" FontWeight="DemiBold" Text="{Binding ChangedBy}"/>
+                            <TextBlock Grid.Column="1" Margin="3 0 0 0" FontSize="18" Text="{Binding CreatedAt.DateTime}"/>
                         </Grid>
                         <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Message}"/>
                     </Grid>

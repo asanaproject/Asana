@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:Asana.View"
              xmlns:model="clr-namespace:Asana.Model"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -20,10 +21,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1.8*"/>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="1.8*"/>
-            <RowDefinition Height="4.5*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4.2*"/>
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="2.7*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Grid.Column="4" Grid.Row="0"  BorderBrush="Transparent"  Width="30" Height="30" Padding="2"  VerticalAlignment="Center" Margin="0 -3 -1 0"  HorizontalAlignment="Stretch"  Background="Transparent" Command="{Binding CloseWindowCommand}">
@@ -38,7 +40,7 @@
         <TextBox Grid.Column="1"  Grid.Row="1" HorizontalAlignment="Left" Text="{Binding Title}" VerticalAlignment="Bottom"  Margin="0 0 0 3" FontSize="20" Width="180" Height="35"/>
 
         <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 5 0 0" Text="Assigned to   " FontSize="24"/>
-        <ComboBox Grid.Column="1" Grid.Row="2" SelectedItem="{Binding SelectedEmployee}" Padding="2" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding Source={x:Static model:CurrentUserRoles.Instance},Path=Employees}" Height="35" Width="180" Margin="0 5 3 0" >
+        <ComboBox Name="UsersCBox" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding SelectedEmployee}" Padding="2" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding Source={x:Static model:CurrentUserRoles.Instance},Path=Employees}" Height="35" Width="180" Margin="0 5 3 0" >
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=FullName}"/>
@@ -46,33 +48,49 @@
             </ComboBox.ItemTemplate>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction  Command="{Binding DataContext.AssignTaskCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=UsersCBox}" />
+                    <i:InvokeCommandAction  Command="{Binding DataContext.EmployeeChangedCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=UsersCBox}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        
+        <Border Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Height="30" BorderThickness="1" Background="#673BB7"  CornerRadius="20"  Margin="40 10 0 0" >
+            <Button  Content="New employee" Command="{Binding AssignToNewUserCommand}"  Padding="2"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
+        </Border>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 0 0 5" Text="Kanban state"  FontSize="24"/>
+        <ComboBox Name="KanbanStatesCBox" Grid.Column="1" Grid.Row="3"  SelectedItem="{Binding CurrentKanbanState}" Padding="2" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding Source={x:Static model:CurrentProject.Instance},Path=KanbanStates}" Height="35" Width="180" Margin="0 5 3 0" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction  Command="{Binding DataContext.KanbanStateChangedCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=KanbanStatesCBox}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
         </ComboBox>
-        <Border Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Height="30" BorderThickness="1" Background="#673BB7"  CornerRadius="20"  Margin="40 10 0 0" >
-            <Button  Content="New employee" Command="{Binding AssignToNewUserCommand}"  Padding="2"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
-        </Border>
-        <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 0 0 5" Text="Deadline"  FontSize="24"/>
-        <DatePicker Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" HorizontalContentAlignment="Center" Text="{Binding Deadline}" VerticalContentAlignment="Center" Margin="3 0 0 5" Width="180" Height="35"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 0 0 5" Text="Deadline"  FontSize="24"/>
+        <DatePicker Grid.Column="1" Grid.Row="4" DisplayDateStart="{x:Static sys:DateTime.Now}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" HorizontalContentAlignment="Center" SelectedDate="{Binding Deadline}" VerticalContentAlignment="Center" Margin="3 0 0 5" Width="180" Height="35"/>
 
 
-        <TabControl Grid.Row="4" Grid.ColumnSpan="5">
+        <TabControl Grid.Row="5" Grid.ColumnSpan="5">
             <TabItem Header="Description" Width="80" Height="25" >
-                <TextBox Text="{Binding Description}"/>
+                <TextBox Text="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15 0 0 0"/>
             </TabItem> 
         </TabControl>
 
         <Image Grid.Column="2" Grid.RowSpan="3" Margin="0 0 0 10" VerticalAlignment="Bottom" Source="{Binding TaskImgPath}" Width="160" Height="110"/>
-        <Border Grid.Column="2" Grid.Row="3"  Width="120" Height="35" Background="#673BB7"  VerticalAlignment="Center"  Padding="0" BorderThickness="1"   CornerRadius="20" >
+        <Border Grid.Column="2" Grid.Row="4"  Width="120" Height="35" Background="#673BB7"  VerticalAlignment="Center"  Padding="0" BorderThickness="1"   CornerRadius="20" >
             <Button  Content="Load Image" Command="{Binding LoadImageCommand}" Foreground="White" Padding="2"   FontWeight="Bold"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Transparent"/>
         </Border>
 
-        <Border Grid.Column="2" Grid.Row="5" VerticalAlignment="Top" Width="120" Height="40" Padding="0" BorderThickness="1" Margin="0 5 0 0" Background="#673BB7"  CornerRadius="20" >
+        <Border Grid.Column="2" Grid.Row="6" VerticalAlignment="Top" Width="120" Height="40" Padding="0" BorderThickness="1" Margin="0 5 0 0" Background="#673BB7"  CornerRadius="20" >
             <Button  Content="Submit" Command="{Binding SubmitCommand}" FontSize="18"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
         </Border>
 
-        <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding CreatedAt}" Margin="20 0 0 0" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding CreatedAt}" Margin="20 0 0 0" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

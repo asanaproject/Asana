@@ -21,7 +21,7 @@ namespace Asana.Services
                     using (var context = new AsanaDbContext())
                     {
                         log.CreatedAt = DateTime.Now;
-
+                        log.ChangedBy += " - ";
                         context.TaskLogs.Add(log);
                         await context.SaveChangesAsync();
                     }

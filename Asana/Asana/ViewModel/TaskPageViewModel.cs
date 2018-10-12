@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 
 namespace Asana.ViewModel
 {
-    public class TaskPageViewModel:ViewModelBase
+    public class TaskPageViewModel : ViewModelBase
     {
         private readonly NavigationService navigation;
         System.Timers.Timer timer;
@@ -28,19 +28,26 @@ namespace Asana.ViewModel
 
             if (CurrentTask.Instance.Task.Image == null)
             {
-                TaskImgPath =new BitmapImage(new Uri(Path.Combine(Environment.CurrentDirectory + "\\empty_task_img.png")));
+                TaskImgPath = new BitmapImage(new Uri(Path.Combine(Environment.CurrentDirectory + "\\empty_task_img.png")));
             }
             else
             {
-                TaskImgPath= ProfilePhoto.ByteArrayToImage(CurrentTask.Instance.Task.Image);
+                TaskImgPath = ProfilePhoto.ByteArrayToImage(CurrentTask.Instance.Task.Image);
             }
 
             ColumnTitle = CurrentColumn.Instance.Column.Title;
             TaskTitle = CurrentTask.Instance.Task.Title;
-            Deadline = CurrentTask.Instance.Task.Deadline.ToString();
+            Deadline = CurrentTask.Instance.Task.Deadline;
             AssignedTo = CurrentTask.Instance.Task.AssignedTo;
+            Description = CurrentTask.Instance.Task.Description;
+
             CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
-          
+
+            if (CurrentTask.Instance.Task.CurrentKanbanState != null)
+            {
+                CurrentKanbanState = CurrentTask.Instance.Task.CurrentKanbanState.Name;
+            }
+
 
             timer = new System.Timers.Timer(1000);
             timer.Start();
@@ -51,7 +58,7 @@ namespace Asana.ViewModel
         public string ColumnTitle
         {
             get { return columnTitle; }
-            set { Set(ref columnTitle,value); }
+            set { Set(ref columnTitle, value); }
         }
 
         private string description;
@@ -68,8 +75,16 @@ namespace Asana.ViewModel
             set { Set(ref assignedTo, value); }
         }
 
-        private string deadline;
-        public string Deadline
+
+        private string currentKanbanState;
+        public string CurrentKanbanState
+        {
+            get { return currentKanbanState; }
+            set { Set(ref currentKanbanState, value); }
+        }
+
+        private DateTime? deadline;
+        public DateTime? Deadline
         {
             get { return deadline; }
             set { Set(ref deadline, value); }
@@ -81,8 +96,8 @@ namespace Asana.ViewModel
             get { return taskTitle; }
             set { Set(ref taskTitle, value); }
         }
-   
-     
+
+
         private RelayCommand _closeWindowCommand;
         public RelayCommand CloseWindowCommand => _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(
         () =>
@@ -118,7 +133,7 @@ namespace Asana.ViewModel
         public BitmapImage TaskImgPath
         {
             get { return taskImgPath; }
-            set {Set(ref taskImgPath,value); }
+            set { Set(ref taskImgPath, value); }
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)

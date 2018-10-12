@@ -66,21 +66,7 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-                </TextBlock>
-
-
-                <ComboBox Name="UsersCBox" materialDesign:HintAssist.Hint="Assigned to" ItemsSource="{Binding Source={x:Static model:CurrentUserRoles.Instance},Path=Employees}" Grid.Row="3"  Margin="0 0 0 15" FontSize="16" Width="200">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=FullName}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction  Command="{Binding DataContext.AssignTaskCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=UsersCBox}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ComboBox>
+                </TextBlock>             
                 <Button Grid.Row="4" Margin="0 0 0 10" Width="200" HorizontalAlignment="Center"  VerticalAlignment="Top" Content="Register a new employee" Command="{Binding DataContext.AssignToNewUserCommand, ElementName=Parent}" CommandParameter="{Binding .}"/>
                 <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
@@ -150,7 +136,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Title}" FontWeight="Bold" Width="150" TextWrapping="Wrap"/>
                     <TextBlock Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" Width="200" Text="____________________________________________________________________________________________" Foreground="Black"/>
-                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Project title" />
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Source={x:Static model:CurrentProject.Instance},Path=Project.Name}" />
                     <Menu  Grid.Column="1" Grid.Row="0" Margin="10 0 0 0" Background="Transparent" HorizontalAlignment="Right">
                         <MenuItem Padding="0" Width="20" Background="Transparent"  HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"   Height="20">
                             <MenuItem.Icon>
@@ -174,19 +160,7 @@
                             <Button.Content>
                                 <Image  Source="{Binding StarPath}"  IsHitTestVisible="False"/>
                             </Button.Content>
-                        </Button>
-                        <ComboBox Name="KanbanStatesCBox"  SelectedItem="{Binding CurrentKanbanState}" Grid.Column="2"  materialDesign:HintAssist.Hint="{materialDesign:PackIcon Kind=Circle}"  ItemsSource="{Binding Source={x:Static model:CurrentProject.Instance},Path=KanbanStates}" Margin="10 0 0 0" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Right">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Name}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction  Command="{Binding DataContext.SelectionChangedCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=KanbanStatesCBox}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </ComboBox>
+                        </Button>                      
                         <Button Grid.Column="2" Foreground="DarkGray" VerticalAlignment="Center" Command="{Binding Path= DataContext.TaskLogCommand, ElementName=Parent}" CommandParameter="{Binding .}" Margin="-8 5 0 0" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"  Padding="0.5" Width="18" Height="18" Content="{materialDesign:PackIcon Kind=History}"/>
 
                     </Grid>
@@ -287,7 +261,7 @@
                 </Grid>
 
                 <!--    Projects, tasks-->
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Projects" FontSize="25" VerticalAlignment="Top" Margin="10 3 0 0" HorizontalAlignment="Left" Foreground="Gray" FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static model:CurrentProject.Instance},Path=Project.Name}" FontSize="25" VerticalAlignment="Top" Margin="10 3 0 0" HorizontalAlignment="Left" Foreground="Gray" FontWeight="Bold"/>
                 <Button Grid.Row="1"  Command="{Binding CreateColumnCommand}" VerticalAlignment="Center" Margin="10 30 0 0" HorizontalAlignment="Left" Width="90" Height="30" Content="Create" FontSize="18" Foreground="White">
                     <Button.Style>
                         <Style TargetType="Button">

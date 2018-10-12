@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Asana.View"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:model="clr-namespace:Asana.Model"             
+             xmlns:model="clr-namespace:Asana.Model"         
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
@@ -63,10 +64,10 @@
         </Border>
         
         <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20 0 0 5" Text="Deadline: "  FontSize="22"/>
-        <DatePicker Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20" Text="{Binding Deadline}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="3 0 0 5" Width="180" Height="35"/>
+        <DatePicker Grid.Column="3" Grid.Row="1" DisplayDateStart="{x:Static sys:DateTime.Now}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20" SelectedDate="{Binding Deadline}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="3 0 0 5" Width="180" Height="35"/>
 
         <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Project email:  " Margin="20 5 0 0" FontSize="22"/>
-        <TextBlock  Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="top" FontWeight="Light" Text="{Binding ProjectEmail}" FontSize="20" TextAlignment="Center" Margin="3 5 0 5"/>
+        <TextBox  Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="top" FontWeight="Light" Text="{Binding ProjectEmail}" FontSize="20" TextAlignment="Center" Margin="3 5 0 5"/>
 
         <TabControl Grid.Row="3" Grid.ColumnSpan="5">
             <TabItem Header="Description" Width="80" Height="25" >

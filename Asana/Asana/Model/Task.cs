@@ -18,7 +18,6 @@ namespace Asana.Objects
         {
             Id = Guid.NewGuid();
             StarPath =IsStarred? "../Resources/Images/star-icon.png": "../Resources/Images/grey_star.png";
-            KanbanStates = new ObservableCollection<KanbanState>();
             TaskLogs = new ObservableCollection<TaskLog>();
         }
         [Key]
@@ -45,20 +44,8 @@ namespace Asana.Objects
 
         public DateTime? Deadline { get; set; }
 
-        [NotMapped]
-        private ICollection<KanbanState> kanbanStates;
-        public ICollection<KanbanState> KanbanStates
-        {
-            get { return kanbanStates; }
-            set { Set(ref kanbanStates,value); }
-        }
+    
 
-        private  ICollection<TaskKanbanState> taskKanbanStates;
-        public virtual ICollection<TaskKanbanState> TaskKanbanStates
-        {
-            get { return taskKanbanStates; }
-            set { Set(ref taskKanbanStates, value); }
-        }
 
 
         private KanbanState currentKanbanState;

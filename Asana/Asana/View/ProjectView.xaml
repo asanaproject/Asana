@@ -48,7 +48,7 @@
 
 
         </Grid.RowDefinitions>
-        <Button Grid.Column="3" Grid.Row="0"  BorderBrush="Transparent"  Width="30" Height="30" Padding="2"  VerticalAlignment="Center" Margin="0 -10 -130 0"  HorizontalAlignment="Stretch"  Background="Transparent" Command="{Binding CloseWindowCommand}">
+        <Button Grid.Column="3" Grid.Row="0"  BorderBrush="Transparent"  Width="30" Height="30" Padding="2"  VerticalAlignment="Center" Margin="0 3 -110 0"  HorizontalAlignment="Stretch"  Background="Transparent" Command="{Binding CloseWindowCommand}">
             <Button.Content>
                 <materialDesign:PackIcon Kind="Close" Width="20" Height="20" Foreground="Gray"/>
             </Button.Content>
@@ -71,7 +71,7 @@
         <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="{Binding CountOfTasks}"/>
 
         <TextBlock  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Margin="10 0 0 0" FontWeight="DemiBold" VerticalAlignment="Top" FontSize="20" Text="Deadline:  "/>
-        <DatePicker FontSize="20" IsEnabled="False" Grid.Column="3" Width="100"  Height="40" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Deadline}"/>
+        <DatePicker FontSize="20" IsEnabled="False" Grid.Column="3" Width="100"  Height="40" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedDate="{Binding Deadline}"/>
 
         <TabControl Grid.ColumnSpan="4" Grid.Row="5" >
             <TabItem Header="Description" FontSize="15">

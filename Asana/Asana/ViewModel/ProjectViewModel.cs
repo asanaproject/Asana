@@ -28,6 +28,7 @@ namespace Asana.ViewModel
             ProjectTitle = CurrentProject.Instance.Project.Name;
             ProjectEmail = CurrentProject.Instance.Project.ProjectEmail;
             ProjectManager = CurrentProject.Instance.Project.ProjectManager;
+            Deadline = CurrentProject.Instance.Project.Deadline;
             Description = CurrentProject.Instance.Project.Description;
 
             int columns = 0;
@@ -70,8 +71,8 @@ namespace Asana.ViewModel
             set { Set(ref createdAt, value); }
         }
 
-        private string deadline;
-        public string Deadline
+        private DateTime? deadline;
+        public DateTime? Deadline
         {
             get { return deadline; }
             set { Set(ref deadline, value); }

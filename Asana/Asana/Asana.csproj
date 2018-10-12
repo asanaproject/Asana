@@ -156,6 +156,14 @@
     <Compile Include="Migrations\201810110928447_TaskLog_Class_IsEdited.Designer.cs">
       <DependentUpon>201810110928447_TaskLog_Class_IsEdited.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810121638191_CreationDate_Removed_TaskLogs.cs" />
+    <Compile Include="Migrations\201810121638191_CreationDate_Removed_TaskLogs.Designer.cs">
+      <DependentUpon>201810121638191_CreationDate_Removed_TaskLogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810122014534_Task.cs" />
+    <Compile Include="Migrations\201810122014534_Task.Designer.cs">
+      <DependentUpon>201810122014534_Task.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\ChatRoomTypes.cs" />
@@ -464,6 +472,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810110928447_TaskLog_Class_IsEdited.resx">
       <DependentUpon>201810110928447_TaskLog_Class_IsEdited.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810121638191_CreationDate_Removed_TaskLogs.resx">
+      <DependentUpon>201810121638191_CreationDate_Removed_TaskLogs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810122014534_Task.resx">
+      <DependentUpon>201810122014534_Task.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

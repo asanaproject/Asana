@@ -60,11 +60,7 @@ namespace Asana.ViewModel
         public RelayCommand CloseWindowCommand => _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(
         () =>
         {
-            Task.Run(() =>
-            {
-                Closewindow();
-            });
-
+            Closewindow();
         }));
 
         /// <summary>

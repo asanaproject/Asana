@@ -28,9 +28,11 @@ namespace Asana.ViewModel
         private readonly IProjectService projectService;
         private readonly ITaskLogService taskLogService;
         private readonly IUserRoleService userRoleService;
+
         public ProjectPageViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
+
             columnService = new ColumnService();
             taskService = new TaskService();
             taskLogService = new TaskLogService();
@@ -46,11 +48,8 @@ namespace Asana.ViewModel
             get { return header; }
             set { Set(ref header, value); }
         }
-
-
-
+               
         private UserRoles assignedTo;
-
         public UserRoles AssignedTo
         {
             get { return assignedTo; }
@@ -73,6 +72,7 @@ namespace Asana.ViewModel
             }
         }));
 
+
         /// <summary>
         /// making task priority
         /// </summary>
@@ -89,10 +89,11 @@ namespace Asana.ViewModel
                 TaskId = x.Id
             };
             var task = taskService.FindById(x.Id);
-            log.Message = TaskLogMessages.TaskStarChangedMessage(task.IsStarred);
+            log.Message = TaskLogMessages.TaskStarChangedMessage(x.IsStarred);
             taskLogService.CreateAsync(log);
         }));
 
+        
         /// <summary>
         /// command closes the loading window
         /// </summary>
@@ -109,11 +110,16 @@ namespace Asana.ViewModel
             });
         }
 
+        /// <summary>
+        /// command pop's up the window which shows the history of task
+        /// </summary>
         private RelayCommand<Task> taskLogCommand;
         public RelayCommand<Task> TaskLogCommand => taskLogCommand ?? (taskLogCommand = new RelayCommand<Task>(
         x =>
         {
+
             CurrentTask.Instance.Task = taskService.FindById(x.Id);
+
             WindowBluringCustom.Bluring();
             ExtraWindow extraWindowTaskLog = new ExtraWindow(new TaskHistoryViewModel(navigation), 700, 350);
             extraWindowTaskLog.ShowDialog();
@@ -191,28 +197,24 @@ namespace Asana.ViewModel
 
             if (!String.IsNullOrWhiteSpace(x.Title))
             {
-                if (AssignedTo != null)
-                {
 
-                    x.AssignedTo = AssignedTo.FullName;
-                    taskService.CreateAsync(x);
-                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                    var task = taskService.FindById(x.Id);
-                    if (task != null)
+                taskService.CreateAsync(x);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                var task = taskService.FindById(x.Id);
+                if (task != null)
+                {
+                    x.Column = columnService.FindById(x.ColumnId);
+                    var log = new TaskLog
                     {
-                        x.Column = columnService.FindById(x.ColumnId);
-                        var log = new TaskLog
-                        {
-                            TaskId = x.Id,
-                            ChangedBy = CurrentUser.Instance.User.FullName,
-                            Message = TaskLogMessages.TaskCreatedMessage(x)
-                        };
-                        taskLogService.CreateAsync(log);
-                    }
-                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                    columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                        TaskId = x.Id,
+                        ChangedBy = CurrentUser.Instance.User.FullName,
+                        Message = TaskLogMessages.TaskCreatedMessage(x)
+                    };
+                    taskLogService.CreateAsync(log);
                 }
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
         }));
 
@@ -233,6 +235,8 @@ namespace Asana.ViewModel
                     taskService.RemoveAsync(x);
                 }
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
 
         }));
@@ -246,8 +250,6 @@ namespace Asana.ViewModel
         x =>
         {
             CurrentTask.Instance.Task = x;
-
-
 
             WindowBluringCustom.Bluring();
             ExtraWindow extraWindow = new ExtraWindow(new EditTaskViewModel(navigation), 750, 350);
@@ -316,36 +318,36 @@ namespace Asana.ViewModel
             }
         }));
 
-        private RelayCommand<UserRoles> assignTaskCommand;
-        public RelayCommand<UserRoles> AssignTaskCommand => assignTaskCommand ?? (assignTaskCommand = new RelayCommand<UserRoles>(
-        x =>
-        {
-            if (x != null)
-            {
-                AssignedTo = x;
-            }
+        //private RelayCommand<UserRoles> assignTaskCommand;
+        //public RelayCommand<UserRoles> AssignTaskCommand => assignTaskCommand ?? (assignTaskCommand = new RelayCommand<UserRoles>(
+        //x =>
+        //{
+        //    if (x != null)
+        //    {
+        //        AssignedTo = x;
+        //    }
 
-        }));
+        //}));
 
 
-        private RelayCommand<KanbanState> selectionChangedCommand;
-        public RelayCommand<KanbanState> SelectionChangedCommand => selectionChangedCommand ?? (selectionChangedCommand = new RelayCommand<KanbanState>(
-        x =>
-        {
-            if (x != null)
-            {
-                var state = new TaskKanbanState
-                {
-                    KanbanState = x,
-                    KanbanStateId = x.Id,
-                    ChangedBy = CurrentUser.Instance.User.FullName,
-                    Date = DateTime.Now,
-                    TaskId = CurrentTask.Instance.Task.Id
-                };
+        //private RelayCommand<KanbanState> selectionChangedCommand;
+        //public RelayCommand<KanbanState> SelectionChangedCommand => selectionChangedCommand ?? (selectionChangedCommand = new RelayCommand<KanbanState>(
+        //x =>
+        //{
+        //    if (x != null)
+        //    {
+        //        var state = new TaskKanbanState
+        //        {
+        //            KanbanState = x,
+        //            KanbanStateId = x.Id,
+        //            ChangedBy = CurrentUser.Instance.User.FullName,
+        //            Date = DateTime.Now,
+        //            TaskId = CurrentTask.Instance.Task.Id
+        //        };
 
-                taskService.UpdateAsyncKanbanState(CurrentTask.Instance.Task, state);
-            }
-        }));
+        //        taskService.UpdateAsyncKanbanState(CurrentTask.Instance.Task, state);
+        //    }
+        //}));
 
 
         public void DragOver(IDropInfo dropInfo)
@@ -367,8 +369,10 @@ namespace Asana.ViewModel
                 {
                     targetItem = dropInfo.TargetItem as ColumnItemViewModel;
                     targetId = targetItem.Column.Id;
-                    if (taskService.FindById(sourceItem.Id)!=null&&columnService.FindById(targetItem.Column.Id)!=null)
+                    if (taskService.FindById(sourceItem.Id) != null && columnService.FindById(targetItem.Column.Id) != null)
                     {
+                        var colLast = columnService.FindById(sourceItem.Column.Id);
+                        var colNew = columnService.FindById(targetId); 
                         taskService.UpdateColumnId(targetId, sourceItem);
 
                         var log = new TaskLog
@@ -376,15 +380,14 @@ namespace Asana.ViewModel
                             ChangedBy = CurrentUser.Instance.User.FullName,
                             TaskId = sourceItem.Id
                         };
-                        var colLast = columnService.FindById(sourceItem.Column.Id);
-                        var colNew = columnService.FindById(targetId);
+                     
                         log.Message = TaskLogMessages.ColumnChangedMessage(colLast.Title, colNew.Title);
                         taskLogService.CreateAsync(log);
 
                         columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                         columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                         columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-                    }                    
+                    }
                 }
             }
             else
@@ -393,7 +396,7 @@ namespace Asana.ViewModel
                 ColumnItemViewModel targetItem = dropInfo.TargetItem as ColumnItemViewModel;
                 if (sourceItem != null && targetItem != null)
                 {
-                    if (columnService.FindById(sourceItem.Column.Id)!=null&&columnService.FindById(targetItem.Column.Id)!=null)
+                    if (columnService.FindById(sourceItem.Column.Id) != null && columnService.FindById(targetItem.Column.Id) != null)
                     {
                         var sourceIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == sourceItem.Column.Id).Column.Position;
                         var targetIndex = ColumnsOfProject.Instance.Columns.First(x => x.Column.Id == targetItem.Column.Id).Column.Position;
@@ -406,7 +409,7 @@ namespace Asana.ViewModel
                             columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                         }
                     }
-                   
+
                 }
             }
         }

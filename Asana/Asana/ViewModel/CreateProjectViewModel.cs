@@ -23,14 +23,17 @@ namespace Asana.ViewModel
         private readonly NavigationService navigation;
         private readonly IProjectService projectService;
         private readonly IColumnService columnService;
+
         public CreateProjectViewModel(NavigationService navigation)
         {
             this.navigation = navigation;
 
             projectService = new ProjectService();
             columnService = new ColumnService();
+
             header = new HeaderViewModel(navigation, "Project", HeaderType.CreateProject);
         }
+
         private object header;
         public object Header
         {
@@ -38,7 +41,9 @@ namespace Asana.ViewModel
             set { Set(ref header, value); }
         }
 
-
+        /// <summary>
+        /// command pop's up window which shows informations (deadline, project name, description) about ptoject    
+        /// </summary>
         private RelayCommand<Project> projectInfoCommand;
         public RelayCommand<Project> ProjectInfoCommand => projectInfoCommand ?? (projectInfoCommand = new RelayCommand<Project>(
         x =>
@@ -54,7 +59,9 @@ namespace Asana.ViewModel
 
 
 
-
+        /// <summary>
+        /// command leads user to project page which shows columns and tasks of project which create by project manager or employees
+        /// </summary>
         private RelayCommand<Project> selectProjectCommand;
         public RelayCommand<Project> SelectProjectCommand => selectProjectCommand ?? (selectProjectCommand = new RelayCommand<Project>(
         x =>
@@ -67,6 +74,9 @@ namespace Asana.ViewModel
         }));
 
 
+        /// <summary>
+        /// command pop's up the window which project manager can edit information about the project like pm, deadline,title, description etc of it
+        /// </summary>
         private RelayCommand<Project> editProjectCommand;
         public RelayCommand<Project> EditProjectCommand => editProjectCommand ?? (editProjectCommand = new RelayCommand<Project>(
         x =>
@@ -80,7 +90,9 @@ namespace Asana.ViewModel
 
         }));
 
-
+        /// <summary>
+        /// command deletes the project if user is project manager otherwise it pop's up messagebox which says u are not permitted to delete the projct
+        /// </summary>
         private RelayCommand<Project> deleteProjectCommand;
         public RelayCommand<Project> DeleteProjectCommand => deleteProjectCommand ?? (deleteProjectCommand = new RelayCommand<Project>(
         x =>
@@ -92,7 +104,9 @@ namespace Asana.ViewModel
             projectService.LoadProjects(CurrentUser.Instance.User.Id);
         }));
 
-
+        /// <summary>
+        /// command pop's up the window which requires to fill blanks about project
+        /// </summary>
         private RelayCommand createProject;
         public RelayCommand CreateProject => createProject ?? (createProject = new RelayCommand(
             () =>
@@ -104,6 +118,7 @@ namespace Asana.ViewModel
             }
             ));
 
+        #region Drag/drop for projects
         public void DragOver(IDropInfo dropInfo)
         {
             dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
@@ -129,5 +144,8 @@ namespace Asana.ViewModel
                 }
             }
         }
+        #endregion
+
+
     }
 }

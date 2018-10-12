@@ -43,6 +43,7 @@
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
@@ -60,10 +61,10 @@
         <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding TaskTitle}" HorizontalAlignment="Left" Margin="10 0 0 0" FontSize="20" VerticalAlignment="Center"/>
 
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Deadline: " FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20"/>
-        <DatePicker Grid.Column="1" Grid.Row="3" IsEnabled="False" Text="{Binding Deadline}"  HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0" VerticalAlignment="Center" Width="100" />
+        <DatePicker Grid.Column="1" Grid.Row="3" IsEnabled="False" SelectedDate="{Binding Deadline}"  HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0" VerticalAlignment="Center" Width="100" />
 
         <Image Grid.Column="3" Grid.RowSpan="5            
-" Margin="0 0 0 10" VerticalAlignment="Bottom" Source="{Binding TaskImgPath}" ToolTipService.Placement="MousePoint" Width="160" Height="110">
+" Margin="0 0 0 10" VerticalAlignment="Bottom" Source="{Binding TaskImgPath}" ToolTipService.Placement="MousePoint" Width="200" Height="150">
             <Image.ToolTip>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{Binding TaskImgPath}" Width="400" Height="300"/>
@@ -75,12 +76,16 @@
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Assigned to: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" FontWeight="DemiBold" />
         <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding AssignedTo}"  HorizontalAlignment="Left" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
 
-        <TabControl Grid.Row="5" Grid.ColumnSpan="4">
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="KanbanState: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" FontWeight="DemiBold" />
+        <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding CurrentKanbanState}"  HorizontalAlignment="Left" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
+
+
+        <TabControl Grid.Row="6" Grid.ColumnSpan="4">
             <TabItem Header="Description" Width="80" Height="25" >
                 <TextBlock Text="{Binding Description}"/>
             </TabItem>          
         </TabControl>
-        <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding CreatedAt}" Margin="20 0 0 0" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding CreatedAt}" Margin="20 0 0 0" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>

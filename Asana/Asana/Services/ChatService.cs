@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Asana.Services
 {
@@ -65,7 +66,7 @@ namespace Asana.Services
                 {
                     List<dynamic> messages = new List<dynamic>();
                     using (var db = new AsanaDbContext())
-                       db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id && x.Favorite == false).ToList().ForEach(x => messages.Add(new
+                        db.Mails.Where(x => x.UserId == CurrentUser.Instance.User.Id && x.Favorite == false).ToList().ForEach(x => messages.Add(new
                         {
                             x.ID,
                             x.Title,
@@ -117,6 +118,31 @@ namespace Asana.Services
             });
         }
 
+        public async void RemoveAsync(Guid projectId)
+        {
+            if (projectId != null)
+            {
+                try
+                {
+                    using (var context = new AsanaDbContext())
+                    {
+                        var chat = context.ChatRooms.Where(x => x.ProjectId == projectId);
+                        if (chat != null)
+                        {
+                            foreach (var item in chat)
+                            {
+                                context.ChatRooms.Remove(item);
+                            }
+                        }
+                        await context.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
 
         public void SetMarked(Guid id)
         {
