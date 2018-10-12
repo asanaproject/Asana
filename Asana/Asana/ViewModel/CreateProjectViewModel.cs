@@ -62,7 +62,7 @@ namespace Asana.ViewModel
             CurrentProject.Instance.Project = x;
            
             columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-            navigation.NavigateTo(ViewType.ProjectPage);
+            navigation.NavigateTo(ViewType.Home);
 
         }));
 

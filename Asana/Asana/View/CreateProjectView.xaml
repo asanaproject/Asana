@@ -69,7 +69,7 @@
                 <TextBlock Grid.Row="0"  Foreground="#8f8f8f" FontFamily="Calibri" FontSize="26" VerticalAlignment="Center" Margin="15 0 0 30" Text="Projets"/>
                 <Button  Command="{Binding CreateProject}"  Grid.Row="0"   Cursor="Hand" Background="#00a09d" BorderBrush="Transparent" Margin="15 37 0 0" Height="32" Width="100" Content="CREATE" Foreground="White" FontSize="19.5" VerticalContentAlignment="Center" FontWeight="Light" FontFamily="calibri" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <ListBox Name="ProjectsList" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True" ItemsSource="{Binding Source={x:Static model:ProjectsOfUser.Instance},Path=Projects}"  Grid.Row="2"    ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+                <ListBox Padding="10" Name="ProjectsList" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropHandler="{Binding}" AllowDrop="True" ItemsSource="{Binding Source={x:Static model:ProjectsOfUser.Instance},Path=Projects}"  Grid.Row="2"    ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel IsItemsHost="True" Orientation="Horizontal" FlowDirection="LeftToRight"/>
@@ -78,7 +78,7 @@
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="VerticalAlignment" Value="Top"/>
-                            <Setter Property="Margin" Value="10 5 20 0"/>
+                            <Setter Property="Margin" Value="10 5 10 0"/>
                             <Setter Property="Background" Value="WhiteSmoke"/>
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -98,7 +98,7 @@
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Margin="13">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="*"/>

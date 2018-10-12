@@ -23,6 +23,7 @@ namespace Asana.ViewModel
             this.navigationService = navigationService;
             chatRooms = new ObservableCollection<ChatRoom>();
             channelService = new ChannelsService();
+            Header = new HeaderViewModel(navigationService);
         }
 
         private ObservableCollection<ChatRoom> chatRooms;
@@ -58,6 +59,13 @@ namespace Asana.ViewModel
             ChatRooms.Remove(x);
             MessageBox.Show("Your joined " + x.Name + "!", "Channel", MessageBoxButton.OK, MessageBoxImage.Information);
         }));
+        private object header;
+
+        public object Header
+        {
+            get { return header; }
+            set { header = value; Set(ref header, value); }
+        }
 
         public async void UpdateSource()
         {

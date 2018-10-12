@@ -26,7 +26,7 @@ namespace Asana.ViewModel
         {
             this.navigationService = navigationService;
             Projects = new ObservableCollection<dynamic>();
-            Header = new HeaderViewModel(navigationService);
+            Header = new HeaderViewModel(navigationService,"Profile");
             projectService = new ProjectService();
         }
         private object header;
@@ -71,6 +71,14 @@ namespace Asana.ViewModel
         }
 
 
+        private BitmapImage coverImage;
+
+        public BitmapImage CoverImage
+        {
+            get { return coverImage; }
+            set { Set(ref coverImage, value); }
+        }
+
         private string phoneNumber;
 
         public string PhoneNumber
@@ -84,15 +92,16 @@ namespace Asana.ViewModel
 
         public RelayCommand LoadedCommand
         {
-            get => _loadedCommand ?? (_loadedCommand = new RelayCommand((() => {
+            get => _loadedCommand ?? (_loadedCommand = new RelayCommand(async() => {
                 Username = CurrentUser.Instance.User.Username;
                 Email = CurrentUser.Instance.User.Email;
                 PhoneNumber = "0772209966";
-
-          //      ProfileImage = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
-              //  projectService.GetCurrentUserProjects().ForEach(x => Projects.Add(new { Title = x.Name, x.Description }));
-
-            })));
+                var img = ProfilePhoto.ByteArrayToImage(CurrentUser.Instance.User.Image);
+                ProfileImage = img;
+                CoverImage = img;
+                var result = await projectService.GetCurrentUserProjects();
+                result.ForEach(x => Projects.Add(new { Title = x.Name, x.Description }));
+            }));
         }
 
 

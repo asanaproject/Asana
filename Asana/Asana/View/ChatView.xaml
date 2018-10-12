@@ -707,9 +707,9 @@
             <ColumnDefinition Width="0.02*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="0.07*"/>
             <RowDefinition/>
-            <RowDefinition  Height="0.02*"/>
+            <RowDefinition  Height="0.07*"/>
         </Grid.RowDefinitions>
         <Border HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Stretch"   BorderBrush="White"  CornerRadius="8">
             <Grid>
