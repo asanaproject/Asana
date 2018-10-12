@@ -30,9 +30,9 @@
             <ColumnDefinition Width="0.02*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="0.07*"/>
             <RowDefinition/>
-            <RowDefinition  Height="0.02*"/>
+            <RowDefinition  Height="0.07*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="1" Grid.Column="1"  Background="#f5f5f5">
             <Grid.RowDefinitions>
@@ -42,7 +42,7 @@
             </Grid.RowDefinitions>
 
             <ContentControl Content="{Binding Header}" Grid.Row="0" />
-            <Image Grid.Row="1" Stretch="UniformToFill" Source="{Binding ProfileImage}"></Image>
+            <Image Grid.Row="1" Stretch="UniformToFill" Source="{Binding CoverImage}"></Image>
             <Rectangle Grid.Row="1" Fill="DarkRed" Opacity="0.80" />
 
             <Grid Grid.RowSpan="2" Grid.Row="1">

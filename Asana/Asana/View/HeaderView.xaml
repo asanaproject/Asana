@@ -84,8 +84,8 @@
 
         <Button Visibility="{Binding ViewVisible}" Command="{Binding SettingsCommand}"  Content="Settings" VerticalAlignment="Center" Grid.Column="4"
                         HorizontalAlignment="Left" Margin="4 0 0 0" Style="{StaticResource m_nav_bar}" />
-        <Menu Grid.Column="9" Background="Transparent"  VerticalAlignment="Center" HorizontalAlignment="Center" >
-            <MenuItem Header="{x:Static model:CurrentUser.Username}"  Foreground="{Binding MenuForeground}"  FontSize="15" FontFamily="Calibri">
+        <Menu Grid.Column="9" Background="{Binding Background}" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <MenuItem  Header="{x:Static model:CurrentUser.Username}"  Foreground="{Binding MenuForeground}"  FontSize="15" FontFamily="Calibri">
                 <MenuItem Visibility="{Binding ViewVisible}" Command="{Binding ProjectCommand}" Foreground="{Binding MenuForeground}"  Header="Projects"/>
                 <MenuItem Visibility="{Binding ViewVisible}" Command="{Binding ProfileCommand}" Foreground="{Binding MenuForeground}"  Header="Account"/>
                 <MenuItem Foreground="{Binding MenuForeground}" Header="Language">
