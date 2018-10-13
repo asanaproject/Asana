@@ -41,7 +41,7 @@ namespace Asana.ViewModel
             AssignedTo = CurrentTask.Instance.Task.AssignedTo;
             Description = CurrentTask.Instance.Task.Description;
             CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
-            CurrentKanbanState =  CurrentProject.Instance.KanbanStates.FirstOrDefault(x=>x.Name.Equals(CurrentTask.Instance.Task.CurrentKanbanState)).Name;
+            CurrentKanbanState = CurrentProject.Instance.KanbanStates.FirstOrDefault(x => x.Name.Equals(CurrentTask.Instance.Task.CurrentKanbanState)).Name;
 
 
             timer = new System.Timers.Timer(1000);
@@ -97,12 +97,7 @@ namespace Asana.ViewModel
         public RelayCommand CloseWindowCommand => _closeWindowCommand ?? (_closeWindowCommand = new RelayCommand(
         () =>
         {
-            Task.Run(() =>
-            {
-                timer.Stop();
-                Closewindow();
-            });
-
+            Closewindow();
         }));
         private string createdAt;
         public string CreatedAt
@@ -133,7 +128,10 @@ namespace Asana.ViewModel
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
+            if (CurrentTask.Instance.Task != null)
+            {
+                CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
+            }
 
         }
     }

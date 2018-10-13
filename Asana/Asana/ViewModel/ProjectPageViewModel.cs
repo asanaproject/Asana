@@ -145,6 +145,7 @@ namespace Asana.ViewModel
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
             }
         }));
 
@@ -167,7 +168,7 @@ namespace Asana.ViewModel
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
                 columnService.LoadColumns(CurrentProject.Instance.Project.Id);
-
+                columnService.LoadColumns(CurrentProject.Instance.Project.Id);
 
             }
         }));
