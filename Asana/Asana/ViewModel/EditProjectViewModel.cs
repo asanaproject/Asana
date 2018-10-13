@@ -119,18 +119,6 @@ namespace Asana.ViewModel
         }));
 
 
-        private RelayCommand assignToNewUserCommand;
-        public RelayCommand AssignToNewUserCommand => assignToNewUserCommand ?? (assignToNewUserCommand = new RelayCommand(
-       () =>
-       {
-           WindowBluringCustom.Bluring();
-           ExtraWindow extraWindow = new ExtraWindow(new AssignToNewUserViewModel(navigation), 600, 350);
-           extraWindow.ShowDialog();
-           WindowBluringCustom.Normal();
-
-       }
-
-       ));
 
         private RelayCommand<UserRoles> selectionChangedCommand;
         public RelayCommand<UserRoles> SelectionChangedCommand => selectionChangedCommand ?? (selectionChangedCommand = new RelayCommand<UserRoles>(

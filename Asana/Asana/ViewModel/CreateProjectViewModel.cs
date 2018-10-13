@@ -73,6 +73,18 @@ namespace Asana.ViewModel
 
         }));
 
+        public void Closewindow()
+        {
+
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.Title.Equals("ExtraWindow"))
+                        window.Close();
+                }
+            });
+        }
 
         /// <summary>
         /// command pop's up the window which project manager can edit information about the project like pm, deadline,title, description etc of it
@@ -82,7 +94,7 @@ namespace Asana.ViewModel
         x =>
         {
             CurrentProject.Instance.Project = x;
-
+            Closewindow();
             WindowBluringCustom.Bluring();
             ExtraWindow extraWindow = new ExtraWindow(new EditProjectViewModel(navigation), 750, 370);
             extraWindow.ShowDialog();

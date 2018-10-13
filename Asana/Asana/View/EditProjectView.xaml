@@ -57,11 +57,8 @@
                     <i:InvokeCommandAction  Command="{Binding DataContext.AssignTaskCommand,ElementName=Parent}"  CommandParameter="{Binding SelectedItem,ElementName=UsersCBox}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-
         </ComboBox>
-        <Border Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="120" Height="30" BorderThickness="1" Background="#673BB7"  CornerRadius="20"  Margin="0 0 0 5" >
-            <Button  Content="New employee" Command="{Binding AssignToNewUserCommand}"  Padding="2"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
-        </Border>
+       
         
         <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20 0 0 5" Text="Deadline: "  FontSize="22"/>
         <DatePicker Grid.Column="3" Grid.Row="1" DisplayDateStart="{x:Static sys:DateTime.Now}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20" SelectedDate="{Binding Deadline}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="3 0 0 5" Width="180" Height="35"/>
