@@ -21,7 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2.2*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="4.8*"/>
+            <RowDefinition Height="2.6*"/>
             <RowDefinition Height="2.6*"/>
             <RowDefinition Height="2.3*"/>
             <RowDefinition Height="5*"/>
@@ -54,9 +54,9 @@
             </i:Interaction.Triggers>
         </ComboBox>
         
-        <Border Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Height="30" BorderThickness="1" Background="#673BB7"  CornerRadius="20"  Margin="40 10 0 0" >
+        <!--<Border Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Height="30" BorderThickness="1" Background="#673BB7"  CornerRadius="20"  Margin="40 10 0 0" >
             <Button  Content="New employee" Command="{Binding AssignToNewUserCommand}"  Padding="2"  Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Foreground="White"  BorderBrush="Transparent"/>
-        </Border>
+        </Border>-->
 
         <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 0 0 5" Text="Kanban state"  FontSize="24"/>
         <ComboBox Name="KanbanStatesCBox" Grid.Column="1" Grid.Row="3"  SelectedItem="{Binding CurrentKanbanState}" Padding="2" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding Source={x:Static model:CurrentProject.Instance},Path=KanbanStates}" Height="35" Width="180" Margin="0 5 3 0" >

@@ -82,6 +82,7 @@ namespace Asana.ViewModel
             userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
             userRoleService.LoadRoles(CurrentProject.Instance.Project.Id);
             Closewindow();
+
         }));
 
         public string Error => throw new NotImplementedException();

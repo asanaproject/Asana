@@ -69,7 +69,7 @@ namespace Asana.ViewModel
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            CreatedAt = "Created at: " + CurrentColumn.Instance.Column.Column.CreatedAt.Humanize();
+            CreatedAt = "Created at: " + CurrentTask.Instance.Task.CreatedAt.Humanize();
 
         }
         private string createdAt;
@@ -171,19 +171,7 @@ namespace Asana.ViewModel
         }));
 
 
-        private RelayCommand assignToNewUserCommand;
-        public RelayCommand AssignToNewUserCommand => assignToNewUserCommand ?? (assignToNewUserCommand = new RelayCommand(
-       () =>
-       {
-           Closewindow();
-           WindowBluringCustom.Bluring();
-           ExtraWindow extraWindow = new ExtraWindow(new AssignToNewUserViewModel(navigationService), 600, 350);
-           extraWindow.ShowDialog();
-           WindowBluringCustom.Normal();
-
-       }
-
-       ));
+       
 
 
         private RelayCommand<KanbanState> kanbanStateChangedCommand;
