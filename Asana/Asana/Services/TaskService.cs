@@ -60,7 +60,7 @@ namespace Asana.Services
                 {
                     using (var context = new AsanaDbContext())
                     {
-                        var task = context.Tasks.Include("Column")                                                
+                        var task = context.Tasks.Include("Column")
                                                 .Include("TaskLogs")
                                                 .FirstOrDefault(x => x.Id == taskId);
                         if (task != null)
@@ -137,8 +137,8 @@ namespace Asana.Services
 
                             context.Tasks.First(x => x.Id == task.Id).IsStarred = task.IsStarred;
                             context.Tasks.First(x => x.Id == task.Id).StarPath = task.StarPath;
-                              context.Tasks.First(x => x.Id == task.Id).CurrentKanbanState = task.CurrentKanbanState;
-                            
+                            context.Tasks.First(x => x.Id == task.Id).CurrentKanbanState = task.CurrentKanbanState;
+
                             context.Tasks.First(x => x.Id == task.Id).AssignedTo = task.AssignedTo;
 
                             context.Tasks.First(x => x.Id == task.Id).ColumnId = task.ColumnId;
@@ -176,9 +176,7 @@ namespace Asana.Services
                         using (var context = new AsanaDbContext())
                         {
 
-                            var t = context.Tasks.Include("Column")
-                                                .Include("CurrentKanbanState")
-                                                .Include("TaskLogs").FirstOrDefault(x => x.Id == task.Id);
+                            var t = context.Tasks.Include("Column").Include("TaskLogs").FirstOrDefault(x => x.Id == task.Id);
 
                             if (t != null)
                             {
